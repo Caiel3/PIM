@@ -1,0 +1,68 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body> -->
+<div class="container pt-4">
+    <div class="row">
+        <div class="col-md-10 offset-1 align-items-center">
+            <form action="/subida/" method="POST" enctype="multipart/form-data"
+                class="p-3 border bg-transparent rounded-lg">{% csrf_token %}
+                <div class="form-row">
+                    <div class="form-group col-md">
+                        <label for="ancho">Ancho</label>
+                        <input type="number" class="form-control" id="ancho" name="ancho" aria-describedby="Ancho">
+                        <small id="emailHelp" class="form-text text-muted">Ingresa el tamaño del ancho de la
+                            imagen.</small>
+                    </div>
+                    <div class="form-group col-md">
+                        <label for="largo">Largo</label>
+                        <input type="number" class="form-control" id="largo" name="largo" aria-describedby="Largo">
+                        <small id="emailHelp" class="form-text text-muted">Ingresa el tamaño del Largo de la
+                            imagen.</small>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md">
+                        <label for="archivo">Cargar Archivo</label>
+                        <input type="file" name="archivo" class="form-control-file" id="archivo" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md">
+                        <label for="Consulta">Medio de Consulta</label>
+                        <select name="tipo" class="form-control" id="Consulta">
+                            <option value="">Seleccione...</option>
+                            <option value="MATERIAL">MATERIAL</option>
+                            <option value="EAN">EAN</option>
+                            <option value="CODIGO_TALLA">CODIGO TALLA</option>
+                            <option value="DESCRIPCION TALLA">TALLA</option>
+                            <option value="CODIGO_COLOR">CODIGO COLOR</option>
+                            <option value="DESCRIPCION_COLOR">DESCRIPCION COLOR</option>
+                            <option value="TIPO_PRENDA">TIPO PRENDA</option>
+                            <option value="SUBGRUPO">SUBGRUPO</option>
+                            <option value="CARACTERISTICA">CARACTERISTICA</option>
+                            <option value="MARCA">MARCA</option>
+                            <option value="USO">USO</option>
+                            <option value="GRUPO_DESTINO">GRUPO DESTINO</option>
+                            <option value="GENERO">GENERO</option>
+                            <option value="DEPARTAMENTO">DEPARTAMENTO</option>
+                        </select>
+                    </div>
+                </div>
+                <input type="submit" class="btn btn-primary" value="Continuar">
+            </form>
+
+        </div>
+    </div>
+</div>
+<!-- </body>
+
+</html> -->

@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+{% block body %}
+<div class="container col-md-12">
+    <div class="text-center">
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th scope="col">Descripcion Material</th>
+                    <th scope="col">Descripcion Material enriquecido</th>
+                    <th scope="col">Descripcion larga</th>
+                    <!-- <th scope="col">Material</th> -->
+                    <th scope="col">Ean</th>
+                    <th scope="col">Codigo talla</th>
+                    <th scope="col">Descripcion talla</th>
+                    <th scope="col">Codigo color</th>
+                    <th scope="col">Descripcion Color</th>
+                    <th scope="col">Imagen</th>
+                    <th scope="col">Tipo Prenda</th>
+                    <th scope="col">Subgrupo</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for li in lista %}
+
+                <tr>
+                    <th scope="row">{{li.0}}</td>
+                    <td>{{li.1}}</td>
+                    <td>{{li.2}}</td>
+                    <!-- <td>{{li.3}}</td>-->
+                    <td>{{li.4}}</td>
+                    <td>{{li.5}}</td>
+                    <td>{{li.6}}</td>
+                    <td>{{li.7}}</td>
+                    <td>{{li.8}}</td>
+                    <td><img src={{li.9}} width="100" height="100"></td>
+                    <td>{{li.10}}</td>
+                    <td>{{li.11}}</td>
+                </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+{% endblock %}
