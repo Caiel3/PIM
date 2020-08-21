@@ -22,7 +22,7 @@ python manage.py migration --Migrar todo a la base de datos
 Python manage.py inspectdb > material/models.py--traer estructura base de datos
 
 Python manage.py runserver --Ejecutar servidor
-
+python manage.py createsuperuser
 
 
 
