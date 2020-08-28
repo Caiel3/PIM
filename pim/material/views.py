@@ -1,16 +1,164 @@
 from django.shortcuts import render
 from .models import Materiales
 from django.http import HttpResponse
+import numpy as np
+import os
+from .helpers.CloudImage import CloudImage
+from .helpers.converts import Converts
+from django.db import connection
+from django.http import HttpResponse
+from io import BytesIO
+from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import A4,mm
 
 def index(request):
     
     return render(request,'index.html')
 
+
+
 def subida(request):
-    archivo = request.FILES["archivo"]
+    consulta=[
+        'MATERIAL',
+        'DESCRIPCION_MATERIAL',
+        'DESCRIPCION_MATERIAL_ENRIQUECIDO',
+        'DESCRIPCION_LARGA',
+        'EAN',
+        'DESCRIPCION_TALLA',
+        'DESCRIPCION_COLOR',
+        'IMAGEN_GRANDE',
+        'TIPO_PRENDA',
+        'SUBGRUPO',
+        'GENERO',
+        'DEPARTAMENTO',
+        'TAGS'
+        ]
+    parametros=[]
+    #Capturamos la informacion del formulario
+    archivo = request.FILES["archivo"]     
     tipo = request.POST["tipo"]
     ancho = request.POST["ancho"]
-    largo = request.POST["largo"]
-    v=Materiales.objects.filter(ean='7701520374390')
-    return HttpResponse(v)
+    largo = request.POST["largo"]  
+    archivo=['100243','1003','100304','100308','100309','100326','100344','10036','100361','100378','100396']
+    for item in consulta:
+        if item.upper() in request.POST :
+            aux=request.POST[item]
+            parametros.append(aux)                            
+        pass          
+
+    #Relizamos la consulta nativa en la base de datos
+    converts_helper=Converts()  
+    string_campos=converts_helper.convert_array_string(parametros) #no spermite traer un string de campos a partir de un arreglo
+    string_filtro=converts_helper.convert_array_string(archivo)    
+    consulta='select distinct {} from material_materiales where material in ({});'.format(string_campos,string_filtro)   
+    matconsulta=consultasql(consulta)  
+    #converitmos todo haciend uso de cloud img  
+    cloud=CloudImage()
+    informacion=cloud.convertir_matriz(matconsulta,parametros,ancho,largo,'aatdtkgdoo')   
+    
+    
+   
+    return render(request,'visualizacion.html',{"headers":parametros,"lista":informacion})    
     pass
+
+
+def consultasql(sql):
+    with connection.cursor() as cursor:
+        cursor.execute(sql)
+        mat=cursor.fetchall()
+    pass
+    return mat
+
+
+def report(request):
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename=catalogo.pdf'
+    archivo=['100243','1003','100304','100308','100309','100326','100344','10036','100361','100378','100396']
+    datos=Materiales.objects.filter(material__in=archivo).values()
+    import pdb; pdb.set_trace()
+    """  datos = [{'Codigo':'7701520374178','Categoria':'Mujer Adulta','Material':'100887','UnidadEmpaque':'1','Tallas':'12-16-18-32','Composicion':'78% ALGODON 20% poliester 2% elasta','color':'rojo','Imagen':'http://www.gef.com.co/wcsstore/CrystalCo_CAT_AS/Gef/ES-CO/Imagenes/Mujer_Silueta_Amplia/CAMISETAS_T_SHIRT/Milia1/190x240/Camiseta-Mujer-Silueta-Amplia-Milia1-Blanco-900-Frente-GEF.jpg'},
+             {'Codigo':'7701520420660','Categoria':'HOMBRES','Material':'101725','UnidadEmpaque':'1','Tallas':'S-M-L-XL','Composicion':'78% ALGODON 20% poliester 2% elasta','color':'rojo','Imagen':'http://www.gef.com.co/wcsstore/CrystalCo_CAT_AS/Gef/ES-CO/Imagenes/Masculino_Exterior/PIJAMAS/Brandall/190x240/Camiseta-hombre-Brandall-negro-intenso-799-frente-GEF.jpg'},
+             {'Codigo':'7701520420660','Categoria':'HOMBRES','Material':'101725','UnidadEmpaque':'1','Tallas':'S-M-L-XL','Composicion':'78% ALGODON 20% poliester 2% elasta','color':'rojo','Imagen':'http://www.gef.com.co/wcsstore/CrystalCo_CAT_AS/Gef/ES-CO/Imagenes/Masculino_Exterior/PIJAMAS/Brandall/190x240/Camiseta-hombre-Brandall-negro-intenso-799-frente-GEF.jpg'},
+             {'Codigo':'7701520420660','Categoria':'HOMBRES','Material':'101725','UnidadEmpaque':'1','Tallas':'S-M-L-XL','Composicion':'78% ALGODON 20% poliester 2% elasta','color':'rojo','Imagen':'http://www.gef.com.co/wcsstore/CrystalCo_CAT_AS/Gef/ES-CO/Imagenes/Masculino_Exterior/PIJAMAS/Brandall/190x240/Camiseta-hombre-Brandall-negro-intenso-799-frente-GEF.jpg'},
+             {'Codigo':'7701520420660','Categoria':'HOMBRES','Material':'101725','UnidadEmpaque':'1','Tallas':'S-M-L-XL','Composicion':'78% ALGODON 20% poliester 2% elasta','color':'rojo','Imagen':'http://www.gef.com.co/wcsstore/CrystalCo_CAT_AS/Gef/ES-CO/Imagenes/Masculino_Exterior/PIJAMAS/Brandall/190x240/Camiseta-hombre-Brandall-negro-intenso-799-frente-GEF.jpg'},
+             {'Codigo':'7701520420660','Categoria':'HOMBRES','Material':'101725','UnidadEmpaque':'1','Tallas':'S-M-L-XL','Composicion':'78% ALGODON 20% poliester 2% elasta','color':'rojo','Imagen':'http://www.gef.com.co/wcsstore/CrystalCo_CAT_AS/Gef/ES-CO/Imagenes/Masculino_Exterior/PIJAMAS/Brandall/190x240/Camiseta-hombre-Brandall-negro-intenso-799-frente-GEF.jpg'},
+             {'Codigo':'7701520420660','Categoria':'HOMBRES','Material':'101725','UnidadEmpaque':'1','Tallas':'S-M-L-XL','Composicion':'78% ALGODON 20% poliester 2% elasta','color':'rojo','Imagen':'http://www.gef.com.co/wcsstore/CrystalCo_CAT_AS/Gef/ES-CO/Imagenes/Masculino_Exterior/PIJAMAS/Brandall/190x240/Camiseta-hombre-Brandall-negro-intenso-799-frente-GEF.jpg'},
+             {'Codigo':'7701520420660','Categoria':'HOMBRES','Material':'101725','UnidadEmpaque':'1','Tallas':'S-M-L-XL','Composicion':'78% ALGODON 20% poliester 2% elasta','color':'rojo','Imagen':'http://www.gef.com.co/wcsstore/CrystalCo_CAT_AS/Gef/ES-CO/Imagenes/Masculino_Exterior/PIJAMAS/Brandall/190x240/Camiseta-hombre-Brandall-negro-intenso-799-frente-GEF.jpg'},
+             {'Codigo':'7701520420660','Categoria':'HOMBRES','Material':'101725','UnidadEmpaque':'1','Tallas':'S-M-L-XL','Composicion':'78% ALGODON 20% poliester 2% elasta','color':'rojo','Imagen':'http://www.gef.com.co/wcsstore/CrystalCo_CAT_AS/Gef/ES-CO/Imagenes/Masculino_Exterior/PIJAMAS/Brandall/190x240/Camiseta-hombre-Brandall-negro-intenso-799-frente-GEF.jpg'},
+             {'Codigo':'7701520420660','Categoria':'HOMBRES','Material':'101725','UnidadEmpaque':'1','Tallas':'S-M-L-XL','Composicion':'78% ALGODON 20% poliester 2% elasta','color':'rojo','Imagen':'http://www.gef.com.co/wcsstore/CrystalCo_CAT_AS/Gef/ES-CO/Imagenes/Masculino_Exterior/PIJAMAS/Brandall/190x240/Camiseta-hombre-Brandall-negro-intenso-799-frente-GEF.jpg'}]
+         """
+    datos=[{'Codigo':'7701520374178','Categoria':'ADULTOS','Material':'100887','UnidadEmpaque':'1','Tallas':'S - M -L -XL','Composicion':'78% ALGODON 20% poliester 2% elasta','color':'Blanco','Imagen':'http://www.gef.com.co/wcsstore/CrystalCo_CAT_AS/Gef/ES-CO/Imagenes/Mujer_Silueta_Amplia/CAMISETAS_T_SHIRT/Milia1/1000x1263/Camiseta-Mujer-Silueta-Amplia-Milia1-Blanco-900-Frente-GEF.jpg'},
+            {'Codigo':'7701520420660','Categoria':'ADULTOS','Material':'101725','UnidadEmpaque':'1','Tallas':'S-M','Composicion':'78% ALGODON 20% poliester 2% elasta','color':'Negro','Imagen':'http://www.gef.com.co/wcsstore/CrystalCo_CAT_AS/Gef/ES-CO/Imagenes/Masculino_Exterior/PIJAMAS/Brandall/1000x1263/Camiseta-hombre-Brandall-negro-intenso-799-frente-GEF.jpg'},
+            {'Codigo':'7701520423470','Categoria':'ADULTOS','Material':'101840','UnidadEmpaque':'1','Tallas':'S-M-L-XL','Composicion':'78% ALGODON 20% poliester 2% elasta','color':'Negro','Imagen':'http://www.gef.com.co/wcsstore/CrystalCo_CAT_AS/Gef/ES-CO/Imagenes/Mujeres/DEPORTIVO/Rowdy/1000x1263/Pantalon-mujer-Rowdy-negro-intenso-799-frente-GEF.jpg'},
+            {'Codigo':'7701520483702','Categoria':'ADULTOS','Material':'102213','UnidadEmpaque':'1','Tallas':'S-M-L-XL','Composicion':'78% ALGODON 20% poliester 2% elasta','color':'Negro','Imagen':'http://www.gef.com.co/wcsstore/CrystalCo_CAT_AS/Gef/ES-CO/Imagenes/Mujeres/CAMISETAS_T_SHIRT/Karlita/1000x1263/Pijama-mujer-Karlita-negro-intenso-799-frente-GEF.jpg'},
+            {'Codigo':'7701520531601','Categoria':'ADULTOS','Material':'101221','UnidadEmpaque':'1','Tallas':'S-ML-XL','Composicion':'78% ALGODON 20% poliester 2% elasta','color':'Negro','Imagen':'http://www.gef.com.co/wcsstore/CrystalCo_CAT_AS/Gef/ES-CO/Imagenes/Masculino_Exterior/PIJAMAS/Vivant/1000x1263/Pantalon-hombre-Vivant-negro-intenso-799-frente-GEF.jpg'},
+            {'Codigo':'7701520610795','Categoria':'NIÑOS','Material':'104038','UnidadEmpaque':'1','Tallas':'14-16','Composicion':'78% ALGODON 20% poliester 2% elasta','color':'Negro','Imagen':'http://www.gef.com.co/wcsstore/CrystalCo_CAT_AS/Gef/ES-CO/Imagenes/Junior_Masculino/ROPA_INTERIOR/Clinton_Junior/1000x1263/Pantaloncillo-juvenil-masculino-Clinton-Junior-negro-intenso-799-frente-GEF.jpg'},
+            {'Codigo':'7701520644080','Categoria':'ADULTOS','Material':'103616','UnidadEmpaque':'1','Tallas':'S-M-L-XL','Composicion':'78% ALGODON 20% poliester 2% elasta','color':'Gris','Imagen':'http://www.gef.com.co/wcsstore/CrystalCo_CAT_AS/Gef/ES-CO/Imagenes/Masculino_Exterior/ROPA_INTERIOR/Duo_Clinton_2/1000x1263/Boxer-Hombre-Duo-Clinton-2-Gris-Humo-707-Frente2-GEF.jpg'},
+            {'Codigo':'7701520661537','Categoria':'ADULTOS','Material':'104334','UnidadEmpaque':'1','Tallas':'S-M-L-XL','Composicion':'78% ALGODON 20% poliester 2% elasta','color':'Blanco','Imagen':'http://www.gef.com.co/wcsstore/CrystalCo_CAT_AS/Gef/ES-CO/Imagenes/Mujeres/PIJAMAS/Amylita_T_shirt/1000x1263/Pijama-Mujer-joven-Amylita-T-Shirt-Blanco-900-Frente-Gef.jpg'},
+            {'Codigo':'7701520663548','Categoria':'ADULTOS','Material':'101221','UnidadEmpaque':'1','Tallas':'S-M-L-XL','Composicion':'78% ALGODON 20% poliester 2% elasta','color':'Azul','Imagen':'http://www.gef.com.co/wcsstore/CrystalCo_CAT_AS/Gef/ES-CO/Imagenes/Masculino_Exterior/PIJAMAS/Vivant/1000x1263/Pantalon-hombre-Vivant-azul-5650-frente-GEF.jpg'},
+            {'Codigo':'7701520666280','Categoria':'ADULTOS','Material':'104413','UnidadEmpaque':'1','Tallas':'S-M-L-XL','Composicion':'78% ALGODON 20% poliester 2% elasta','color':'Blanco','Imagen':'http://www.gef.com.co/wcsstore/CrystalCo_CAT_AS/Gef/ES-CO/Imagenes/Mujeres/CAMISETAS_T_SHIRT/Angara/1000x1263/Camiseta-mujer-Angara-blanco-905-frente-GEF.jpg'},
+            {'Codigo':'7701520667515','Categoria':'ADULTOS','Material':'104601','UnidadEmpaque':'1','Tallas':'S-M-L-XL','Composicion':'78% ALGODON 20% poliester 2% elasta','color':'Negro','Imagen':'http://www.gef.com.co/wcsstore/CrystalCo_CAT_AS/Gef/ES-CO/Imagenes/Masculino_Exterior/ROPA_INTERIOR/Ennael/1000x1263/Camiseta-hombre-Ennael-negro-intenso-799-frente-GEF.jpg'},
+            {'Codigo':'7701520672175','Categoria':'ADULTOS','Material':'104819','UnidadEmpaque':'1','Tallas':'S-M-L-XL','Composicion':'78% ALGODON 20% poliester 2% elasta','color':'Negro-Blanco','Imagen':'http://www.gef.com.co/wcsstore/CrystalCo_CAT_AS/Gef/ES-CO/Imagenes/Masculino_Exterior/ROPA_INTERIOR/Muzzarelli/1000x1263/Pantaloncillo-hombre-muzzarelli-negro-intenso-799-frente-GEF.jpg'},
+            {'Codigo':'7701520672410','Categoria':'ADULTOS','Material':'104828','UnidadEmpaque':'1','Tallas':'S-M-L-XL','Composicion':'78% ALGODON 20% poliester 2% elasta','color':'Negro-Blanco','Imagen':'http://www.gef.com.co/wcsstore/CrystalCo_CAT_AS/Gef/ES-CO/Imagenes/Masculino_Exterior/PIJAMAS/Mussons/1000x1263/Camiseta-Hombre-Mussons-Negro-799-Frente-Gef.jpg'},
+            {'Codigo':'7701520677002','Categoria':'ADULTOS','Material':'104947','UnidadEmpaque':'1','Tallas':'32-34-36-38-40-42','Composicion':'78% ALGODON 20% poliester 2% elasta','color':'Negro-Blanco','Imagen':'http://www.gef.com.co/wcsstore/CrystalCo_CAT_AS/Gef/ES-CO/Imagenes/Masculino_Exterior/PIJAMAS/Cadiz/1000x1263/Camiseta-hombre-Cadiz-Alg-blanco-900-frente-GEF.jpg'}
+            ]
+    buffer = BytesIO()
+    c = canvas.Canvas(buffer, pagesize=A4)
+
+    y = 740
+    registroxhoja= 0
+    c.setLineWidth(.3)
+    c.setFont('Helvetica-Bold',11)
+    for val in datos:
+        if registroxhoja == 4:
+            registroxhoja = 0
+            y = 740
+            c.showPage()
+        
+        c.drawImage(val['Imagen'], 35, y-130, 140, 140)
+        y = y - 16
+        c.setFont('Helvetica-Bold',12)
+        c.drawString(180,y,'Categoria:')
+        c.setFont('Helvetica',11)
+        c.drawString(245,y,val['Categoria'])
+        y = y - 16
+        c.setFont('Helvetica-Bold',12)
+        c.drawString(180,y,'Colección:')
+        c.setFont('Helvetica',11)
+        c.drawString(245,y,'Año 2020 Vestuario/Básico/Línea 2do Sem/Salir')
+        y = y - 16
+        c.setFont('Helvetica-Bold',12)
+        c.drawString(180,y,'Material:')
+        c.setFont('Helvetica',11)
+        c.drawString(230,y,val['Material'])
+        y = y - 16
+        c.setFont('Helvetica-Bold',12)
+        c.drawString(180,y,'Composición:')
+        c.setFont('Helvetica',11)
+        c.drawString(265,y,val['Composicion'])
+        y = y - 16
+        c.setFont('Helvetica-Bold',12)
+        c.drawString(180,y,'Unidad de empaque:')
+        c.setFont('Helvetica',11)
+        c.drawString(300,y,val['UnidadEmpaque'])
+        y = y - 16
+        c.setFont('Helvetica-Bold',12)
+        c.drawString(180,y,'Color:')
+        c.setFont('Helvetica',11)
+        c.drawString(220,y,val['color'])
+        y = y - 16
+        c.setFont('Helvetica-Bold',12)
+        c.drawString(180,y,'Tallas:')
+        c.setFont('Helvetica',11)
+        c.drawString(220,y,val['Tallas'])
+        y = y - 30
+        c.line(35,y,560,y)
+        y = y - 30
+        registroxhoja = registroxhoja+1
+
+    c.save()
+    pdf = buffer.getvalue()
+    buffer.close()
+    response.write(pdf)
+    return response
+
