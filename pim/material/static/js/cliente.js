@@ -31,7 +31,12 @@ var acc = document.getElementsByClassName("accordion");
             var downloadLink;
             var dataType = 'application/vnd.ms-excel';
             var tableSelect = document.getElementById(tableID);
-            var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
+            var tableHTML = tableSelect.outerHTML;
+            var tableHTML = tableHTML.replace(/<img src="/g, '');
+            var tableHTML = tableHTML.replace(/"></g, '</td>');
+            var tableHTML = tableHTML.replace(/ /g, '%20');
+           
+            
             
             // Specify file name
             filename = filename?filename+'.xls':'excel_data.xls';
@@ -57,3 +62,5 @@ var acc = document.getElementsByClassName("accordion");
                 downloadLink.click();
             }
         }
+
+      

@@ -10,7 +10,8 @@ from django.http import HttpResponse
 from io import BytesIO
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import A4,mm
-
+import csv
+import io
 def index(request):
     
     return render(request,'index.html')
@@ -35,22 +36,42 @@ def subida(request):
         ]
     parametros=[]
     #Capturamos la informacion del formulario
+    
     archivo = request.FILES["archivo"]     
     tipo = request.POST["tipo"]
     ancho = request.POST["ancho"]
     largo = request.POST["largo"]  
-    archivo=['100243','1003','100304','100308','100309','100326','100344','10036','100361','100378','100396']
+    #archivo=['100243','1003','100304','100308','100309','100326','100344','10036','100361','100378','100396']
     for item in consulta:
         if item.upper() in request.POST :
             aux=request.POST[item]
             parametros.append(aux)                            
         pass          
+    
+    mi_archivo=request.FILES["archivo"] 
+    file = mi_archivo.read().decode('utf-8')
+    reader = csv.DictReader(io.StringIO(file))
+    archivo = [line for line in reader]
+    vali=validacion(archivo)
+    if vali!="":
+        print(vali)
+    
+    
+        
 
     #Relizamos la consulta nativa en la base de datos
     converts_helper=Converts()  
-    string_campos=converts_helper.convert_array_string(parametros) #no spermite traer un string de campos a partir de un arreglo
-    string_filtro=converts_helper.convert_array_string(archivo)    
-    consulta='select distinct {} from material_materiales where material in ({});'.format(string_campos,string_filtro)   
+    string_campos=converts_helper.convert_array_string(parametros,tipo) #no spermite traer un string de campos a partir de un arreglo
+    string_filtro=converts_helper.convert_array_string(archivo,tipo,False)    
+    #controlo por donde hace la consulta si por ean o material
+    if tipo =="MATERIAL":
+        
+        consulta='select distinct {} from material_materiales where material in ({});'.format(string_campos,string_filtro)  
+                   
+    else:
+        consulta='select distinct {} from material_materiales where ean in ({});'.format(string_campos,string_filtro)
+           
+
     matconsulta=consultasql(consulta)  
     #converitmos todo haciend uso de cloud img  
     cloud=CloudImage()
@@ -69,6 +90,20 @@ def consultasql(sql):
     pass
     return mat
 
+def validacion(lista):    
+    if lista:
+        if len(lista[0].keys())>1:
+            return('Recuerde que solo puede ingresar una lista de eans o materiales')
+        else:
+            llave=str(lista[0].keys())
+            if ("MATERIAL" in llave.upper())or("EAN" in llave.upper())  :
+                return("Todo correcto")
+            else:                
+                return('Por favor ingrese un header valido Material o Ean') 
+            pass        
+    else:
+        print('El documento esta vacio porfavor valide')
+    pass
 
 def report(request):
     response = HttpResponse(content_type='application/pdf')
