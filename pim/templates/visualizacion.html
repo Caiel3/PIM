@@ -7,25 +7,25 @@
         <table id="tblData" class="table table-sm">
             <thead>
                 <tr>
-                {% for fila in headers %}
-                 <th scope="col">{{fila}}</th>     
-                {% endfor %}
-                               
+                    {% for fila in headers %}
+                    <th scope="col">{{fila}}</th>
+                    {% endfor %}
+
                 </tr>
             </thead>
 
-            <tbody>            
+            <tbody>
                 {% for row in lista %}
                 <tr>
-                    {% for val  in row %}
-                        {% if "http://"   in val %}
-                            <td><img src={{val}} width="100" height="100"></td>
-                        {% else %}
-                        <td>{{val}}</td>
-                        {% endif %}
+                    {% for val in row %}
+                    {% if "http://" in val %}
+                    <td><img src={{val}} width="100" height="100"></td>
+                    {% else %}
+                    <td>{{val}}</td>
+                    {% endif %}
                     {% endfor %}
-                    </tr>
-                {% endfor %}            
+                </tr>
+                {% endfor %}
             </tbody>
         </table>
     </div>
@@ -39,9 +39,11 @@
  </script>
 <div class="container col-md-12">
     <div class="text-right">
-               
-            <button class='flotante' onclick="exportTableToExcel('tblData')"><img width="50"  height=60"  class="text-right" src={% static '/img/csv-icon.png' %} border="0"/></button>            
-        
+
+        <button class='flotante' onclick="exportTableToExcel('tblData')"><img
+                width="50" height=60" class="text-right" src={% static
+                '/img/csv-icon.png' %} border="0" /></button>
+
     </div>
 </div
 <hr>

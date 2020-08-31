@@ -14,10 +14,10 @@ class Converts(models.Model):
             pass
         pass
         return mat 
-    def convert_array_string(self,array1dimension,tipo, noesdiccionario=True):
+    def convert_array_string(self,array1dimension,tipo, noesdiccionario=True):        
         stringaux=''
-        count=1         
-        import pdb; pdb.set_trace()
+        count=1      
+        
         for valor in array1dimension:
             if noesdiccionario:
                 if count == len(array1dimension):

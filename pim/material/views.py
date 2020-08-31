@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from .models import Materiales
 from django.http import HttpResponse
 import numpy as np
@@ -12,6 +12,7 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import A4,mm
 import csv
 import io
+from django.contrib import messages
 def index(request):
     
     return render(request,'index.html')
@@ -32,7 +33,9 @@ def subida(request):
         'SUBGRUPO',
         'GENERO',
         'DEPARTAMENTO',
-        'TAGS'
+        'CARACTERISTICA',
+        'TAGS',
+        'GRUPO_DESTINO'
         ]
     parametros=[]
     #Capturamos la informacion del formulario
@@ -51,14 +54,16 @@ def subida(request):
     mi_archivo=request.FILES["archivo"] 
     file = mi_archivo.read().decode('utf-8')
     reader = csv.DictReader(io.StringIO(file))
-    archivo = [line for line in reader]
-    vali=validacion(archivo)
-    if vali!="":
-        print(vali)
-    
-    
+    archivo = [line for line in reader]   
+    vali=validacion(archivo,tipo)
+
+    if vali:
+        messages.error(request,vali)
+        print(parametros)
+        return render(request,'index.html',{'ancho':ancho,'largo':largo,'tipo':tipo,'consulta':parametros})
         
 
+    
     #Relizamos la consulta nativa en la base de datos
     converts_helper=Converts()  
     string_campos=converts_helper.convert_array_string(parametros,tipo) #no spermite traer un string de campos a partir de un arreglo
@@ -90,19 +95,23 @@ def consultasql(sql):
     pass
     return mat
 
-def validacion(lista):    
+def validacion(lista,tipo):        
     if lista:
         if len(lista[0].keys())>1:
-            return('Recuerde que solo puede ingresar una lista de eans o materiales')
+            return('Recuerde que solo puede ingresar una lista de eans o materiales, la que tiene actualmente tiene mas de 1 columna')
         else:
-            llave=str(lista[0].keys())
-            if ("MATERIAL" in llave.upper())or("EAN" in llave.upper())  :
-                return("Todo correcto")
-            else:                
-                return('Por favor ingrese un header valido Material o Ean') 
-            pass        
+            keys=[]
+            for li in lista[0]:
+                keys.append(li)
+                pass 
+            con=Converts()
+            llave=con.convert_array_string(keys,"")                   
+            if(tipo not in  llave.upper()):
+                return('Usted seleciono un header {} y ingreso un archivo con header {}, por favor valide.').format(tipo,llave)
+            else:
+                return (False)
     else:
-        print('El documento esta vacio porfavor valide')
+        return('El documento esta vacio por favor valide')
     pass
 
 def report(request):

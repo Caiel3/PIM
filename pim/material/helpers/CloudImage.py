@@ -24,7 +24,7 @@ class CloudImage(models.Model):
 
 
 
-    def convertir_matriz(self,matriz,headers,ancho,largo,token):            
+    def convertir_matriz(self,matriz,headers,ancho,largo,token):         
         aux=np.asarray(matriz)  
         headeraux=np.asarray(headers)
         auxreturn=[]
@@ -32,7 +32,8 @@ class CloudImage(models.Model):
         if 'IMAGEN_GRANDE' in headeraux:
             posicion=np.where(headeraux=='IMAGEN_GRANDE')
             pass
-
+        else:
+            return matriz
         try:
             while con_filas<len(aux):
                 for fila in aux:
