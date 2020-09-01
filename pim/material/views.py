@@ -1,11 +1,11 @@
 from django.shortcuts import render,redirect
-from .models import Materiales
+from .models import Materiales,Descarga
 from django.http import HttpResponse
 import numpy as np
 import os
 from .helpers.CloudImage import CloudImage
 from .helpers.converts import Converts
-from .helpers.descarga import Descarga
+from .helpers.descarga_imagenes import Descarga_imagenes
 from django.db import connection
 from django.http import HttpResponse
 from io import BytesIO
@@ -79,14 +79,15 @@ def subida(request):
     else:
         consulta='select distinct {} from material_materiales where ean in ({});'.format(string_campos,string_filtro)       
         consulta_descarga=Materiales.objects.values('EAN','IMAGEN_GRANDE').filter(ean__in=vector_consulta_descarga)       
-           
-    #preparamos la consulta por aparte para la descarga de imagenes
-    """     descarga=Descarga()
-    descarga.descargar(consulta_descarga) """
+    #Guardarmos lo que se va a descargar en la base de datos por si se descarga
     
-
+    Descarga.objects.all().delete()
+    for valor in consulta_descarga:
+        Descarga.objects.create(ean=valor['ean'],imagen_grande="https://{}.cloudimg.io/v7/{}?sharp=1&width={}&height={}".format('aatdtkgdoo',valor['imagen_grande'],ancho,largo))
+        
     matconsulta=consultasql(consulta)  
-    #converitmos todo haciend uso de cloud img  
+    import pdb; pdb.set_trace()
+    #converitmos todo haciendo uso de cloud img  
     cloud=CloudImage()
     informacion=cloud.convertir_matriz(matconsulta,parametros,ancho,largo,'aatdtkgdoo')   
     
@@ -104,7 +105,8 @@ def consultasql(sql):
     return mat
 
 def descarga(request):
-    import pdb; pdb.set_trace()
+    print('Hello', 'how are you?')
+    
 
 def validacion(lista,tipo):        
     if lista:

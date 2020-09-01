@@ -6,7 +6,7 @@ import urllib.request as req
 import wget
 import os
 
-class Descarga(models.Model):
+class Descarga_imagenes(models.Model):
     
 
     def __str__(self):
