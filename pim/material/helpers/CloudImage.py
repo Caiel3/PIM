@@ -37,11 +37,16 @@ class CloudImage(models.Model):
         try:
             while con_filas<len(aux):
                 for fila in aux:
+                   
                     url=str(fila[posicion])
-                    val=self.cloudimg_imagen(url,{"width":ancho,"height":largo},token)   
+                    if '[None]' in url:  
+                        val=''
+                    else:                          
+                        val=self.cloudimg_imagen(url,{"width":ancho,"height":largo},token)   
                     fila[posicion]= val.replace("['","").replace("']","")
                     con_filas=con_filas+1    
-                    auxreturn.append(fila)                              
+                    auxreturn.append(fila)   
+                                              
                 pass
             pass
         except Exception as e:

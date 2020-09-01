@@ -41,5 +41,13 @@ class Converts(models.Model):
         
         return  stringaux
         pass
+    
+    def convert_dic_array(diccionario,tipo):        
+        vector_consulta=[]    
+        for nodo in diccionario:
+            vector_consulta.append(nodo[tipo])
+            pass
+        return vector_consulta
+        pass
 
 

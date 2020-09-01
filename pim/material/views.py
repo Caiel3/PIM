@@ -5,6 +5,7 @@ import numpy as np
 import os
 from .helpers.CloudImage import CloudImage
 from .helpers.converts import Converts
+from .helpers.descarga import Descarga
 from django.db import connection
 from django.http import HttpResponse
 from io import BytesIO
@@ -55,8 +56,8 @@ def subida(request):
     file = mi_archivo.read().decode('utf-8')
     reader = csv.DictReader(io.StringIO(file))
     archivo = [line for line in reader]   
-    vali=validacion(archivo,tipo)
 
+    vali=validacion(archivo,tipo)
     if vali:
         messages.error(request,vali)
         print(parametros)
@@ -67,15 +68,22 @@ def subida(request):
     #Relizamos la consulta nativa en la base de datos
     converts_helper=Converts()  
     string_campos=converts_helper.convert_array_string(parametros,tipo) #no spermite traer un string de campos a partir de un arreglo
-    string_filtro=converts_helper.convert_array_string(archivo,tipo,False)    
+    string_filtro=converts_helper.convert_array_string(archivo,tipo,False)
+    vector_consulta_descarga=Converts.convert_dic_array(archivo,tipo)    
     #controlo por donde hace la consulta si por ean o material
     if tipo =="MATERIAL":
         
-        consulta='select distinct {} from material_materiales where material in ({});'.format(string_campos,string_filtro)  
+        consulta='select distinct {} from material_materiales where material in ({});'.format(string_campos,string_filtro)       
+        consulta_descarga=Materiales.objects.values('ean','imagen_grande').filter(material__in=vector_consulta_descarga)          
                    
     else:
-        consulta='select distinct {} from material_materiales where ean in ({});'.format(string_campos,string_filtro)
+        consulta='select distinct {} from material_materiales where ean in ({});'.format(string_campos,string_filtro)       
+        consulta_descarga=Materiales.objects.values('EAN','IMAGEN_GRANDE').filter(ean__in=vector_consulta_descarga)       
            
+    #preparamos la consulta por aparte para la descarga de imagenes
+    """     descarga=Descarga()
+    descarga.descargar(consulta_descarga) """
+    
 
     matconsulta=consultasql(consulta)  
     #converitmos todo haciend uso de cloud img  
@@ -84,7 +92,7 @@ def subida(request):
     
     
    
-    return render(request,'visualizacion.html',{"headers":parametros,"lista":informacion})    
+    return render(request,'visualizacion.html',{"headers":parametros,"lista":informacion,"descarga":consulta_descarga})    
     pass
 
 
@@ -94,6 +102,9 @@ def consultasql(sql):
         mat=cursor.fetchall()
     pass
     return mat
+
+def descarga(request):
+    import pdb; pdb.set_trace()
 
 def validacion(lista,tipo):        
     if lista:

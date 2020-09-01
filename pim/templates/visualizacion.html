@@ -4,7 +4,7 @@
 {% block body %}
 <div class="container col-md-12">
     <div class="text-center">
-        <table id="tblData" class="table table-sm">
+        <table id="tblData" class="table table-sm table_limit">
             <thead>
                 <tr>
                     {% for fila in headers %}
@@ -19,7 +19,7 @@
                 <tr>
                     {% for val in row %}
                     {% if "http://" in val %}
-                    <td><img src={{val}} width="100" height="100"></td>
+                    <td><img src={% if '[None]' not in val %}{{val}}{% endif %} width="100" height="100"></td>
                     {% else %}
                     <td>{{val}}</td>
                     {% endif %}
@@ -40,12 +40,19 @@
 <div class="container col-md-12">
     <div class="text-right">
 
-        <button class='flotante' onclick="exportTableToExcel('tblData')"><img
-                width="50" height=60" class="text-right" src={% static
-                '/img/csv-icon.png' %} border="0" /></button>
+        <img class='flotante' onclick="exportTableToExcel('tblData')"
+                width="50" height="60" class="text-right" src={% static '/img/csv-icon.png' %} border="0" />      
 
     </div>
 </div
 <hr>
 
+
+<script 
+
+type="text/javascript">
+       data_from_django = {{ descarga }};
+       print(data_from_django)
+</script>
+<br>
 {% endblock %}

@@ -194,7 +194,7 @@
 
     </div>
    {% if messages %}
-<ul class="messages">
+<ul class="messages alert alert-danger">
     {% for message in messages %}
     <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
     {% endfor %}

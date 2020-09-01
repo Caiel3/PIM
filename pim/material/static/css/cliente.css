@@ -102,3 +102,8 @@ h1 {
         right:5px;
         background: rgba(76, 175, 80, 0);
 }
+
+.table_limit {
+	width: 50%;
+	height: 300px;
+}

@@ -34,3 +34,7 @@ class Materiales(models.Model):
     def __str__(self):
         return "Material: {}, Descripcion: {}, Ean: {}".format(self.material,self.descripcion_material,self.ean)
         
+class Descarga(models.Model):
+    ean = models.CharField(db_column='EAN', blank=True, max_length=30, primary_key=True)  
+    imagen_grande = models.TextField(db_column='IMAGEN_GRANDE', blank=True, null=True)  
+   
