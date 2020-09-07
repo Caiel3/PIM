@@ -16,11 +16,19 @@ import io
 from django.contrib import messages
 from rest_framework import viewsets
 from .serializar import MaterialSerializar
+import numpy as np
+
+
+
+converts_helper=Converts()
 
 
 class MaterialViewSet(viewsets.ModelViewSet):
     serializer_class=MaterialSerializar
     queryset = Materiales.objects.raw('select * from material_materiales limit 10')
+
+
+
 
 def index(request):    
     return render(request,'index.html')
@@ -63,8 +71,7 @@ def subida(request):
         messages.error(request,vali)
         print(parametros)
         return render(request,'index.html',{'ancho':ancho,'largo':largo,'tipo':tipo,'consulta':parametros})          
-    #Relizamos la consulta nativa en la base de datos
-    converts_helper=Converts()  
+    #Relizamos la consulta nativa en la base de datos      
     string_campos=converts_helper.convert_array_string(parametros,tipo) #no spermite traer un string de campos a partir de un arreglo
     string_filtro=converts_helper.convert_array_string(archivo,tipo,False)
     vector_consulta_descarga=Converts.convert_dic_array(archivo,tipo)    
@@ -89,14 +96,27 @@ def subida(request):
     pass
 
 def Catalogoh(request):
-    mi_archivo=request.FILES["archivo"] 
-    files = mi_archivo.read().decode('utf-8')
-    reader = csv.DictReader(io.StringIO(files))
-    archivo = [line for line in reader]
-    import pdb ; pdb.set_trace()
-    for item in reader:
-        print(item)
+    mi_archivo=request.FILES["archivo"]     
+    files = mi_archivo.read().decode('latin1')
+    reader = csv.DictReader(io.StringIO(files),fieldnames=None,delimiter=';')
+    archivo = [line for line in reader]  
+
+    carga_temp=[line for line in archivo]
+
+    header_consulta_material=[]
+    for valor in archivo:
+        header_consulta_material.append(valor['Material'])
+        pass
+
+    import pdb ; pdb.set_trace()  
+    header_consulta_material=converts_helper.convert_array_string(header_consulta_material,'MATERIAL')
+    materiales_consulta=Materiales.objects.values_list('marca','descripcion_talla','descripcion_color','material','caracteristica','tipo_prenda','descripcion_material','material').order_by('-marca','-descripcion_material').filter(material__in=header_consulta_material)
+    materiales=[entrada for entrada in materiales_consulta]
+    array_materiales=np.asarray(materiales)
     
+    print(array_materiales)
+    import pdb ; pdb.set_trace()  
+
  
 
 
