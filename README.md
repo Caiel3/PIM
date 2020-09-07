@@ -10,6 +10,8 @@ pip install django
 pip install numpy
 pip install reportlab
 pip install requests
+pip install djangorestframework
+pip install django-cors-header
 
 
 PROYECTO Y APLICACIONES_____________

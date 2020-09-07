@@ -14,11 +14,16 @@ from reportlab.lib.pagesizes import A4,mm
 import csv
 import io
 from django.contrib import messages
-def index(request):
-    
+from rest_framework import viewsets
+from .serializar import MaterialSerializar
+
+
+class MaterialViewSet(viewsets.ModelViewSet):
+    serializer_class=MaterialSerializar
+    queryset = Materiales.objects.raw('select * from material_materiales limit 10')
+
+def index(request):    
     return render(request,'index.html')
-
-
 
 def subida(request):
     consulta=[
@@ -39,62 +44,62 @@ def subida(request):
         'GRUPO_DESTINO'
         ]
     parametros=[]
-    #Capturamos la informacion del formulario
-    
+    #Capturamos la informacion del formulario    
     archivo = request.FILES["archivo"]     
     tipo = request.POST["tipo"]
     ancho = request.POST["ancho"]
-    largo = request.POST["largo"]  
-    #archivo=['100243','1003','100304','100308','100309','100326','100344','10036','100361','100378','100396']
+    largo = request.POST["largo"]   
     for item in consulta:
         if item.upper() in request.POST :
             aux=request.POST[item]
             parametros.append(aux)                            
-        pass          
-    
+        pass             
     mi_archivo=request.FILES["archivo"] 
     file = mi_archivo.read().decode('utf-8')
     reader = csv.DictReader(io.StringIO(file))
     archivo = [line for line in reader]   
-
     vali=validacion(archivo,tipo)
     if vali:
         messages.error(request,vali)
         print(parametros)
-        return render(request,'index.html',{'ancho':ancho,'largo':largo,'tipo':tipo,'consulta':parametros})
-        
-
-    
+        return render(request,'index.html',{'ancho':ancho,'largo':largo,'tipo':tipo,'consulta':parametros})          
     #Relizamos la consulta nativa en la base de datos
     converts_helper=Converts()  
     string_campos=converts_helper.convert_array_string(parametros,tipo) #no spermite traer un string de campos a partir de un arreglo
     string_filtro=converts_helper.convert_array_string(archivo,tipo,False)
     vector_consulta_descarga=Converts.convert_dic_array(archivo,tipo)    
-    #controlo por donde hace la consulta si por ean o material
-    if tipo =="MATERIAL":
-        
+    #controlo por donde hace la consulta si por ean o material   
+    if tipo =="MATERIAL":        
         consulta='select distinct {} from material_materiales where material in ({});'.format(string_campos,string_filtro)       
-        consulta_descarga=Materiales.objects.values('ean','imagen_grande').filter(material__in=vector_consulta_descarga)          
+        consulta_descarga=Materiales.objects.values('ean','imagen_grande').filter(material__in=vector_consulta_descarga)        
                    
     else:
         consulta='select distinct {} from material_materiales where ean in ({});'.format(string_campos,string_filtro)       
-        consulta_descarga=Materiales.objects.values('EAN','IMAGEN_GRANDE').filter(ean__in=vector_consulta_descarga)       
+        consulta_descarga=Materiales.objects.values('ean','imagen_grande').filter(ean__in=vector_consulta_descarga)       
     #Guardarmos lo que se va a descargar en la base de datos por si se descarga
-    
+   
     Descarga.objects.all().delete()
     for valor in consulta_descarga:
-        Descarga.objects.create(ean=valor['ean'],imagen_grande="https://{}.cloudimg.io/v7/{}?sharp=1&width={}&height={}".format('aatdtkgdoo',valor['imagen_grande'],ancho,largo))
-        
-    matconsulta=consultasql(consulta)  
-    import pdb; pdb.set_trace()
+        Descarga.objects.create(ean=valor['ean'],imagen_grande="https://{}.cloudimg.io/v7/{}?sharp=1&width={}&height={}".format('aatdtkgdoo',valor['imagen_grande'],ancho,largo))        
+    matconsulta=consultasql(consulta)    
     #converitmos todo haciendo uso de cloud img  
     cloud=CloudImage()
-    informacion=cloud.convertir_matriz(matconsulta,parametros,ancho,largo,'aatdtkgdoo')   
-    
-    
-   
+    informacion=cloud.convertir_matriz(matconsulta,parametros,ancho,largo,'aatdtkgdoo')      
     return render(request,'visualizacion.html',{"headers":parametros,"lista":informacion,"descarga":consulta_descarga})    
     pass
+
+def Catalogoh(request):
+    mi_archivo=request.FILES["archivo"] 
+    files = mi_archivo.read().decode('utf-8')
+    reader = csv.DictReader(io.StringIO(files))
+    archivo = [line for line in reader]
+    import pdb ; pdb.set_trace()
+    for item in reader:
+        print(item)
+    
+ 
+
+
 
 
 def consultasql(sql):
@@ -105,7 +110,10 @@ def consultasql(sql):
     return mat
 
 def descarga(request):
-    print('Hello', 'how are you?')
+    import pdb; pdb.set_trace()
+    descarga=Descarga_imagenes()
+    descarga.descargar(Descarga.objects.values('ean','imagen_grande').all())
+    return render(request,'index.html')
     
 
 def validacion(lista,tipo):        

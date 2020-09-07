@@ -48,11 +48,7 @@
 <hr>
 
 
-<script 
-
-type="text/javascript">
-       data_from_django = {{ descarga }};
-       print(data_from_django)
-</script>
+<form action="/descarga/" method="POST">{% csrf_token%}
+<input class="btn btn-outline-success flotante2" value="Descargar img" type="submit"></form>
 <br>
 {% endblock %}

@@ -29,7 +29,9 @@ class Materiales(models.Model):
     tags = models.TextField(db_column='TAGS', blank=True, null=True)  
     prendido_ecommerce = models.IntegerField(db_column='PRENDIDO_ECOMMERCE', blank=True, null=True)  
     prendido_ean = models.IntegerField(db_column='PRENDIDO_EAN', blank=True, null=True)  
+    fecha_actualizacion = models.DateTimeField(db_column='FECHA_ACTUALIZACION', blank=True, null=True) 
     fecha_actualizacion = models.DateTimeField(db_column='FECHA_ACTUALIZACION', blank=True, null=True)  
+    composicion_es = models.DateTimeField(db_column='COMPOSICION_ES', blank=True, null=True)   
 
     def __str__(self):
         return "Material: {}, Descripcion: {}, Ean: {}".format(self.material,self.descripcion_material,self.ean)

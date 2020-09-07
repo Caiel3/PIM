@@ -107,3 +107,10 @@ h1 {
 	width: 50%;
 	height: 300px;
 }
+.flotante2 {
+    display:scroll;
+        position:fixed;
+        bottom:15px;
+        right:60px;
+        background: rgba(76, 175, 80, 0);
+}
