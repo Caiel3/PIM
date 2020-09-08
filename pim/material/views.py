@@ -112,13 +112,73 @@ def Catalogoh(request):
     for valor in archivo:
         header_consulta_material.append(valor['Material'])
         pass
-    import pdb ; pdb.set_trace()
+  
     consulta=('SELECT * FROM CATALOGO ORDER BY MARCA DESC, COLECCION DESC, DEPARTAMENTO DESC, TIPO_PRENDA DESC,DESCRIPCION_MATERIAL ASC')
-    resultado=consultasql(consulta)   
+    datos=consultasql(consulta)   
     
-       
-    print(array_materiales)
-    import pdb ; pdb.set_trace()  
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename=catalogo.pdf'
+    archivo=['100243','1003','100304','100308','100309','100326','100344','10036','100361','100378','100396']  
+    buffer = BytesIO()
+    c = canvas.Canvas(buffer, pagesize=A4)
+
+    y = 740
+    registroxhoja= 0
+    c.setLineWidth(.3)
+    c.setFont('Helvetica-Bold',11)
+    for val in datos:
+        if registroxhoja == 4:
+            registroxhoja = 0
+            y = 740
+            c.showPage()
+        
+        c.drawImage(val[9], 35, y-130, 140, 160)
+        y = y - 16
+        c.setFont('Helvetica-Bold',12)
+        c.drawString(180,y,'Categoria:')
+        c.setFont('Helvetica',11)
+        c.drawString(245,y,val[11])
+        y = y - 16
+        c.setFont('Helvetica-Bold',12)
+        c.drawString(180,y,'Colección:')
+        c.setFont('Helvetica',11)
+        c.drawString(245,y,val[5])
+        y = y - 16
+        c.setFont('Helvetica-Bold',12)
+        c.drawString(180,y,'Material:')
+        c.setFont('Helvetica',11)
+        c.drawString(230,y,val[0])
+        y = y - 16
+        c.setFont('Helvetica-Bold',12)
+        c.drawString(180,y,'Composición:')
+        c.setFont('Helvetica',11)
+        c.drawString(265,y,val[5])
+        y = y - 16
+        c.setFont('Helvetica-Bold',12)
+        c.drawString(180,y,'Unidad de empaque:')
+        c.setFont('Helvetica',11)
+        c.drawString(300,y,val[1])
+        y = y - 16
+        c.setFont('Helvetica-Bold',12)
+        c.drawString(180,y,'Color:')
+        c.setFont('Helvetica',11)
+        c.drawString(220,y,val[6])
+        y = y - 16
+        c.setFont('Helvetica-Bold',12)
+        c.drawString(180,y,'Tallas:')
+        c.setFont('Helvetica',11)
+        c.drawString(220,y,val[7])
+        y = y - 40
+        c.line(35,y,560,y)
+        y = y - 40
+        registroxhoja = registroxhoja+1
+
+    c.save()
+    pdf = buffer.getvalue()
+    buffer.close()
+    response.write(pdf)
+    return response
+    
 
 
 def consultasql(sql):
