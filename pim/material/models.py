@@ -40,3 +40,10 @@ class Descarga(models.Model):
     ean = models.CharField(db_column='EAN', blank=True, max_length=30, primary_key=True)  
     imagen_grande = models.TextField(db_column='IMAGEN_GRANDE', blank=True, null=True)  
    
+class Catalogo_temp(models.Model):   
+    material = models.CharField(db_column='MATERIAL', blank=True, max_length=30, primary_key=True)  
+    unidad_empaque = models.TextField(db_column='UNIDAD_EMPAQUE', blank=True, null=True)
+    precio = models.TextField(db_column='PRECIO', blank=True, null=True)
+    moneda = models.TextField(db_column='MODENA', blank=True, null=True)
+    pais = models.TextField(db_column='PAIS', blank=True, null=True)
+    coleccion=models.TextField(db_column='COLECCION', blank=True, null=True)

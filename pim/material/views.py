@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from .models import Materiales,Descarga
+from .models import Materiales,Descarga,Catalogo_temp
 from django.http import HttpResponse
 import numpy as np
 import os
@@ -101,15 +101,23 @@ def Catalogoh(request):
     reader = csv.DictReader(io.StringIO(files),fieldnames=None,delimiter=';')
     archivo = [line for line in reader]  
 
-    carga_temp=[line for line in archivo]
+    #insetamos temporamente datos en una tabla para despues traerlos ordenados de una manera mas cesilla
+    carga_temp=[line for line in archivo]    
+    Catalogo_temp.objects.all().delete()  
+    for dato in carga_temp:        
+        Catalogo_temp.objects.create(material=dato['Material'],unidad_empaque=dato['Unidad de empaque'],coleccion=dato['Colección'],precio=dato['Precio'],moneda=dato['Moneda'],pais=dato['Pais'])
+
 
     header_consulta_material=[]
     for valor in archivo:
         header_consulta_material.append(valor['Material'])
         pass
-
-    import pdb ; pdb.set_trace()  
-    header_consulta_material=converts_helper.convert_array_string(header_consulta_material,'MATERIAL')
+    import pdb ; pdb.set_trace()
+    consulta=('SELECT * FROM CATALOGO')
+    resultado=consultasql(consulta)
+    print(resultado)
+    
+    header_consulta_material=converts_helper.convert_array_string(header_consulta_material,'MATERIAL') 
     materiales_consulta=Materiales.objects.values_list('marca','descripcion_talla','descripcion_color','material','caracteristica','tipo_prenda','descripcion_material','material').order_by('-marca','-descripcion_material').filter(material__in=header_consulta_material)
     materiales=[entrada for entrada in materiales_consulta]
     array_materiales=np.asarray(materiales)
