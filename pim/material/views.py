@@ -113,21 +113,12 @@ def Catalogoh(request):
         header_consulta_material.append(valor['Material'])
         pass
     import pdb ; pdb.set_trace()
-    consulta=('SELECT * FROM CATALOGO')
-    resultado=consultasql(consulta)
-    print(resultado)
+    consulta=('SELECT * FROM CATALOGO ORDER BY MARCA DESC, COLECCION DESC, DEPARTAMENTO DESC, TIPO_PRENDA DESC,DESCRIPCION_MATERIAL ASC')
+    resultado=consultasql(consulta)   
     
-    header_consulta_material=converts_helper.convert_array_string(header_consulta_material,'MATERIAL') 
-    materiales_consulta=Materiales.objects.values_list('marca','descripcion_talla','descripcion_color','material','caracteristica','tipo_prenda','descripcion_material','material').order_by('-marca','-descripcion_material').filter(material__in=header_consulta_material)
-    materiales=[entrada for entrada in materiales_consulta]
-    array_materiales=np.asarray(materiales)
-    
+       
     print(array_materiales)
     import pdb ; pdb.set_trace()  
-
- 
-
-
 
 
 def consultasql(sql):
