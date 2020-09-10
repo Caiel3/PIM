@@ -134,9 +134,15 @@ def Catalogoh(request):
             
         datos=cloud.convertir_matriz(datos,['','','','','','','','','','IMAGEN_GRANDE'],300,378,'aatdtkgdoo')      
         return render(request,'catalogo.html',{'datos' : datos,'Cgef':'height:{}px;'.format(gefh),'CPb':'height:{}px;'.format(pbh),'Cbf':'height:{}px;'.format(bfh)})
-    except:
-        messages.error(request,'Recuerde que debe de conservar la estructura del archivo plano y este es separado por ;')       
-        return render(request,'index.html',{'ancho':ancho,'largo':largo,'tipo':tipo,'consulta':parametros})  
+    except Exception as e:        
+        import pdb ; pdb.set_trace()
+        if type(e) is KeyError:
+            messages.error(request,'Recuerde que debe de conservar la estructura del archivo plano y este debe de estar separado por ;, error cerca a {}.'.format(e))   
+        else :
+            messages.error(request,'Ocurrio un error inesperado, por favor contacte con Helpy y proporcione este error; {}'.format(e))
+         
+            
+        return render(request,'index.html')  
    
     
     
