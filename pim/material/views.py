@@ -21,7 +21,7 @@ import numpy as np
 
 
 converts_helper=Converts()
-
+cloud=CloudImage()
 
 class MaterialViewSet(viewsets.ModelViewSet):
     serializer_class=MaterialSerializar
@@ -68,8 +68,7 @@ def subida(request):
     archivo = [line for line in reader]   
     vali=validacion(archivo,tipo)
     if vali:
-        messages.error(request,vali)
-        print(parametros)
+        messages.error(request,vali)       
         return render(request,'index.html',{'ancho':ancho,'largo':largo,'tipo':tipo,'consulta':parametros})          
     #Relizamos la consulta nativa en la base de datos      
     string_campos=converts_helper.convert_array_string(parametros,tipo) #no spermite traer un string de campos a partir de un arreglo
@@ -90,7 +89,7 @@ def subida(request):
         Descarga.objects.create(ean=valor['ean'],imagen_grande="https://{}.cloudimg.io/v7/{}?sharp=1&width={}&height={}".format('aatdtkgdoo',valor['imagen_grande'],ancho,largo))        
     matconsulta=consultasql(consulta)    
     #converitmos todo haciendo uso de cloud img  
-    cloud=CloudImage()
+    
     informacion=cloud.convertir_matriz(matconsulta,parametros,ancho,largo,'aatdtkgdoo')      
     return render(request,'visualizacion.html',{"headers":parametros,"lista":informacion,"descarga":consulta_descarga})    
     pass
@@ -101,7 +100,7 @@ def Catalogoh(request):
     reader = csv.DictReader(io.StringIO(files),fieldnames=None,delimiter=';')
     archivo = [line for line in reader]  
 
-    #insetamos temporamente datos en una tabla para despues traerlos ordenados de una manera mas cesilla
+    #insertamos temporamente datos en una tabla para despues traerlos ordenados de una manera mas cesilla
     carga_temp=[line for line in archivo]    
     Catalogo_temp.objects.all().delete()  
     for dato in carga_temp:        
@@ -114,72 +113,28 @@ def Catalogoh(request):
         pass
   
     consulta=('SELECT * FROM CATALOGO ORDER BY MARCA DESC, COLECCION DESC, DEPARTAMENTO DESC, TIPO_PRENDA DESC,DESCRIPCION_MATERIAL ASC')
-    datos=consultasql(consulta)   
-    
-    response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename=catalogo.pdf'
-    archivo=['100243','1003','100304','100308','100309','100326','100344','10036','100361','100378','100396']  
-    buffer = BytesIO()
-    c = canvas.Canvas(buffer, pagesize=A4)
-
-    y = 740
-    registroxhoja= 0
-    c.setLineWidth(.3)
-    c.setFont('Helvetica-Bold',11)
-    for val in datos:
-        if registroxhoja == 4:
-            registroxhoja = 0
-            y = 740
-            c.showPage()
+    datos=consultasql(consulta)
+   
+    can_marca=np.asarray(consultasql('SELECT COUNT(MARCA) AS CANTIDAD,MARCA FROM RAM.CATALOGO GROUP BY MARCA'))
+    con=0
+    bfh=0# hojas Baby fresh
+    pbh=0#hojas Punto blanco
+    gefh=0#hojas gef
+    for marca in can_marca:
+        if marca[1]=='BABY FRESH':
+            bfh=converts_helper.numero_paginas_marca(int(marca[0]))*1500
+            pass
+        elif marca[1]=='PUNTO BLANCO':
+            pbh=converts_helper.numero_paginas_marca(int(marca[0]))*1500
+            pass
+        else:
+            gefh=converts_helper.numero_paginas_marca(int(marca[0]))*1500
+            pass
         
-        c.drawImage(val[9], 35, y-130, 140, 160)
-        y = y - 16
-        c.setFont('Helvetica-Bold',12)
-        c.drawString(180,y,'Categoria:')
-        c.setFont('Helvetica',11)
-        c.drawString(245,y,val[11])
-        y = y - 16
-        c.setFont('Helvetica-Bold',12)
-        c.drawString(180,y,'Colección:')
-        c.setFont('Helvetica',11)
-        c.drawString(245,y,val[5])
-        y = y - 16
-        c.setFont('Helvetica-Bold',12)
-        c.drawString(180,y,'Material:')
-        c.setFont('Helvetica',11)
-        c.drawString(230,y,val[0])
-        y = y - 16
-        c.setFont('Helvetica-Bold',12)
-        c.drawString(180,y,'Composición:')
-        c.setFont('Helvetica',11)
-        c.drawString(265,y,val[5])
-        y = y - 16
-        c.setFont('Helvetica-Bold',12)
-        c.drawString(180,y,'Unidad de empaque:')
-        c.setFont('Helvetica',11)
-        c.drawString(300,y,val[1])
-        y = y - 16
-        c.setFont('Helvetica-Bold',12)
-        c.drawString(180,y,'Color:')
-        c.setFont('Helvetica',11)
-        c.drawString(220,y,val[6])
-        y = y - 16
-        c.setFont('Helvetica-Bold',12)
-        c.drawString(180,y,'Tallas:')
-        c.setFont('Helvetica',11)
-        c.drawString(220,y,val[7])
-        y = y - 40
-        c.line(35,y,560,y)
-        y = y - 40
-        registroxhoja = registroxhoja+1
-
-    c.save()
-    pdf = buffer.getvalue()
-    buffer.close()
-    response.write(pdf)
-    return response
+    datos=cloud.convertir_matriz(datos,['','','','','','','','','','IMAGEN_GRANDE'],300,378,'aatdtkgdoo')      
+    return render(request,'catalogo.html',{'datos' : datos,'Cgef':'height:{}px;'.format(gefh),'CPb':'height:{}px;'.format(pbh),'Cbf':'height:{}px;'.format(bfh)})
     
-
+    
 
 def consultasql(sql):
     with connection.cursor() as cursor:
@@ -194,6 +149,9 @@ def descarga(request):
     descarga.descargar(Descarga.objects.values('ean','imagen_grande').all())
     return render(request,'index.html')
     
+
+
+
 
 def validacion(lista,tipo):        
     if lista:

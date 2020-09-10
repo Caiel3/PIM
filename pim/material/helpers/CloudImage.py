@@ -25,7 +25,7 @@ class CloudImage(models.Model):
 
 
     def convertir_matriz(self,matriz,headers,ancho,largo,token):         
-        aux=np.asarray(matriz)  
+        aux=np.asarray(matriz)        
         headeraux=np.asarray(headers)
         auxreturn=[]
         con_filas=0      
