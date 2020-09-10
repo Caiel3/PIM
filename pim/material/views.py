@@ -100,39 +100,44 @@ def Catalogoh(request):
     reader = csv.DictReader(io.StringIO(files),fieldnames=None,delimiter=';')
     archivo = [line for line in reader]  
 
-    #insertamos temporamente datos en una tabla para despues traerlos ordenados de una manera mas cesilla
-    carga_temp=[line for line in archivo]    
-    Catalogo_temp.objects.all().delete()  
-    for dato in carga_temp:        
-        Catalogo_temp.objects.create(material=dato['Material'],unidad_empaque=dato['Unidad de empaque'],coleccion=dato['Colección'],precio=dato['Precio'],moneda=dato['Moneda'],pais=dato['Pais'])
+    try:          
+         #insertamos temporamente datos en una tabla para despues traerlos ordenados de una manera mas cesilla
+        carga_temp=[line for line in archivo]    
+        Catalogo_temp.objects.all().delete()  
+        for dato in carga_temp:        
+            Catalogo_temp.objects.create(material=dato['Material'],unidad_empaque=dato['Unidad de empaque'],coleccion=dato['Colección'],precio=dato['Precio'],moneda=dato['Moneda'],pais=dato['Pais'])
 
 
-    header_consulta_material=[]
-    for valor in archivo:
-        header_consulta_material.append(valor['Material'])
-        pass
+        header_consulta_material=[]
+        for valor in archivo:
+            header_consulta_material.append(valor['Material'])
+            pass
   
-    consulta=('SELECT * FROM CATALOGO ORDER BY MARCA DESC, COLECCION DESC, DEPARTAMENTO DESC, TIPO_PRENDA DESC,DESCRIPCION_MATERIAL ASC')
-    datos=consultasql(consulta)
+        consulta=('SELECT * FROM CATALOGO ORDER BY MARCA DESC, COLECCION DESC, DEPARTAMENTO DESC, TIPO_PRENDA DESC,DESCRIPCION_MATERIAL ASC')
+        datos=consultasql(consulta)
    
-    can_marca=np.asarray(consultasql('SELECT COUNT(MARCA) AS CANTIDAD,MARCA FROM RAM.CATALOGO GROUP BY MARCA'))
-    con=0
-    bfh=0# hojas Baby fresh
-    pbh=0#hojas Punto blanco
-    gefh=0#hojas gef
-    for marca in can_marca:
-        if marca[1]=='BABY FRESH':
-            bfh=converts_helper.numero_paginas_marca(int(marca[0]))*1500
-            pass
-        elif marca[1]=='PUNTO BLANCO':
-            pbh=converts_helper.numero_paginas_marca(int(marca[0]))*1500
-            pass
-        else:
-            gefh=converts_helper.numero_paginas_marca(int(marca[0]))*1500
-            pass
-        
-    datos=cloud.convertir_matriz(datos,['','','','','','','','','','IMAGEN_GRANDE'],300,378,'aatdtkgdoo')      
-    return render(request,'catalogo.html',{'datos' : datos,'Cgef':'height:{}px;'.format(gefh),'CPb':'height:{}px;'.format(pbh),'Cbf':'height:{}px;'.format(bfh)})
+        can_marca=np.asarray(consultasql('SELECT COUNT(MARCA) AS CANTIDAD,MARCA FROM RAM.CATALOGO GROUP BY MARCA'))
+        con=0
+        bfh=0# hojas Baby fresh
+        pbh=0#hojas Punto blanco
+        gefh=0#hojas gef
+        for marca in can_marca:
+            if marca[1]=='BABY FRESH':
+                bfh=converts_helper.numero_paginas_marca(int(marca[0]))*1500
+                pass
+            elif marca[1]=='PUNTO BLANCO':
+                pbh=converts_helper.numero_paginas_marca(int(marca[0]))*1500
+                pass
+            else:
+                gefh=converts_helper.numero_paginas_marca(int(marca[0]))*1500
+                pass
+            
+        datos=cloud.convertir_matriz(datos,['','','','','','','','','','IMAGEN_GRANDE'],300,378,'aatdtkgdoo')      
+        return render(request,'catalogo.html',{'datos' : datos,'Cgef':'height:{}px;'.format(gefh),'CPb':'height:{}px;'.format(pbh),'Cbf':'height:{}px;'.format(bfh)})
+    except:
+        messages.error(request,'Recuerde que debe de conservar la estructura del archivo plano y este es separado por ;')       
+        return render(request,'index.html',{'ancho':ancho,'largo':largo,'tipo':tipo,'consulta':parametros})  
+   
     
     
 
