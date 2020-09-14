@@ -17,11 +17,6 @@ from django.contrib import admin
 from django.urls import path
 from material.views import index,subida,descarga,Catalogoh
 from rest_framework.routers import DefaultRouter
-from material.views import MaterialViewSet
-
-router=DefaultRouter()
-router.register('api',MaterialViewSet)
-
 
 
 urlpatterns = [
@@ -31,4 +26,4 @@ urlpatterns = [
     path('descarga/',descarga,name='descarga'), 
     path('catalogoh/',Catalogoh,name='catalogoh'),      
 ]
-urlpatterns +=router.urls
+

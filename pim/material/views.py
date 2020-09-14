@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from .models import Materiales,Descarga,Catalogo_temp
+from .models import Materiales,Descarga,Catalogo_temp,MysqlColores
 from django.http import HttpResponse
 import numpy as np
 import os
@@ -103,18 +103,24 @@ def Catalogoh(request):
     try:          
          #insertamos temporamente datos en una tabla para despues traerlos ordenados de una manera mas cesilla
         carga_temp=[line for line in archivo]    
-        Catalogo_temp.objects.all().delete()  
+        Catalogo_temp.objects.all().delete()          
         for dato in carga_temp:        
             Catalogo_temp.objects.create(material=dato['Material'],unidad_empaque=dato['Unidad de empaque'],coleccion=dato['Colección'],precio=dato['Precio'],moneda=dato['Moneda'],pais=dato['Pais'])
 
-
+        
         header_consulta_material=[]
         for valor in archivo:
             header_consulta_material.append(valor['Material'])
-            pass
-  
+            pass       
+        import pdb ; pdb.set_trace()
+
         consulta=('SELECT * FROM CATALOGO ORDER BY MARCA DESC, COLECCION DESC, DEPARTAMENTO DESC, TIPO_PRENDA DESC,DESCRIPCION_MATERIAL ASC')
         datos=consultasql(consulta)
+        consulta_temp=[]
+        for dato in np.asarray(datos):
+            dato[6]=[a for a in MysqlColores.objects.filter(material=dato[0]).values('icono_color')]
+            consulta_temp.append(dato)
+        datos=consulta_temp
    
         can_marca=np.asarray(consultasql('SELECT COUNT(MARCA) AS CANTIDAD,MARCA FROM RAM.CATALOGO GROUP BY MARCA'))
         con=0
@@ -143,6 +149,7 @@ def Catalogoh(request):
          
             
         return render(request,'index.html')  
+   
    
     
     

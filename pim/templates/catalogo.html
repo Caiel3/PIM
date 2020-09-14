@@ -43,6 +43,8 @@
                             </div> 
                             <div class = "col-10">
                             <p>
+                                <h5> {{ val.8 }}</h5>
+                                <hr>
                                 <h5>Categoria: {{ val.11 }}</h5>
                                 <hr>
                                 <h5>Material: {{ val.0 }} </h5>
@@ -51,7 +53,11 @@
                                 <hr>
                                 <h5>Unidad de empaque: {{ val.1 }} </h5>
                                 <hr>
-                                <h5>Color: {{ val.6 }}</h5>
+                                <h5>Color: 
+                                {% for imagen in val.6  %}
+                                <img src={{ imagen.icono_color }}>
+                                {% endfor %}
+                                </h5>
                                 <hr>
                                 <h5>Tallas: {{ val.7 }}</h5>
                                 <hr>
@@ -74,16 +80,24 @@
                                 <img src={{ val.9 }}> 
                             </div> 
                             <div class = "col-10">
-                            <p>
+                            <p> 
+                                <h5>{{ val.8 }}</h5>
+                                <hr>
                                 <h5>Categoria: {{ val.11 }}</h5>
                                 <hr>
                                 <h5>Material: {{ val.0 }} </h5>
                                 <hr>
                                 <h5>Composición: {{ val.13 }} </h5>
                                 <hr>
-                                <h5>Unidad de empaque: {{ val.1 }} </h5>
+                                <h5>Unidad de empaque: {{ val.1 }} 
                                 <hr>
-                                <h5>Color: {{ val.6 }}</h5>
+                                <h5>Color:
+                                {% for imagen in val.6  %}
+                                <img src={{ imagen.icono_color }}>
+                                {% endfor %}
+                                 </h5>
+                                <hr>
+                                </h5>
                                 <hr>
                                 <h5>Tallas: {{ val.7 }}</h5>
                                 <hr>
@@ -107,7 +121,9 @@
                             </div> 
                             <div class = "col-10">
                             <p>
-                             <h5>Categoria: {{ val.11 }}</h5>
+                                <h5>{{ val.8 }}</h5>
+                                <hr>
+                                <h5>Categoria: {{ val.11 }}</h5>
                                 <hr>
                                 <h5>Material: {{ val.0 }} </h5>
                                 <hr>
@@ -115,7 +131,12 @@
                                 <hr>
                                 <h5>Unidad de empaque: {{ val.1 }} </h5>
                                 <hr>
-                                <h5>Color: {{ val.6 }}</h5>
+                                <h5>Color:
+                                {% for imagen in val.6  %}
+                                <img src={{ imagen.icono_color }}>
+                                {% endfor %}
+                                </h5>
+                                <hr>
                                 <hr>
                                 <h5>Tallas: {{ val.7 }}</h5>
                                 <hr>

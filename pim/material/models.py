@@ -44,6 +44,19 @@ class Catalogo_temp(models.Model):
     material = models.CharField(db_column='MATERIAL', blank=True, max_length=30, primary_key=True)  
     unidad_empaque = models.TextField(db_column='UNIDAD_EMPAQUE', blank=True, null=True)
     precio = models.TextField(db_column='PRECIO', blank=True, null=True)
-    moneda = models.TextField(db_column='MODENA', blank=True, null=True)
+    moneda = models.TextField(db_column='MONEDA', blank=True, null=True)
     pais = models.TextField(db_column='PAIS', blank=True, null=True)
     coleccion=models.TextField(db_column='COLECCION', blank=True, null=True)
+
+
+class MysqlColores(models.Model):
+    id = models.AutoField(db_column='ID', primary_key=True)  # Field name made lowercase.
+    material = models.CharField(db_column='MATERIAL', max_length=30, blank=True, null=True)  # Field name made lowercase.
+    descripcion_color = models.CharField(db_column='DESCRIPCION_COLOR', max_length=50, blank=True, null=True)  # Field name made lowercase.
+    icono_color = models.CharField(db_column='ICONO_COLOR', max_length=500, blank=True, null=True)  # Field name made lowercase.
+
+        managed = False
+        db_table = 'MYSQL_COLORES'
+
+
+
