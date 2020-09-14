@@ -55,8 +55,31 @@ class MysqlColores(models.Model):
     descripcion_color = models.CharField(db_column='DESCRIPCION_COLOR', max_length=50, blank=True, null=True)  # Field name made lowercase.
     icono_color = models.CharField(db_column='ICONO_COLOR', max_length=500, blank=True, null=True)  # Field name made lowercase.
 
+    class Meta:
         managed = False
         db_table = 'MYSQL_COLORES'
 
 
+class MysqlMateriales(models.Model):
+    material = models.CharField(db_column='MATERIAL', primary_key=True, max_length=30)  # Field name made lowercase.
+    descripcion_material = models.CharField(db_column='DESCRIPCION_MATERIAL', max_length=300, blank=True, null=True)  # Field name made lowercase.
+    imagen = models.CharField(db_column='IMAGEN', max_length=800, blank=True, null=True)  # Field name made lowercase.
+    tipo_prenda = models.CharField(db_column='TIPO_PRENDA', max_length=50, blank=True, null=True)  # Field name made lowercase.
+    departamento = models.CharField(db_column='DEPARTAMENTO', max_length=50, blank=True, null=True)  # Field name made lowercase.
+    marca = models.CharField(db_column='MARCA', max_length=20, blank=True, null=True)  # Field name made lowercase.
+    composicion_es = models.CharField(db_column='COMPOSICION_ES', max_length=100, blank=True, null=True)  # Field name made lowercase.
+
+    class Meta:
+        managed = False
+        db_table = 'MYSQL_MATERIALES'
+
+
+class MysqlTallas(models.Model):
+    id = models.AutoField(db_column='ID', primary_key=True)  # Field name made lowercase.
+    material = models.CharField(db_column='MATERIAL', max_length=30, blank=True, null=True)  # Field name made lowercase.
+    descripcion_talla = models.CharField(db_column='DESCRIPCION_TALLA', max_length=50, blank=True, null=True)  # Field name made lowercase.
+
+    class Meta:
+        managed = False
+        db_table = 'MYSQL_TALLAS'
 
