@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from .models import Materiales,Descarga,Catalogo_temp,MysqlColores
-from django.http import HttpResponse
+from django.http import HttpResponse,HttpResponseNotFound
 import numpy as np
 import os
 from .helpers.CloudImage import CloudImage
@@ -17,7 +17,7 @@ from django.contrib import messages
 from rest_framework import viewsets
 from .serializar import MaterialSerializar
 import numpy as np
-
+from django.views.defaults import page_not_found
 
 
 converts_helper=Converts()
@@ -111,8 +111,7 @@ def Catalogoh(request):
         header_consulta_material=[]
         for valor in archivo:
             header_consulta_material.append(valor['Material'])
-            pass       
-        import pdb ; pdb.set_trace()
+            pass               
 
         consulta=('SELECT * FROM CATALOGO ORDER BY MARCA DESC, COLECCION DESC, DEPARTAMENTO DESC, TIPO_PRENDA DESC,DESCRIPCION_MATERIAL ASC')
         datos=consultasql(consulta)
@@ -138,7 +137,7 @@ def Catalogoh(request):
                 gefh=converts_helper.numero_paginas_marca(int(marca[0]))*1500
                 pass
             
-        datos=cloud.convertir_matriz(datos,['','','','','','','','','','IMAGEN_GRANDE'],300,378,'aatdtkgdoo')      
+        datos=cloud.convertir_matriz(datos,['','','','','','','','','','IMAGEN_GRANDE'],280,358,'aatdtkgdoo')      
         return render(request,'catalogo.html',{'datos' : datos,'Cgef':'height:{}px;'.format(gefh),'CPb':'height:{}px;'.format(pbh),'Cbf':'height:{}px;'.format(bfh)})
     except Exception as e:        
         import pdb ; pdb.set_trace()
@@ -150,7 +149,8 @@ def Catalogoh(request):
             
         return render(request,'index.html')  
    
-   
+def handler404_page(request):
+    return render(request, '404.html', status=404)
     
     
 

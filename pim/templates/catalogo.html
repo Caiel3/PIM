@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
 <html>
+{% load static %}
     <head>
         <meta charset="utf-8"/>
 
@@ -28,8 +29,10 @@
                 margin-top: 0px !important;
                 margin-bottom: 0px !important;
             }
+                     
         </style>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <link rel="stylesheet" href="{% static '/css/cliente.css' %}">
     </head>
         <body>            
             <div class="container-fluid" style = {{ Cgef }} > 
@@ -55,7 +58,7 @@
                                 <hr>
                                 <h5>Color: 
                                 {% for imagen in val.6  %}
-                                <img src={{ imagen.icono_color }}>
+                                <img style="border-radius:50%; width:30px; height:30px;" src={{ imagen.icono_color }} >
                                 {% endfor %}
                                 </h5>
                                 <hr>
@@ -93,7 +96,7 @@
                                 <hr>
                                 <h5>Color:
                                 {% for imagen in val.6  %}
-                                <img src={{ imagen.icono_color }}>
+                                <img style="border-radius:50%; width:20px; height:20px;" src={{ imagen.icono_color }}>
                                 {% endfor %}
                                  </h5>
                                 <hr>
@@ -133,7 +136,7 @@
                                 <hr>
                                 <h5>Color:
                                 {% for imagen in val.6  %}
-                                <img src={{ imagen.icono_color }}>
+                                <img src={{ imagen.icono_color }} style="border-radius:50%; width:20px; height:20px;">
                                 {% endfor %}
                                 </h5>
                                 <hr>
