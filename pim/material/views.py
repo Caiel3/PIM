@@ -72,6 +72,9 @@ def subida(request):
         return render(request,'index.html',{'ancho':ancho,'largo':largo,'tipo':tipo,'consulta':parametros})          
     #Relizamos la consulta nativa en la base de datos      
     string_campos=converts_helper.convert_array_string(parametros,tipo) #no spermite traer un string de campos a partir de un arreglo
+    if string_campos=='':
+        string_campos='material'
+        pass
     string_filtro=converts_helper.convert_array_string(archivo,tipo,False)
     vector_consulta_descarga=Converts.convert_dic_array(archivo,tipo)    
     #controlo por donde hace la consulta si por ean o material   
