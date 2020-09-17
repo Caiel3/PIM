@@ -45,143 +45,143 @@
 
 <body>
 
-
-    <div class="container-fluid" style={{ Cgef }}>
-     
-        <div class="row">
-        <h1 id="titulo">GEF</h1>
-            {% for val in datos %}
-
-                {% if val.12 == 'GEF' %}
-                {% comment %} <h1>indice: {{forloop.counter}} modulo: {{forloop.counter|modulo:4}}</h1> {% endcomment %}
-                    
-                    {% comment %} {% if forloop.counter == 1 or forloop.counter == 2 or forloop.counter == 3 or forloop.counter == 4  %} {% endcomment %}
-                        <div class="col col-lg-6 col-sm-6 ">
-                            <div style="text-align: center;">
-                                <img src={{ val.9 }}>
-                            </div>
-                            <div class="col-10">
-                                <p>
-                                <h5 style="height:40px"> {{ val.8 }}</h5>
-                                <hr>
-                                <h5>Categoria: {{ val.11 }}</h5>
-                                <hr>
-                                <h5>Material: {{ val.0 }} </h5>
-                                <hr>
-                                <h5 style="height:60px">Composición: {{ val.13 }} </h5>
-                                <hr>
-                                <h5>Unidad de empaque: {{ val.1 }} </h5>
-                                <hr>
-                                <h5>Color:
-                                    {% for imagen in val.6  %}
-                                        {% if 'http' in imagen.icono_color %}
-                                            <img style="border-radius:50%; width:20px; height:20px;" src={{ imagen.icono_color }}>
-                                        {% endif %}
-                                    {% endfor %}
-                                </h5>
-                                <hr>
-                                <h5>Tallas: {{ val.7 }}</h5>
-                                <hr>
-                                <h3>Precio: $ {{ val.2 }}</h3>
-                                <hr>
-                                </p>
-                            </div>
-                        </div>  
-                        {% if forloop.counter|modulo:4 == 0 %}
-                        <h1 id="titulo" style="margin-top:16px;">GEF</h1>
-                    {% endif %}                              
-                {% endif %}
-            {% endfor %}
-        </div>
-    </div>
-
-    {% if CPb == 'height:0.0px;'%}
-    <div class="container-fluid" style={{ CPb }}>
-        <h1 id="titulo">Punto Blanco</h1>
-        <div class="row">
-            {% for val in datos %}
-            {% if val.12 == 'PUNTO BLANCO' %}
-            <div class="col col-lg-6 col-sm-6 ">
-                <div style="text-align: center;">
-                    <img src={{ val.9 }}>
-                </div>
-                <div class="col-10">
-                    <p>
-                    <h5>{{ val.8 }}</h5>
-                    <hr>
-                    <h5>Categoria: {{ val.11 }}</h5>
-                    <hr>
-                    <h5>Material: {{ val.0 }} </h5>
-                    <hr>
-                    <h5>Composición: {{ val.13 }} </h5>
-                    <hr>
-                    <h5>Unidad de empaque: {{ val.1 }}
-                        <hr>
-                        <h5>Color:
-                            {% for imagen in val.6  %}
-                            {% if 'http' in imagen.icono_color %}
-                            <img style="border-radius:50%; width:20px; height:20px;" src={{ imagen.icono_color }}>
-                            {% endif %}
-                            {% endfor %}
-                        </h5>
-                        <hr>
-                    </h5>
-                    <hr>
-                    <h5>Tallas: {{ val.7 }}</h5>
-                    <hr>
-                    <h3>Precio: $ {{ val.2 }}</h3>
-                    <hr>
-                    </p>
-                </div>
+{% if Cgef != 'height:0px;'  %}
+{{CPb}}
+        <div class="container-fluid" style={{ Cgef }}>     
+            <div class="row">
+            <h1 id="titulo">GEF</h1>
+                {% for val in datos %}
+                    {% if val.12 == 'GEF' %}              
+                            <div class="col col-lg-6 col-sm-6 ">
+                                <div style="text-align: center;">
+                                    <img src={{ val.9 }}>
+                                </div>
+                                <div class="col-10">
+                                    <p>
+                                    <h5 style="height:40px"> {{ val.8 }}</h5>
+                                    <hr>
+                                    <h5>Categoria: {{ val.11 }}</h5>
+                                    <hr>
+                                    <h5>Material: {{ val.0 }} </h5>
+                                    <hr>
+                                    <h5 style="height:60px">Composición: {{ val.13 }} </h5>
+                                    <hr>
+                                    <h5>Unidad de empaque: {{ val.1 }} </h5>
+                                    <hr>
+                                    <h5>Color:
+                                        {% for imagen in val.6  %}
+                                            {% if 'http' in imagen.icono_color %}
+                                                <img style="border-radius:50%; width:20px; height:20px;" src={{ imagen.icono_color }}>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </h5>
+                                    <hr>
+                                    <h5>Tallas: {{ val.7 }}</h5>
+                                    <hr>
+                                    <h3>Precio: $ {{ val.2 }}</h3>
+                                    <hr>
+                                    </p>
+                                </div>
+                            </div>  
+                            {% if forloop.counter|modulo:4 == 0 and forloop.counter != datos|length %}
+                            <h1 id="titulo" style="margin-top:16px;">GEF</h1>
+                        {% endif %}                              
+                    {% endif %}
+                {% endfor %}
             </div>
-            {% endif %}
-            {% endfor %}
         </div>
-    </div>
-    {% endif %}
-    {% if Cbf == 'height:0.0px;'%}
-    <div class="container-fluid" style={{ Cbf }}>
-        <h1 id="titulo">Baby Fresh</h1>
-        <div class="row">
-            {% for val in datos %}
-            {% if val.12 == 'BABY FRESH' %}
-            <div class="col col-lg-6 col-sm-6 ">
-                <div style="text-align: center;">
-                    <img src={{ val.9 }}>
-                </div>
-                <div class="col-10">
-                    <p>
-                    <h5>{{ val.8 }}</h5>
-                    <hr>
-                    <h5>Categoria: {{ val.11 }}</h5>
-                    <hr>
-                    <h5>Material: {{ val.0 }} </h5>
-                    <hr>
-                    <h5>Composición: {{ val.13 }} </h5>
-                    <hr>
-                    <h5>Unidad de empaque: {{ val.1 }} </h5>
-                    <hr>
-                    <h5>Color:
-                        {% for imagen in val.6  %}
-                        {% if 'http' in imagen.icono_color %}
-                        <img style="border-radius:50%; width:20px; height:20px;" src={{ imagen.icono_color }}>
-                        {% endif %}
-                        {% endfor %}
-                    </h5>
-                    <hr>
-                    <hr>
-                    <h5>Tallas: {{ val.7 }}</h5>
-                    <hr>
-                    <h3>Precio: $ {{ val.2 }}</h3>
-                    <hr>
-                    </p>
-                </div>
+{% endif %}
+
+{% if CPb != 'height:0px;'  %}
+        <div class="container-fluid" style={{ CPb }}>     
+            <div class="row">
+            <h1 id="titulo">Punto Blanco</h1>
+                {% for val in datos %}
+                    {% if val.12 == 'PUNTO BLANCO' %}              
+                            <div class="col col-lg-6 col-sm-6 ">
+                                <div style="text-align: center;">
+                                    <img src={{ val.9 }}>
+                                </div>
+                                <div class="col-10">
+                                    <p>
+                                    <h5 style="height:40px"> {{ val.8 }}</h5>
+                                    <hr>
+                                    <h5>Categoria: {{ val.11 }}</h5>
+                                    <hr>
+                                    <h5>Material: {{ val.0 }} </h5>
+                                    <hr>
+                                    <h5 style="height:60px">Composición: {{ val.13 }} </h5>
+                                    <hr>
+                                    <h5>Unidad de empaque: {{ val.1 }} </h5>
+                                    <hr>
+                                    <h5>Color:
+                                        {% for imagen in val.6  %}
+                                            {% if 'http' in imagen.icono_color %}
+                                                <img style="border-radius:50%; width:20px; height:20px;" src={{ imagen.icono_color }}>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </h5>
+                                    <hr>
+                                    <h5>Tallas: {{ val.7 }}</h5>
+                                    <hr>
+                                    <h3>Precio: $ {{ val.2 }}</h3>
+                                    <hr>
+                                    </p>
+                                </div>
+                            </div>  
+                            {% if forloop.counter|modulo:4 == 0 and forloop.counter != datos|length %}
+                            <h1 id="titulo" style="margin-top:16px;">GEF</h1>
+                        {% endif %}                              
+                    {% endif %}
+                {% endfor %}
             </div>
-            {% endif %}
-            {% endfor %}
         </div>
-    </div>
-    {% endif %}
+{% endif %}
+{% if Cbf != 'height:0px;'  %}
+        <div class="container-fluid" style={{ CPb }}>     
+            <div class="row">
+            <h1 id="titulo">Baby Fresh</h1>
+                {% for val in datos %}
+                    {% if val.12 == 'BABY FRESH'%}              
+                            <div class="col col-lg-6 col-sm-6 ">
+                                <div style="text-align: center;">
+                                    <img src={{ val.9 }}>
+                                </div>
+                                <div class="col-10">
+                                    <p>
+                                    <h5 style="height:40px"> {{ val.8 }}</h5>
+                                    <hr>
+                                    <h5>Categoria: {{ val.11 }}</h5>
+                                    <hr>
+                                    <h5>Material: {{ val.0 }} </h5>
+                                    <hr>
+                                    <h5 style="height:60px">Composición: {{ val.13 }} </h5>
+                                    <hr>
+                                    <h5>Unidad de empaque: {{ val.1 }} </h5>
+                                    <hr>
+                                    <h5>Color:
+                                        {% for imagen in val.6  %}
+                                            {% if 'http' in imagen.icono_color %}
+                                                <img style="border-radius:50%; width:20px; height:20px;" src={{ imagen.icono_color }}>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </h5>
+                                    <hr>
+                                    <h5>Tallas: {{ val.7 }}</h5>
+                                    <hr>
+                                    <h3>Precio: $ {{ val.2 }}</h3>
+                                    <hr>
+                                    </p>
+                                </div>
+                            </div>  
+                            {% if forloop.counter|modulo:4 == 0 and forloop.counter != datos|length %}
+                            <h1 id="titulo" style="margin-top:16px;">GEF</h1>
+                        {% endif %}                              
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+{% endif %}
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>

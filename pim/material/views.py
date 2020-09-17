@@ -117,7 +117,7 @@ def Catalogoh(request):
             header_consulta_material.append(valor['Material'])
             pass               
 
-        consulta=('SELECT * FROM CATALOGO ORDER BY MARCA DESC, COLECCION DESC, DEPARTAMENTO DESC, TIPO_PRENDA DESC,DESCRIPCION_MATERIAL ASC')
+        consulta=('SELECT * FROM CATALOGO ORDER BY MARCA DESC, COLECCION DESC, DEPARTAMENTO DESC, TIPO_PRENDA DESC,DESCRIPCION_MATERIAL ASC ')        
         datos=consultasql(consulta)
         consulta_temp=[]
         for dato in np.asarray(datos):
@@ -139,7 +139,7 @@ def Catalogoh(request):
                 pass
             else:
                 gefh=(converts_helper.numero_paginas_marca(int(marca[0]))*1500)      
-                pass
+                pass        
         datos=cloud.convertir_matriz(datos,['','','','','','','','','','IMAGEN_GRANDE'],280,358,'aatdtkgdoo')      
         return render(request,'catalogo.html',{'datos' : datos,'Cgef':'height:{}px;'.format(gefh),'CPb':'height:{}px;'.format(pbh),'Cbf':'height:{}px;'.format(bfh)})
     except Exception as e:        
@@ -147,8 +147,7 @@ def Catalogoh(request):
         if type(e) is KeyError:
             messages.error(request,'Recuerde que debe de conservar la estructura del archivo plano y este debe de estar separado por ;, error cerca a {}.'.format(e))   
         else :
-            messages.error(request,'Ocurrio un error inesperado, por favor contacte con Helpy y proporcione este error; {}'.format(e))
-         
+            messages.error(request,'Ocurrio un error inesperado, por favor contacte con Helpy y proporcione este error; {}'.format(e))         
             
         return render(request,'index.html')  
    
