@@ -1,161 +1,197 @@
 <!DOCTYPE HTML>
 <html>
 {% load static %}
-    <head>
-        <meta charset="utf-8"/>
+{% load my_tags %}
 
-        <style>           
-            #titulo{
-                margin-top: 1%;
-                margin-block-end: 2%;
-                text-align: center;
-            }
-            #hoja{
-                float: right;
-                height: 1160px;
-                width: 920px;
-            }
-            #img{
-                float: right;
-                text-align: center;
-            }
-            #h5{
-                text-align: left;
-            }
-            #h4{
-                text-align: left;
-            }
-            hr{
-                margin-top: 0px !important;
-                margin-bottom: 0px !important;
-            }
-                     
-        </style>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-        <link rel="stylesheet" href="{% static '/css/cliente.css' %}">
-    </head>
-        <body>            
-            <div class="container-fluid" style = {{ Cgef }} > 
-                <h1 id= "titulo">GEF</h1>
-                <div class = "row">
-                    {% for val in datos %}
-                    {% if val.12 == 'GEF' %}                    
-                        <div class="col col-lg-6 col-sm-6 " style = "height: 690px;" >
+<head>
+
+    <meta charset="utf-8" />
+
+    <style>
+        #titulo {
+            width:100%;
+            margin: 5px;
+            text-align: center;
+        }
+
+        #hoja {
+            float: right;
+            height: 1160px;
+            width: 920px;
+        }
+
+        #img {
+            float: right;
+            text-align: center;
+        }
+
+        #h5 {
+            text-align: left;
+        }
+
+        #h4 {
+            text-align: left;
+        }
+
+        hr {
+            margin-top: 0px !important;
+            margin-bottom: 0px !important;
+        }
+    </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static '/css/cliente.css' %}">
+</head>
+
+<body>
+
+
+    <div class="container-fluid" style={{ Cgef }}>
+     
+        <div class="row">
+        <h1 id="titulo">GEF</h1>
+            {% for val in datos %}
+
+                {% if val.12 == 'GEF' %}
+                {% comment %} <h1>indice: {{forloop.counter}} modulo: {{forloop.counter|modulo:4}}</h1> {% endcomment %}
+                    
+                    {% comment %} {% if forloop.counter == 1 or forloop.counter == 2 or forloop.counter == 3 or forloop.counter == 4  %} {% endcomment %}
+                        <div class="col col-lg-6 col-sm-6 ">
                             <div style="text-align: center;">
-                                <img src={{ val.9 }}> 
-                            </div> 
-                            <div class = "col-10">
-                            <p>
-                                <h5> {{ val.8 }}</h5>
+                                <img src={{ val.9 }}>
+                            </div>
+                            <div class="col-10">
+                                <p>
+                                <h5 style="height:40px"> {{ val.8 }}</h5>
                                 <hr>
                                 <h5>Categoria: {{ val.11 }}</h5>
                                 <hr>
                                 <h5>Material: {{ val.0 }} </h5>
                                 <hr>
-                                <h5>Composición: {{ val.13 }} </h5>
-                                <hr>
-                                <h5>Unidad de empaque: {{ val.1 }} </h5>
-                                <hr>
-                                <h5>Color: 
-                                {% for imagen in val.6  %}
-                                <img style="border-radius:50%; width:30px; height:30px;" src={{ imagen.icono_color }} >
-                                {% endfor %}
-                                </h5>
-                                <hr>
-                                <h5>Tallas: {{ val.7 }}</h5>
-                                <hr>
-                                <h3>Precio: $ {{ val.2 }}</h3>
-                                <hr>
-                            </p>   
-                        </div>
-                         </div>
-                    {% endif %}
-                    {% endfor %}
-                </div>    
-            </div>       
-            <div class="container-fluid" style = {{ CPb }}> 
-                <h1 id= "titulo">Punto Blanco</h1>
-                <div class = "row" >
-                    {% for val in datos %}
-                    {% if val.12 == 'PUNTO BLANCO' %}
-                        <div class="col col-lg-6 col-sm-6 " style = "height: 690px;">
-                            <div style="text-align: center;">
-                                <img src={{ val.9 }}> 
-                            </div> 
-                            <div class = "col-10">
-                            <p> 
-                                <h5>{{ val.8 }}</h5>
-                                <hr>
-                                <h5>Categoria: {{ val.11 }}</h5>
-                                <hr>
-                                <h5>Material: {{ val.0 }} </h5>
-                                <hr>
-                                <h5>Composición: {{ val.13 }} </h5>
-                                <hr>
-                                <h5>Unidad de empaque: {{ val.1 }} 
-                                <hr>
-                                <h5>Color:
-                                {% for imagen in val.6  %}
-                                <img style="border-radius:50%; width:20px; height:20px;" src={{ imagen.icono_color }}>
-                                {% endfor %}
-                                 </h5>
-                                <hr>
-                                </h5>
-                                <hr>
-                                <h5>Tallas: {{ val.7 }}</h5>
-                                <hr>
-                                <h3>Precio: $ {{ val.2 }}</h3>
-                                 <hr>
-                            </p>   
-                        </div>
-                         </div>
-                    {% endif %}
-                    {% endfor %}
-                </div>    
-            </div>
-            <div class="container-fluid" style = {{ Cbf }}> 
-                <h1 id= "titulo">Baby Fresh</h1>
-                <div class = "row">
-                    {% for val in datos %}
-                    {% if val.12 == 'BABY FRESH' %}
-                        <div class="col col-lg-6 col-sm-6 " style = "height: 690px;">
-                            <div style="text-align: center;">
-                                <img src={{ val.9 }}> 
-                            </div> 
-                            <div class = "col-10">
-                            <p>
-                                <h5>{{ val.8 }}</h5>
-                                <hr>
-                                <h5>Categoria: {{ val.11 }}</h5>
-                                <hr>
-                                <h5>Material: {{ val.0 }} </h5>
-                                <hr>
-                                <h5>Composición: {{ val.13 }} </h5>
+                                <h5 style="height:60px">Composición: {{ val.13 }} </h5>
                                 <hr>
                                 <h5>Unidad de empaque: {{ val.1 }} </h5>
                                 <hr>
                                 <h5>Color:
-                                {% for imagen in val.6  %}
-                                <img src={{ imagen.icono_color }} style="border-radius:50%; width:20px; height:20px;">
-                                {% endfor %}
+                                    {% for imagen in val.6  %}
+                                        {% if 'http' in imagen.icono_color %}
+                                            <img style="border-radius:50%; width:20px; height:20px;" src={{ imagen.icono_color }}>
+                                        {% endif %}
+                                    {% endfor %}
                                 </h5>
-                                <hr>
                                 <hr>
                                 <h5>Tallas: {{ val.7 }}</h5>
                                 <hr>
                                 <h3>Precio: $ {{ val.2 }}</h3>
-                                 <hr>
-                            </p>                                                  
-                        </div>
-                         </div>
-                    {% endif %}
-                    {% endfor %}
+                                <hr>
+                                </p>
+                            </div>
+                        </div>  
+                        {% if forloop.counter|modulo:4 == 0 %}
+                        <h1 id="titulo" style="margin-top:16px;">GEF</h1>
+                    {% endif %}                              
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+
+    {% if CPb == 'height:0.0px;'%}
+    <div class="container-fluid" style={{ CPb }}>
+        <h1 id="titulo">Punto Blanco</h1>
+        <div class="row">
+            {% for val in datos %}
+            {% if val.12 == 'PUNTO BLANCO' %}
+            <div class="col col-lg-6 col-sm-6 ">
+                <div style="text-align: center;">
+                    <img src={{ val.9 }}>
                 </div>
-            </div> 
-            <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-            <script> window.print() </script>
-        </body>
-        
+                <div class="col-10">
+                    <p>
+                    <h5>{{ val.8 }}</h5>
+                    <hr>
+                    <h5>Categoria: {{ val.11 }}</h5>
+                    <hr>
+                    <h5>Material: {{ val.0 }} </h5>
+                    <hr>
+                    <h5>Composición: {{ val.13 }} </h5>
+                    <hr>
+                    <h5>Unidad de empaque: {{ val.1 }}
+                        <hr>
+                        <h5>Color:
+                            {% for imagen in val.6  %}
+                            {% if 'http' in imagen.icono_color %}
+                            <img style="border-radius:50%; width:20px; height:20px;" src={{ imagen.icono_color }}>
+                            {% endif %}
+                            {% endfor %}
+                        </h5>
+                        <hr>
+                    </h5>
+                    <hr>
+                    <h5>Tallas: {{ val.7 }}</h5>
+                    <hr>
+                    <h3>Precio: $ {{ val.2 }}</h3>
+                    <hr>
+                    </p>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    {% if Cbf == 'height:0.0px;'%}
+    <div class="container-fluid" style={{ Cbf }}>
+        <h1 id="titulo">Baby Fresh</h1>
+        <div class="row">
+            {% for val in datos %}
+            {% if val.12 == 'BABY FRESH' %}
+            <div class="col col-lg-6 col-sm-6 ">
+                <div style="text-align: center;">
+                    <img src={{ val.9 }}>
+                </div>
+                <div class="col-10">
+                    <p>
+                    <h5>{{ val.8 }}</h5>
+                    <hr>
+                    <h5>Categoria: {{ val.11 }}</h5>
+                    <hr>
+                    <h5>Material: {{ val.0 }} </h5>
+                    <hr>
+                    <h5>Composición: {{ val.13 }} </h5>
+                    <hr>
+                    <h5>Unidad de empaque: {{ val.1 }} </h5>
+                    <hr>
+                    <h5>Color:
+                        {% for imagen in val.6  %}
+                        {% if 'http' in imagen.icono_color %}
+                        <img style="border-radius:50%; width:20px; height:20px;" src={{ imagen.icono_color }}>
+                        {% endif %}
+                        {% endfor %}
+                    </h5>
+                    <hr>
+                    <hr>
+                    <h5>Tallas: {{ val.7 }}</h5>
+                    <hr>
+                    <h3>Precio: $ {{ val.2 }}</h3>
+                    <hr>
+                    </p>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
+    <script> window.print() </script>
+</body>
+
 </html>

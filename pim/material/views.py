@@ -18,7 +18,7 @@ from rest_framework import viewsets
 from .serializar import MaterialSerializar
 import numpy as np
 from django.views.defaults import page_not_found
-
+from django.template.defaultfilters import linebreaksbr, urlize
 
 converts_helper=Converts()
 cloud=CloudImage()
@@ -30,7 +30,8 @@ class MaterialViewSet(viewsets.ModelViewSet):
 
 
 
-def index(request):    
+def index(request):  
+    Catalogo_temp.objects.all().delete()   
     return render(request,'index.html')
 
 def subida(request):
@@ -131,19 +132,18 @@ def Catalogoh(request):
         gefh=0#hojas gef
         for marca in can_marca:
             if marca[1]=='BABY FRESH':
-                bfh=converts_helper.numero_paginas_marca(int(marca[0]))*1500
+                bfh=(converts_helper.numero_paginas_marca(int(marca[0]))*1500)
                 pass
             elif marca[1]=='PUNTO BLANCO':
-                pbh=converts_helper.numero_paginas_marca(int(marca[0]))*1500
+                pbh=(converts_helper.numero_paginas_marca(int(marca[0]))*1500)
                 pass
             else:
-                gefh=converts_helper.numero_paginas_marca(int(marca[0]))*1500
+                gefh=(converts_helper.numero_paginas_marca(int(marca[0]))*1500)      
                 pass
-            
         datos=cloud.convertir_matriz(datos,['','','','','','','','','','IMAGEN_GRANDE'],280,358,'aatdtkgdoo')      
         return render(request,'catalogo.html',{'datos' : datos,'Cgef':'height:{}px;'.format(gefh),'CPb':'height:{}px;'.format(pbh),'Cbf':'height:{}px;'.format(bfh)})
     except Exception as e:        
-        import pdb ; pdb.set_trace()
+        
         if type(e) is KeyError:
             messages.error(request,'Recuerde que debe de conservar la estructura del archivo plano y este debe de estar separado por ;, error cerca a {}.'.format(e))   
         else :
@@ -155,7 +155,7 @@ def Catalogoh(request):
 def handler404_page(request):
     return render(request, '404.html', status=404)
     
-    
+
 
 def consultasql(sql):
     with connection.cursor() as cursor:
