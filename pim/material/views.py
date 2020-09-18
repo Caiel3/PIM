@@ -64,9 +64,15 @@ def subida(request):
             parametros.append(aux)                            
         pass             
     mi_archivo=request.FILES["archivo"] 
+    
     file = mi_archivo.read().decode('utf-8')
     reader = csv.DictReader(io.StringIO(file))
-    archivo = [line for line in reader]   
+    try:
+        archivo = [line for line in reader]    
+    except Exception as e:
+        messages.error(request,"Por favor valide bien la estructura del archivo, si el error persiste contacte con el administrador.")
+
+       
     vali=validacion(archivo,tipo)
     if vali:
         messages.error(request,vali)       
@@ -87,7 +93,7 @@ def subida(request):
         consulta='select distinct {} from material_materiales where ean in ({});'.format(string_campos,string_filtro)       
         consulta_descarga=Materiales.objects.values('ean','imagen_grande').filter(ean__in=vector_consulta_descarga)       
     #Guardarmos lo que se va a descargar en la base de datos por si se descarga
-   
+    
     Descarga.objects.all().delete()
     for valor in consulta_descarga:
         Descarga.objects.create(ean=valor['ean'],imagen_grande="https://{}.cloudimg.io/v7/{}?sharp=1&width={}&height={}".format('aatdtkgdoo',valor['imagen_grande'],ancho,largo))        
@@ -117,7 +123,7 @@ def Catalogoh(request):
             header_consulta_material.append(valor['Material'])
             pass               
 
-        consulta=('SELECT * FROM CATALOGO ORDER BY MARCA DESC, COLECCION DESC, DEPARTAMENTO DESC, TIPO_PRENDA DESC,DESCRIPCION_MATERIAL ASC ')        
+        consulta=('SELECT * FROM CATALOGO ORDER BY MARCA, COLECCION DESC, DEPARTAMENTO DESC, TIPO_PRENDA DESC,DESCRIPCION_MATERIAL ASC ')        
         datos=consultasql(consulta)
         consulta_temp=[]
         for dato in np.asarray(datos):
@@ -125,22 +131,23 @@ def Catalogoh(request):
             consulta_temp.append(dato)
         datos=consulta_temp
    
-        can_marca=np.asarray(consultasql('SELECT COUNT(MARCA) AS CANTIDAD,MARCA FROM RAM.CATALOGO GROUP BY MARCA'))
+        can_marca=np.asarray(consultasql(" SELECT COUNT(MARCA) AS CANTIDAD,MARCA FROM RAM.CATALOGO GROUP BY MARCA order by MARCA"))
         con=0
         bfh=0# hojas Baby fresh
         pbh=0#hojas Punto blanco
         gefh=0#hojas gef
-        for marca in can_marca:
+        for marca in can_marca:             
             if marca[1]=='BABY FRESH':
-                bfh=(converts_helper.numero_paginas_marca(int(marca[0]))*1500)
+                bfh=(converts_helper.numero_paginas_marca(int(marca[0])))                
                 pass
             elif marca[1]=='PUNTO BLANCO':
-                pbh=(converts_helper.numero_paginas_marca(int(marca[0]))*1500)
+                pbh=(converts_helper.numero_paginas_marca(int(marca[0])))+700
                 pass
             else:
-                gefh=(converts_helper.numero_paginas_marca(int(marca[0]))*1500)      
+                gefh=(converts_helper.numero_paginas_marca(int(marca[0])))      
                 pass        
-        datos=cloud.convertir_matriz(datos,['','','','','','','','','','IMAGEN_GRANDE'],280,358,'aatdtkgdoo')      
+        datos=cloud.convertir_matriz(datos,['','','','','','','','','','IMAGEN_GRANDE'],280,358,'aatdtkgdoo')   
+        
         return render(request,'catalogo.html',{'datos' : datos,'Cgef':'height:{}px;'.format(gefh),'CPb':'height:{}px;'.format(pbh),'Cbf':'height:{}px;'.format(bfh)})
     except Exception as e:        
         

@@ -46,12 +46,12 @@
 <body>
 
 {% if Cgef != 'height:0px;'  %}
-{{CPb}}
         <div class="container-fluid" style={{ Cgef }}>     
             <div class="row">
             <h1 id="titulo">GEF</h1>
                 {% for val in datos %}
-                    {% if val.12 == 'GEF' %}              
+                    {% if val.12 == 'GEF' %}
+                             
                             <div class="col col-lg-6 col-sm-6 ">
                                 <div style="text-align: center;">
                                     <img src={{ val.9 }}>
@@ -97,7 +97,8 @@
             <div class="row">
             <h1 id="titulo">Punto Blanco</h1>
                 {% for val in datos %}
-                    {% if val.12 == 'PUNTO BLANCO' %}              
+                    {% if val.12 == 'PUNTO BLANCO' %}    
+                    
                             <div class="col col-lg-6 col-sm-6 ">
                                 <div style="text-align: center;">
                                     <img src={{ val.9 }}>
@@ -130,19 +131,21 @@
                                 </div>
                             </div>  
                             {% if forloop.counter|modulo:4 == 0 and forloop.counter != datos|length %}
-                            <h1 id="titulo" style="margin-top:16px;">GEF</h1>
+                            <h1 id="titulo" style="margin-top:16px;">Punto Blanco</h1>
                         {% endif %}                              
                     {% endif %}
                 {% endfor %}
             </div>
         </div>
 {% endif %}
+
 {% if Cbf != 'height:0px;'  %}
-        <div class="container-fluid" style={{ CPb }}>     
+        <div class="container-fluid" style={{ Cbf }}>     
             <div class="row">
             <h1 id="titulo">Baby Fresh</h1>
                 {% for val in datos %}
-                    {% if val.12 == 'BABY FRESH'%}              
+                    {% if val.12 == 'BABY FRESH'%}   
+                      
                             <div class="col col-lg-6 col-sm-6 ">
                                 <div style="text-align: center;">
                                     <img src={{ val.9 }}>
@@ -175,7 +178,7 @@
                                 </div>
                             </div>  
                             {% if forloop.counter|modulo:4 == 0 and forloop.counter != datos|length %}
-                            <h1 id="titulo" style="margin-top:16px;">GEF</h1>
+                            <h1 id="titulo" style="margin-top:16px;">Baby Fresh</h1>
                         {% endif %}                              
                     {% endif %}
                 {% endfor %}

@@ -1,4 +1,5 @@
 from django.db import models
+from math import  floor
 class Converts(models.Model):
     
 
@@ -50,11 +51,11 @@ class Converts(models.Model):
         return vector_consulta
         pass
 
-    def numero_paginas_marca(self,cantidad_prendas):            
-        if (cantidad_prendas/4)>round(cantidad_prendas/4):
-            return round(cantidad_prendas/4)+1
+    def numero_paginas_marca(self,cantidad_prendas):  
+        if (cantidad_prendas/4)>floor(cantidad_prendas/4):
+            return ((floor (cantidad_prendas/4)+1)*1500)+700
             pass
         else:
-            return(cantidad_prendas/4)
+            return (cantidad_prendas/4)*1500
             pass
 

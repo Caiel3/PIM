@@ -25,12 +25,14 @@ class CloudImage(models.Model):
 
 
     def convertir_matriz(self,matriz,headers,ancho,largo,token):         
-        aux=np.asarray(matriz)        
-        headeraux=np.asarray(headers)
+        aux=matriz        
+        headeraux=np.asarray(headers)        
         auxreturn=[]
         con_filas=0      
+        posicioni=0
         if 'IMAGEN_GRANDE' in headeraux:
             posicion=np.where(headeraux=='IMAGEN_GRANDE')
+            posicioni=posicion[0]
             pass
         else:
             return matriz
@@ -38,12 +40,13 @@ class CloudImage(models.Model):
             while con_filas<len(aux):
                 for fila in aux:
                    
-                    url=str(fila[posicion])
-                    if '[None]' in url:  
+                    url=str(fila[posicioni[0]])
+                    if 'None' in url:  
                         val=''
                     else:                          
-                        val=self.cloudimg_imagen(url,{"width":ancho,"height":largo},token)   
-                    fila[posicion]= val.replace("['","").replace("']","")
+                        val=self.cloudimg_imagen(url,{"width":ancho,"height":largo},token)
+                    lista=list(fila)                    
+                    lista[posicioni[0]]=val
                     con_filas=con_filas+1    
                     auxreturn.append(fila)   
                                               
