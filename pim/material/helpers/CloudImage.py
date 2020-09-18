@@ -38,8 +38,7 @@ class CloudImage(models.Model):
             return matriz
         try:
             while con_filas<len(aux):
-                for fila in aux:
-                   
+                for fila in aux:                   
                     url=str(fila[posicioni[0]])
                     if 'None' in url:  
                         val=''
@@ -48,10 +47,9 @@ class CloudImage(models.Model):
                     lista=list(fila)                    
                     lista[posicioni[0]]=val
                     con_filas=con_filas+1    
-                    auxreturn.append(fila)   
-                                              
+                    auxreturn.append(lista)                                                 
                 pass
-            pass
+            pass           
         except Exception as e:
             print(e)
             pass
