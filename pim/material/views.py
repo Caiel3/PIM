@@ -199,3 +199,9 @@ def validacion(lista,tipo):
         return('El documento esta vacio por favor valide')
     pass
 
+def pdf(requets):
+    c=canvas.Canvas("Catalogo.pdf")
+    c.setLineWidth(.3)
+    c.setFont('Helvetica',14)
+    c.drawString(120,760,"Hola mundo")
+    c.line(120,700,590,747)
