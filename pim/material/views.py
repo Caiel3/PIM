@@ -123,7 +123,7 @@ def Catalogoh(request):
             header_consulta_material.append(valor['Material'])
             pass               
 
-        consulta=('SELECT * FROM CATALOGO ORDER BY MARCA, COLECCION DESC, DEPARTAMENTO DESC, TIPO_PRENDA DESC,DESCRIPCION_MATERIAL ASC ')        
+        consulta=('SELECT * FROM CATALOGO ORDER BY MARCA, GENERO,USO,TIPO_PRENDA')        
         datos=consultasql(consulta)
         consulta_temp=[]
         for dato in np.asarray(datos):
@@ -141,12 +141,12 @@ def Catalogoh(request):
                 bfh=(converts_helper.numero_paginas_marca(int(marca[0])))                
                 pass
             elif marca[1]=='PUNTO BLANCO':
-                pbh=(converts_helper.numero_paginas_marca(int(marca[0])))+700
+                pbh=(converts_helper.numero_paginas_marca(int(marca[0])))
                 pass
             else:
                 gefh=(converts_helper.numero_paginas_marca(int(marca[0])))      
                 pass        
-        datos=cloud.convertir_matriz(datos,['','','','','','','','','','IMAGEN_GRANDE'],280,358,'aatdtkgdoo')   
+        datos=cloud.convertir_matriz(datos,['','','','','','','','','','IMAGEN_GRANDE'],248,326,'aatdtkgdoo')   
         
         return render(request,'catalogo.html',{'datos' : datos,'Cgef':'height:{}px;'.format(gefh),'CPb':'height:{}px;'.format(pbh),'Cbf':'height:{}px;'.format(bfh)})
     except Exception as e:        
@@ -199,9 +199,3 @@ def validacion(lista,tipo):
         return('El documento esta vacio por favor valide')
     pass
 
-def pdf(requets):
-    c=canvas.Canvas("Catalogo.pdf")
-    c.setLineWidth(.3)
-    c.setFont('Helvetica',14)
-    c.drawString(120,760,"Hola mundo")
-    c.line(120,700,590,747)

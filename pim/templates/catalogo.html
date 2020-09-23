@@ -10,7 +10,7 @@
     <style>
         #titulo {
             width:100%;
-            margin: 5px;
+            margin: 3px;
             text-align: center;
             font-family: 'Times New Roman', Times, serif;
         }
@@ -48,109 +48,17 @@
 
 <body>
 
-{% if Cgef != 'height:0px;'  %}
-        <div class="container-fluid" style={{ Cgef }}>     
-            <div class="row">
-            <h1 id="titulo">GEF</h1>
-                {% for val in datos %}
-                    {% if val.12 == 'GEF' %}
-                             
-                            <div class="col col-lg-6 col-sm-6 ">
-                                <div style="text-align: center;">
-                                    <img src={{ val.9 }}>
-                                </div>
-                                <div class="col-10">
-                                    <p>
-                                    <h5 style="height:40px"> {{ val.8 }}</h5>
-                                    <hr>
-                                    <h5>Categoria: {{ val.11 }}</h5>
-                                    <hr>
-                                    <h5>Material: {{ val.0 }} </h5>
-                                    <hr>
-                                    <h5 style="height:60px">Composición: {{ val.13 }} </h5>
-                                    <hr>
-                                    <h5>Unidad de empaque: {{ val.1 }} </h5>
-                                    <hr>
-                                    <h5>Color:
-                                        {% for imagen in val.6  %}
-                                            {% if 'http' in imagen.icono_color %}
-                                                <img style="border-radius:50%; width:20px; height:20px;" src={{ imagen.icono_color }}>
-                                            {% endif %}
-                                        {% endfor %}
-                                    </h5>
-                                    <hr>
-                                    <h5>Tallas: {{ val.7 }}</h5>
-                                    <hr>
-                                    <h3>Precio: $ {{ val.2 }}</h3>
-                                    <hr>
-                                    </p>
-                                </div>
-                            </div>  
-                            {% if forloop.counter|modulo:4 == 0 and forloop.counter != datos|length %}
-                            <h1 id="titulo" style="margin-top:16px;">GEF</h1>
-                        {% endif %}                              
-                    {% endif %}
-                {% endfor %}
-            </div>
-        </div>
-{% endif %}
-
-{% if CPb != 'height:0px;'  %}
-        <div class="container-fluid" style={{ CPb }}>     
-            <div class="row">
-            <h1 id="titulo">Punto Blanco</h1>
-                {% for val in datos %}
-                    {% if val.12 == 'PUNTO BLANCO' %}    
-                    
-                            <div class="col col-lg-6 col-sm-6 ">
-                                <div style="text-align: center;">
-                                    <img src={{ val.9 }}>
-                                </div>
-                                <div class="col-10">
-                                    <p>
-                                    <h5 style="height:40px"> {{ val.8 }}</h5>
-                                    <hr>
-                                    <h5>Categoria: {{ val.11 }}</h5>
-                                    <hr>
-                                    <h5>Material: {{ val.0 }} </h5>
-                                    <hr>
-                                    <h5 style="height:60px">Composición: {{ val.13 }} </h5>
-                                    <hr>
-                                    <h5>Unidad de empaque: {{ val.1 }} </h5>
-                                    <hr>
-                                    <h5>Color:
-                                        {% for imagen in val.6  %}
-                                            {% if 'http' in imagen.icono_color %}
-                                                <img style="border-radius:50%; width:20px; height:20px;" src={{ imagen.icono_color }}>
-                                            {% endif %}
-                                        {% endfor %}
-                                    </h5>
-                                    <hr>
-                                    <h5>Tallas: {{ val.7 }}</h5>
-                                    <hr>
-                                    <h3>Precio: $ {{ val.2 }}</h3>
-                                    <hr>
-                                    </p>
-                                </div>
-                            </div>  
-                            {% if forloop.counter|modulo:4 == 0 and forloop.counter != datos|length %}
-                            <h1 id="titulo" style="margin-top:16px;">Punto Blanco</h1>
-                        {% endif %}                              
-                    {% endif %}
-                {% endfor %}
-            </div>
-        </div>
-{% endif %}
-
 {% if Cbf != 'height:0px;'  %}
         <div class="container-fluid" style={{ Cbf }}>     
             <div class="row">
-            <h1 id="titulo">Baby Fresh</h1>
+                <div style="width: 100%;border-bottom: 1px solid grey;">
+                    <img id="titulo" style="height:60px; width: 240px;margin-bottom:2px;" src="https://tienda.babyfresh.com.co/wcsstore/DefaultStorefrontAssetStore8/images/BBF/LOGO/Logo-BF-tienda-virtuales-FEP-8.png">
+                </div>
                 {% for val in datos %}
                     {% if val.12 == 'BABY FRESH'%}   
                       
                             <div class="col col-lg-6 col-sm-6 ">
-                                <div style="text-align: center;">
+                                <div style="text-align: center;margin-top: 7.5px;">
                                     <img src={{ val.9 }}>
                                 </div>
                                 <div class="col-10">
@@ -163,9 +71,9 @@
                                     <hr>
                                     <h5 style="height:60px">Composición: {{ val.13 }} </h5>
                                     <hr>
-                                    <h5>Unidad de empaque: {{ val.1 }} </h5>
+                                    <h5>Unidad de empaque: {{ val.1 }}l:{{forloop.counter}} </h5>
                                     <hr>
-                                    <h5>Color:
+                                    <h5 style="height:40px">Color:
                                         {% for imagen in val.6  %}
                                             {% if 'http' in imagen.icono_color %}
                                                 <img style="border-radius:50%; width:20px; height:20px;" src={{ imagen.icono_color }}>
@@ -173,7 +81,7 @@
                                         {% endfor %}
                                     </h5>
                                     <hr>
-                                    <h5>Tallas: {{ val.7 }}</h5>
+                                    <h5 style="height:40px">Tallas: {{ val.7 }}</h5>
                                     <hr>
                                     <h3>Precio: $ {{ val.2 }}</h3>
                                     <hr>
@@ -181,13 +89,119 @@
                                 </div>
                             </div>  
                             {% if forloop.counter|modulo:4 == 0 and forloop.counter != datos|length %}
-                            <h1 id="titulo" style="margin-top:16px;">Baby Fresh</h1>
+                            <div style="width: 100%;border-bottom: 1px solid grey;">
+                                <img id="titulo" style="height:60px; width: 240px;margin-bottom:2px;" src="https://tienda.babyfresh.com.co/wcsstore/DefaultStorefrontAssetStore8/images/BBF/LOGO/Logo-BF-tienda-virtuales-FEP-8.png">
+                            </div>
                         {% endif %}                              
                     {% endif %}
                 {% endfor %}
             </div>
         </div>
 {% endif %}
+
+{% if Cgef != 'height:0px;'  %}
+        <div class="container-fluid" style={{ Cgef }}>     
+            <div class="row">
+            <div style="width: 100%;border-bottom: 1px solid grey;">
+                <img id="titulo" style="height:60px; width: 69px;margin-bottom:2px;" src="https://www.gef.com.co/wcsstore/CrystalCo/images/GEF/CABECERA/logo_gef.png">
+            </div>
+                
+                {% for val in datos %}
+                    {% if val.12 == 'GEF' %}
+                             
+                            <div class="col col-lg-6 col-sm-6 ">
+                                <div style="text-align: center; margin-top: 3.5px;">
+                                    <img src={{ val.9 }}>
+                                </div>
+                                <div class="col-10">
+                                    <p>
+                                    <h5 style="height:40px"> {{ val.8 }}</h5>
+                                    <hr>
+                                    <h5>Categoria: {{ val.11 }}</h5>
+                                    <hr>
+                                    <h5>Material: {{ val.0 }} </h5>
+                                    <hr>
+                                    <h5 style="height:60px">Composición: {{ val.13 }} </h5>
+                                    <hr>
+                                    <h5>Unidad de empaque: {{ val.1 }} l:{{forloop.counter}} </h5>
+                                    <hr>
+                                    <h5 style="height:40px">Color:
+                                        {% for imagen in val.6  %}
+                                            {% if 'http' in imagen.icono_color %}
+                                                <img style="border-radius:50%; width:20px; height:20px;" src={{ imagen.icono_color }}>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </h5>
+                                    <hr>
+                                    <h5 style="height:40px">Tallas: {{ val.7 }}</h5>
+                                    <hr>
+                                    <h3>Precio: $ {{ val.2 }}</h3>
+                                    <hr>
+                                    </p>
+                                </div>
+                            </div>  
+                            {% if forloop.counter|modulo:4 == 0 and forloop.counter != datos|length %}
+                            <div style="width: 100%;border-bottom: 1px solid grey;">
+                                <img id="titulo" style="height:60px; width: 69px;margin-bottom:2px;" src="https://www.gef.com.co/wcsstore/CrystalCo/images/GEF/CABECERA/logo_gef.png">
+                            </div>
+                        {% endif %}                              
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+{% endif %}
+{% if CPb != 'height:0px;'  %}
+        <div class="container-fluid" style={{ CPb }}>     
+            <div class="row">
+            <div style="width: 100%;border-bottom: 1px solid grey;">
+                <img id="titulo" style="height:60px; width: 240px;margin-bottom:2px;" src="https://www.puntoblanco.com.co/wcsstore/DefaultStorefrontAssetStore8/images/PBC/HOMEPAGE/2016/06_JUNIO/SEMANA_24/logo_PBC.jpg">
+            </div>
+                
+                {% for val in datos %}
+                    {% if val.12 == 'PUNTO BLANCO' %}
+                             
+                            <div class="col col-lg-6 col-sm-6 ">
+                                <div style="text-align: center; margin-top: 3.5px;">
+                                    <img src={{ val.9 }}>
+                                </div>
+                                <div class="col-10">
+                                    <p>
+                                    <h5 style="height:40px"> {{ val.8 }}</h5>
+                                    <hr>
+                                    <h5>Categoria: {{ val.11 }}</h5>
+                                    <hr>
+                                    <h5>Material: {{ val.0 }} </h5>
+                                    <hr>
+                                    <h5 style="height:60px">Composición: {{ val.13 }} </h5>
+                                    <hr>
+                                    <h5>Unidad de empaque: {{ val.1 }}l:{{forloop.counter}} </h5>
+                                    <hr>
+                                    <h5 style="height:40px">Color:
+                                        {% for imagen in val.6  %}
+                                            {% if 'http' in imagen.icono_color %}
+                                                <img style="border-radius:50%; width:20px; height:20px;" src={{ imagen.icono_color }}>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </h5>
+                                    <hr>
+                                    <h5 style="height:40px">Tallas: {{ val.7 }}</h5>
+                                    <hr>
+                                    <h3>Precio: $ {{ val.2 }}</h3>
+                                    <hr>
+                                    </p>
+                                </div>
+                            </div>  
+                            {% if forloop.counter|modulo:4 == 0 and forloop.counter != datos|length %}
+                            <div style="width: 100%;border-bottom: 1px solid grey;">
+                                <img id="titulo" style="height:60px; width: 240px;margin-bottom:2px;" src="https://www.puntoblanco.com.co/wcsstore/DefaultStorefrontAssetStore8/images/PBC/HOMEPAGE/2016/06_JUNIO/SEMANA_24/logo_PBC.jpg">
+                            </div>
+                        {% endif %}                              
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+{% endif %}
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
