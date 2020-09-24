@@ -53,9 +53,9 @@ class Converts(models.Model):
 
     def numero_paginas_marca(self,cantidad_prendas):          
         if (cantidad_prendas/4)>floor(cantidad_prendas/4):
-            return ((floor (cantidad_prendas/4)+1)*1511.2)
+            return ((floor (cantidad_prendas/4)+1)*1511.5)
             pass
         else:
-            return (cantidad_prendas/4)*1500
+            return (cantidad_prendas/4)*1511.5
             pass
 

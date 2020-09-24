@@ -123,14 +123,17 @@ def Catalogoh(request):
             header_consulta_material.append(valor['Material'])
             pass               
 
-        consulta=('SELECT * FROM CATALOGO ORDER BY MARCA, GENERO,USO,TIPO_PRENDA')        
+        """ consulta=('SELECT * FROM CATALOGO ORDER BY MARCA, GENERO,USO,TIPO_PRENDA')        
         datos=consultasql(consulta)
         consulta_temp=[]
         for dato in np.asarray(datos):
             dato[6]=[a for a in MysqlColores.objects.filter(material=dato[0]).values('icono_color')]
             consulta_temp.append(dato)
-        datos=consulta_temp
-   
+        datos=consulta_temp """
+        """ 26 px de diferencia en la tercera marca """
+        datosGEF=consulta_marca_catalogo('GEF')
+        datosBF=consulta_marca_catalogo('BABY FRESH')
+        datosPB=consulta_marca_catalogo('PUNTO BLANCO')
         can_marca=np.asarray(consultasql(" SELECT COUNT(MARCA) AS CANTIDAD,MARCA FROM RAM.CATALOGO GROUP BY MARCA order by MARCA"))
         con=0
         bfh=0# hojas Baby fresh
@@ -146,9 +149,9 @@ def Catalogoh(request):
             else:
                 gefh=(converts_helper.numero_paginas_marca(int(marca[0])))      
                 pass        
-        datos=cloud.convertir_matriz(datos,['','','','','','','','','','IMAGEN_GRANDE'],248,326,'aatdtkgdoo')   
-        
-        return render(request,'catalogo.html',{'datos' : datos,'Cgef':'height:{}px;'.format(gefh),'CPb':'height:{}px;'.format(pbh),'Cbf':'height:{}px;'.format(bfh)})
+        """ datos=cloud.convertir_matriz(datos,['','','','','','','','','','IMAGEN_GRANDE'],248,326,'aatdtkgdoo') """   
+                
+        return render(request,'catalogo.html',{'datosGEF' : datosGEF,'datosPB' : datosPB,'datosBF' : datosBF,'Cgef':'height:{}px;'.format(gefh),'CPb':'height:{}px;'.format(pbh),'Cbf':'height:{}px;'.format(bfh)})
     except Exception as e:        
         
         if type(e) is KeyError:
@@ -161,6 +164,17 @@ def Catalogoh(request):
 def handler404_page(request):
     return render(request, '404.html', status=404)
     
+def consulta_marca_catalogo(marca):
+    consulta=("SELECT * FROM CATALOGO WHERE MARCA='{}'ORDER BY MARCA, GENERO,USO,TIPO_PRENDA").format(marca)
+    datos=consultasql(consulta)
+    consulta_temp=[]
+    for dato in np.asarray(datos):
+        dato[6]=[a for a in MysqlColores.objects.filter(material=dato[0]).values('icono_color')]
+        consulta_temp.append(dato)
+    datos=consulta_temp
+    datos=cloud.convertir_matriz(datos,['','','','','','','','','','IMAGEN_GRANDE'],248,326,'aatdtkgdoo')
+    return datos
+
 
 
 def consultasql(sql):
