@@ -19,6 +19,10 @@ from .serializar import MaterialSerializar
 import numpy as np
 from django.views.defaults import page_not_found
 from django.template.defaultfilters import linebreaksbr, urlize
+from reportlab.lib.units import inch 
+from reportlab.platypus import Paragraph
+from  reportlab.lib.styles import ParagraphStyle
+from reportlab.lib.enums import TA_CENTER
 
 converts_helper=Converts()
 cloud=CloudImage()
@@ -122,14 +126,7 @@ def Catalogoh(request):
         for valor in archivo:
             header_consulta_material.append(valor['Material'])
             pass               
-
-        """ consulta=('SELECT * FROM CATALOGO ORDER BY MARCA, GENERO,USO,TIPO_PRENDA')        
-        datos=consultasql(consulta)
-        consulta_temp=[]
-        for dato in np.asarray(datos):
-            dato[6]=[a for a in MysqlColores.objects.filter(material=dato[0]).values('icono_color')]
-            consulta_temp.append(dato)
-        datos=consulta_temp """
+       
         """ 26 px de diferencia en la tercera marca """
         datosGEF=consulta_marca_catalogo('GEF')
         datosBF=consulta_marca_catalogo('BABY FRESH')
@@ -139,17 +136,21 @@ def Catalogoh(request):
         bfh=0# hojas Baby fresh
         pbh=0#hojas Punto blanco
         gefh=0#hojas gef
+        cantidad_marcas=consultasql("SELECT COUNT(*) FROM ( SELECT COUNT(MARCA) AS CANTIDAD,MARCA FROM RAM.CATALOGO GROUP BY MARCA order by MARCA) CAM")
+        can=[li for li in cantidad_marcas]
+        
         for marca in can_marca:             
             if marca[1]=='BABY FRESH':
                 bfh=(converts_helper.numero_paginas_marca(int(marca[0])))                
                 pass
             elif marca[1]=='PUNTO BLANCO':
-                pbh=(converts_helper.numero_paginas_marca(int(marca[0])))
-                pass
-            else:
-                gefh=(converts_helper.numero_paginas_marca(int(marca[0])))      
-                pass        
-        """ datos=cloud.convertir_matriz(datos,['','','','','','','','','','IMAGEN_GRANDE'],248,326,'aatdtkgdoo') """   
+                pbh=(converts_helper.numero_paginas_marca(int(marca[0])))                
+            else:                
+                gefh=(converts_helper.numero_paginas_marca(int(marca[0])))            
+                if can[0][0]==3:
+                    gefh=gefh-26
+                
+                pass                  
                 
         return render(request,'catalogo.html',{'datosGEF' : datosGEF,'datosPB' : datosPB,'datosBF' : datosBF,'Cgef':'height:{}px;'.format(gefh),'CPb':'height:{}px;'.format(pbh),'Cbf':'height:{}px;'.format(bfh)})
     except Exception as e:        
@@ -165,7 +166,7 @@ def handler404_page(request):
     return render(request, '404.html', status=404)
     
 def consulta_marca_catalogo(marca):
-    consulta=("SELECT * FROM CATALOGO WHERE MARCA='{}'ORDER BY MARCA, GENERO,USO,TIPO_PRENDA").format(marca)
+    consulta=("SELECT * FROM CATALOGO WHERE MARCA='{}'ORDER BY MARCA, GENERO,DEPARTAMENTO,USO,TIPO_PRENDA").format(marca)
     datos=consultasql(consulta)
     consulta_temp=[]
     for dato in np.asarray(datos):
@@ -213,3 +214,141 @@ def validacion(lista,tipo):
         return('El documento esta vacio por favor valide')
     pass
 
+def reportenuevo(request):
+    
+    footers=["https://www.puntoblanco.com.co/wcsstore/DefaultStorefrontAssetStore8/images/PBC/HOMEPAGE/2016/06_JUNIO/SEMANA_24/logo_PBC.jpg"
+            ,"https://www.gef.com.co/wcsstore/CrystalCo/images/GEF/CABECERA/logo_gef.png"
+            ,"https://tienda.babyfresh.com.co/wcsstore/DefaultStorefrontAssetStore8/images/BBF/LOGO/Logo-BF-tienda-virtuales-FEP-8.png"    ]
+    doc = canvas.Canvas("Hola Mundo.pdf")
+    doc.setPageSize((1190,1690))   
+    encabezado(doc,footers[0])
+    print(A4)
+    
+    """     p = ParagraphStyle('test')
+    p.textColor = 'black'
+    
+    p.borderWidth = 0.1
+    p.alignment = TA_CENTER
+    p.fontSize = 14
+    p2 = ParagraphStyle('test')
+    p2.textColor = 'black'
+    p2.borderColor = 'black'
+    p2.borderWidth = 0.1
+    p2.alignment = TA_CENTER
+    p2.fontSize = 18
+
+
+    doc.drawImage("https://aatdtkgdoo.cloudimg.io/v7/http://tienda.babyfresh.com.co/wcsstore/CrystalCo_CAT_AS//BBF/ES-CO/Imagenes/Unisex/Accesorios/Osito/566x715/Osito-Peluche-8217-Frente-Baby-Fresh.jpg?sharp=1&width=248&height=326",20,1299)
+
+    #Nombre
+    nom = Paragraph("Peluche Osito Habano Peluche Osito Habano", p)
+    nom.wrapOn(doc,248,0)
+    nom.drawOn(doc,20,1300)1300
+    doc.line(20,1296,248,1296)-4
+    #Categoria
+    cat = Paragraph("Categoria: {}".format('None'), p)
+    cat.wrapOn(doc,248,0)
+    cat.drawOn(doc,20,1280)-20
+    doc.line(20,1276,248,1276)-24
+    #Material
+    mat = Paragraph("Material: {}".format('602537'), p)
+    mat.wrapOn(doc,248,0)
+    mat.drawOn(doc,20,1263)-37
+    doc.line(20,1259,248,1259)-41
+    #Composición
+    mat = Paragraph("composicion: {}".format('100% POLIESTER'), p)
+    mat.wrapOn(doc,248,0)
+    mat.drawOn(doc,20,1218)-82
+    doc.line(20,1215,248,1215)-85
+    #Unidad de empaque
+    un = Paragraph("Unidad de empaque: {}".format('1'), p)
+    un.wrapOn(doc,248,0)
+    un.drawOn(doc,20,1201)-99
+    doc.line(20,1197,248,1197)-103
+    #Color
+    col = Paragraph("Colores: {}".format(''), p)
+    col.wrapOn(doc,248,0)
+    col.drawOn(doc,20,1169)-131
+    doc.line(20,1625,248,1665)-135
+    #Tallas
+    talla = Paragraph("Tallas: {}".format('UNICA'), p)
+    talla.wrapOn(doc,248,0)
+    talla.drawOn(doc,20,1138)-162
+    doc.line(20,1135,248,1135)-165
+    #Precio
+    pre = Paragraph("Precio: {}".format('$ 82.992'), p2)
+    pre.wrapOn(doc,248,0)
+    pre.drawOn(doc,20,1120)-180
+    """
+    item(20,248,0,1300,doc)
+    """ item(300,248,0,1300,doc)
+    item(20,248,0,400,doc)
+    item(300,248,0,400,doc) """
+#Guardamos el documento
+    doc.save()
+
+
+def encabezado(doc,marca):
+    doc.drawImage(marca,1,1630,240,60)
+    doc.line(2,1628,1188,1628)
+
+
+def item(x,y,ix,iy,doc):
+    doc.drawImage("https://aatdtkgdoo.cloudimg.io/v7/http://tienda.babyfresh.com.co/wcsstore/CrystalCo_CAT_AS//BBF/ES-CO/Imagenes/Unisex/Accesorios/Osito/566x715/Osito-Peluche-8217-Frente-Baby-Fresh.jpg?sharp=1&width=248&height=326",x,iy-1)
+    
+    p = ParagraphStyle('test')
+    p.textColor = 'black'
+    
+    p.borderWidth = 0.1
+    p.alignment = TA_CENTER
+    p.borderColor = 'black'
+    p.fontSize = 14
+    p2 = ParagraphStyle('test')
+    p2.textColor = 'black'
+    p2.borderColor = 'black'
+    p2.borderWidth = 0.1
+    p2.alignment = TA_CENTER
+    p2.fontSize = 18
+
+
+    doc.drawImage("https://aatdtkgdoo.cloudimg.io/v7/http://tienda.babyfresh.com.co/wcsstore/CrystalCo_CAT_AS//BBF/ES-CO/Imagenes/Unisex/Accesorios/Osito/566x715/Osito-Peluche-8217-Frente-Baby-Fresh.jpg?sharp=1&width=248&height=326",20,1299)
+
+    #Nombre
+    nom = Paragraph("Peluche Osito Habano Peluche Osito Habano", p)
+    nom.wrapOn(doc,y,0)
+    nom.drawOn(doc,x,iy)
+    doc.line(x,iy-4,y,iy-4)
+    #Categoria
+    cat = Paragraph("Categoria: {}".format('None'), p)
+    cat.wrapOn(doc,y,0)
+    cat.drawOn(doc,x,iy-20)
+    doc.line(x,iy-24,y,iy-24)
+    #Material
+    mat = Paragraph("Material: {}".format('602537'), p)
+    mat.wrapOn(doc,y,0)
+    mat.drawOn(doc,x,iy-37)
+    doc.line(x,iy-41,y,iy-41)
+    #Composición
+    mat = Paragraph("Composicion: {}".format('100% POLIESTER'), p)
+    mat.wrapOn(doc,y,0)
+    mat.drawOn(doc,x,iy-82)
+    doc.line(x,iy-85,y,iy-85)
+    #Unidad de empaque
+    un = Paragraph("Unidad de empaque: {}".format('1'), p)
+    un.wrapOn(doc,y,0)
+    un.drawOn(doc,x,iy-99)
+    doc.line(x,iy-103,y,iy-103)
+    #Color
+    col = Paragraph("Colores: {}".format(''), p)
+    col.wrapOn(doc,y,0)
+    col.drawOn(doc,x,iy-131)
+    doc.line(x,iy-135,y,iy-135)
+    #Tallas
+    talla = Paragraph("Tallas: {}".format('UNICA'), p)
+    talla.wrapOn(doc,y,0)
+    talla.drawOn(doc,x,iy-162)
+    doc.line(x,iy-165,y,iy-165)
+    #Precio
+    pre = Paragraph("Precio: {}".format('$ 82.992'), p2)
+    pre.wrapOn(doc,y,0)
+    pre.drawOn(doc,x,iy-180)
