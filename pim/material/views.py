@@ -69,7 +69,7 @@ def subida(request):
         pass             
     mi_archivo=request.FILES["archivo"] 
     
-    file = mi_archivo.read().decode('utf-8')
+    file = mi_archivo.read().decode('utf-8-sig')
     reader = csv.DictReader(io.StringIO(file))
     try:
         archivo = [line for line in reader]    
@@ -110,16 +110,15 @@ def subida(request):
 
 def Catalogoh(request):
     mi_archivo=request.FILES["archivo"]     
-    files = mi_archivo.read().decode('latin1')
+    files = mi_archivo.read().decode('utf-8-sig')   
     reader = csv.DictReader(io.StringIO(files),fieldnames=None,delimiter=';')
-    archivo = [line for line in reader]  
-
+    archivo = [line for line in reader]     
     try:          
          #insertamos temporamente datos en una tabla para despues traerlos ordenados de una manera mas cesilla
         carga_temp=[line for line in archivo]    
         Catalogo_temp.objects.all().delete()          
         for dato in carga_temp:        
-            Catalogo_temp.objects.create(material=dato['Material'],unidad_empaque=dato['Unidad de empaque'],coleccion=dato['Colección'],precio=dato['Precio'],moneda=dato['Moneda'],pais=dato['Pais'])
+            Catalogo_temp.objects.create(material=dato['Material'],unidad_empaque=dato['Unidad de empaque'],coleccion=dato['Colección'],precio=dato['Precio'],moneda='',pais=dato['Pais'])
 
         
         header_consulta_material=[]
@@ -152,12 +151,13 @@ def Catalogoh(request):
                 
                 pass                  
                 
-        return render(request,'catalogo.html',{'datosGEF' : datosGEF,'datosPB' : datosPB,'datosBF' : datosBF,'Cgef':'height:{}px;'.format(gefh),'CPb':'height:{}px;'.format(pbh),'Cbf':'height:{}px;'.format(bfh)})
+        return render(request,'catalogo.html',{'datosGEF' : datosGEF,'datosPB' : datosPB,'datosBF' : datosBF,'Cgef':'height:{}px;'.format(gefh),'CPb':'height:{}px;'.format(pbh),'Cbf':'height:{}px;'.format(bfh),'moneda':dato['Moneda']})
     except Exception as e:        
-        
         if type(e) is KeyError:
             messages.error(request,'Recuerde que debe de conservar la estructura del archivo plano y este debe de estar separado por ;, error cerca a {}.'.format(e))   
-        else :
+        elif "PRIMARY" in str(e):
+            messages.error(request,'Hay un material duplicado, recuerde que deben ser unicos')
+        else:
             messages.error(request,'Ocurrio un error inesperado, por favor contacte con Helpy y proporcione este error; {}'.format(e))         
             
         return render(request,'index.html')  
@@ -165,13 +165,14 @@ def Catalogoh(request):
 def handler404_page(request):
     return render(request, '404.html', status=404)
     
-def consulta_marca_catalogo(marca):
-    consulta=("SELECT * FROM CATALOGO WHERE MARCA='{}'ORDER BY MARCA, GENERO,DEPARTAMENTO,USO,TIPO_PRENDA").format(marca)
+def consulta_marca_catalogo(marca):    
+    consulta=("SELECT * FROM CATALOGO WHERE MARCA='{}'ORDER BY MARCA,cast(PAIS as unsigned)").format(marca)
     datos=consultasql(consulta)
     consulta_temp=[]
     for dato in np.asarray(datos):
-        dato[6]=[a for a in MysqlColores.objects.filter(material=dato[0]).values('icono_color')]
-        consulta_temp.append(dato)
+        if MysqlColores.objects.filter(material=dato[0]).values('icono_color'):
+            dato[6]=[a for a in MysqlColores.objects.filter(material=dato[0]).values('icono_color')]
+            consulta_temp.append(dato)        
     datos=consulta_temp
     datos=cloud.convertir_matriz(datos,['','','','','','','','','','IMAGEN_GRANDE'],248,326,'aatdtkgdoo')
     return datos
