@@ -12,6 +12,7 @@ pip install reportlab
 pip install requests
 pip install djangorestframework
 pip install django-cors-header
+pip install pymysql
 
 
 PROYECTO Y APLICACIONES_____________
