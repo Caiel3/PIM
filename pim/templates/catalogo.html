@@ -52,7 +52,7 @@
         <div class="container-fluid" style={{ Cbf }}>     
             <div class="row">
                 <div style="width: 100%;border-bottom: 1px solid grey;">
-                    <img id="titulo" style="height:60px; width: 240px;margin-bottom:2px;" src="https://tienda.babyfresh.com.co/wcsstore/DefaultStorefrontAssetStore8/images/BBF/LOGO/Logo-BF-tienda-virtuales-FEP-8.png">
+                    <img id="titulo" style="height:60px; width: 240px;margin-bottom:2px;" src={{logo_bf}}>
                 </div>
                 {% for val in datosBF %}
                     {% if val.12 == 'BABY FRESH'%}   
@@ -90,7 +90,7 @@
                             </div>  
                             {% if forloop.counter|modulo:4 == 0 and forloop.counter != datos|length %}
                             <div style="width: 100%;border-bottom: 1px solid grey;">
-                                <img id="titulo" style="height:60px; width: 240px;margin-bottom:2px;" src="https://tienda.babyfresh.com.co/wcsstore/DefaultStorefrontAssetStore8/images/BBF/LOGO/Logo-BF-tienda-virtuales-FEP-8.png">
+                                <img id="titulo" style="height:60px; width: 240px;margin-bottom:2px;" src={{logo_bf}}>
                             </div>
                         {% endif %}                              
                     {% endif %}
@@ -103,7 +103,7 @@
         <div class="container-fluid" style={{ Cgef }}>     
             <div class="row">
             <div style="width: 100%;border-bottom: 1px solid grey;">
-                <img id="titulo" style="height:60px; width: 69px;margin-bottom:2px;" src="https://www.gef.com.co/wcsstore/CrystalCo/images/GEF/CABECERA/logo_gef.png">
+                <img id="titulo" style="height:60px; width: 69px;margin-bottom:2px;" src={{logo_gef}}>
             </div>
                 
                 {% for val in datosGEF %}
@@ -142,7 +142,7 @@
                             </div>  
                             {% if forloop.counter|modulo:4 == 0 and forloop.counter != datos|length %}
                             <div style="width: 100%;border-bottom: 1px solid grey;">
-                                <img id="titulo" style="height:60px; width: 69px;margin-bottom:2px;" src="https://www.gef.com.co/wcsstore/CrystalCo/images/GEF/CABECERA/logo_gef.png">
+                                <img id="titulo" style="height:60px; width: 69px;margin-bottom:2px;" src={{logo_gef}}}>
                             </div>
                         {% endif %}                              
                     {% endif %}
@@ -154,7 +154,7 @@
         <div class="container-fluid" style={{ CPb }}>     
             <div class="row">
             <div style="width: 100%;border-bottom: 1px solid grey;">
-                <img id="titulo" style="height:60px; width: 240px;margin-bottom:2px;" src="https://www.puntoblanco.com.co/wcsstore/DefaultStorefrontAssetStore8/images/PBC/HOMEPAGE/2016/06_JUNIO/SEMANA_24/logo_PBC.jpg">
+                <img id="titulo" style="height:60px; width: 240px;margin-bottom:2px;" src={{logo_pb}}>
             </div>
                 
                 {% for val in datosPB %}
@@ -193,7 +193,7 @@
                             </div>  
                             {% if forloop.counter|modulo:4 == 0 and forloop.counter != datos|length %}
                             <div style="width: 100%;border-bottom: 1px solid grey;">
-                                <img id="titulo" style="height:60px; width: 240px;margin-bottom:2px;" src="https://www.puntoblanco.com.co/wcsstore/DefaultStorefrontAssetStore8/images/PBC/HOMEPAGE/2016/06_JUNIO/SEMANA_24/logo_PBC.jpg">
+                                <img id="titulo" style="height:60px; width: 240px;margin-bottom:2px;" src={{logo_pb}}>
                             </div>
                         {% endif %}                              
                     {% endif %}

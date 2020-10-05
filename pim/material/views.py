@@ -150,7 +150,18 @@ def Catalogoh(request):
                 
                 pass                  
                 
-        return render(request,'catalogo.html',{'datosGEF' : datosGEF,'datosPB' : datosPB,'datosBF' : datosBF,'Cgef':'height:{}px;'.format(gefh),'CPb':'height:{}px;'.format(pbh),'Cbf':'height:{}px;'.format(bfh),'moneda':dato['Moneda']})
+        return render(
+            request,'catalogo.html',
+            {'datosGEF' : datosGEF,
+            'datosPB' : datosPB,
+            'datosBF' : datosBF,
+            'Cgef':'height:{}px;'.format(gefh),
+            'CPb':'height:{}px;'.format(pbh),
+            'Cbf':'height:{}px;'.format(bfh),
+            'moneda':dato['Moneda'],
+            'logo_gef':Claves.get_secret('LOGO_GEF'),
+            'logo_pb':Claves.get_secret('LOGO_PB'),
+            'logo_bf':Claves.get_secret('LOGO_BF')})
     except Exception as e:        
         if type(e) is KeyError:
             messages.error(request,'Recuerde que debe de conservar la estructura del archivo plano y este debe de estar separado por ;, error cerca a {}.'.format(e))   
