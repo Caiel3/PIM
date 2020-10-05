@@ -23,6 +23,8 @@ from reportlab.lib.units import inch
 from reportlab.platypus import Paragraph
 from  reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.enums import TA_CENTER
+from .helpers.claves import Claves
+
 
 converts_helper=Converts()
 cloud=CloudImage()
@@ -30,9 +32,6 @@ cloud=CloudImage()
 class MaterialViewSet(viewsets.ModelViewSet):
     serializer_class=MaterialSerializar
     queryset = Materiales.objects.raw('select * from material_materiales limit 10')
-
-
-
 
 def index(request):  
     Catalogo_temp.objects.all().delete()   
@@ -82,7 +81,7 @@ def subida(request):
         messages.error(request,vali)       
         return render(request,'index.html',{'ancho':ancho,'largo':largo,'tipo':tipo,'consulta':parametros})          
     #Relizamos la consulta nativa en la base de datos      
-    string_campos=converts_helper.convert_array_string(parametros,tipo) #no spermite traer un string de campos a partir de un arreglo
+    string_campos=converts_helper.convert_array_string(parametros,tipo) #nos permite traer un string de campos a partir de un arreglo
     if string_campos=='':
         string_campos='material'
         pass
@@ -100,11 +99,11 @@ def subida(request):
     
     Descarga.objects.all().delete()
     for valor in consulta_descarga:
-        Descarga.objects.create(ean=valor['ean'],imagen_grande="https://{}.cloudimg.io/v7/{}?sharp=1&width={}&height={}".format('aatdtkgdoo',valor['imagen_grande'],ancho,largo))        
+        Descarga.objects.create(ean=valor['ean'],imagen_grande="https://{}.cloudimg.io/v7/{}?sharp=1&width={}&height={}".format(Claves.get_secret('CLOUDIMG_TOKEN'),valor['imagen_grande'],ancho,largo))        
     matconsulta=consultasql(consulta)    
     #converitmos todo haciendo uso de cloud img  
     
-    informacion=cloud.convertir_matriz(matconsulta,parametros,ancho,largo,'aatdtkgdoo')      
+    informacion=cloud.convertir_matriz(matconsulta,parametros,ancho,largo,Claves.get_secret('CLOUDIMG_TOKEN'))      
     return render(request,'visualizacion.html',{"headers":parametros,"lista":informacion,"descarga":consulta_descarga})    
     pass
 
@@ -178,7 +177,6 @@ def consulta_marca_catalogo(marca):
     return datos
 
 
-
 def consultasql(sql):
     with connection.cursor() as cursor:
         cursor.execute(sql)
@@ -186,15 +184,11 @@ def consultasql(sql):
     pass
     return mat
 
-def descarga(request):
-    
+def descarga(request):    
     descarga=Descarga_imagenes()
     descarga.descargar(Descarga.objects.values('ean','imagen_grande').all())
     return render(request,'index.html')
     
-
-
-
 
 def validacion(lista,tipo):        
     if lista:

@@ -12,22 +12,33 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
-
+import json
+import os
+from django.core.exceptions import ImproperlyConfigured
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
+#Leer json datos importantes
+with open(os.path.join(BASE_DIR, 'secrets.json')) as secrets_file:
+    secrets = json.load(secrets_file)
+
+def get_secret(setting, secrets=secrets):
+    """Get secret setting or fail with ImproperlyConfigured"""
+    try:
+        return secrets[setting]
+    except KeyError:
+        raise ImproperlyConfigured("Set the {} setting".format(setting))
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '9aewm4lkhwm!w+a56y0e8tre1ip8sm8d5p1=rlm*+snaz&5q5&'
+SECRET_KEY = get_secret('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -84,11 +95,11 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 DATABASES = {
     'default': {
         'ENGINE' : 'django.db.backends.mysql',
-		'USER' : 'root',
-        'PASSWORD':'r0o7_Sq1_cri5T@l_8193',
-		'NAME' : 'RAM',
-		'HOST':'172.18.175.114',
-		'PORT' : '3306',
+		'USER' : get_secret('DB_USER'),
+        'PASSWORD':get_secret('DB_PASSWORD'),
+		'NAME' : get_secret('DB_NAME'),
+		'HOST':get_secret('DB_HOST'),
+		'PORT' : get_secret('DB_PORT'),
 		'OPTIONS': {
 			'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
 			# Tell MySQLdb to connect with 'utf8mb4' character set

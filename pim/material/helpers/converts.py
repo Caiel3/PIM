@@ -1,8 +1,11 @@
 from django.db import models
 from math import  floor
+from pathlib import Path
+import json
+import os
+
 class Converts(models.Model):
     
-
     def __str__(self):
         return 
 
@@ -59,3 +62,4 @@ class Converts(models.Model):
             return (cantidad_prendas/4)*1511.5
             pass
 
+    
