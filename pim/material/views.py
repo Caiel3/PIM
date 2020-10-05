@@ -1,8 +1,6 @@
 from django.shortcuts import render,redirect
 from .models import Materiales,Descarga,Catalogo_temp,MysqlColores
 from django.http import HttpResponse,HttpResponseNotFound
-import numpy as np
-import os
 from .helpers.CloudImage import CloudImage
 from .helpers.converts import Converts
 from .helpers.descarga_imagenes import Descarga_imagenes
@@ -11,12 +9,8 @@ from django.http import HttpResponse
 from io import BytesIO
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import A4,mm
-import csv
-import io
 from django.contrib import messages
 from rest_framework import viewsets
-from .serializar import MaterialSerializar
-import numpy as np
 from django.views.defaults import page_not_found
 from django.template.defaultfilters import linebreaksbr, urlize
 from reportlab.lib.units import inch 
@@ -24,6 +18,13 @@ from reportlab.platypus import Paragraph
 from  reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.enums import TA_CENTER
 from .helpers.claves import Claves
+import numpy as np
+import os
+import csv
+import io
+from .serializar import MaterialSerializar
+import numpy as np
+
 
 
 converts_helper=Converts()
@@ -67,10 +68,9 @@ def subida(request):
             parametros.append(aux)                            
         pass             
     mi_archivo=request.FILES["archivo"] 
-    
-    file = mi_archivo.read().decode('utf-8-sig')
-    reader = csv.DictReader(io.StringIO(file))
     try:
+        file = mi_archivo.read().decode('utf-8-sig')
+        reader = csv.DictReader(io.StringIO(file))    
         archivo = [line for line in reader]    
     except Exception as e:
         messages.error(request,"Por favor valide bien la estructura del archivo, si el error persiste contacte con el administrador.")
@@ -99,12 +99,25 @@ def subida(request):
     
     Descarga.objects.all().delete()
     for valor in consulta_descarga:
-        Descarga.objects.create(ean=valor['ean'],imagen_grande="https://{}.cloudimg.io/v7/{}?sharp=1&width={}&height={}".format(Claves.get_secret('CLOUDIMG_TOKEN'),valor['imagen_grande'],ancho,largo))        
+        Descarga.objects.create(
+            ean=valor['ean'],
+            imagen_grande="https://{}.cloudimg.io/v7/{}?sharp=1&width={}&height={}".format(Claves.get_secret('CLOUDIMG_TOKEN'),valor['imagen_grande'],ancho,largo))        
     matconsulta=consultasql(consulta)    
     #converitmos todo haciendo uso de cloud img  
     
-    informacion=cloud.convertir_matriz(matconsulta,parametros,ancho,largo,Claves.get_secret('CLOUDIMG_TOKEN'))      
-    return render(request,'visualizacion.html',{"headers":parametros,"lista":informacion,"descarga":consulta_descarga})    
+    informacion=cloud.convertir_matriz(
+        matconsulta,
+        parametros,
+        ancho,
+        largo,
+        Claves.get_secret('CLOUDIMG_TOKEN'))      
+
+    return render(
+        request,
+        'visualizacion.html',
+        {"headers":parametros,
+        "lista":informacion,
+        "descarga":consulta_descarga})    
     pass
 
 def Catalogoh(request):
@@ -117,7 +130,13 @@ def Catalogoh(request):
         carga_temp=[line for line in archivo]    
         Catalogo_temp.objects.all().delete()          
         for dato in carga_temp:        
-            Catalogo_temp.objects.create(material=dato['Material'],unidad_empaque=dato['Unidad de empaque'],coleccion=dato['Colección'],precio=dato['Precio'],moneda='',pais=dato['Pais'])
+            Catalogo_temp.objects.create(
+                material=dato['Material'],
+                unidad_empaque=dato['Unidad de empaque'],
+                coleccion=dato['Colección'],
+                precio=dato['Precio'],
+                moneda='',
+                pais=dato['Pais'])
 
         
         header_consulta_material=[]
@@ -129,7 +148,7 @@ def Catalogoh(request):
         datosGEF=consulta_marca_catalogo('GEF')
         datosBF=consulta_marca_catalogo('BABY FRESH')
         datosPB=consulta_marca_catalogo('PUNTO BLANCO')
-        can_marca=np.asarray(consultasql(" SELECT COUNT(MARCA) AS CANTIDAD,MARCA FROM RAM.CATALOGO GROUP BY MARCA order by MARCA"))
+        can_marca=np.asarray(consultasql("SELECT COUNT(MARCA) AS CANTIDAD,MARCA FROM RAM.CATALOGO GROUP BY MARCA order by MARCA"))
         con=0
         bfh=0# hojas Baby fresh
         pbh=0#hojas Punto blanco
@@ -166,15 +185,20 @@ def Catalogoh(request):
         if type(e) is KeyError:
             messages.error(request,'Recuerde que debe de conservar la estructura del archivo plano y este debe de estar separado por ;, error cerca a {}.'.format(e))   
         elif "PRIMARY" in str(e):
-            messages.error(request,'Hay un material duplicado, recuerde que deben ser unicos')
+            messages.error(request,'Hay un material duplicado, recuerde que deben ser únicos.')
         else:
-            messages.error(request,'Ocurrio un error inesperado, por favor contacte con Helpy y proporcione este error; {}'.format(e))         
+            messages.error(request,'Ocurrio un error inesperado, por favor contacte con el adminitrador y proporcione este error; {}'.format(e))         
             
         return render(request,'index.html')  
    
 def handler404_page(request):
     return render(request, '404.html', status=404)
     
+def descarga(request):    
+    descarga=Descarga_imagenes()
+    descarga.descargar(Descarga.objects.values('ean','imagen_grande').all())
+    return render(request,'index.html')
+        
 def consulta_marca_catalogo(marca):    
     consulta=("SELECT * FROM CATALOGO WHERE MARCA='{}'ORDER BY MARCA,cast(PAIS as unsigned)").format(marca)
     datos=consultasql(consulta)
@@ -184,22 +208,24 @@ def consulta_marca_catalogo(marca):
             dato[6]=[a for a in MysqlColores.objects.filter(material=dato[0]).values('icono_color')]
             consulta_temp.append(dato)        
     datos=consulta_temp
-    datos=cloud.convertir_matriz(datos,['','','','','','','','','','IMAGEN_GRANDE'],248,326,'aatdtkgdoo')
+    datos=cloud.convertir_matriz(
+        datos,[
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            'IMAGEN_GRANDE'],
+            248,
+            326,
+            'aatdtkgdoo')
     return datos
 
 
-def consultasql(sql):
-    with connection.cursor() as cursor:
-        cursor.execute(sql)
-        mat=cursor.fetchall()
-    pass
-    return mat
-
-def descarga(request):    
-    descarga=Descarga_imagenes()
-    descarga.descargar(Descarga.objects.values('ean','imagen_grande').all())
-    return render(request,'index.html')
-    
 
 def validacion(lista,tipo):        
     if lista:
@@ -219,6 +245,14 @@ def validacion(lista,tipo):
     else:
         return('El documento esta vacio por favor valide')
     pass
+
+
+def consultasql(sql):
+    with connection.cursor() as cursor:
+        cursor.execute(sql)
+        mat=cursor.fetchall()
+    pass
+    return mat
 
 def reportenuevo(request):
     
