@@ -126,6 +126,7 @@ def Catalogoh(request):
     reader = csv.DictReader(io.StringIO(files),fieldnames=None,delimiter=';')
     archivo = [line for line in reader]     
     try:          
+        import pdb ; pdb.set_trace()
          #insertamos temporamente datos en una tabla para despues traerlos ordenados de una manera mas cesilla
         carga_temp=[line for line in archivo]    
         Catalogo_temp.objects.all().delete()          
@@ -200,13 +201,16 @@ def descarga(request):
     return render(request,'index.html')
         
 def consulta_marca_catalogo(marca):    
-    consulta=("SELECT * FROM CATALOGO WHERE MARCA='{}'ORDER BY MARCA,cast(PAIS as unsigned)").format(marca)
+    import pdb ; pdb.set_trace()
+    consulta=("SELECT * FROM CATALOGO WHERE MARCA='{}' ORDER BY MARCA,cast(PAIS as unsigned)").format(marca)
     datos=consultasql(consulta)
     consulta_temp=[]
-    for dato in np.asarray(datos):
-        if MysqlColores.objects.filter(material=dato[0]).values('icono_color'):
-            dato[6]=[a for a in MysqlColores.objects.filter(material=dato[0]).values('icono_color')]
-            consulta_temp.append(dato)        
+    for dato in datos:
+        temp=list(dato)        
+        colores=MysqlColores.objects.filter(material=dato[0]).values('icono_color')
+        if colores:
+            temp[6]=[a for a in colores]
+            consulta_temp.append(temp)        
     datos=consulta_temp
     datos=cloud.convertir_matriz(
         datos,[

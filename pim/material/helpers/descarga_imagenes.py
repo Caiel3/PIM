@@ -33,6 +33,9 @@ class Descarga_imagenes(models.Model):
     def descargar(self,imagenes_descarga):
         
         for dir in imagenes_descarga:            
-            self.Descargaindividual(dir['imagen_grande'],dir['ean'])               
+            if 'None' not in dir:
+                self.Descargaindividual(dir['imagen_grande'],dir['ean'])     
+                pass
+              
             pass  
         pass
