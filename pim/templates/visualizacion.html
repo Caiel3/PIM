@@ -4,7 +4,7 @@
 {% block body %}
 <div class="container col-md-12">
     <div class="text-center">
-        <table id="tblData" class="table table-sm table_limit">
+        <table id="tblData" class="table mt-5 table-sm table_limit">
             <thead>
                 <tr>
                     {% for fila in headers %}
@@ -40,13 +40,10 @@
 <div class="container col-md-12">
     <div class="text-right">
 
-        <img class='flotante' onclick="exportTableToExcel('tblData')"
-                width="50" height="60" class="text-right" src={% static '/img/csv-icon.png' %} border="0" />      
+           
 
     </div>
 </div
-<hr>
-<form action="/descarga/" method="POST">{% csrf_token%}
-<input class="btn btn-outline-success flotante2" value="Descargar img" type="submit"></form>
+
 <br>
 {% endblock %}
