@@ -19,16 +19,20 @@
             </a>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
+                    {% if '/subida/'  in request.path %}
                     <li class="nav-item active">
                         <form action="/descarga/" method="POST">{% csrf_token%}
-                            <input class="btn btn-outline-light " value="Descargar img" type="submit">
+                            <input class="btn btn-outline-light mr-sm-2" value="Descargar img" type="submit">
                         </form>
                         
                     </li>
                     <li class="nav-item">
-                        <button class="btn btn-outline-light" onclick="exportTableToExcel('tblData')">Descargar doc</button>                       
+                        <button class="btn btn-outline-light mr-sm-2" onclick="exportTableToExcel('tblData')">Descargar doc</button>                       
                         
-                    </li>                    
+                    </li>  
+                       {% endif %} 
+                    <li>{{message.tags}}</li>
+                                  
                 </ul>
             </div> 
         </div>
