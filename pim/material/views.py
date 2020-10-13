@@ -4,6 +4,7 @@ from django.http import HttpResponse,HttpResponseNotFound
 from .helpers.CloudImage import CloudImage
 from .helpers.converts import Converts
 from .helpers.descarga_imagenes import Descarga_imagenes
+from .helpers.limpiar import Limpiar
 from django.db import connection
 from django.http import HttpResponse
 from io import BytesIO
@@ -35,7 +36,8 @@ class MaterialViewSet(viewsets.ModelViewSet):
     queryset = Materiales.objects.raw('select * from material_materiales limit 10')
 
 def index(request):  
-    Catalogo_temp.objects.all().delete()   
+    Catalogo_temp.objects.all().delete()
+    Limpiar.limpiar_media_imagenes()       
     return render(request,'index.html')
 
 def subida(request):
@@ -121,13 +123,12 @@ def subida(request):
     pass
 
 def Catalogoh(request):
-    mi_archivo=request.FILES["archivo"]     
-    files = mi_archivo.read().decode('utf-8-sig')   
-    reader = csv.DictReader(io.StringIO(files),fieldnames=None,delimiter=';')
-    archivo = [line for line in reader]     
-    try:          
-        import pdb ; pdb.set_trace()
-         #insertamos temporamente datos en una tabla para despues traerlos ordenados de una manera mas cesilla
+    try: 
+        mi_archivo=request.FILES["archivo"]     
+        files = mi_archivo.read().decode('utf-8-sig')   
+        reader = csv.DictReader(io.StringIO(files),fieldnames=None,delimiter=';')
+        archivo = [line for line in reader]                
+        #insertamos temporamente datos en una tabla para despues traerlos ordenados de una manera mas cesilla
         carga_temp=[line for line in archivo]    
         Catalogo_temp.objects.all().delete()          
         for dato in carga_temp:        
@@ -137,7 +138,7 @@ def Catalogoh(request):
                 coleccion=dato['Colección'],
                 precio=dato['Precio'],
                 moneda='',
-                pais=dato['Pais'])
+                pais=dato['Orden'])
 
         
         header_consulta_material=[]
@@ -182,11 +183,13 @@ def Catalogoh(request):
             'logo_gef':Claves.get_secret('LOGO_GEF'),
             'logo_pb':Claves.get_secret('LOGO_PB'),
             'logo_bf':Claves.get_secret('LOGO_BF')})
-    except Exception as e:        
+    except Exception as e:            
         if type(e) is KeyError:
             messages.error(request,'Recuerde que debe de conservar la estructura del archivo plano y este debe de estar separado por ;, error cerca a {}.'.format(e))   
         elif "PRIMARY" in str(e):
             messages.error(request,'Hay un material duplicado, recuerde que deben ser únicos.')
+        elif "utf-8" in str(e):
+            messages.error(request,'El archivo de be de ser un csv utf-8.')
         else:
             messages.error(request,'Ocurrio un error inesperado, por favor contacte con el adminitrador y proporcione este error; {}'.format(e))         
             
@@ -197,11 +200,10 @@ def handler404_page(request):
     
 def descarga(request):    
     descarga=Descarga_imagenes()
-    descarga.descargar(Descarga.objects.values('ean','imagen_grande').all())
-    return render(request,'index.html')
+    temp=descarga.descargar(Descarga.objects.values('ean','imagen_grande').all())
+    return temp
         
 def consulta_marca_catalogo(marca):    
-    import pdb ; pdb.set_trace()
     consulta=("SELECT * FROM CATALOGO WHERE MARCA='{}' ORDER BY MARCA,cast(PAIS as unsigned)").format(marca)
     datos=consultasql(consulta)
     consulta_temp=[]
@@ -232,31 +234,43 @@ def consulta_marca_catalogo(marca):
 
 
 def validacion(lista,tipo):        
-    if lista:
-        if len(lista[0].keys())>1:
-            return('Recuerde que solo puede ingresar una lista de eans o materiales, la que tiene actualmente tiene mas de 1 columna')
-        else:
-            keys=[]
-            for li in lista[0]:
-                keys.append(li)
-                pass 
-            con=Converts()
-            llave=con.convert_array_string(keys,"")                   
-            if(tipo not in  llave.upper()):
-                return('Usted seleciono un header {} y ingreso un archivo con header {}, por favor valide.').format(tipo,llave)
+    try:        
+        if lista:
+            if len(lista[0].keys())>1:
+                return('Recuerde que solo puede ingresar una lista de eans o materiales, la que tiene actualmente tiene mas de 1 columna')
             else:
-                return (False)
-    else:
-        return('El documento esta vacio por favor valide')
-    pass
+                keys=[]
+                for li in lista[0]:
+                    keys.append(li)
+                    pass 
+                con=Converts()
+                llave=con.convert_array_string(keys,"")                   
+                if(tipo not in  llave.upper()):
+                    return('Usted seleciono un header {} y ingreso un archivo con header {}, por favor valide.').format(tipo,llave)
+                else:
+                    return (False)
+        else:
+            return('El documento esta vacio por favor valide')
+        pass
+    except Exception as e:
+        if 'TemporaryUploadedFile' in str(e):
+            return 'Se cargo un archivo no valido'
+        else:
+            return 'Ocurrio un error por favor valide el archivo que se subio, si el error persiste contacte con el administrador y dispoga este error: {}'.format(e)
 
 
 def consultasql(sql):
-    with connection.cursor() as cursor:
-        cursor.execute(sql)
-        mat=cursor.fetchall()
-    pass
-    return mat
+    try:
+        with connection.cursor() as cursor:
+            cursor.execute(sql)
+            mat=cursor.fetchall()
+            pass
+        return mat
+    except Exception as e:        
+        messages.error(request,'Ocurrio un error, por favor contacte con el administrador y brinde este mensaje: {}.'.format(e))       
+        
+        
+    
 
 def reportenuevo(request):
     

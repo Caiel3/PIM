@@ -25,7 +25,8 @@ urlpatterns = [
     path('subida/',subida,name='subida'),
     path('descarga/',descarga,name='descarga'), 
     path('catalogoh/',Catalogoh,name='catalogoh'),    
-    path('reportenuevo/',reportenuevo,name='reportenuevo'),    
+    path('reportenuevo/',reportenuevo,name='reportenuevo'),   
+
 ]
 
 
