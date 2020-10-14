@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 {% load static %}
+{% load my_tags %}
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">    
@@ -19,7 +21,7 @@
             </a>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
-                    {% if '/subida/'  in request.path %}
+                    {% if '/subida/'  == request.path and 'si'  in mostrar %}
                     <li class="nav-item active">
                         <form action="/descarga/" method="POST">{% csrf_token%}
                             <input class="btn btn-outline-light mr-sm-2" value="Descargar img" type="submit">

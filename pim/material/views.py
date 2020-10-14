@@ -76,12 +76,13 @@ def subida(request):
         archivo = [line for line in reader]    
     except Exception as e:
         messages.error(request,"Por favor valide bien la estructura del archivo, si el error persiste contacte con el administrador.")
+        return render(request,'index.html',{'ancho':ancho,'largo':largo,'tipo':tipo,'consulta':parametros,'mostrar':'no'}) 
 
        
     vali=validacion(archivo,tipo)
     if vali:
         messages.error(request,vali)       
-        return render(request,'index.html',{'ancho':ancho,'largo':largo,'tipo':tipo,'consulta':parametros})          
+        return render(request,'index.html',{'ancho':ancho,'largo':largo,'tipo':tipo,'consulta':parametros,'mostrar':'no'})          
     #Relizamos la consulta nativa en la base de datos      
     string_campos=converts_helper.convert_array_string(parametros,tipo) #nos permite traer un string de campos a partir de un arreglo
     if string_campos=='':
@@ -119,7 +120,7 @@ def subida(request):
         'visualizacion.html',
         {"headers":parametros,
         "lista":informacion,
-        "descarga":consulta_descarga})    
+        "descarga":consulta_descarga,"mostrar":'si'})    
     pass
 
 def Catalogoh(request):
@@ -193,7 +194,7 @@ def Catalogoh(request):
         else:
             messages.error(request,'Ocurrio un error inesperado, por favor contacte con el adminitrador y proporcione este error; {}'.format(e))         
             
-        return render(request,'index.html')  
+        return render(request,'index.html',{'mostrar':'no'})  
    
 def handler404_page(request):
     return render(request, '404.html', status=404)
