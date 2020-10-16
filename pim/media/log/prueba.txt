@@ -1,0 +1,8 @@
+inicio 16/10/2020 13:46.21: inicializar campos Fin: 16/10/2020 13:46.21 
+ inicio 16/10/2020 13:46.21: capturamos inforamciona consultar Fin: 16/10/2020 13:46.21 
+ inicio 16/10/2020 13:46.21: Se lee el archivo de consulta Fin: 16/10/2020 13:46.21 
+ inicio 16/10/2020 13:46.21: Valida la estructura del archivo Fin: 16/10/2020 13:46.21 
+ inicio 16/10/2020 13:46.21: Prepara los campos por el que se hace la consulta Fin: 16/10/2020 13:46.21 
+ inicio 16/10/2020 13:46.21: Ingresa la informaicon a la base de datos de cloud img Fin: 16/10/2020 13:46.24 
+ inicio 16/10/2020 13:46.24: Resizen cloud img Fin: 16/10/2020 13:46.24 
+ 

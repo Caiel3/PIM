@@ -5,6 +5,7 @@ from .helpers.CloudImage import CloudImage
 from .helpers.converts import Converts
 from .helpers.descarga_imagenes import Descarga_imagenes
 from .helpers.limpiar import Limpiar
+from .helpers.TxtControlador import Txt
 from django.db import connection
 from django.http import HttpResponse
 from io import BytesIO
@@ -25,6 +26,7 @@ import csv
 import io
 from .serializar import MaterialSerializar
 import numpy as np
+from datetime import datetime
 
 
 
@@ -41,6 +43,7 @@ def index(request):
     return render(request,'index.html')
 
 def subida(request):
+    inicio= datetime.now()   
     consulta=[
         'MATERIAL',
         'DESCRIPCION_MATERIAL',
@@ -58,6 +61,9 @@ def subida(request):
         'TAGS',
         'GRUPO_DESTINO'
         ]
+    
+    Txt('prueba','inicializar campos', inicio,datetime.now())
+    inicio= datetime.now()  
     parametros=[]
     #Capturamos la informacion del formulario    
     archivo = request.FILES["archivo"]     
@@ -70,6 +76,8 @@ def subida(request):
             parametros.append(aux)                            
         pass             
     mi_archivo=request.FILES["archivo"] 
+    Txt('prueba','capturamos informacion a consultar', inicio,datetime.now())
+    inicio= datetime.now()  
     try:
         file = mi_archivo.read().decode('utf-8-sig')
         reader = csv.DictReader(io.StringIO(file))    
@@ -77,35 +85,46 @@ def subida(request):
     except Exception as e:
         messages.error(request,"Por favor valide bien la estructura del archivo, si el error persiste contacte con el administrador.")
         return render(request,'index.html',{'ancho':ancho,'largo':largo,'tipo':tipo,'consulta':parametros,'mostrar':'no'}) 
-
+    Txt('prueba','Se lee el archivo de consulta', inicio,datetime.now())
+    inicio= datetime.now()  
        
     vali=validacion(archivo,tipo)
     if vali:
         messages.error(request,vali)       
-        return render(request,'index.html',{'ancho':ancho,'largo':largo,'tipo':tipo,'consulta':parametros,'mostrar':'no'})          
+        return render(request,'index.html',{'ancho':ancho,'largo':largo,'tipo':tipo,'consulta':parametros,'mostrar':'no'})    
+    Txt('prueba','Valida la estructura del archivo', inicio,datetime.now())
+    inicio= datetime.now()        
     #Relizamos la consulta nativa en la base de datos      
     string_campos=converts_helper.convert_array_string(parametros,tipo) #nos permite traer un string de campos a partir de un arreglo
     if string_campos=='':
         string_campos='material'
         pass
     string_filtro=converts_helper.convert_array_string(archivo,tipo,False)
-    vector_consulta_descarga=Converts.convert_dic_array(archivo,tipo)    
+    vector_consulta_descarga=Converts.convert_dic_array(archivo,tipo)  
+    Txt('prueba','Prepara los campos por el que se hace la consulta', inicio,datetime.now())
+    inicio= datetime.now()    
     #controlo por donde hace la consulta si por ean o material   
     if tipo =="MATERIAL":        
         consulta='select distinct {} from material_materiales where material in ({});'.format(string_campos,string_filtro)       
-        consulta_descarga=Materiales.objects.values('ean','imagen_grande').filter(material__in=vector_consulta_descarga)        
+        """ consulta_descarga=Materiales.objects.values('ean','imagen_grande').filter(material__in=vector_consulta_descarga)   """      
                    
     else:
         consulta='select distinct {} from material_materiales where ean in ({});'.format(string_campos,string_filtro)       
-        consulta_descarga=Materiales.objects.values('ean','imagen_grande').filter(ean__in=vector_consulta_descarga)       
+        """ consulta_descarga=Materiales.objects.values('ean','imagen_grande').filter(ean__in=vector_consulta_descarga)        """
+    matconsulta=consultasql(consulta) 
+    Txt('prueba','Realiza la consulta en la base de datos', inicio,datetime.now())
+    inicio= datetime.now() 
     #Guardarmos lo que se va a descargar en la base de datos por si se descarga
-    
+    """   Txt('prueba','Realiza la consulta a la base de datos', inicio,datetime.now())
+    inicio= datetime.now()  
     Descarga.objects.all().delete()
+    Txt('prueba','Borra los temporales de la tabla temporal de descarga', inicio,datetime.now())
+    inicio= datetime.now()  
     for valor in consulta_descarga:
         Descarga.objects.create(
             ean=valor['ean'],
-            imagen_grande="https://{}.cloudimg.io/v7/{}?sharp=1&width={}&height={}".format(Claves.get_secret('CLOUDIMG_TOKEN'),valor['imagen_grande'],ancho,largo))        
-    matconsulta=consultasql(consulta)    
+            imagen_grande="https://{}.cloudimg.io/v7/{}?sharp=1&width={}&height={}".format(Claves.get_secret('CLOUDIMG_TOKEN'),valor['imagen_grande'],ancho,largo))         """   
+         
     #converitmos todo haciendo uso de cloud img  
     
     informacion=cloud.convertir_matriz(
@@ -114,7 +133,8 @@ def subida(request):
         ancho,
         largo,
         Claves.get_secret('CLOUDIMG_TOKEN'))      
-
+    Txt('prueba','Resizen cloud img', inicio,datetime.now())
+    inicio= datetime.now() 
     return render(
         request,
         'visualizacion.html',

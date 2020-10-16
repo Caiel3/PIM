@@ -29,11 +29,12 @@ var acc = document.getElementsByClassName("accordion");
         
         function exportTableToExcel(tableID, filename = ''){
             var downloadLink;
-            var dataType = 'application/vnd.ms-excel';
+            var dataType = 'application/vnd.ms-excel;';
             var tableSelect = document.getElementById(tableID);
             var tableHTML = tableSelect.outerHTML;
             var tableHTML = tableHTML.replace(/<img src="/g, '');
             var tableHTML = tableHTML.replace(/"></g, '<');
+            var tableHTML = tableHTML.replace(/" width="100" height="100/g, '');
             var tableHTML = tableHTML.replace(/ /g, '%20');
            
             
@@ -53,7 +54,7 @@ var acc = document.getElementsByClassName("accordion");
                 navigator.msSaveOrOpenBlob( blob, filename);
             }else{
                 // Create a link to the file
-                downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
+                downloadLink.href = 'data:' + dataType + ', ' + tableHTML
             
                 // Setting the file name
                 downloadLink.download = filename;
