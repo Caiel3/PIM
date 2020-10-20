@@ -82,4 +82,18 @@ class MysqlTallas(models.Model):
     class Meta:
         managed = False
         db_table = 'MYSQL_TALLAS'
+""" 
+class Tipo_Prenda(models.Model):
+    id=models.IntegerField(db_column='Codigo',primary_key=True)
+    marca = models.CharField(db_column='Tipo prenda',null=True,max_length=30)
+    class Meta:
+        db_table='Tipo Prenda'
+
+class Marca(models.Model):
+    id=models.IntegerField(db_column='Codigo',primary_key=True)
+    marca = models.CharField(db_column='Marca',null=True,max_length=30)
+    Tipo_Prenda=models.ManyToManyField(Tipo_Prenda)
+
+    class Meta:
+        db_table='Marcas' """
 

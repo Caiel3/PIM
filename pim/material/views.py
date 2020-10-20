@@ -6,8 +6,9 @@ from .helpers.converts import Converts
 from .helpers.descarga_imagenes import Descarga_imagenes
 from .helpers.limpiar import Limpiar
 from .helpers.TxtControlador import Txt
+from .helpers.csv_pim import csv_pim
 from django.db import connection
-from django.http import HttpResponse
+from django.http import HttpResponse,FileResponse
 from io import BytesIO
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import A4,mm
@@ -15,6 +16,7 @@ from django.contrib import messages
 from rest_framework import viewsets
 from django.views.defaults import page_not_found
 from django.template.defaultfilters import linebreaksbr, urlize
+from django.conf import settings
 from reportlab.lib.units import inch 
 from reportlab.platypus import Paragraph
 from  reportlab.lib.styles import ParagraphStyle
@@ -27,8 +29,10 @@ import io
 from .serializar import MaterialSerializar
 import numpy as np
 from datetime import datetime
-
-
+import uuid
+import asyncio
+import threading
+from concurrent.futures import ThreadPoolExecutor
 
 converts_helper=Converts()
 cloud=CloudImage()
@@ -39,10 +43,21 @@ class MaterialViewSet(viewsets.ModelViewSet):
 
 def index(request):  
     Catalogo_temp.objects.all().delete()
-    Limpiar.limpiar_media_imagenes()       
-    return render(request,'index.html')
+    Limpiar.limpiar_media_imagenes()
+    marcas=[item for item in Materiales.objects.values('marca').distinct().order_by('marca')]    
+    tipo_prenda=[item for item in Materiales.objects.values('tipo_prenda').distinct().order_by('tipo_prenda')]   
+    genero=[item for item in Materiales.objects.values('genero').distinct().order_by('genero')]
+    grupo_destino=[item for item in Materiales.objects.values('grupo_destino').distinct().order_by('grupo_destino')]
+    return render(
+        request,
+        'index.html',
+            {'marcas':marcas,
+            "tipo_prendas":tipo_prenda,            
+            "generos":genero,
+            "grupo_destinos":grupo_destino})
 
 def subida(request):
+    Txt('prueba','INICIO', datetime.now(),datetime.now())
     inicio= datetime.now()   
     consulta=[
         'MATERIAL',
@@ -62,7 +77,7 @@ def subida(request):
         'GRUPO_DESTINO'
         ]
     
-    Txt('prueba','inicializar campos', inicio,datetime.now())
+    Txt('prueba','inicializar campos', inicio,datetime.now())    
     inicio= datetime.now()  
     parametros=[]
     #Capturamos la informacion del formulario    
@@ -83,24 +98,24 @@ def subida(request):
         reader = csv.DictReader(io.StringIO(file))    
         archivo = [line for line in reader]    
     except Exception as e:
-        messages.error(request,"Por favor valide bien la estructura del archivo, si el error persiste contacte con el administrador.")
+        messages.error(request,"Por favor valide bien la estructura del archivo, si el error persiste contacte con el administrador. y disponga este error:{}".format(e))
         return render(request,'index.html',{'ancho':ancho,'largo':largo,'tipo':tipo,'consulta':parametros,'mostrar':'no'}) 
     Txt('prueba','Se lee el archivo de consulta', inicio,datetime.now())
     inicio= datetime.now()  
        
-    vali=validacion(archivo,tipo)
+    vali=Validacion(archivo,tipo)
     if vali:
         messages.error(request,vali)       
         return render(request,'index.html',{'ancho':ancho,'largo':largo,'tipo':tipo,'consulta':parametros,'mostrar':'no'})    
     Txt('prueba','Valida la estructura del archivo', inicio,datetime.now())
     inicio= datetime.now()        
     #Relizamos la consulta nativa en la base de datos      
-    string_campos=converts_helper.convert_array_string(parametros,tipo) #nos permite traer un string de campos a partir de un arreglo
+    string_campos=converts_helper.convert_array_string(parametros,tipo,",") #nos permite traer un string de campos a partir de un arreglo
     if string_campos=='':
         string_campos='material'
         pass
-    string_filtro=converts_helper.convert_array_string(archivo,tipo,False)
-    vector_consulta_descarga=Converts.convert_dic_array(archivo,tipo)  
+    string_filtro=converts_helper.convert_array_string(archivo,tipo,',',False)
+    """ vector_consulta_descarga=Converts.convert_dic_array(archivo,tipo)   """
     Txt('prueba','Prepara los campos por el que se hace la consulta', inicio,datetime.now())
     inicio= datetime.now()    
     #controlo por donde hace la consulta si por ean o material   
@@ -112,6 +127,7 @@ def subida(request):
         consulta='select distinct {} from material_materiales where ean in ({});'.format(string_campos,string_filtro)       
         """ consulta_descarga=Materiales.objects.values('ean','imagen_grande').filter(ean__in=vector_consulta_descarga)        """
     matconsulta=consultasql(consulta) 
+   
     Txt('prueba','Realiza la consulta en la base de datos', inicio,datetime.now())
     inicio= datetime.now() 
     #Guardarmos lo que se va a descargar en la base de datos por si se descarga
@@ -133,14 +149,26 @@ def subida(request):
         ancho,
         largo,
         Claves.get_secret('CLOUDIMG_TOKEN'))      
+    hash_archivo = str(uuid.uuid1())
     Txt('prueba','Resizen cloud img', inicio,datetime.now())
     inicio= datetime.now() 
+    import pdb;pdb.set_trace()
+    csv_hilo=threading.Thread(name="hilo_csv",target= Descarga_pim_doc,args=(hash_archivo,informacion,string_campos))
+    csv_hilo.start()
+   
+    
+    Txt('prueba','Prepara el archivo csv', inicio,datetime.now())
+    Txt('prueba','FIN', datetime.now(),datetime.now())
+    csv_hilo.join()
+ 
     return render(
         request,
         'visualizacion.html',
         {"headers":parametros,
         "lista":informacion,
-        "descarga":consulta_descarga,"mostrar":'si'})    
+        "mostrar":'si',
+        "token":hash_archivo
+        })    
     pass
 
 def Catalogoh(request):
@@ -168,9 +196,9 @@ def Catalogoh(request):
             pass               
        
         """ 26 px de diferencia en la tercera marca """
-        datosGEF=consulta_marca_catalogo('GEF')
-        datosBF=consulta_marca_catalogo('BABY FRESH')
-        datosPB=consulta_marca_catalogo('PUNTO BLANCO')
+        datosGEF=Consulta_marca_catalogo('GEF')
+        datosBF=Consulta_marca_catalogo('BABY FRESH')
+        datosPB=Consulta_marca_catalogo('PUNTO BLANCO')
         can_marca=np.asarray(consultasql("SELECT COUNT(MARCA) AS CANTIDAD,MARCA FROM RAM.CATALOGO GROUP BY MARCA order by MARCA"))
         con=0
         bfh=0# hojas Baby fresh
@@ -219,12 +247,21 @@ def Catalogoh(request):
 def handler404_page(request):
     return render(request, '404.html', status=404)
     
-def descarga(request):    
-    descarga=Descarga_imagenes()
-    temp=descarga.descargar(Descarga.objects.values('ean','imagen_grande').all())
-    return temp
+def Descarga_pim_doc(token,mat,headers):    
+    response=csv_pim(token,mat,headers)
+    print(response.Guardar())
+
+    
+
+def Descarga_doc(request):    
+    """ descarga=Descarga_imagenes()
+    temp=descarga.descargar(Descarga.objects.values('ean','imagen_grande').all()) """
+    import pdb;pdb.set_trace()
+    token = request.POST["token"]
+    archivo_csv=open(settings.MEDIA_ROOT+"/Csv_descarga/documento-{}.csv".format(token),'rb')
+    return FileResponse(archivo_csv)
         
-def consulta_marca_catalogo(marca):    
+def Consulta_marca_catalogo(marca):    
     consulta=("SELECT * FROM CATALOGO WHERE MARCA='{}' ORDER BY MARCA,cast(PAIS as unsigned)").format(marca)
     datos=consultasql(consulta)
     consulta_temp=[]
@@ -254,7 +291,7 @@ def consulta_marca_catalogo(marca):
 
 
 
-def validacion(lista,tipo):        
+def Validacion(lista,tipo):        
     try:        
         if lista:
             if len(lista[0].keys())>1:
@@ -265,7 +302,8 @@ def validacion(lista,tipo):
                     keys.append(li)
                     pass 
                 con=Converts()
-                llave=con.convert_array_string(keys,"")                   
+               
+                llave=con.convert_array_string(keys,"",",")                   
                 if(tipo not in  llave.upper()):
                     return('Usted seleciono un header {} y ingreso un archivo con header {}, por favor valide.').format(tipo,llave)
                 else:

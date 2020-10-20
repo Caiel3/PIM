@@ -23,15 +23,18 @@
                 <ul class="navbar-nav ml-auto">
                     {% if '/subida/'  == request.path and 'si'  in mostrar %}
                     <li class="nav-item active">
-                        <form action="/descarga/" method="POST">{% csrf_token%}
-                            <input class="btn btn-outline-light mr-sm-2" value="Descargar img" type="submit">
+                        <form action="/descarga_doc/" method="POST">{% csrf_token%}
+                            <input class="btn btn-outline-light mr-sm-2" value="Descargar doc" type="submit">
+                            <input type="hidden" value="{{token}}" name="token" >
                         </form>
                         
                     </li>
-                    <li class="nav-item">
-                        <button class="btn btn-outline-light mr-sm-2" onclick="exportTableToExcel('tblData')">Descargar doc</button>                       
-                        
-                    </li>  
+                    <li class="nav-item active">
+                        <form action="/descarga_img/" method="POST">{% csrf_token%}
+                            <input class="btn btn-outline-light mr-sm-2" value="Descargar img" type="submit">
+                            <input type="hidden" value="{{token}}" name="token" >
+                        </form>                        
+                    </li>
                        {% endif %} 
                     <li>{{message.tags}}</li>
                                   

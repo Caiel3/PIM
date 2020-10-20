@@ -18,18 +18,21 @@ class Converts(models.Model):
             pass
         pass
         return mat 
-    def convert_array_string(self,array1dimension,tipo, noesdiccionario=True):        
+    def convert_array_string(self,array1dimension,tipo,delimitador, noesdiccionario=True):
         stringaux=''
         count=1      
         
         for valor in array1dimension:
+            if valor==None:
+                valor=''
+                pass
             if noesdiccionario:
                 if count == len(array1dimension):
                     stringaux=stringaux+valor
                     
                     pass
                 else:
-                    stringaux=stringaux+valor+","
+                    stringaux=stringaux+valor+delimitador
                     count=count+1
             else:
                 if count == len(array1dimension):
@@ -37,7 +40,7 @@ class Converts(models.Model):
                     
                     pass
                 else:
-                    stringaux=stringaux+valor.get(tipo)+","
+                    stringaux=stringaux+valor.get(tipo)+delimitador
                     count=count+1
                     pass
                 pass
