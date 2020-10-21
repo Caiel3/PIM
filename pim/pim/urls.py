@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from material.views import index,subida,Descarga_doc,Catalogoh,handler404_page,reportenuevo
+from material.views import index,subida,Descarga_doc,Catalogoh,handler404_page,reportenuevo,Descarga_img
 from rest_framework.routers import DefaultRouter
 from django.conf.urls import handler404
 
@@ -25,7 +25,8 @@ urlpatterns = [
     path('subida/',subida,name='subida'),
     path('Descarga_doc/',Descarga_doc,name='Descarga_doc'), 
     path('catalogoh/',Catalogoh,name='catalogoh'),    
-    path('reportenuevo/',reportenuevo,name='reportenuevo'),   
+    path('reportenuevo/',reportenuevo,name='reportenuevo'),
+    path('Descarga_img/',Descarga_img,name='Descarga_img'),      
 
 ]
 

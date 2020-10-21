@@ -19,14 +19,16 @@ class Descarga_imagenes(models.Model):
     def __unicode__(self):
         return 
 
-    def Descargaindividual(self,link,nombre):  
+    def Descargaindividual(self,link,nombre,token):  
+        
+        nombre=str(nombre)
         url = link # El link de la imagen
         
-        nombre_local_imagen = nombre+".png" # El nombre con el que queremos guardarla
+        nombre_local_imagen = nombre+".jpg" # El nombre con el que queremos guardarla
         try:                                
             myfile = requests.get(url)
-            download_folder = settings.MEDIA_ROOT+"/Imagenes_descarga/"
-            filename=download_folder+nombre+'.png'  
+            download_folder = settings.MEDIA_ROOT+"/Imagenes_descarga/{}/".format(token)
+            filename=download_folder+nombre+'.jpg'  
             os.makedirs(download_folder, exist_ok=True)
             open(filename, 'wb').write(myfile.content) 
         except Exception as e:
@@ -34,22 +36,26 @@ class Descarga_imagenes(models.Model):
             pass
         pass
            
-    def descargar(self,imagenes_descarga):
+    def descargar(self,imagenes_descarga,token):       
         dire=settings.MEDIA_ROOT+"/Imagenes_descarga"
-        Limpiar.limpiar_media_imagenes()        
+        if os.path.isdir(dire+'/{}'.format(token))== False:
+            os.mkdir(dire+'/{}'.format(token))
+            pass        
+        dire=settings.MEDIA_ROOT+"/Imagenes_descarga/{}".format(token)
+        archivo='Imagenes-{}'.format(token)          
         for dir in imagenes_descarga:            
-            if 'None' not in dir:
-                self.Descargaindividual(dir['imagen_grande'],dir['ean'])
+            if ''!=dir:
+                self.Descargaindividual(dir[1],dir[0],token)
             pass 
-        fantasy_zip = zipfile.ZipFile(dire+'\\archive.zip', 'w')
+        fantasy_zip = zipfile.ZipFile(dire+'\\{}.zip'.format(archivo), 'w')
         for folder, subfolders, files in os.walk(dire):        
             for file in files:
-                if file.endswith('.png'):
+                if file.endswith('.jpg'):
                     fantasy_zip.write(os.path.join(folder, file), os.path.relpath(os.path.join(folder,file), dire+file), compress_type = zipfile.ZIP_DEFLATED) 
                     os.remove(folder+'/'+file)                     
         
         fantasy_zip.close()
-        zip_file = open(dire+'\\archive.zip', 'rb')            
+        zip_file = open(dire+'\\{}.zip'.format(archivo), 'rb')            
         return FileResponse(zip_file)
                
 

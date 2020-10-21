@@ -189,4 +189,60 @@ inicio 20/10/2020 10:25.55: INICIO Fin: 20/10/2020 10:25.55
  inicio 20/10/2020 13:33.14: Resizen cloud img Fin: 20/10/2020 13:33.14 
  inicio 20/10/2020 13:33.14: Prepara el archivo csv Fin: 20/10/2020 13:33.18 
  inicio 20/10/2020 13:33.18: FIN Fin: 20/10/2020 13:33.18 
+ inicio 20/10/2020 16:25.03: INICIO Fin: 20/10/2020 16:25.03 
+ inicio 20/10/2020 16:25.03: inicializar campos Fin: 20/10/2020 16:25.03 
+ inicio 20/10/2020 16:25.03: capturamos informacion a consultar Fin: 20/10/2020 16:25.03 
+ inicio 20/10/2020 16:25.03: Se lee el archivo de consulta Fin: 20/10/2020 16:25.03 
+ inicio 20/10/2020 16:25.03: Valida la estructura del archivo Fin: 20/10/2020 16:25.03 
+ inicio 20/10/2020 16:25.03: Prepara los campos por el que se hace la consulta Fin: 20/10/2020 16:25.03 
+ inicio 20/10/2020 16:25.03: Realiza la consulta en la base de datos Fin: 20/10/2020 16:25.04 
+ inicio 20/10/2020 16:25.04: Resizen cloud img Fin: 20/10/2020 16:25.07 
+ inicio 20/10/2020 16:25.07: Prepara el archivo csv Fin: 20/10/2020 16:25.31 
+ inicio 20/10/2020 16:25.31: FIN Fin: 20/10/2020 16:25.31 
+ inicio 20/10/2020 18:17.42: INICIO Fin: 20/10/2020 18:17.42 
+ inicio 20/10/2020 18:17.42: inicializar campos Fin: 20/10/2020 18:17.42 
+ inicio 20/10/2020 18:17.42: capturamos informacion a consultar Fin: 20/10/2020 18:17.42 
+ inicio 20/10/2020 18:17.42: Se lee el archivo de consulta Fin: 20/10/2020 18:17.42 
+ inicio 20/10/2020 18:17.42: Valida la estructura del archivo Fin: 20/10/2020 18:17.42 
+ inicio 20/10/2020 18:17.42: Prepara los campos por el que se hace la consulta Fin: 20/10/2020 18:17.42 
+ inicio 20/10/2020 18:17.42: Realiza la consulta en la base de datos Fin: 20/10/2020 18:18.18 
+ inicio 20/10/2020 18:18.18: Resizen cloud img Fin: 20/10/2020 18:18.19 
+ inicio 20/10/2020 18:18.19: Prepara el archivo csv Fin: 20/10/2020 18:18.24 
+ inicio 20/10/2020 18:18.24: FIN Fin: 20/10/2020 18:18.24 
+ inicio 20/10/2020 18:32.16: INICIO Fin: 20/10/2020 18:32.16 
+ inicio 20/10/2020 18:32.16: inicializar campos Fin: 20/10/2020 18:32.16 
+ inicio 20/10/2020 18:32.16: capturamos informacion a consultar Fin: 20/10/2020 18:32.16 
+ inicio 20/10/2020 18:32.16: Se lee el archivo de consulta Fin: 20/10/2020 18:32.16 
+ inicio 20/10/2020 18:32.16: Valida la estructura del archivo Fin: 20/10/2020 18:32.16 
+ inicio 20/10/2020 18:32.16: Prepara los campos por el que se hace la consulta Fin: 20/10/2020 18:32.16 
+ inicio 20/10/2020 18:34.27: INICIO Fin: 20/10/2020 18:34.27 
+ inicio 20/10/2020 18:34.27: inicializar campos Fin: 20/10/2020 18:34.27 
+ inicio 20/10/2020 18:34.27: capturamos informacion a consultar Fin: 20/10/2020 18:34.27 
+ inicio 20/10/2020 18:34.27: Se lee el archivo de consulta Fin: 20/10/2020 18:34.28 
+ inicio 20/10/2020 18:34.28: Valida la estructura del archivo Fin: 20/10/2020 18:34.28 
+ inicio 20/10/2020 18:34.28: Prepara los campos por el que se hace la consulta Fin: 20/10/2020 18:34.28 
+ inicio 20/10/2020 18:34.28: Realiza la consulta en la base de datos Fin: 20/10/2020 18:35.00 
+ inicio 20/10/2020 18:35.00: Resizen cloud img Fin: 20/10/2020 18:35.01 
+ inicio 20/10/2020 18:35.01: Prepara el archivo csv Fin: 20/10/2020 18:35.01 
+ inicio 20/10/2020 18:35.01: FIN Fin: 20/10/2020 18:35.01 
+ inicio 20/10/2020 18:40.30: INICIO Fin: 20/10/2020 18:40.30 
+ inicio 20/10/2020 18:40.30: inicializar campos Fin: 20/10/2020 18:40.30 
+ inicio 20/10/2020 18:40.30: capturamos informacion a consultar Fin: 20/10/2020 18:40.30 
+ inicio 20/10/2020 18:40.30: Se lee el archivo de consulta Fin: 20/10/2020 18:40.30 
+ inicio 20/10/2020 18:40.30: Valida la estructura del archivo Fin: 20/10/2020 18:40.30 
+ inicio 20/10/2020 18:40.30: Prepara los campos por el que se hace la consulta Fin: 20/10/2020 18:40.30 
+ inicio 20/10/2020 18:40.30: Realiza la consulta en la base de datos Fin: 20/10/2020 18:40.59 
+ inicio 20/10/2020 18:40.59: Resizen cloud img Fin: 20/10/2020 18:40.59 
+ inicio 20/10/2020 18:40.59: Prepara el archivo csv Fin: 20/10/2020 18:40.59 
+ inicio 20/10/2020 18:40.59: FIN Fin: 20/10/2020 18:40.59 
+ inicio 20/10/2020 19:00.50: INICIO Fin: 20/10/2020 19:00.50 
+ inicio 20/10/2020 19:00.50: inicializar campos Fin: 20/10/2020 19:00.50 
+ inicio 20/10/2020 19:00.50: capturamos informacion a consultar Fin: 20/10/2020 19:00.50 
+ inicio 20/10/2020 19:00.50: Se lee el archivo de consulta Fin: 20/10/2020 19:00.51 
+ inicio 20/10/2020 19:00.51: Valida la estructura del archivo Fin: 20/10/2020 19:00.51 
+ inicio 20/10/2020 19:00.51: Prepara los campos por el que se hace la consulta Fin: 20/10/2020 19:00.51 
+ inicio 20/10/2020 19:00.51: Realiza la consulta en la base de datos Fin: 20/10/2020 19:00.52 
+ inicio 20/10/2020 19:00.52: Resizen cloud img Fin: 20/10/2020 19:00.52 
+ inicio 20/10/2020 19:00.52: Prepara el archivo csv Fin: 20/10/2020 19:00.52 
+ inicio 20/10/2020 19:00.52: FIN Fin: 20/10/2020 19:00.52 
  

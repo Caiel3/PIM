@@ -32,6 +32,7 @@ from datetime import datetime
 import uuid
 import asyncio
 import threading
+import pandas as pd
 from concurrent.futures import ThreadPoolExecutor
 
 converts_helper=Converts()
@@ -152,7 +153,7 @@ def subida(request):
     hash_archivo = str(uuid.uuid1())
     Txt('prueba','Resizen cloud img', inicio,datetime.now())
     inicio= datetime.now() 
-    import pdb;pdb.set_trace()
+    
     csv_hilo=threading.Thread(name="hilo_csv",target= Descarga_pim_doc,args=(hash_archivo,informacion,string_campos))
     csv_hilo.start()
    
@@ -256,10 +257,19 @@ def Descarga_pim_doc(token,mat,headers):
 def Descarga_doc(request):    
     """ descarga=Descarga_imagenes()
     temp=descarga.descargar(Descarga.objects.values('ean','imagen_grande').all()) """
-    import pdb;pdb.set_trace()
+   
     token = request.POST["token"]
     archivo_csv=open(settings.MEDIA_ROOT+"/Csv_descarga/documento-{}.csv".format(token),'rb')
     return FileResponse(archivo_csv)
+
+def Descarga_img(request):    
+    token = request.POST["token"] 
+    descarga=Descarga_imagenes()
+    pru=pd.read_csv(settings.MEDIA_ROOT+"/Csv_descarga/documento-{}.csv".format(token),sep='\n',delimiter=';')    
+    necesario=pru[["EAN", "IMAGEN_GRANDE"]]
+    lista=necesario.values.tolist()      
+    temp=descarga.descargar(lista,token) 
+    return temp
         
 def Consulta_marca_catalogo(marca):    
     consulta=("SELECT * FROM CATALOGO WHERE MARCA='{}' ORDER BY MARCA,cast(PAIS as unsigned)").format(marca)
