@@ -158,10 +158,11 @@ def subida(request):
     csv_hilo.start()
    
     
-    Txt('prueba','Prepara el archivo csv', inicio,datetime.now())
-    Txt('prueba','FIN', datetime.now(),datetime.now())
+    Txt('prueba','Prepara el archivo csv(hilo)', inicio,datetime.now())   
+    inicio= datetime.now() 
     csv_hilo.join()
- 
+    Txt('prueba','Queda listo el csv', inicio,datetime.now())
+    Txt('prueba','FIN', datetime.now(),datetime.now())
     return render(
         request,
         'visualizacion.html',

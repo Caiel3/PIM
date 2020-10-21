@@ -37,7 +37,7 @@ class Descarga_imagenes(models.Model):
         pass
            
     def descargar(self,imagenes_descarga,token):       
-        dire=settings.MEDIA_ROOT+"/Imagenes_descarga"
+        dire=settings.MEDIA_ROOT+"/Imagenes_descarga"        
         if os.path.isdir(dire+'/{}'.format(token))== False:
             os.mkdir(dire+'/{}'.format(token))
             pass        
