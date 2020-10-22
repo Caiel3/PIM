@@ -1,7 +1,6 @@
 import requests
 import csv
 from datetime import datetime
-from django.db import models
 import urllib.request as req
 import wget
 import os
@@ -10,7 +9,7 @@ from django.conf import settings
 import os
 import zipfile
 from .limpiar import Limpiar
-class Descarga_imagenes(models.Model):
+class Descarga_imagenes():
     
 
     def __str__(self):

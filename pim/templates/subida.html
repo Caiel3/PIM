@@ -46,7 +46,7 @@
                                     <option value="MATERIAL" {% if 'MATERIAL' in tipo %}selected="selected" {% endif %}>
                                         MATERIAL</option>
                                 </select>
-                                <!--       <div class="row">
+                                      <div class="row">
 
                                     <br>
                                     <div class="col-md-6">
@@ -90,7 +90,7 @@
                                                 {% endfor %}
                                             </select>
                                         </div>
-                                    </div>-->
+                                    </div>
 
 
                             </div>
@@ -175,6 +175,12 @@
                             <input class="form-check-input" type="checkbox" name="IMAGEN_GRANDE" value="IMAGEN_GRANDE"
                                 {% if 'IMAGEN_GRANDE' in consulta %}checked{% endif %}>
                             <label class="form-check-label" for="inlineCheckbox1">Imagen</label>
+                        </div>
+                        <br>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" name="MARCA"
+                                value="MARCA" {% if 'MARCA' in consulta %}checked{% endif %}>
+                            <label class="form-check-label" for="inlineCheckbox2">Marca</label>
                         </div>
                         <br>
                         <div class="form-check form-check-inline">

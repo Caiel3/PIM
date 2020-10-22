@@ -55,8 +55,7 @@ class MysqlColores(models.Model):
     descripcion_color = models.CharField(db_column='DESCRIPCION_COLOR', max_length=50, blank=True, null=True)  # Field name made lowercase.
     icono_color = models.CharField(db_column='ICONO_COLOR', max_length=500, blank=True, null=True)  # Field name made lowercase.
 
-    class Meta:
-        managed = False
+    class Meta:       
         db_table = 'MYSQL_COLORES'
 
 
@@ -69,8 +68,7 @@ class MysqlMateriales(models.Model):
     marca = models.CharField(db_column='MARCA', max_length=20, blank=True, null=True)  # Field name made lowercase.
     composicion_es = models.CharField(db_column='COMPOSICION_ES', max_length=100, blank=True, null=True)  # Field name made lowercase.
 
-    class Meta:
-        managed = False
+    class Meta:        
         db_table = 'MYSQL_MATERIALES'
 
 
@@ -79,21 +77,48 @@ class MysqlTallas(models.Model):
     material = models.CharField(db_column='MATERIAL', max_length=30, blank=True, null=True)  # Field name made lowercase.
     descripcion_talla = models.CharField(db_column='DESCRIPCION_TALLA', max_length=50, blank=True, null=True)  # Field name made lowercase.
 
-    class Meta:
-        managed = False
+    class Meta:        
         db_table = 'MYSQL_TALLAS'
-""" 
+
+
 class Tipo_Prenda(models.Model):
     id=models.IntegerField(db_column='Codigo',primary_key=True)
-    marca = models.CharField(db_column='Tipo prenda',null=True,max_length=30)
+    Tipo_Prenda = models.CharField(db_column='Tipo_prenda',null=True,max_length=50)    
     class Meta:
-        db_table='Tipo Prenda'
+        db_table='Tipo_Prenda'
+
+class Grupo_Destino(models.Model):
+    id=models.IntegerField(db_column='Codigo',primary_key=True)
+    Grupo_Destino = models.CharField(db_column='Grupo_destino',null=True,max_length=50)
+    Tipo_Prenda=models.ManyToManyField(Tipo_Prenda)
+    class Meta:
+        db_table='Grupo_Destino'
+
+class Genero(models.Model):
+    id=models.IntegerField(db_column='Codigo',primary_key=True)
+    Genero = models.CharField(db_column='Genero',null=True,max_length=30)
+    Grupo_Destino=models.ManyToManyField(Grupo_Destino)
+    class Meta:
+        db_table='Genero'
 
 class Marca(models.Model):
     id=models.IntegerField(db_column='Codigo',primary_key=True)
     marca = models.CharField(db_column='Marca',null=True,max_length=30)
-    Tipo_Prenda=models.ManyToManyField(Tipo_Prenda)
+    Genero=models.ManyToManyField(Genero)
 
     class Meta:
-        db_table='Marcas' """
+        db_table='Marca'
+
+
+class Orden_Tallas(models.Model):
+    id=models.CharField(db_column='Descripcion_talla',primary_key=True,max_length=30)
+    marca = models.IntegerField(db_column='Orden',null=True)  
+
+    class Meta:
+        db_table='Orden_Tallas'
+
+
+
+
+
 

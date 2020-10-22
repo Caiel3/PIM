@@ -55,35 +55,35 @@
                     <img id="titulo" style="height:60px; width: 240px;margin-bottom:2px;" src={{logo_bf}}>
                 </div>
                 {% for val in datosBF %}
-                    {% if val.12 == 'BABY FRESH'%}   
+                    {% if val.10 == 'BABY FRESH'%}   
                       
                             <div class="col col-lg-6 col-sm-6 ">
                                 <div style="text-align: center;margin-top: 7.5px;">
-                                    <img src={{ val.9 }}>
+                                    <img src={{ val.8 }}>
                                 </div>
                                 <div class="col-10">
                                     <p>
-                                    <h5 style="height:40px"> {{ val.8 }}</h5>
+                                    <h5 style="height:40px"> {{ val.7 }}</h5>
                                     <hr>
-                                    <h5>Categoría: {{ val.11 }}</h5>
+                                    <h5>Categoría: {{ val.12 }}</h5>
                                     <hr>
-                                    <h5>Material: {{ val.0 }} </h5>
+                                    <h5>Material: {{ val.1 }} </h5>
                                     <hr>
-                                    <h5 style="height:60px">Composición: {{ val.13 }} </h5>
+                                    <h5 style="height:60px">Composición: {{ val.6 }} </h5>
                                     <hr>
-                                    <h5>Unidad de empaque: {{ val.1 }} </h5>
+                                    <h5>Unidad de empaque: {{ val.5 }} </h5>
                                     <hr>
                                     <h5 style="height:40px">Color:
-                                        {% for imagen in val.6  %}
+                                        {% for imagen in val.11  %}
                                             {% if 'http' in imagen.icono_color %}
                                                 <img style="border-radius:50%; width:20px; height:20px;" src={{ imagen.icono_color }}>
                                             {% endif %}
                                         {% endfor %}
                                     </h5>
                                     <hr>
-                                    <h5 style="height:40px">Tallas: {{ val.7 }}</h5>
+                                    <h5 style="height:40px">Tallas: {{ val.9 }}</h5>
                                     <hr>
-                                    <h3>Precio: {{moneda}} {{ val.2 }}</h3>
+                                    <h3>Precio: {{moneda}} {{ val.4 }}</h3>
                                     <hr>
                                     </p>
                                 </div>
@@ -107,39 +107,40 @@
             </div>
                 
                 {% for val in datosGEF %}
-                    {% if val.12 == 'GEF' %}
+                    {% if val.10 == 'GEF' %}
                              
-                            <div class="col col-lg-6 col-sm-6 ">
-                                <div style="text-align: center; margin-top: 7.5px;">
-                                    <img src={{ val.9 }}>
-                                </div>
-                                <div class="col-10">
-                                    <p>
-                                    <h5 style="height:40px"> {{ val.8 }}</h5>
-                                    <hr>
-                                    <h5>Categoría: {{ val.11 }}</h5>
-                                    <hr>
-                                    <h5>Material: {{ val.0 }} </h5>
-                                    <hr>
-                                    <h5 style="height:60px">Composición: {{ val.13 }} </h5>
-                                    <hr>
-                                    <h5>Unidad de empaque: {{ val.1 }}  </h5>
-                                    <hr>
-                                    <h5 style="height:40px">Color:
-                                        {% for imagen in val.6  %}
-                                            {% if 'http' in imagen.icono_color %}
-                                                <img style="border-radius:50%; width:20px; height:20px;" src={{ imagen.icono_color }}>
-                                            {% endif %}
-                                        {% endfor %}
-                                    </h5>
-                                    <hr>
-                                    <h5 style="height:40px">Tallas: {{ val.7 }}</h5>
-                                    <hr>
-                                    <h3>Precio: {{moneda}} {{ val.2 }}</h3>
-                                    <hr>
-                                    </p>
-                                </div>
-                            </div>  
+                        
+                    <div class="col col-lg-6 col-sm-6 ">
+                        <div style="text-align: center;margin-top: 7.5px;">
+                            <img src={{ val.8 }}>
+                        </div>
+                        <div class="col-10">
+                            <p>
+                            <h5 style="height:40px"> {{ val.7 }}</h5>
+                            <hr>
+                            <h5>Categoría: {{ val.12 }}</h5>
+                            <hr>
+                            <h5>Material: {{ val.1 }} </h5>
+                            <hr>
+                            <h5 style="height:60px">Composición: {{ val.6 }} </h5>
+                            <hr>
+                            <h5>Unidad de empaque: {{ val.5 }} </h5>
+                            <hr>
+                            <h5 style="height:40px">Color:
+                                {% for imagen in val.11  %}
+                                    {% if 'http' in imagen.icono_color %}
+                                        <img style="border-radius:50%; width:20px; height:20px;" src={{ imagen.icono_color }}>
+                                    {% endif %}
+                                {% endfor %}
+                            </h5>
+                            <hr>
+                            <h5 style="height:40px">Tallas: {{ val.9 }}</h5>
+                            <hr>
+                            <h3>Precio: {{moneda}} {{ val.4 }}</h3>
+                            <hr>
+                            </p>
+                        </div>
+                    </div>
                             {% if forloop.counter|modulo:4 == 0 and forloop.counter != datos|length %}
                             <div style="width: 100%;border-bottom: 1px solid grey;">
                                 <img id="titulo" style="height:60px; width: 69px;margin-bottom:2px;" src={{logo_gef}}}>
@@ -158,39 +159,39 @@
             </div>
                 
                 {% for val in datosPB %}
-                    {% if val.12 == 'PUNTO BLANCO' %}
-                             
-                            <div class="col col-lg-6 col-sm-6 ">
-                                <div style="text-align: center; margin-top: 7.5px;">
-                                    <img src={{ val.9 }}>
-                                </div>
-                                <div class="col-10">
-                                    <p>
-                                    <h5 style="height:40px"> {{ val.8 }}</h5>
-                                    <hr>
-                                    <h5>Categoría: {{ val.11 }}</h5>
-                                    <hr>
-                                    <h5>Material: {{ val.0 }} </h5>
-                                    <hr>
-                                    <h5 style="height:60px">Composición: {{ val.13 }} </h5>
-                                    <hr>
-                                    <h5>Unidad de empaque: {{ val.1 }} </h5>
-                                    <hr>
-                                    <h5 style="height:40px">Color:
-                                        {% for imagen in val.6  %}
-                                            {% if 'http' in imagen.icono_color %}
-                                                <img style="border-radius:50%; width:20px; height:20px;" src={{ imagen.icono_color }}>
-                                            {% endif %}
-                                        {% endfor %}
-                                    </h5>
-                                    <hr>
-                                    <h5 style="height:40px">Tallas: {{ val.7 }}</h5>
-                                    <hr>
-                                    <h3>Precio: {{moneda}} {{ val.2 }}</h3>
-                                    <hr>
-                                    </p>
-                                </div>
-                            </div>  
+                    {% if val.10 == 'PUNTO BLANCO' %}
+                         
+                    <div class="col col-lg-6 col-sm-6 ">
+                        <div style="text-align: center;margin-top: 7.5px;">
+                            <img src={{ val.8 }}>
+                        </div>
+                        <div class="col-10">
+                            <p>
+                            <h5 style="height:40px"> {{ val.7 }}</h5>
+                            <hr>
+                            <h5>Categoría: {{ val.12 }}</h5>
+                            <hr>
+                            <h5>Material: {{ val.1 }} </h5>
+                            <hr>
+                            <h5 style="height:60px">Composición: {{ val.6 }} </h5>
+                            <hr>
+                            <h5>Unidad de empaque: {{ val.5 }} </h5>
+                            <hr>
+                            <h5 style="height:40px">Color:
+                                {% for imagen in val.11  %}
+                                    {% if 'http' in imagen.icono_color %}
+                                        <img style="border-radius:50%; width:20px; height:20px;" src={{ imagen.icono_color }}>
+                                    {% endif %}
+                                {% endfor %}
+                            </h5>
+                            <hr>
+                            <h5 style="height:40px">Tallas: {{ val.9 }}</h5>
+                            <hr>
+                            <h3>Precio: {{moneda}} {{ val.4 }}</h3>
+                            <hr>
+                            </p>
+                        </div>
+                    </div>
                             {% if forloop.counter|modulo:4 == 0 and forloop.counter != datos|length %}
                             <div style="width: 100%;border-bottom: 1px solid grey;">
                                 <img id="titulo" style="height:60px; width: 240px;margin-bottom:2px;" src={{logo_pb}}>

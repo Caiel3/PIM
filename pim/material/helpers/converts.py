@@ -1,10 +1,9 @@
-from django.db import models
 from math import  floor
 from pathlib import Path
 import json
 import os
 
-class Converts(models.Model):
+class Converts():
     
     def __str__(self):
         return 

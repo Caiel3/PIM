@@ -72,6 +72,7 @@ def subida(request):
         'TIPO_PRENDA',
         'SUBGRUPO',
         'GENERO',
+        'MARCA',
         'DEPARTAMENTO',
         'CARACTERISTICA',
         'TAGS',
@@ -190,13 +191,12 @@ def Catalogoh(request):
                 precio=dato['Precio'],
                 moneda='',
                 pais=dato['Orden'])
-
         
         header_consulta_material=[]
         for valor in archivo:
             header_consulta_material.append(valor['Material'])
             pass               
-       
+    
         """ 26 px de diferencia en la tercera marca """
         datosGEF=Consulta_marca_catalogo('GEF')
         datosBF=Consulta_marca_catalogo('BABY FRESH')
@@ -272,15 +272,15 @@ def Descarga_img(request):
     temp=descarga.descargar(lista,token) 
     return temp
         
-def Consulta_marca_catalogo(marca):    
+def Consulta_marca_catalogo(marca):        
     consulta=("SELECT * FROM CATALOGO WHERE MARCA='{}' ORDER BY MARCA,cast(PAIS as unsigned)").format(marca)
     datos=consultasql(consulta)
     consulta_temp=[]
     for dato in datos:
         temp=list(dato)        
-        colores=MysqlColores.objects.filter(material=dato[0]).values('icono_color')
+        colores=MysqlColores.objects.filter(material=dato[1]).values('icono_color')
         if colores:
-            temp[6]=[a for a in colores]
+            temp[11]=[a for a in colores]
             consulta_temp.append(temp)        
     datos=consulta_temp
     datos=cloud.convertir_matriz(
@@ -293,8 +293,8 @@ def Consulta_marca_catalogo(marca):
             '',
             '',
             '',
-            '',
-            'IMAGEN_GRANDE'],
+            'IMAGEN_GRANDE',
+            ''],
             248,
             326,
             'aatdtkgdoo')

@@ -17,7 +17,7 @@
                 {% for row in lista %}
                 <tr>
                     {% for val in row %}
-                    {% if "http://" in val %}
+                    {% if "http://" in val or "www" in val %}
                     <td><img src={% if '[None]' not in val %}{{val}}{% endif %} width="100" height="100"></td>
                     {% else %}
                     <td>{{val}}</td>

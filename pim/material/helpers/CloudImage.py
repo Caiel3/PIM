@@ -1,10 +1,10 @@
 import json
 import numpy as np
-from django.db import models
+
      
    
 
-class CloudImage(models.Model):
+class CloudImage():
     
     
     def __str__(self):
@@ -43,7 +43,7 @@ class CloudImage(models.Model):
                     if 'None' in url:  
                         val=''
                     else:                          
-                        val=self.cloudimg_imagen(url,{"width":ancho,"height":largo},token)
+                        val=self.cloudimg_imagen(url,{"height":largo,"width":ancho},token)
                     lista=list(fila)                    
                     lista[posicioni[0]]=val
                     con_filas=con_filas+1    
