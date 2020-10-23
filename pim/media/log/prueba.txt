@@ -524,4 +524,223 @@ inicio 20/10/2020 10:25.55: INICIO Fin: 20/10/2020 10:25.55
  inicio 21/10/2020 18:35.18: Prepara el archivo csv(hilo) Fin: 21/10/2020 18:35.18 
  inicio 21/10/2020 18:35.18: Queda listo el csv Fin: 21/10/2020 18:35.18 
  inicio 21/10/2020 18:35.18: FIN Fin: 21/10/2020 18:35.18 
+ inicio 23/10/2020 12:01.07: INICIO Fin: 23/10/2020 12:01.07 
+ inicio 23/10/2020 12:01.07: inicializar campos Fin: 23/10/2020 12:01.07 
+ inicio 23/10/2020 12:02.42: INICIO Fin: 23/10/2020 12:02.42 
+ inicio 23/10/2020 12:02.42: inicializar campos Fin: 23/10/2020 12:02.42 
+ inicio 23/10/2020 12:14.47: INICIO Fin: 23/10/2020 12:14.47 
+ inicio 23/10/2020 12:14.47: inicializar campos Fin: 23/10/2020 12:14.47 
+ inicio 23/10/2020 12:16.07: INICIO Fin: 23/10/2020 12:16.07 
+ inicio 23/10/2020 12:20.13: INICIO Fin: 23/10/2020 12:20.13 
+ inicio 23/10/2020 12:20.13: inicializar campos Fin: 23/10/2020 12:20.16 
+ inicio 23/10/2020 12:22.22: INICIO Fin: 23/10/2020 12:22.22 
+ inicio 23/10/2020 12:22.22: inicializar campos Fin: 23/10/2020 12:22.41 
+ inicio 23/10/2020 12:22.45: Realiza la consulta en la base de datos Fin: 23/10/2020 12:23.13 
+ inicio 23/10/2020 12:30.39: INICIO Fin: 23/10/2020 12:30.39 
+ inicio 23/10/2020 12:30.39: inicializar campos Fin: 23/10/2020 12:30.53 
+ inicio 23/10/2020 12:31.27: INICIO Fin: 23/10/2020 12:31.27 
+ inicio 23/10/2020 12:31.27: inicializar campos Fin: 23/10/2020 12:31.29 
+ inicio 23/10/2020 12:33.58: INICIO Fin: 23/10/2020 12:33.58 
+ inicio 23/10/2020 12:38.33: INICIO Fin: 23/10/2020 12:38.33 
+ inicio 23/10/2020 12:38.33: inicializar campos Fin: 23/10/2020 12:39.37 
+ inicio 23/10/2020 12:42.25: INICIO Fin: 23/10/2020 12:42.25 
+ inicio 23/10/2020 12:42.25: inicializar campos Fin: 23/10/2020 12:44.26 
+ inicio 23/10/2020 12:46.51: INICIO Fin: 23/10/2020 12:46.51 
+ inicio 23/10/2020 12:46.51: inicializar campos Fin: 23/10/2020 12:46.53 
+ inicio 23/10/2020 12:48.06: INICIO Fin: 23/10/2020 12:48.06 
+ inicio 23/10/2020 12:48.18: INICIO Fin: 23/10/2020 12:48.18 
+ inicio 23/10/2020 12:48.50: INICIO Fin: 23/10/2020 12:48.50 
+ inicio 23/10/2020 12:48.50: inicializar campos Fin: 23/10/2020 12:48.59 
+ inicio 23/10/2020 12:49.21: INICIO Fin: 23/10/2020 12:49.21 
+ inicio 23/10/2020 12:49.21: inicializar campos Fin: 23/10/2020 12:49.29 
+ inicio 23/10/2020 12:49.29: Realiza la consulta en la base de datos Fin: 23/10/2020 12:49.29 
+ inicio 23/10/2020 12:51.22: INICIO Fin: 23/10/2020 12:51.22 
+ inicio 23/10/2020 12:51.22: inicializar campos Fin: 23/10/2020 12:51.22 
+ inicio 23/10/2020 12:51.22: Realiza la consulta en la base de datos Fin: 23/10/2020 12:51.33 
+ inicio 23/10/2020 13:48.57: INICIO Fin: 23/10/2020 13:48.57 
+ inicio 23/10/2020 13:48.57: inicializar campos Fin: 23/10/2020 13:48.57 
+ inicio 23/10/2020 13:56.53: INICIO Fin: 23/10/2020 13:56.53 
+ inicio 23/10/2020 13:56.53: inicializar campos Fin: 23/10/2020 13:56.53 
+ inicio 23/10/2020 13:56.53: Realiza la consulta en la base de datos Fin: 23/10/2020 13:57.51 
+ inicio 23/10/2020 13:59.56: INICIO Fin: 23/10/2020 13:59.56 
+ inicio 23/10/2020 13:59.56: inicializar campos Fin: 23/10/2020 13:59.56 
+ inicio 23/10/2020 13:59.56: Realiza la consulta en la base de datos Fin: 23/10/2020 14:00.43 
+ inicio 23/10/2020 14:01.21: INICIO Fin: 23/10/2020 14:01.21 
+ inicio 23/10/2020 14:01.21: inicializar campos Fin: 23/10/2020 14:01.21 
+ inicio 23/10/2020 14:01.21: Realiza la consulta en la base de datos Fin: 23/10/2020 14:03.18 
+ inicio 23/10/2020 14:03.47: INICIO Fin: 23/10/2020 14:03.47 
+ inicio 23/10/2020 14:03.47: inicializar campos Fin: 23/10/2020 14:03.47 
+ inicio 23/10/2020 14:04.01: INICIO Fin: 23/10/2020 14:04.01 
+ inicio 23/10/2020 14:04.01: inicializar campos Fin: 23/10/2020 14:04.01 
+ inicio 23/10/2020 14:06.06: INICIO Fin: 23/10/2020 14:06.06 
+ inicio 23/10/2020 14:06.06: inicializar campos Fin: 23/10/2020 14:06.06 
+ inicio 23/10/2020 14:09.30: INICIO Fin: 23/10/2020 14:09.30 
+ inicio 23/10/2020 14:09.30: inicializar campos Fin: 23/10/2020 14:09.30 
+ inicio 23/10/2020 14:09.58: INICIO Fin: 23/10/2020 14:09.58 
+ inicio 23/10/2020 14:09.58: inicializar campos Fin: 23/10/2020 14:09.58 
+ inicio 23/10/2020 14:15.24: INICIO Fin: 23/10/2020 14:15.24 
+ inicio 23/10/2020 14:15.24: inicializar campos Fin: 23/10/2020 14:15.24 
+ inicio 23/10/2020 14:20.04: INICIO Fin: 23/10/2020 14:20.04 
+ inicio 23/10/2020 14:20.04: inicializar campos Fin: 23/10/2020 14:20.04 
+ inicio 23/10/2020 14:22.24: INICIO Fin: 23/10/2020 14:22.24 
+ inicio 23/10/2020 14:22.24: inicializar campos Fin: 23/10/2020 14:22.24 
+ inicio 23/10/2020 14:22.47: INICIO Fin: 23/10/2020 14:22.47 
+ inicio 23/10/2020 14:22.47: inicializar campos Fin: 23/10/2020 14:22.47 
+ inicio 23/10/2020 14:38.01: INICIO Fin: 23/10/2020 14:38.01 
+ inicio 23/10/2020 14:38.01: inicializar campos Fin: 23/10/2020 14:38.01 
+ inicio 23/10/2020 14:38.01: Realiza la consulta en la base de datos Fin: 23/10/2020 14:38.17 
+ inicio 23/10/2020 14:38.49: INICIO Fin: 23/10/2020 14:38.49 
+ inicio 23/10/2020 14:38.49: inicializar campos Fin: 23/10/2020 14:38.49 
+ inicio 23/10/2020 15:26.43: INICIO Fin: 23/10/2020 15:26.43 
+ inicio 23/10/2020 15:26.43: inicializar campos Fin: 23/10/2020 15:26.43 
+ inicio 23/10/2020 15:29.45: INICIO Fin: 23/10/2020 15:29.45 
+ inicio 23/10/2020 15:29.45: inicializar campos Fin: 23/10/2020 15:29.45 
+ inicio 23/10/2020 15:31.24: INICIO Fin: 23/10/2020 15:31.24 
+ inicio 23/10/2020 15:31.24: inicializar campos Fin: 23/10/2020 15:31.24 
+ inicio 23/10/2020 15:37.10: INICIO Fin: 23/10/2020 15:37.10 
+ inicio 23/10/2020 15:37.10: inicializar campos Fin: 23/10/2020 15:37.10 
+ inicio 23/10/2020 15:39.16: INICIO Fin: 23/10/2020 15:39.16 
+ inicio 23/10/2020 15:39.16: inicializar campos Fin: 23/10/2020 15:39.16 
+ inicio 23/10/2020 15:41.18: INICIO Fin: 23/10/2020 15:41.18 
+ inicio 23/10/2020 15:41.19: inicializar campos Fin: 23/10/2020 15:41.19 
+ inicio 23/10/2020 15:51.07: INICIO Fin: 23/10/2020 15:51.07 
+ inicio 23/10/2020 15:51.07: inicializar campos Fin: 23/10/2020 15:51.07 
+ inicio 23/10/2020 15:51.07: Realiza la consulta en la base de datos Fin: 23/10/2020 15:52.01 
+ inicio 23/10/2020 15:52.02: Resizen cloud img Fin: 23/10/2020 15:52.10 
+ inicio 23/10/2020 15:52.11: Prepara el archivo csv(hilo) Fin: 23/10/2020 15:52.15 
+ inicio 23/10/2020 15:52.15: Queda listo el csv Fin: 23/10/2020 15:52.18 
+ inicio 23/10/2020 15:52.19: FIN Fin: 23/10/2020 15:52.19 
+ inicio 23/10/2020 15:53.03: INICIO Fin: 23/10/2020 15:53.03 
+ inicio 23/10/2020 15:53.03: inicializar campos Fin: 23/10/2020 15:53.03 
+ inicio 23/10/2020 15:53.03: Realiza la consulta en la base de datos Fin: 23/10/2020 15:53.08 
+ inicio 23/10/2020 15:53.08: Resizen cloud img Fin: 23/10/2020 15:53.08 
+ inicio 23/10/2020 15:53.08: Prepara el archivo csv(hilo) Fin: 23/10/2020 15:53.08 
+ inicio 23/10/2020 15:53.08: Queda listo el csv Fin: 23/10/2020 15:53.08 
+ inicio 23/10/2020 15:53.08: FIN Fin: 23/10/2020 15:53.08 
+ inicio 23/10/2020 15:53.21: INICIO Fin: 23/10/2020 15:53.21 
+ inicio 23/10/2020 15:53.21: inicializar campos Fin: 23/10/2020 15:53.21 
+ inicio 23/10/2020 15:53.21: Realiza la consulta en la base de datos Fin: 23/10/2020 15:53.33 
+ inicio 23/10/2020 15:56.19: Resizen cloud img Fin: 23/10/2020 15:56.19 
+ inicio 23/10/2020 15:56.19: Prepara el archivo csv(hilo) Fin: 23/10/2020 15:56.19 
+ inicio 23/10/2020 15:56.19: Queda listo el csv Fin: 23/10/2020 15:56.19 
+ inicio 23/10/2020 15:56.19: FIN Fin: 23/10/2020 15:56.19 
+ inicio 23/10/2020 15:56.29: INICIO Fin: 23/10/2020 15:56.29 
+ inicio 23/10/2020 15:56.29: inicializar campos Fin: 23/10/2020 15:56.29 
+ inicio 23/10/2020 15:56.29: Realiza la consulta en la base de datos Fin: 23/10/2020 15:56.32 
+ inicio 23/10/2020 15:56.32: Resizen cloud img Fin: 23/10/2020 15:56.32 
+ inicio 23/10/2020 15:56.32: Prepara el archivo csv(hilo) Fin: 23/10/2020 15:56.32 
+ inicio 23/10/2020 15:56.32: Queda listo el csv Fin: 23/10/2020 15:56.32 
+ inicio 23/10/2020 15:56.32: FIN Fin: 23/10/2020 15:56.32 
+ inicio 23/10/2020 15:57.51: INICIO Fin: 23/10/2020 15:57.51 
+ inicio 23/10/2020 15:57.51: inicializar campos Fin: 23/10/2020 15:57.51 
+ inicio 23/10/2020 15:57.51: capturamos informacion a consultar Fin: 23/10/2020 15:57.56 
+ inicio 23/10/2020 15:57.56: Se lee el archivo de consulta Fin: 23/10/2020 15:58.03 
+ inicio 23/10/2020 15:59.13: INICIO Fin: 23/10/2020 15:59.13 
+ inicio 23/10/2020 15:59.13: inicializar campos Fin: 23/10/2020 15:59.13 
+ inicio 23/10/2020 15:59.13: capturamos informacion a consultar Fin: 23/10/2020 15:59.16 
+ inicio 23/10/2020 15:59.17: Se lee el archivo de consulta Fin: 23/10/2020 15:59.18 
+ inicio 23/10/2020 15:59.19: Valida la estructura del archivo Fin: 23/10/2020 15:59.20 
+ inicio 23/10/2020 15:59.20: Prepara los campos por el que se hace la consulta Fin: 23/10/2020 15:59.21 
+ inicio 23/10/2020 16:01.22: INICIO Fin: 23/10/2020 16:01.22 
+ inicio 23/10/2020 16:01.22: inicializar campos Fin: 23/10/2020 16:01.22 
+ inicio 23/10/2020 16:01.22: capturamos informacion a consultar Fin: 23/10/2020 16:01.25 
+ inicio 23/10/2020 16:01.25: Se lee el archivo de consulta Fin: 23/10/2020 16:01.28 
+ inicio 23/10/2020 16:01.28: Valida la estructura del archivo Fin: 23/10/2020 16:01.31 
+ inicio 23/10/2020 16:01.32: Prepara los campos por el que se hace la consulta Fin: 23/10/2020 16:01.33 
+ inicio 23/10/2020 16:03.54: INICIO Fin: 23/10/2020 16:03.54 
+ inicio 23/10/2020 16:03.54: inicializar campos Fin: 23/10/2020 16:03.54 
+ inicio 23/10/2020 16:03.54: capturamos informacion a consultar Fin: 23/10/2020 16:03.59 
+ inicio 23/10/2020 16:03.59: Se lee el archivo de consulta Fin: 23/10/2020 16:04.00 
+ inicio 23/10/2020 16:04.01: Valida la estructura del archivo Fin: 23/10/2020 16:04.03 
+ inicio 23/10/2020 16:04.03: Prepara los campos por el que se hace la consulta Fin: 23/10/2020 16:04.04 
+ inicio 23/10/2020 16:05.32: INICIO Fin: 23/10/2020 16:05.32 
+ inicio 23/10/2020 16:05.32: inicializar campos Fin: 23/10/2020 16:05.32 
+ inicio 23/10/2020 16:05.32: capturamos informacion a consultar Fin: 23/10/2020 16:05.36 
+ inicio 23/10/2020 16:05.36: Se lee el archivo de consulta Fin: 23/10/2020 16:05.37 
+ inicio 23/10/2020 16:05.38: Valida la estructura del archivo Fin: 23/10/2020 16:05.39 
+ inicio 23/10/2020 16:05.39: Prepara los campos por el que se hace la consulta Fin: 23/10/2020 16:05.39 
+ inicio 23/10/2020 16:05.40: Realiza la consulta en la base de datos Fin: 23/10/2020 16:06.10 
+ inicio 23/10/2020 16:06.10: Resizen cloud img Fin: 23/10/2020 16:06.15 
+ inicio 23/10/2020 16:06.15: Prepara el archivo csv(hilo) Fin: 23/10/2020 16:06.15 
+ inicio 23/10/2020 16:06.15: Queda listo el csv Fin: 23/10/2020 16:06.15 
+ inicio 23/10/2020 16:06.15: FIN Fin: 23/10/2020 16:06.15 
+ inicio 23/10/2020 16:06.36: INICIO Fin: 23/10/2020 16:06.36 
+ inicio 23/10/2020 16:06.36: inicializar campos Fin: 23/10/2020 16:06.36 
+ inicio 23/10/2020 16:06.36: capturamos informacion a consultar Fin: 23/10/2020 16:06.39 
+ inicio 23/10/2020 16:06.39: Se lee el archivo de consulta Fin: 23/10/2020 16:06.40 
+ inicio 23/10/2020 16:06.41: Valida la estructura del archivo Fin: 23/10/2020 16:06.41 
+ inicio 23/10/2020 16:06.42: Prepara los campos por el que se hace la consulta Fin: 23/10/2020 16:06.42 
+ inicio 23/10/2020 16:06.42: Realiza la consulta en la base de datos Fin: 23/10/2020 16:06.47 
+ inicio 23/10/2020 16:06.48: Resizen cloud img Fin: 23/10/2020 16:06.56 
+ inicio 23/10/2020 16:06.57: Prepara el archivo csv(hilo) Fin: 23/10/2020 16:07.25 
+ inicio 23/10/2020 16:07.26: Queda listo el csv Fin: 23/10/2020 16:07.28 
+ inicio 23/10/2020 16:07.29: FIN Fin: 23/10/2020 16:07.29 
+ inicio 23/10/2020 16:08.01: INICIO Fin: 23/10/2020 16:08.01 
+ inicio 23/10/2020 16:08.01: inicializar campos Fin: 23/10/2020 16:08.01 
+ inicio 23/10/2020 16:08.01: capturamos informacion a consultar Fin: 23/10/2020 16:08.07 
+ inicio 23/10/2020 16:08.18: Se lee el archivo de consulta Fin: 23/10/2020 16:08.23 
+ inicio 23/10/2020 16:08.23: Valida la estructura del archivo Fin: 23/10/2020 16:08.26 
+ inicio 23/10/2020 16:08.27: Prepara los campos por el que se hace la consulta Fin: 23/10/2020 16:08.39 
+ inicio 23/10/2020 16:08.39: Realiza la consulta en la base de datos Fin: 23/10/2020 16:10.47 
+ inicio 23/10/2020 16:12.59: INICIO Fin: 23/10/2020 16:12.59 
+ inicio 23/10/2020 16:12.59: inicializar campos Fin: 23/10/2020 16:12.59 
+ inicio 23/10/2020 16:12.59: capturamos informacion a consultar Fin: 23/10/2020 16:13.04 
+ inicio 23/10/2020 16:13.04: Se lee el archivo de consulta Fin: 23/10/2020 16:13.04 
+ inicio 23/10/2020 16:13.04: Valida la estructura del archivo Fin: 23/10/2020 16:13.04 
+ inicio 23/10/2020 16:13.04: Prepara los campos por el que se hace la consulta Fin: 23/10/2020 16:13.04 
+ inicio 23/10/2020 16:13.04: Realiza la consulta en la base de datos Fin: 23/10/2020 16:13.05 
+ inicio 23/10/2020 16:13.05: Resizen cloud img Fin: 23/10/2020 16:13.05 
+ inicio 23/10/2020 16:13.05: Prepara el archivo csv(hilo) Fin: 23/10/2020 16:13.05 
+ inicio 23/10/2020 16:13.05: Queda listo el csv Fin: 23/10/2020 16:13.05 
+ inicio 23/10/2020 16:13.05: FIN Fin: 23/10/2020 16:13.05 
+ inicio 23/10/2020 16:21.27: INICIO Fin: 23/10/2020 16:21.27 
+ inicio 23/10/2020 16:21.27: inicializar campos Fin: 23/10/2020 16:21.27 
+ inicio 23/10/2020 16:21.27: capturamos informacion a consultar Fin: 23/10/2020 16:21.28 
+ inicio 23/10/2020 16:21.28: Se lee el archivo de consulta Fin: 23/10/2020 16:21.28 
+ inicio 23/10/2020 16:21.28: Valida la estructura del archivo Fin: 23/10/2020 16:21.28 
+ inicio 23/10/2020 16:21.28: Prepara los campos por el que se hace la consulta Fin: 23/10/2020 16:21.28 
+ inicio 23/10/2020 16:21.28: Realiza la consulta en la base de datos Fin: 23/10/2020 16:21.30 
+ inicio 23/10/2020 16:21.30: Resizen cloud img Fin: 23/10/2020 16:21.30 
+ inicio 23/10/2020 16:21.30: Prepara el archivo csv(hilo) Fin: 23/10/2020 16:21.30 
+ inicio 23/10/2020 16:21.30: Queda listo el csv Fin: 23/10/2020 16:21.30 
+ inicio 23/10/2020 16:21.30: FIN Fin: 23/10/2020 16:21.30 
+ inicio 23/10/2020 16:21.40: INICIO Fin: 23/10/2020 16:21.40 
+ inicio 23/10/2020 16:21.40: inicializar campos Fin: 23/10/2020 16:21.40 
+ inicio 23/10/2020 16:21.40: capturamos informacion a consultar Fin: 23/10/2020 16:21.42 
+ inicio 23/10/2020 16:21.42: Se lee el archivo de consulta Fin: 23/10/2020 16:21.42 
+ inicio 23/10/2020 16:21.42: Valida la estructura del archivo Fin: 23/10/2020 16:21.42 
+ inicio 23/10/2020 16:21.42: Prepara los campos por el que se hace la consulta Fin: 23/10/2020 16:21.42 
+ inicio 23/10/2020 16:21.42: Realiza la consulta en la base de datos Fin: 23/10/2020 16:21.43 
+ inicio 23/10/2020 16:21.43: Resizen cloud img Fin: 23/10/2020 16:21.43 
+ inicio 23/10/2020 16:21.43: Prepara el archivo csv(hilo) Fin: 23/10/2020 16:21.43 
+ inicio 23/10/2020 16:21.43: Queda listo el csv Fin: 23/10/2020 16:21.43 
+ inicio 23/10/2020 16:21.43: FIN Fin: 23/10/2020 16:21.43 
+ inicio 23/10/2020 16:21.55: INICIO Fin: 23/10/2020 16:21.55 
+ inicio 23/10/2020 16:21.55: inicializar campos Fin: 23/10/2020 16:21.55 
+ inicio 23/10/2020 16:21.55: capturamos informacion a consultar Fin: 23/10/2020 16:21.58 
+ inicio 23/10/2020 16:21.58: Se lee el archivo de consulta Fin: 23/10/2020 16:21.58 
+ inicio 23/10/2020 16:21.58: Valida la estructura del archivo Fin: 23/10/2020 16:21.58 
+ inicio 23/10/2020 16:21.58: Prepara los campos por el que se hace la consulta Fin: 23/10/2020 16:21.58 
+ inicio 23/10/2020 16:21.58: Realiza la consulta en la base de datos Fin: 23/10/2020 16:21.59 
+ inicio 23/10/2020 16:21.59: Resizen cloud img Fin: 23/10/2020 16:21.59 
+ inicio 23/10/2020 16:21.59: Prepara el archivo csv(hilo) Fin: 23/10/2020 16:21.59 
+ inicio 23/10/2020 16:21.59: Queda listo el csv Fin: 23/10/2020 16:21.59 
+ inicio 23/10/2020 16:21.59: FIN Fin: 23/10/2020 16:21.59 
+ inicio 23/10/2020 16:22.15: INICIO Fin: 23/10/2020 16:22.15 
+ inicio 23/10/2020 16:22.15: inicializar campos Fin: 23/10/2020 16:22.15 
+ inicio 23/10/2020 16:22.15: capturamos informacion a consultar Fin: 23/10/2020 16:22.19 
+ inicio 23/10/2020 16:22.20: Se lee el archivo de consulta Fin: 23/10/2020 16:22.20 
+ inicio 23/10/2020 16:22.20: Valida la estructura del archivo Fin: 23/10/2020 16:22.20 
+ inicio 23/10/2020 16:22.20: Prepara los campos por el que se hace la consulta Fin: 23/10/2020 16:22.20 
+ inicio 23/10/2020 16:22.20: Realiza la consulta en la base de datos Fin: 23/10/2020 16:22.21 
+ inicio 23/10/2020 16:22.21: Resizen cloud img Fin: 23/10/2020 16:22.21 
+ inicio 23/10/2020 16:22.21: Prepara el archivo csv(hilo) Fin: 23/10/2020 16:22.21 
+ inicio 23/10/2020 16:22.21: Queda listo el csv Fin: 23/10/2020 16:22.21 
+ inicio 23/10/2020 16:22.21: FIN Fin: 23/10/2020 16:22.21 
+ inicio 23/10/2020 16:22.28: INICIO Fin: 23/10/2020 16:22.28 
+ inicio 23/10/2020 16:22.28: inicializar campos Fin: 23/10/2020 16:22.28 
+ inicio 23/10/2020 16:22.28: capturamos informacion a consultar Fin: 23/10/2020 16:22.31 
+ inicio 23/10/2020 16:22.32: Se lee el archivo de consulta Fin: 23/10/2020 16:22.34 
+ inicio 23/10/2020 16:22.35: Valida la estructura del archivo Fin: 23/10/2020 16:22.36 
+ inicio 23/10/2020 16:22.37: Prepara los campos por el que se hace la consulta Fin: 23/10/2020 16:22.38 
  

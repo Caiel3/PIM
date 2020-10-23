@@ -82,27 +82,27 @@ class MysqlTallas(models.Model):
 
 
 class Tipo_Prenda(models.Model):
-    id=models.IntegerField(db_column='Codigo',primary_key=True)
+    id=models.CharField(db_column='Codigo',primary_key=True,max_length=50)
     Tipo_Prenda = models.CharField(db_column='Tipo_prenda',null=True,max_length=50)    
     class Meta:
         db_table='Tipo_Prenda'
 
 class Grupo_Destino(models.Model):
-    id=models.IntegerField(db_column='Codigo',primary_key=True)
+    id=models.CharField(db_column='Codigo',primary_key=True,max_length=50)
     Grupo_Destino = models.CharField(db_column='Grupo_destino',null=True,max_length=50)
     Tipo_Prenda=models.ManyToManyField(Tipo_Prenda)
     class Meta:
         db_table='Grupo_Destino'
 
 class Genero(models.Model):
-    id=models.IntegerField(db_column='Codigo',primary_key=True)
+    id=models.CharField(db_column='Codigo',primary_key=True,max_length=50)
     Genero = models.CharField(db_column='Genero',null=True,max_length=30)
     Grupo_Destino=models.ManyToManyField(Grupo_Destino)
     class Meta:
         db_table='Genero'
 
 class Marca(models.Model):
-    id=models.IntegerField(db_column='Codigo',primary_key=True)
+    id=models.CharField(db_column='Codigo',primary_key=True,max_length=50)
     marca = models.CharField(db_column='Marca',null=True,max_length=30)
     Genero=models.ManyToManyField(Genero)
 

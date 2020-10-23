@@ -15,7 +15,7 @@
                             <div class="form-group col-md">
                                 <label for="ancho">Ancho</label>
                                 <input type="number" class="form-control" id="ancho" name="ancho"
-                                    aria-describedby="Ancho" value={{ancho}}>
+                                    aria-describedby="Ancho" value={{ancho}} required>
                                 <small id="emailHelp" class="form-text text-muted">Ingresa
                                     el tamaño del ancho de la
                                     imagen.(Px)</small>
@@ -23,7 +23,7 @@
                             <div class="form-group col-md">
                                 <label for="largo">Largo</label>
                                 <input type="number" class="form-control" id="largo" name="largo"
-                                    aria-describedby="Largo" value={{largo}}>
+                                    aria-describedby="Largo" required value={{largo}}>
                                 <small id="emailHelp" class="form-text text-muted">Ingresa
                                     el tamaño del Largo de la
                                     imagen.(Px)</small>
@@ -31,11 +31,59 @@
                             <div class="form-group col-md">
                                 <label for="">Descarga</label>
                                 <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                    <label class="custom-control-label" for="customCheck1">¿Va a descargar las imagenes?</label>
-                                  </div>
+                                    <input type="checkbox" class="custom-control-input" name="va_descargar" value="va_descargar" id="customCheck1">
+                                    <label class="custom-control-label" for="customCheck1">¿Va a descargar las
+                                        imagenes?</label>
+                                </div>
                             </div>
                         </div>
+                        <hr>                        
+                        <div class="row">
+                            <br>
+                            <div class="col-md-6">
+                                <label for="Consulta">Marca</label>
+                                <select name="DWMarca" class="form-control" id="Consulta">
+                                    <option value="">Seleccione...</option>
+                                    {% for marca in marcas %}
+                                    <option value="{{marca.marca}}">{{marca.marca}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="Consulta">Generos</label>
+                                <select name="DWGenero" class="form-control" id="Consulta">
+                                    <option value="">Seleccione...</option>
+                                    {% for genero in generos %}
+                                    <option value="{{genero.Genero}}">
+                                        {{genero.Genero}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <br>
+                            <div class="col-md-6">
+                                <label for="Consulta">Grupo destino</label>
+                                <select name="DWGrupo_destino" class="form-control" id="Consulta">
+                                    <option value="">Seleccione...</option>
+                                    {% for grupo_destino in grupo_destinos %}
+                                    <option value="{{grupo_destino.Grupo_Destino}}">{{grupo_destino.Grupo_Destino}}
+                                    </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="Consulta">Tipo prenda</label>
+                                <select name="DWTipo_prenda" class="form-control" id="Consulta">
+                                    <option value="">Seleccione...</option>
+                                    {% for Tipo_prenda in tipo_prendas %}
+                                    <option value="{{Tipo_prenda.Tipo_Prenda}}">
+                                        {{Tipo_prenda.Tipo_Prenda}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+
                         <div class="form-row">
                             <div class="form-group col-md">
                                 <label for="Consulta">Medio de Consulta</label>
@@ -46,62 +94,18 @@
                                     <option value="MATERIAL" {% if 'MATERIAL' in tipo %}selected="selected" {% endif %}>
                                         MATERIAL</option>
                                 </select>
-                                      <div class="row">
-
-                                    <br>
-                                    <div class="col-md-6">
-                                        <label for="Consulta">Marca</label>
-                                        <select name="tipo" class="form-control" id="Consulta">
-                                            <option value="">Seleccione...</option>
-                                            {% for marca in marcas %}
-                                            <option value="{{marca.marca}}">{{marca.marca}}</option>
-                                            {% endfor %}
-                                        </select>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="Consulta">Tipo prenda</label>
-                                        <select name="tipo" class="form-control" id="Consulta">
-                                            <option value="">Seleccione...</option>
-                                            {% for tipo_prenda in tipo_prendas %}
-                                            <option value="{{tipo_prendas.tipo_prenda}}">{{tipo_prenda.tipo_prenda}}
-                                            </option>
-                                            {% endfor %}
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label for="Consulta">Generos</label>
-                                        <select name="tipo" class="form-control" id="Consulta">
-                                            <option value="">Seleccione...</option>
-                                            {% for categoria in categorias %}
-                                            <option value="{{generos.genero}}">
-                                                {{generos.genero}}</option>
-                                            {% endfor %}
-                                        </select>
-                                        <div class="col-md-6">
-                                            <label for="Consulta">Grupo destino</label>
-                                            <select name="tipo" class="form-control" id="Consulta">
-                                                <option value="">Seleccione...</option>
-                                                {% for categoria in categorias %}
-                                                <option value="{{grupo_destinos.grupo_destino}}">
-                                                    {{grupo_destinos.grupo_destino}}</option>
-                                                {% endfor %}
-                                            </select>
-                                        </div>
-                                    </div>
-
-
                             </div>
                         </div>
+                        <hr>
+
 
                         <div class="form-row col-md-10">
                             <div class="form-group col-md">
                                 <label for="archivo">Cargar Archivo</label>
-                                <input type="file" name="archivo" class="form-control-file" id="archivo" required>
+                                <input type="file" name="archivo" class="form-control-file" id="archivo">
                             </div>
                         </div>
+
 
 
                         <div class="form-check form-check-inline">
@@ -178,8 +182,8 @@
                         </div>
                         <br>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" name="MARCA"
-                                value="MARCA" {% if 'MARCA' in consulta %}checked{% endif %}>
+                            <input class="form-check-input" type="checkbox" name="MARCA" value="MARCA"
+                                {% if 'MARCA' in consulta %}checked{% endif %}>
                             <label class="form-check-label" for="inlineCheckbox2">Marca</label>
                         </div>
                         <br>

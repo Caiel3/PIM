@@ -29,12 +29,15 @@
                         </form>
                         
                     </li>
+                   {% if 'si' in descargar_img %}
                     <li class="nav-item active">
                         <form action="/Descarga_img/" method="POST">{% csrf_token%}
                             <input class="btn btn-outline-light mr-sm-2" value="Descargar img" type="submit">
                             <input type="hidden" value="{{token}}" name="token" >
                         </form>                        
                     </li>
+                  
+                   {% endif %}
                        {% endif %} 
                     <li>{{message.tags}}</li>
                                   
