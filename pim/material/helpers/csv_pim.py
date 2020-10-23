@@ -16,7 +16,8 @@ class csv_pim:
       self.headers=headers
     
 
-    def Guardar(self):             
+    def Guardar(self):
+        inicio=datetime.now()             
         ruta=settings.MEDIA_ROOT+'/Csv_descarga/documento-{}.csv'.format(self.hash)        
         with open(ruta,'a', encoding='UTF-8') as f:
             f.write(self.headers.replace(',',';')+'\n')
@@ -26,7 +27,7 @@ class csv_pim:
                 f.write(string_campos+'\n')
              
         f.close()
-
+        Txt('prueba','Crea el csv.', inicio,datetime.now())
         
         return ruta
 

@@ -59,7 +59,8 @@ def index(request):
             "tipo_prendas":tipo_Prenda})
 
 def subida(request):
-    try:
+    try:        
+        inicio= datetime.now()  
         marcas=Marca.objects.all()        
         genero=Genero.objects.all()
         grupo_Destino=Grupo_Destino.objects.all()
@@ -90,8 +91,7 @@ def subida(request):
         else:
             descargar_img='no'
 
-        Txt('prueba','inicializar campos', inicio,datetime.now())    
-        inicio= datetime.now()  
+         
         parametros=[]       
 
         #Capturamos la informacion del formulario          
@@ -149,16 +149,17 @@ def subida(request):
                     "grupo_destinos":grupo_Destino,
                     "tipo_prendas":tipo_Prenda,
                     "descargar_img":descargar_img})
+
         
         string_campos=converts_helper.convert_array_string(parametros,tipo,",") #nos permite traer un string de campos a partir de un arreglo
         if string_campos=='':
             string_campos='material'
             pass
 
+        Txt('prueba','Valida informacion e inicializa campos.', inicio,datetime.now())    
+        inicio= datetime.now() 
         if len(request.FILES)!=0:   # si carga un archivo entra aqui         
-            mi_archivo=request.FILES["archivo"]
-            Txt('prueba','capturamos informacion a consultar', inicio,datetime.now())
-            inicio= datetime.now()  
+            mi_archivo=request.FILES["archivo"]            
             try:
                 file = mi_archivo.read().decode('utf-8-sig')
                 reader = csv.DictReader(io.StringIO(file))    
@@ -204,6 +205,8 @@ def subida(request):
             string_filtro=converts_helper.convert_array_string(archivo,tipo,',',False)
             """ vector_consulta_descarga=Converts.convert_dic_array(archivo,tipo)   """
             Txt('prueba','Prepara los campos por el que se hace la consulta', inicio,datetime.now())
+            inicio= datetime.now() 
+            Txt('prueba','Valida las estruturas de consulta y lee el archivo que se carga.', inicio,datetime.now())    
             inicio= datetime.now()    
             #controlo por donde hace la consulta si por ean o material   
             if tipo =="MATERIAL":
@@ -223,8 +226,7 @@ def subida(request):
             consulta='select distinct {} from material_materiales where {};'.format(string_campos,Consulta_Where(request.POST['DWMarca'],request.POST['DWGenero'],request.POST['DWGrupo_destino'],request.POST['DWTipo_prenda']))
             matconsulta=consultasql(consulta)   
 
-        
-        
+                
         Txt('prueba','Realiza la consulta en la base de datos', inicio,datetime.now())
         inicio= datetime.now()        
             
@@ -243,7 +245,8 @@ def subida(request):
         csv_hilo=threading.Thread(name="hilo_csv",target= Descarga_pim_doc,args=(hash_archivo,informacion,string_campos))
         csv_hilo.start()
     
-        
+        Txt('prueba','Convierte haciendo uso de cloud img.', inicio,datetime.now())    
+        inicio= datetime.now() 
         Txt('prueba','Prepara el archivo csv(hilo)', inicio,datetime.now())   
         inicio= datetime.now() 
         csv_hilo.join()

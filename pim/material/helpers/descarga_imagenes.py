@@ -35,7 +35,8 @@ class Descarga_imagenes():
             pass
         pass
            
-    def descargar(self,imagenes_descarga,token):       
+    def descargar(self,imagenes_descarga,token):           
+        inicio= datetime.now()        
         dire=settings.MEDIA_ROOT+"/Imagenes_descarga"        
         if os.path.isdir(dire+'/{}'.format(token))== False:
             os.mkdir(dire+'/{}'.format(token))
@@ -46,6 +47,8 @@ class Descarga_imagenes():
             if ''!=dir:
                 self.Descargaindividual(dir[1],dir[0],token)
             pass 
+        Txt('prueba','Realiza la descarga de imagenes.', inicio,datetime.now())
+        inicio= datetime.now()    
         fantasy_zip = zipfile.ZipFile(dire+'\\{}.zip'.format(archivo), 'w')
         for folder, subfolders, files in os.walk(dire):        
             for file in files:
@@ -54,7 +57,8 @@ class Descarga_imagenes():
                     os.remove(folder+'/'+file)                     
         
         fantasy_zip.close()
-        zip_file = open(dire+'\\{}.zip'.format(archivo), 'rb')            
+        zip_file = open(dire+'\\{}.zip'.format(archivo), 'rb') 
+        Txt('prueba','Crea el zip para descargar.', inicio,datetime.now())           
         return FileResponse(zip_file)
                
 
