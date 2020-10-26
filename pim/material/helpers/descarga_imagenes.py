@@ -9,6 +9,9 @@ from django.conf import settings
 import os
 import zipfile
 from .limpiar import Limpiar
+from datetime import datetime
+from ..helpers.TxtControlador import Txt
+
 class Descarga_imagenes():
     
 

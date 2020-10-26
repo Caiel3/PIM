@@ -2,6 +2,8 @@ from django.conf import settings
 import os.path as path
 import numpy as np
 from ..helpers.converts import  Converts
+from datetime import datetime
+from ..helpers.TxtControlador import Txt
 class csv_pim:
     def __str__(self):
         return 
@@ -21,8 +23,7 @@ class csv_pim:
         ruta=settings.MEDIA_ROOT+'/Csv_descarga/documento-{}.csv'.format(self.hash)        
         with open(ruta,'a', encoding='UTF-8') as f:
             f.write(self.headers.replace(',',';')+'\n')
-            for item in self.matriz:
-                
+            for item in self.matriz:                
                 string_campos=Converts.convert_array_string(self,item,'',';',True)
                 f.write(string_campos+'\n')
              

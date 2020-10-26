@@ -290,8 +290,33 @@ def Consulta_Where_Cantidad(marca,genero,grupo_destino,tipo_prenda):
         return count
  
 
-def Consulta_Where(marca,genero,grupo_destino,tipo_prenda):
-    return "MARCA='{}' AND GENERO='{}' AND GRUPO_DESTINO='{}' AND TIPO_PRENDA='{}'".format(marca,genero,grupo_destino,tipo_prenda)
+def Consulta_Where(marca,genero,grupo_destino,tipo_prenda):   
+    var_where=''
+    if marca!='':
+        var_where = "MARCA='{}'".format(marca)
+        pass
+    
+    if marca=='' and genero!='' :
+        var_where="GENERO='{}'".format(genero)
+        pass
+    elif genero!='' :
+        var_where=var_where+"AND GENERO='{}'".format(genero)
+        pass
+
+    if  marca=='' and genero=='' and grupo_destino!='':
+        var_where="GRUPO_DESTINO='{}'".format(grupo_destino)
+        pass
+    elif grupo_destino!='':
+        var_where=var_where+"AND GRUPO_DESTINO='{}'".format(grupo_destino)
+    
+    if marca=='' and genero=='' and grupo_destino=='' and tipo_prenda!='':
+        var_where="TIPO_PRENDA='{}'".format(tipo_prenda)
+        pass
+    elif tipo_prenda !='':
+        var_where=var_where+"AND TIPO_PRENDA='{}'".format(tipo_prenda)
+        pass
+
+    return var_where
     
 
 def Catalogoh(request):
