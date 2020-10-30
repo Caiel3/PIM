@@ -86,6 +86,7 @@ def subida(request):
             'GRUPO_DESTINO'
             ]
         
+        
         if 'va_descargar' in request.POST:
             descargar_img='si'
         else:
@@ -104,6 +105,22 @@ def subida(request):
                 parametros.append(aux)                            
             pass
 
+        if len(request.FILES)!=0 and tipo =='':
+            messages.error(request,'Por favor seleccione el medio de consulta.')
+            return render(
+                request,
+                'index.html',
+                {'ancho':ancho,
+                'largo':largo,
+                'tipo':tipo,
+                'consulta':parametros,
+                'mostrar':'no',
+                'marcas':marcas,                      
+                "generos":genero,
+                "grupo_destinos":grupo_Destino,
+                "tipo_prendas":tipo_Prenda,
+                "descargar_img":descargar_img})
+        
       
 
         if ('va_descargar' in request.POST) and ('EAN' not in request.POST) and ('IMAGEN_GRANDE' not in request.POST):
@@ -262,7 +279,7 @@ def subida(request):
             "descargar_img":descargar_img
             })    
         pass
-    except Exception as E:
+    except Exception as e:
         messages.error(request,'ocurrio un error por favor concate con el administrador y proporcine este error: {}'.format(e))
         return render(
             request,
