@@ -39,7 +39,8 @@ class Descarga_imagenes():
         pass
            
     def descargar(self,imagenes_descarga,token):           
-        inicio= datetime.now()        
+        inicio= datetime.now() 
+        import pdb;pdb.set_trace()           
         dire=settings.MEDIA_ROOT+"/Imagenes_descarga"        
         if os.path.isdir(dire+'/{}'.format(token))== False:
             os.mkdir(dire+'/{}'.format(token))
@@ -48,7 +49,11 @@ class Descarga_imagenes():
         archivo='Imagenes-{}'.format(token)          
         for dir in imagenes_descarga:            
             if ''!=dir:
-                self.Descargaindividual(dir[1],dir[0],token)
+                self.Descargaindividual(dir[1],dir[0]+'-FRENTE',token) if dir[1] != None else ''
+                self.Descargaindividual(dir[2],dir[0]+'-ESPALDA',token) if dir[2] != None else ''
+                self.Descargaindividual(dir[3],dir[0]+'-DETALLE',token) if dir[3] != None else ''
+                self.Descargaindividual(dir[4],dir[0]+'-DETALLE2',token) if dir[4] != None else ''
+                self.Descargaindividual(dir[5],dir[0]+'-MODELO',token) if dir[5] != None else ''
             pass 
         Txt('prueba','Realiza la descarga de imagenes.', inicio,datetime.now())
         inicio= datetime.now()    

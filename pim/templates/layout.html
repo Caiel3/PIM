@@ -8,6 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">    
     <link rel="stylesheet" href='{% static "/css/cliente.css" %}'>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <title>Eli</title>
 </head>
@@ -28,16 +30,14 @@
                             <input type="hidden" value="{{token}}" name="token" >
                         </form>
                         
-                    </li>
-                   {% if 'si' in descargar_img %}
+                    </li>                   
                     <li class="nav-item active">
                         <form action="/Descarga_img/" method="POST">{% csrf_token%}
                             <input class="btn btn-outline-light mr-sm-2" value="Descargar img" type="submit">
                             <input type="hidden" value="{{token}}" name="token" >
                         </form>                        
-                    </li>
+                    </li>                 
                   
-                   {% endif %}
                        {% endif %} 
                     <li>{{message.tags}}</li>
                                   
@@ -55,10 +55,17 @@
             <a href="http://www.crystal.com.co" target="_blank"> Crystal.com.co</a>
         </div>
     </footer>
-
+    <script>
+        $(document).ready(function() {
+            $('#tabla').DataTable();
+        } );
+    </script>
     <script src='{% static "/js/cliente.js" %}' ></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
 </body>
 </html>

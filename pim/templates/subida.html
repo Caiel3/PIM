@@ -27,15 +27,7 @@
                                 <small id="emailHelp" class="form-text text-muted">Ingresa
                                     el tamaño del Largo de la
                                     imagen.(Px)</small>
-                            </div>
-                            <div class="form-group col-md">
-                                <label for="">Descarga</label>
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" name="va_descargar" value="va_descargar" id="customCheck1">
-                                    <label class="custom-control-label" for="customCheck1">¿Va a descargar las
-                                        imagenes?</label>
-                                </div>
-                            </div>
+                            </div>                            
                         </div>
                         <hr>                        
                         <div class="row">
@@ -154,14 +146,7 @@
                             <label class="form-check-label" for="inlineCheckbox1">Descripción
                                 material enriquecida</label>
                         </div>
-                        <br>
-
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" name="EAN" value="EAN"
-                                {% if 'EAN' in consulta %}checked{% endif %}>
-                            <label class="form-check-label" for="inlineCheckbox2">Ean</label>
-                        </div>
-                        <br>
+                        <br>                       
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="checkbox" name="GENERO" value="GENERO"
                                 {% if 'GENERO' in consulta %}checked{% endif %}>
@@ -174,13 +159,7 @@
                             <label class="form-check-label" for="inlineCheckbox2">Grupo
                                 destino</label>
                         </div>
-                        <br>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" name="IMAGEN_GRANDE" value="IMAGEN_GRANDE"
-                                {% if 'IMAGEN_GRANDE' in consulta %}checked{% endif %}>
-                            <label class="form-check-label" for="inlineCheckbox1">Imagen</label>
-                        </div>
-                        <br>
+                        <br>                        
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="checkbox" name="MARCA" value="MARCA"
                                 {% if 'MARCA' in consulta %}checked{% endif %}>

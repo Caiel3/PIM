@@ -85,14 +85,7 @@ def subida(request):
             'TAGS',
             'GRUPO_DESTINO'
             ]
-        
-        
-        if 'va_descargar' in request.POST:
-            descargar_img='si'
-        else:
-            descargar_img='no'
-
-         
+ 
         parametros=[]       
 
         #Capturamos la informacion del formulario          
@@ -118,27 +111,9 @@ def subida(request):
                 'marcas':marcas,                      
                 "generos":genero,
                 "grupo_destinos":grupo_Destino,
-                "tipo_prendas":tipo_Prenda,
-                "descargar_img":descargar_img})
+                "tipo_prendas":tipo_Prenda
+               })
         
-      
-
-        if ('va_descargar' in request.POST) and ('EAN' not in request.POST) and ('IMAGEN_GRANDE' not in request.POST):
-            messages.error(request,'Si va a descargar la imagen debe de seleccionar minimamente el Ean y la Imagen.')
-            return render(
-                request,
-                'index.html',
-                {'ancho':ancho,
-                'largo':largo,
-                'tipo':tipo,
-                'consulta':parametros,
-                'mostrar':'no',
-                'marcas':marcas,                      
-                "generos":genero,
-                "grupo_destinos":grupo_Destino,
-                "tipo_prendas":tipo_Prenda,
-                "descargar_img":descargar_img})
-            pass
         
         if len(request.FILES)==0:
             count=0
@@ -164,15 +139,16 @@ def subida(request):
                     'marcas':marcas,                      
                     "generos":genero,
                     "grupo_destinos":grupo_Destino,
-                    "tipo_prendas":tipo_Prenda,
-                    "descargar_img":descargar_img})
+                    "tipo_prendas":tipo_Prenda})
 
-        
+        import pdb;pdb.set_trace()
         string_campos=converts_helper.convert_array_string(parametros,tipo,",") #nos permite traer un string de campos a partir de un arreglo
         if string_campos=='':
-            string_campos='material'
+            string_campos='ean,imagen_grande,imagen_espalda,imagen_detalle,imagen_detalle2,modelo'
+            parametros=['EAN','IMAGEN_GRANDE','IMAGEN_ESPALDA','IMAGEN_DETALLE','IMAGEN_DETALLE2','MODELO']   
             pass
-
+        else:
+            string_campos='ean,imagen_grande,imagen_espalda,imagen_detalle,imagen_detalle2,modelo,'+string_campos
         Txt('prueba','Valida informacion e inicializa campos.', inicio,datetime.now())    
         inicio= datetime.now() 
         if len(request.FILES)!=0:   # si carga un archivo entra aqui         
@@ -194,8 +170,7 @@ def subida(request):
                 'marcas':marcas,                      
                 "generos":genero,
                 "grupo_destinos":grupo_Destino,
-                "tipo_prendas":tipo_Prenda,
-                "descargar_img":descargar_img})
+                "tipo_prendas":tipo_Prenda})
             Txt('prueba','Se lee el archivo de consulta', inicio,datetime.now())
             inicio= datetime.now()  
             
@@ -213,8 +188,8 @@ def subida(request):
                 'marcas':marcas,                      
                 "generos":genero,
                 "grupo_destinos":grupo_Destino,
-                "tipo_prendas":tipo_Prenda,
-                "descargar_img":descargar_img})   
+                "tipo_prendas":tipo_Prenda
+               })   
             Txt('prueba','Valida la estructura del archivo', inicio,datetime.now())
             inicio= datetime.now()        
             #Relizamos la consulta nativa en la base de datos      
@@ -251,7 +226,7 @@ def subida(request):
         
         informacion=cloud.convertir_matriz(
             matconsulta,
-            parametros,
+            'full',
             ancho,
             largo,
             Claves.get_secret('CLOUDIMG_TOKEN'))      
@@ -275,8 +250,7 @@ def subida(request):
             {"headers":parametros,
             "lista":informacion,
             "mostrar":'si',
-            "token":hash_archivo,
-            "descargar_img":descargar_img
+            "token":hash_archivo
             })    
         pass
     except Exception as e:
@@ -345,6 +319,7 @@ def Catalogoh(request):
         #insertamos temporamente datos en una tabla para despues traerlos ordenados de una manera mas cesilla
         carga_temp=[line for line in archivo]    
         Catalogo_temp.objects.all().delete()          
+        import pdb; pdb.set_trace()
         for dato in carga_temp:        
             Catalogo_temp.objects.create(
                 material=dato['Material'],
@@ -358,11 +333,12 @@ def Catalogoh(request):
         for valor in archivo:
             header_consulta_material.append(valor['Material'])
             pass               
-    
+
         """ 26 px de diferencia en la tercera marca """
         datosGEF=Consulta_marca_catalogo('GEF')
         datosBF=Consulta_marca_catalogo('BABY FRESH')
         datosPB=Consulta_marca_catalogo('PUNTO BLANCO')
+        
         can_marca=np.asarray(consultasql("SELECT COUNT(MARCA) AS CANTIDAD,MARCA FROM RAM.CATALOGO GROUP BY MARCA order by MARCA"))
         con=0
         bfh=0# hojas Baby fresh
@@ -428,8 +404,9 @@ def Descarga_doc(request):
 def Descarga_img(request):    
     token = request.POST["token"] 
     descarga=Descarga_imagenes()
-    pru=pd.read_csv(settings.MEDIA_ROOT+"/Csv_descarga/documento-{}.csv".format(token),sep='\n',delimiter=';')    
-    necesario=pru[["EAN", "IMAGEN_GRANDE"]]
+    pru=pd.read_csv(settings.MEDIA_ROOT+"/Csv_descarga/documento-{}.csv".format(token),sep='\n',delimiter=';')
+    import pdb;pdb.set_trace()    
+    necesario=pru[["ean", "imagen_grande","imagen_espalda","imagen_detalle","imagen_detalle2","modelo"]]
     lista=necesario.values.tolist()      
     temp=descarga.descargar(lista,token) 
     return temp
@@ -438,25 +415,16 @@ def Consulta_marca_catalogo(marca):
     consulta=("SELECT * FROM CATALOGO WHERE MARCA='{}' ORDER BY MARCA,cast(PAIS as unsigned)").format(marca)
     datos=consultasql(consulta)
     consulta_temp=[]
+    import pdb;pdb.set_trace()
     for dato in datos:
         temp=list(dato)        
         colores=MysqlColores.objects.filter(material=dato[1]).values('icono_color')
         if colores:
             temp[11]=[a for a in colores]
-            consulta_temp.append(temp)        
+        consulta_temp.append(temp)        
     datos=consulta_temp
     datos=cloud.convertir_matriz(
-        datos,[
-            '',
-            '',
-            '',
-            '',
-            '',
-            '',
-            '',
-            '',
-            'IMAGEN_GRANDE',
-            ''],
+        datos,8,
             248,
             326,
             'aatdtkgdoo')

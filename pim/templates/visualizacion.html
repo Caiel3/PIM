@@ -3,13 +3,12 @@
 {% block body %}
 <div class="container col-md-12">
     <div class="text-center">
-        <table id="tblData" class="table mt-5 table-sm table_limit">
+        <table id="tabla" class="table table-striped table-bordered mt-5">
             <thead>
                 <tr>
                     {% for fila in headers %}
                     <th scope="col">{{fila}}</th>
                     {% endfor %}
-
                 </tr>
             </thead>
 

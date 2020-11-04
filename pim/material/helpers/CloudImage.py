@@ -15,7 +15,7 @@ class CloudImage():
         return 
 
     def cloudimg_imagen(self,url,parametros,toquen):
-        parametros_url=''
+        parametros_url=''             
         for param in parametros:
             parametros_url=str(parametros_url)+"&"+str(param)+'='+str(parametros.get(param))
             pass
@@ -24,30 +24,36 @@ class CloudImage():
 
 
 
-    def convertir_matriz(self,matriz,headers,ancho,largo,token):         
+    def convertir_matriz(self,matriz,posicion,ancho,largo,token):         
         aux=matriz        
-        headeraux=np.asarray(headers)        
+        import pdb;pdb.set_trace()      
         auxreturn=[]
-        con_filas=0      
-        posicioni=0
-        if 'IMAGEN_GRANDE' in headeraux:
-            posicion=np.where(headeraux=='IMAGEN_GRANDE')
-            posicioni=posicion[0]
-            pass
-        else:
-            return matriz
+        con_filas=0              
         try:
             while con_filas<len(aux):
                 for fila in aux:                   
-                    url=str(fila[posicioni[0]])
-                    if 'None' in url:  
-                        val=''
-                    else:                          
-                        val=self.cloudimg_imagen(url,{"height":largo,"width":ancho},token)
-                    lista=list(fila)                    
-                    lista[posicioni[0]]=val
-                    con_filas=con_filas+1    
-                    auxreturn.append(lista)                                                 
+                    if posicion=='full' :
+                        val=self.cloudimg_imagen(fila[1],{"height":largo,"width":ancho},token) if fila[1] != None else ''
+                        val1=self.cloudimg_imagen(fila[2],{"height":largo,"width":ancho},token) if fila[2] != None else ''
+                        val2=self.cloudimg_imagen(fila[3],{"height":largo,"width":ancho},token) if fila[3] != None else ''
+                        val3=self.cloudimg_imagen(fila[4],{"height":largo,"width":ancho},token) if fila[4] != None else ''
+                        val4=self.cloudimg_imagen(fila[4],{"height":largo,"width":ancho},token) if fila[5] != None else ''
+                        lista=list(fila)                    
+                        lista[1]=val
+                        lista[2]=val1
+                        lista[3]=val2
+                        lista[4]=val3
+                        lista[5]=val4
+                        con_filas=con_filas+1    
+                        auxreturn.append(lista)     
+                        pass
+                    else:
+                        val=self.cloudimg_imagen(fila[posicion],{"height":largo,"width":ancho},token) if fila[posicion] != None else ''
+                        lista=list(fila)                    
+                        lista[posicion]=val
+                        con_filas=con_filas+1    
+                        auxreturn.append(lista) 
+                        pass                                            
                 pass
             pass           
         except Exception as e:

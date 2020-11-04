@@ -88,4 +88,201 @@
  inicio 30/10/2020 12:36.05: INICIO Fin: 30/10/2020 12:36.05 
  inicio 30/10/2020 12:41.07: INICIO Fin: 30/10/2020 12:41.07 
  inicio 30/10/2020 12:43.37: INICIO Fin: 30/10/2020 12:43.37 
+ inicio 30/10/2020 13:19.56: INICIO Fin: 30/10/2020 13:19.56 
+ inicio 30/10/2020 13:19.56: Valida informacion e inicializa campos. Fin: 30/10/2020 13:19.56 
+ inicio 30/10/2020 13:19.56: Realiza la consulta en la base de datos Fin: 30/10/2020 13:20.50 
+ inicio 30/10/2020 13:20.50: Resizen cloud img Fin: 30/10/2020 13:20.51 
+ inicio 30/10/2020 13:20.51: Convierte haciendo uso de cloud img. Fin: 30/10/2020 13:20.51 
+ inicio 30/10/2020 13:20.51: Prepara el archivo csv(hilo) Fin: 30/10/2020 13:20.51 
+ inicio 30/10/2020 13:20.51: Crea el csv. Fin: 30/10/2020 13:20.52 
+ inicio 30/10/2020 13:20.51: Queda listo el csv Fin: 30/10/2020 13:20.52 
+ inicio 30/10/2020 13:20.52: FIN Fin: 30/10/2020 13:20.52 
+ inicio 30/10/2020 13:22.52: INICIO Fin: 30/10/2020 13:22.52 
+ inicio 30/10/2020 13:23.06: INICIO Fin: 30/10/2020 13:23.06 
+ inicio 30/10/2020 13:23.06: Valida informacion e inicializa campos. Fin: 30/10/2020 13:23.06 
+ inicio 30/10/2020 13:23.06: Realiza la consulta en la base de datos Fin: 30/10/2020 13:23.43 
+ inicio 30/10/2020 13:23.43: Resizen cloud img Fin: 30/10/2020 13:23.43 
+ inicio 30/10/2020 13:23.43: Convierte haciendo uso de cloud img. Fin: 30/10/2020 13:23.43 
+ inicio 30/10/2020 13:23.43: Prepara el archivo csv(hilo) Fin: 30/10/2020 13:23.43 
+ inicio 30/10/2020 13:23.43: Crea el csv. Fin: 30/10/2020 13:23.44 
+ inicio 30/10/2020 13:23.43: Queda listo el csv Fin: 30/10/2020 13:23.44 
+ inicio 30/10/2020 13:23.44: FIN Fin: 30/10/2020 13:23.44 
+ inicio 30/10/2020 13:31.50: INICIO Fin: 30/10/2020 13:31.50 
+ inicio 30/10/2020 13:31.51: Valida informacion e inicializa campos. Fin: 30/10/2020 13:31.51 
+ inicio 30/10/2020 13:31.51: Realiza la consulta en la base de datos Fin: 30/10/2020 13:31.54 
+ inicio 30/10/2020 13:31.54: Resizen cloud img Fin: 30/10/2020 13:31.56 
+ inicio 30/10/2020 13:31.56: Convierte haciendo uso de cloud img. Fin: 30/10/2020 13:31.56 
+ inicio 30/10/2020 13:31.56: Prepara el archivo csv(hilo) Fin: 30/10/2020 13:31.56 
+ inicio 30/10/2020 13:31.56: Crea el csv. Fin: 30/10/2020 13:31.56 
+ inicio 30/10/2020 13:31.56: Queda listo el csv Fin: 30/10/2020 13:31.56 
+ inicio 30/10/2020 13:31.56: FIN Fin: 30/10/2020 13:31.56 
+ inicio 30/10/2020 13:35.15: INICIO Fin: 30/10/2020 13:35.15 
+ inicio 30/10/2020 13:35.15: Valida informacion e inicializa campos. Fin: 30/10/2020 13:35.15 
+ inicio 30/10/2020 13:35.15: Realiza la consulta en la base de datos Fin: 30/10/2020 13:35.18 
+ inicio 30/10/2020 13:35.18: Resizen cloud img Fin: 30/10/2020 13:35.18 
+ inicio 30/10/2020 13:35.18: Convierte haciendo uso de cloud img. Fin: 30/10/2020 13:35.18 
+ inicio 30/10/2020 13:35.18: Prepara el archivo csv(hilo) Fin: 30/10/2020 13:35.18 
+ inicio 30/10/2020 13:35.18: Crea el csv. Fin: 30/10/2020 13:35.18 
+ inicio 30/10/2020 13:35.18: Queda listo el csv Fin: 30/10/2020 13:35.18 
+ inicio 30/10/2020 13:35.18: FIN Fin: 30/10/2020 13:35.18 
+ inicio 30/10/2020 13:44.40: INICIO Fin: 30/10/2020 13:44.40 
+ inicio 30/10/2020 13:44.40: Valida informacion e inicializa campos. Fin: 30/10/2020 13:44.40 
+ inicio 30/10/2020 13:44.40: Realiza la consulta en la base de datos Fin: 30/10/2020 13:44.42 
+ inicio 30/10/2020 13:44.42: Resizen cloud img Fin: 30/10/2020 13:44.42 
+ inicio 30/10/2020 13:44.42: Convierte haciendo uso de cloud img. Fin: 30/10/2020 13:44.42 
+ inicio 30/10/2020 13:44.42: Prepara el archivo csv(hilo) Fin: 30/10/2020 13:44.42 
+ inicio 30/10/2020 13:44.42: Crea el csv. Fin: 30/10/2020 13:44.42 
+ inicio 30/10/2020 13:44.42: Queda listo el csv Fin: 30/10/2020 13:44.42 
+ inicio 30/10/2020 13:44.42: FIN Fin: 30/10/2020 13:44.42 
+ inicio 30/10/2020 13:47.31: INICIO Fin: 30/10/2020 13:47.31 
+ inicio 30/10/2020 13:47.31: Valida informacion e inicializa campos. Fin: 30/10/2020 13:47.31 
+ inicio 30/10/2020 13:47.31: Realiza la consulta en la base de datos Fin: 30/10/2020 13:47.34 
+ inicio 30/10/2020 13:47.34: Resizen cloud img Fin: 30/10/2020 13:47.34 
+ inicio 30/10/2020 13:47.34: Convierte haciendo uso de cloud img. Fin: 30/10/2020 13:47.34 
+ inicio 30/10/2020 13:47.34: Prepara el archivo csv(hilo) Fin: 30/10/2020 13:47.34 
+ inicio 30/10/2020 13:47.34: Crea el csv. Fin: 30/10/2020 13:47.34 
+ inicio 30/10/2020 13:47.34: Queda listo el csv Fin: 30/10/2020 13:47.34 
+ inicio 30/10/2020 13:47.34: FIN Fin: 30/10/2020 13:47.34 
+ inicio 30/10/2020 15:16.03: INICIO Fin: 30/10/2020 15:16.03 
+ inicio 30/10/2020 15:16.03: Valida informacion e inicializa campos. Fin: 30/10/2020 15:16.03 
+ inicio 30/10/2020 15:16.03: Realiza la consulta en la base de datos Fin: 30/10/2020 15:16.05 
+ inicio 30/10/2020 15:16.05: Resizen cloud img Fin: 30/10/2020 15:16.06 
+ inicio 30/10/2020 15:16.06: Convierte haciendo uso de cloud img. Fin: 30/10/2020 15:16.06 
+ inicio 30/10/2020 15:16.06: Prepara el archivo csv(hilo) Fin: 30/10/2020 15:16.06 
+ inicio 30/10/2020 15:16.06: Crea el csv. Fin: 30/10/2020 15:16.06 
+ inicio 30/10/2020 15:16.06: Queda listo el csv Fin: 30/10/2020 15:16.06 
+ inicio 30/10/2020 15:16.06: FIN Fin: 30/10/2020 15:16.06 
+ inicio 30/10/2020 15:27.17: INICIO Fin: 30/10/2020 15:27.17 
+ inicio 30/10/2020 15:27.17: Valida informacion e inicializa campos. Fin: 30/10/2020 15:27.17 
+ inicio 30/10/2020 15:27.17: Realiza la consulta en la base de datos Fin: 30/10/2020 15:27.21 
+ inicio 30/10/2020 15:27.21: Resizen cloud img Fin: 30/10/2020 15:27.21 
+ inicio 30/10/2020 15:27.21: Convierte haciendo uso de cloud img. Fin: 30/10/2020 15:27.21 
+ inicio 30/10/2020 15:27.21: Prepara el archivo csv(hilo) Fin: 30/10/2020 15:27.21 
+ inicio 30/10/2020 15:27.21: Crea el csv. Fin: 30/10/2020 15:27.21 
+ inicio 30/10/2020 15:27.21: Queda listo el csv Fin: 30/10/2020 15:27.21 
+ inicio 30/10/2020 15:27.21: FIN Fin: 30/10/2020 15:27.21 
+ inicio 30/10/2020 15:30.12: INICIO Fin: 30/10/2020 15:30.12 
+ inicio 30/10/2020 15:30.12: Valida informacion e inicializa campos. Fin: 30/10/2020 15:30.12 
+ inicio 30/10/2020 15:30.12: Realiza la consulta en la base de datos Fin: 30/10/2020 15:30.14 
+ inicio 30/10/2020 15:30.14: Resizen cloud img Fin: 30/10/2020 15:30.14 
+ inicio 30/10/2020 15:30.14: Convierte haciendo uso de cloud img. Fin: 30/10/2020 15:30.14 
+ inicio 30/10/2020 15:30.14: Prepara el archivo csv(hilo) Fin: 30/10/2020 15:30.14 
+ inicio 30/10/2020 15:30.14: Crea el csv. Fin: 30/10/2020 15:30.14 
+ inicio 30/10/2020 15:30.14: Queda listo el csv Fin: 30/10/2020 15:30.14 
+ inicio 30/10/2020 15:30.14: FIN Fin: 30/10/2020 15:30.14 
+ inicio 03/11/2020 08:59.24: INICIO Fin: 03/11/2020 08:59.24 
+ inicio 03/11/2020 08:59.24: Valida informacion e inicializa campos. Fin: 03/11/2020 08:59.24 
+ inicio 03/11/2020 08:59.24: Realiza la consulta en la base de datos Fin: 03/11/2020 08:59.36 
+ inicio 03/11/2020 09:20.49: INICIO Fin: 03/11/2020 09:20.49 
+ inicio 03/11/2020 09:21.01: INICIO Fin: 03/11/2020 09:21.01 
+ inicio 03/11/2020 09:22.26: INICIO Fin: 03/11/2020 09:22.26 
+ inicio 03/11/2020 09:22.26: Valida informacion e inicializa campos. Fin: 03/11/2020 09:22.36 
+ inicio 03/11/2020 09:37.21: INICIO Fin: 03/11/2020 09:37.21 
+ inicio 03/11/2020 09:37.21: Valida informacion e inicializa campos. Fin: 03/11/2020 09:37.47 
+ inicio 03/11/2020 09:37.55: Realiza la consulta en la base de datos Fin: 03/11/2020 09:38.04 
+ inicio 03/11/2020 09:40.25: INICIO Fin: 03/11/2020 09:40.25 
+ inicio 03/11/2020 09:40.25: Valida informacion e inicializa campos. Fin: 03/11/2020 09:40.43 
+ inicio 03/11/2020 09:40.47: Realiza la consulta en la base de datos Fin: 03/11/2020 09:41.33 
+ inicio 03/11/2020 10:00.06: INICIO Fin: 03/11/2020 10:00.06 
+ inicio 03/11/2020 10:00.21: INICIO Fin: 03/11/2020 10:00.21 
+ inicio 03/11/2020 10:00.28: INICIO Fin: 03/11/2020 10:00.28 
+ inicio 03/11/2020 10:00.28: Valida informacion e inicializa campos. Fin: 03/11/2020 10:00.40 
+ inicio 03/11/2020 10:00.40: Realiza la consulta en la base de datos Fin: 03/11/2020 10:00.46 
+ inicio 03/11/2020 10:19.13: INICIO Fin: 03/11/2020 10:19.13 
+ inicio 03/11/2020 10:19.14: Valida informacion e inicializa campos. Fin: 03/11/2020 10:19.18 
+ inicio 03/11/2020 10:19.19: Realiza la consulta en la base de datos Fin: 03/11/2020 10:19.26 
+ inicio 03/11/2020 10:23.21: INICIO Fin: 03/11/2020 10:23.21 
+ inicio 03/11/2020 10:23.21: Valida informacion e inicializa campos. Fin: 03/11/2020 10:23.30 
+ inicio 03/11/2020 10:23.30: Realiza la consulta en la base de datos Fin: 03/11/2020 10:23.34 
+ inicio 03/11/2020 10:24.55: INICIO Fin: 03/11/2020 10:24.55 
+ inicio 03/11/2020 10:24.55: Valida informacion e inicializa campos. Fin: 03/11/2020 10:25.20 
+ inicio 03/11/2020 10:25.20: Realiza la consulta en la base de datos Fin: 03/11/2020 10:25.22 
+ inicio 03/11/2020 10:30.12: INICIO Fin: 03/11/2020 10:30.12 
+ inicio 03/11/2020 10:30.12: Valida informacion e inicializa campos. Fin: 03/11/2020 10:30.19 
+ inicio 03/11/2020 10:30.19: Realiza la consulta en la base de datos Fin: 03/11/2020 10:30.22 
+ inicio 03/11/2020 10:33.55: INICIO Fin: 03/11/2020 10:33.55 
+ inicio 03/11/2020 10:33.55: Valida informacion e inicializa campos. Fin: 03/11/2020 10:34.07 
+ inicio 03/11/2020 10:34.07: Realiza la consulta en la base de datos Fin: 03/11/2020 10:34.10 
+ inicio 03/11/2020 10:38.04: INICIO Fin: 03/11/2020 10:38.04 
+ inicio 03/11/2020 10:38.04: Valida informacion e inicializa campos. Fin: 03/11/2020 10:38.07 
+ inicio 03/11/2020 10:38.07: Realiza la consulta en la base de datos Fin: 03/11/2020 10:38.09 
+ inicio 03/11/2020 10:38.09: Resizen cloud img Fin: 03/11/2020 10:38.37 
+ inicio 03/11/2020 10:38.37: Convierte haciendo uso de cloud img. Fin: 03/11/2020 10:38.37 
+ inicio 03/11/2020 10:38.37: Prepara el archivo csv(hilo) Fin: 03/11/2020 10:38.37 
+ inicio 03/11/2020 10:38.37: Crea el csv. Fin: 03/11/2020 10:38.37 
+ inicio 03/11/2020 10:38.37: Queda listo el csv Fin: 03/11/2020 10:38.37 
+ inicio 03/11/2020 10:38.37: FIN Fin: 03/11/2020 10:38.37 
+ inicio 03/11/2020 11:05.23: INICIO Fin: 03/11/2020 11:05.23 
+ inicio 03/11/2020 11:05.23: Valida informacion e inicializa campos. Fin: 03/11/2020 11:05.27 
+ inicio 03/11/2020 11:05.27: Realiza la consulta en la base de datos Fin: 03/11/2020 11:05.29 
+ inicio 03/11/2020 11:05.29: Resizen cloud img Fin: 03/11/2020 11:05.31 
+ inicio 03/11/2020 11:05.31: Convierte haciendo uso de cloud img. Fin: 03/11/2020 11:05.31 
+ inicio 03/11/2020 11:05.31: Prepara el archivo csv(hilo) Fin: 03/11/2020 11:05.31 
+ inicio 03/11/2020 11:05.31: Crea el csv. Fin: 03/11/2020 11:05.31 
+ inicio 03/11/2020 11:05.31: Queda listo el csv Fin: 03/11/2020 11:05.31 
+ inicio 03/11/2020 11:05.31: FIN Fin: 03/11/2020 11:05.31 
+ inicio 03/11/2020 12:51.19: INICIO Fin: 03/11/2020 12:51.19 
+ inicio 03/11/2020 12:51.19: Valida informacion e inicializa campos. Fin: 03/11/2020 12:51.26 
+ inicio 03/11/2020 12:51.26: Realiza la consulta en la base de datos Fin: 03/11/2020 12:51.28 
+ inicio 03/11/2020 12:51.28: Resizen cloud img Fin: 03/11/2020 12:51.30 
+ inicio 03/11/2020 12:51.30: Convierte haciendo uso de cloud img. Fin: 03/11/2020 12:51.30 
+ inicio 03/11/2020 12:51.30: Prepara el archivo csv(hilo) Fin: 03/11/2020 12:51.30 
+ inicio 03/11/2020 12:51.30: Crea el csv. Fin: 03/11/2020 12:51.30 
+ inicio 03/11/2020 12:51.30: Queda listo el csv Fin: 03/11/2020 12:51.30 
+ inicio 03/11/2020 12:51.30: FIN Fin: 03/11/2020 12:51.30 
+ inicio 03/11/2020 16:39.34: INICIO Fin: 03/11/2020 16:39.34 
+ inicio 03/11/2020 16:39.34: Valida informacion e inicializa campos. Fin: 03/11/2020 16:39.44 
+ inicio 03/11/2020 16:39.44: Realiza la consulta en la base de datos Fin: 03/11/2020 16:39.47 
+ inicio 03/11/2020 16:39.47: Resizen cloud img Fin: 03/11/2020 16:39.49 
+ inicio 03/11/2020 16:39.49: Convierte haciendo uso de cloud img. Fin: 03/11/2020 16:39.49 
+ inicio 03/11/2020 16:39.49: Prepara el archivo csv(hilo) Fin: 03/11/2020 16:39.49 
+ inicio 03/11/2020 16:39.49: Crea el csv. Fin: 03/11/2020 16:39.49 
+ inicio 03/11/2020 16:39.49: Queda listo el csv Fin: 03/11/2020 16:39.49 
+ inicio 03/11/2020 16:39.49: FIN Fin: 03/11/2020 16:39.49 
+ inicio 03/11/2020 16:41.39: INICIO Fin: 03/11/2020 16:41.39 
+ inicio 03/11/2020 16:41.39: Valida informacion e inicializa campos. Fin: 03/11/2020 16:42.00 
+ inicio 03/11/2020 16:42.00: Realiza la consulta en la base de datos Fin: 03/11/2020 16:42.06 
+ inicio 03/11/2020 16:42.06: Resizen cloud img Fin: 03/11/2020 16:42.07 
+ inicio 03/11/2020 16:42.07: Convierte haciendo uso de cloud img. Fin: 03/11/2020 16:42.07 
+ inicio 03/11/2020 16:42.07: Prepara el archivo csv(hilo) Fin: 03/11/2020 16:42.07 
+ inicio 03/11/2020 16:42.07: Crea el csv. Fin: 03/11/2020 16:42.07 
+ inicio 03/11/2020 16:42.07: Queda listo el csv Fin: 03/11/2020 16:42.07 
+ inicio 03/11/2020 16:42.07: FIN Fin: 03/11/2020 16:42.07 
+ inicio 03/11/2020 17:04.50: INICIO Fin: 03/11/2020 17:04.50 
+ inicio 03/11/2020 17:04.50: Valida informacion e inicializa campos. Fin: 03/11/2020 17:05.02 
+ inicio 03/11/2020 17:05.02: Realiza la consulta en la base de datos Fin: 03/11/2020 17:05.06 
+ inicio 03/11/2020 17:05.06: Resizen cloud img Fin: 03/11/2020 17:05.07 
+ inicio 03/11/2020 17:05.07: Convierte haciendo uso de cloud img. Fin: 03/11/2020 17:05.07 
+ inicio 03/11/2020 17:05.07: Prepara el archivo csv(hilo) Fin: 03/11/2020 17:05.07 
+ inicio 03/11/2020 17:05.07: Crea el csv. Fin: 03/11/2020 17:05.07 
+ inicio 03/11/2020 17:05.07: Queda listo el csv Fin: 03/11/2020 17:05.07 
+ inicio 03/11/2020 17:05.07: FIN Fin: 03/11/2020 17:05.07 
+ inicio 04/11/2020 09:36.27: INICIO Fin: 04/11/2020 09:36.27 
+ inicio 04/11/2020 09:36.27: Valida informacion e inicializa campos. Fin: 04/11/2020 09:37.11 
+ inicio 04/11/2020 09:37.11: Realiza la consulta en la base de datos Fin: 04/11/2020 09:37.22 
+ inicio 04/11/2020 09:37.22: Resizen cloud img Fin: 04/11/2020 09:37.23 
+ inicio 04/11/2020 09:37.23: Convierte haciendo uso de cloud img. Fin: 04/11/2020 09:37.23 
+ inicio 04/11/2020 09:37.23: Crea el csv. Fin: 04/11/2020 09:37.23 
+ inicio 04/11/2020 09:37.23: Prepara el archivo csv(hilo) Fin: 04/11/2020 09:37.23 
+ inicio 04/11/2020 09:37.23: Queda listo el csv Fin: 04/11/2020 09:37.23 
+ inicio 04/11/2020 09:37.23: FIN Fin: 04/11/2020 09:37.23 
+ inicio 04/11/2020 09:37.55: INICIO Fin: 04/11/2020 09:37.55 
+ inicio 04/11/2020 09:37.55: Valida informacion e inicializa campos. Fin: 04/11/2020 09:38.09 
+ inicio 04/11/2020 09:38.09: Realiza la consulta en la base de datos Fin: 04/11/2020 09:38.18 
+ inicio 04/11/2020 09:38.18: Resizen cloud img Fin: 04/11/2020 09:38.19 
+ inicio 04/11/2020 09:38.19: Convierte haciendo uso de cloud img. Fin: 04/11/2020 09:38.19 
+ inicio 04/11/2020 09:38.19: Prepara el archivo csv(hilo) Fin: 04/11/2020 09:38.19 
+ inicio 04/11/2020 09:38.19: Crea el csv. Fin: 04/11/2020 09:38.19 
+ inicio 04/11/2020 09:38.19: Queda listo el csv Fin: 04/11/2020 09:38.19 
+ inicio 04/11/2020 09:38.19: FIN Fin: 04/11/2020 09:38.19 
+ inicio 04/11/2020 09:44.01: INICIO Fin: 04/11/2020 09:44.01 
+ inicio 04/11/2020 09:45.04: INICIO Fin: 04/11/2020 09:45.04 
+ inicio 04/11/2020 09:45.04: Valida informacion e inicializa campos. Fin: 04/11/2020 09:45.26 
+ inicio 04/11/2020 09:45.26: Realiza la consulta en la base de datos Fin: 04/11/2020 09:45.30 
+ inicio 04/11/2020 09:45.30: Resizen cloud img Fin: 04/11/2020 09:45.31 
+ inicio 04/11/2020 09:45.31: Convierte haciendo uso de cloud img. Fin: 04/11/2020 09:45.31 
+ inicio 04/11/2020 09:45.31: Prepara el archivo csv(hilo) Fin: 04/11/2020 09:45.31 
+ inicio 04/11/2020 09:45.31: Crea el csv. Fin: 04/11/2020 09:45.32 
+ inicio 04/11/2020 09:45.31: Queda listo el csv Fin: 04/11/2020 09:45.32 
+ inicio 04/11/2020 09:45.32: FIN Fin: 04/11/2020 09:45.32 
  
