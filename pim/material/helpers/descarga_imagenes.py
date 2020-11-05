@@ -21,7 +21,7 @@ class Descarga_imagenes():
     def __unicode__(self):
         return 
 
-    def Descargaindividual(self,link,nombre,token):  
+    def Descargaindividual(self,link,nombre,token,posicion):  
         
         nombre=str(nombre)
         url = link # El link de la imagen
@@ -29,7 +29,7 @@ class Descarga_imagenes():
         nombre_local_imagen = nombre+".jpg" # El nombre con el que queremos guardarla
         try:                                
             myfile = requests.get(url)
-            download_folder = settings.MEDIA_ROOT+"/Imagenes_descarga/{}/".format(token)
+            download_folder = settings.MEDIA_ROOT+"/Imagenes_descarga/{}-{}/".format(token,posicion)
             filename=download_folder+nombre+'.jpg'  
             os.makedirs(download_folder, exist_ok=True)
             open(filename, 'wb').write(myfile.content) 
@@ -38,26 +38,26 @@ class Descarga_imagenes():
             pass
         pass
            
-    def descargar(self,imagenes_descarga,token):           
+    def descargar(self,imagenes_descarga,token,posicion):           
         inicio= datetime.now() 
         import pdb;pdb.set_trace()           
         dire=settings.MEDIA_ROOT+"/Imagenes_descarga"        
-        if os.path.isdir(dire+'/{}'.format(token))== False:
-            os.mkdir(dire+'/{}'.format(token))
+        if os.path.isdir(dire+'/{}-{}'.format(token,posicion))== False:
+            os.mkdir(dire+'/{}-{}'.format(token,posicion))
             pass        
-        dire=settings.MEDIA_ROOT+"/Imagenes_descarga/{}".format(token)
-        archivo='Imagenes-{}'.format(token)          
+        dire=settings.MEDIA_ROOT+"/Imagenes_descarga/{}-{}".format(token,posicion)
+        archivo='Imagenes-{}-{}'.format(token,posicion)          
         for dir in imagenes_descarga:            
             if ''!=dir:
-                self.Descargaindividual(dir[1],dir[0]+'-FRENTE',token) if dir[1] != None else ''
-                self.Descargaindividual(dir[2],dir[0]+'-ESPALDA',token) if dir[2] != None else ''
-                self.Descargaindividual(dir[3],dir[0]+'-DETALLE',token) if dir[3] != None else ''
-                self.Descargaindividual(dir[4],dir[0]+'-DETALLE2',token) if dir[4] != None else ''
-                self.Descargaindividual(dir[5],dir[0]+'-MODELO',token) if dir[5] != None else ''
+                self.Descargaindividual(dir[1],dir[0]+'-FRENTE',token,posicion) if dir[1] != None else ''
+                self.Descargaindividual(dir[2],dir[0]+'-ESPALDA',token,posicion) if dir[2] != None else ''
+                self.Descargaindividual(dir[3],dir[0]+'-DETALLE',token,posicion) if dir[3] != None else ''
+                self.Descargaindividual(dir[4],dir[0]+'-DETALLE2',token,posicion) if dir[4] != None else ''
+                self.Descargaindividual(dir[5],dir[0]+'-MODELO',token,posicion) if dir[5] != None else ''
             pass 
         Txt('prueba','Realiza la descarga de imagenes.', inicio,datetime.now())
         inicio= datetime.now()    
-        fantasy_zip = zipfile.ZipFile(dire+'\\{}.zip'.format(archivo), 'w')
+        fantasy_zip = zipfile.ZipFile(dire+'\\{}-{}.zip'.format(archivo,posicion), 'w')
         for folder, subfolders, files in os.walk(dire):        
             for file in files:
                 if file.endswith('.jpg'):
@@ -65,7 +65,7 @@ class Descarga_imagenes():
                     os.remove(folder+'/'+file)                     
         
         fantasy_zip.close()
-        zip_file = open(dire+'\\{}.zip'.format(archivo), 'rb') 
+        zip_file = open(dire+'\\{}-{}.zip'.format(archivo,posicion), 'rb') 
         Txt('prueba','Crea el zip para descargar.', inicio,datetime.now())           
         return FileResponse(zip_file)
                

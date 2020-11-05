@@ -233,7 +233,8 @@ def subida(request):
         hash_archivo = str(uuid.uuid1())
         Txt('prueba','Resizen cloud img', inicio,datetime.now())
         inicio= datetime.now() 
-        
+        import pdb;pdb.set_trace()
+        rango=list(range(0,round(len(informacion)/100)))
         csv_hilo=threading.Thread(name="hilo_csv",target= Descarga_pim_doc,args=(hash_archivo,informacion,string_campos))
         csv_hilo.start()
     
@@ -250,7 +251,8 @@ def subida(request):
             {"headers":parametros,
             "lista":informacion,
             "mostrar":'si',
-            "token":hash_archivo
+            "token":hash_archivo,
+            "rangos":rango
             })    
         pass
     except Exception as e:
@@ -394,9 +396,7 @@ def Descarga_pim_doc(token,mat,headers):
     
 
 def Descarga_doc(request):    
-    """ descarga=Descarga_imagenes()
-    temp=descarga.descargar(Descarga.objects.values('ean','imagen_grande').all()) """
-   
+       
     token = request.POST["token"]
     archivo_csv=open(settings.MEDIA_ROOT+"/Csv_descarga/documento-{}.csv".format(token),'rb')
     return FileResponse(archivo_csv)
@@ -407,8 +407,9 @@ def Descarga_img(request):
     pru=pd.read_csv(settings.MEDIA_ROOT+"/Csv_descarga/documento-{}.csv".format(token),sep='\n',delimiter=';')
     import pdb;pdb.set_trace()    
     necesario=pru[["ean", "imagen_grande","imagen_espalda","imagen_detalle","imagen_detalle2","modelo"]]
+    necesario=necesario[int(request.POST["rango"])*100:(int(request.POST["rango"])+1)*100]
     lista=necesario.values.tolist()      
-    temp=descarga.descargar(lista,token) 
+    temp=descarga.descargar(lista,token,request.POST["rango"]) 
     return temp
         
 def Consulta_marca_catalogo(marca):        
