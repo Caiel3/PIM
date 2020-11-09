@@ -34,6 +34,7 @@ import asyncio
 import threading
 import pandas as pd
 from concurrent.futures import ThreadPoolExecutor
+from math import  ceil
 
 converts_helper=Converts()
 cloud=CloudImage()
@@ -141,14 +142,14 @@ def subida(request):
                     "grupo_destinos":grupo_Destino,
                     "tipo_prendas":tipo_Prenda})
 
-        import pdb;pdb.set_trace()
+        
         string_campos=converts_helper.convert_array_string(parametros,tipo,",") #nos permite traer un string de campos a partir de un arreglo
         if string_campos=='':
-            string_campos='ean,imagen_grande,imagen_espalda,imagen_detalle,imagen_detalle2,modelo'
-            parametros=['EAN','IMAGEN_GRANDE','IMAGEN_ESPALDA','IMAGEN_DETALLE','IMAGEN_DETALLE2','MODELO']   
+            string_campos='ean,imagen_grande'
+            parametros=['EAN','IMAGEN_GRANDE']   
             pass
         else:
-            string_campos='ean,imagen_grande,imagen_espalda,imagen_detalle,imagen_detalle2,modelo,'+string_campos
+            string_campos='ean,imagen_grande,'+string_campos
         Txt('prueba','Valida informacion e inicializa campos.', inicio,datetime.now())    
         inicio= datetime.now() 
         if len(request.FILES)!=0:   # si carga un archivo entra aqui         
@@ -195,7 +196,7 @@ def subida(request):
             #Relizamos la consulta nativa en la base de datos      
            
             string_filtro=converts_helper.convert_array_string(archivo,tipo,',',False)
-            """ vector_consulta_descarga=Converts.convert_dic_array(archivo,tipo)   """
+          
             Txt('prueba','Prepara los campos por el que se hace la consulta', inicio,datetime.now())
             inicio= datetime.now() 
             Txt('prueba','Valida las estruturas de consulta y lee el archivo que se carga.', inicio,datetime.now())    
@@ -226,7 +227,7 @@ def subida(request):
         
         informacion=cloud.convertir_matriz(
             matconsulta,
-            'full',
+            1,
             ancho,
             largo,
             Claves.get_secret('CLOUDIMG_TOKEN'))      
@@ -234,7 +235,7 @@ def subida(request):
         Txt('prueba','Resizen cloud img', inicio,datetime.now())
         inicio= datetime.now() 
         import pdb;pdb.set_trace()
-        rango=list(range(0,round(len(informacion)/100)))
+        rango=list(range(0,ceil(len(informacion)/100)))
         csv_hilo=threading.Thread(name="hilo_csv",target= Descarga_pim_doc,args=(hash_archivo,informacion,string_campos))
         csv_hilo.start()
     
@@ -252,7 +253,8 @@ def subida(request):
             "lista":informacion,
             "mostrar":'si',
             "token":hash_archivo,
-            "rangos":rango
+            "rangos":rango,
+            "tamano":[largo,ancho]
             })    
         pass
     except Exception as e:
@@ -402,21 +404,23 @@ def Descarga_doc(request):
     return FileResponse(archivo_csv)
 
 def Descarga_img(request):    
-    token = request.POST["token"] 
+    token = request.POST["token"]
+    tamanio = [t for t in request.POST["tamano"]] 
     descarga=Descarga_imagenes()
     pru=pd.read_csv(settings.MEDIA_ROOT+"/Csv_descarga/documento-{}.csv".format(token),sep='\n',delimiter=';')
-    import pdb;pdb.set_trace()    
-    necesario=pru[["ean", "imagen_grande","imagen_espalda","imagen_detalle","imagen_detalle2","modelo"]]
+        
+    necesario=pru[["ean", "imagen_grande"]]
     necesario=necesario[int(request.POST["rango"])*100:(int(request.POST["rango"])+1)*100]
-    lista=necesario.values.tolist()      
-    temp=descarga.descargar(lista,token,request.POST["rango"]) 
+    lista=necesario.values.tolist()
+    largo,ancho=request.POST["tamano"].split(',')      
+    temp=descarga.descargar(lista,token,request.POST["rango"],largo,ancho) 
     return temp
         
 def Consulta_marca_catalogo(marca):        
     consulta=("SELECT * FROM CATALOGO WHERE MARCA='{}' ORDER BY MARCA,cast(PAIS as unsigned)").format(marca)
     datos=consultasql(consulta)
     consulta_temp=[]
-    import pdb;pdb.set_trace()
+    
     for dato in datos:
         temp=list(dato)        
         colores=MysqlColores.objects.filter(material=dato[1]).values('icono_color')

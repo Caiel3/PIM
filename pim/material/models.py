@@ -32,7 +32,7 @@ class Materiales(models.Model):
     prendido_ean = models.IntegerField(db_column='PRENDIDO_EAN', blank=True, null=True)  
     fecha_actualizacion = models.DateTimeField(db_column='FECHA_ACTUALIZACION', blank=True, null=True) 
     fecha_actualizacion = models.DateTimeField(db_column='FECHA_ACTUALIZACION', blank=True, null=True)  
-    composicion_es = models.DateTimeField(db_column='COMPOSICION_ES', blank=True, null=True)   
+    composicion_es = models.TextField(db_column='COMPOSICION_ES', blank=True, null=True)   
 
     def __str__(self):
         return "Material: {}, Descripcion: {}, Ean: {}".format(self.material,self.descripcion_material,self.ean)
@@ -119,7 +119,13 @@ class Orden_Tallas(models.Model):
         db_table='Orden_Tallas'
 
 
-
+class MysqlImagenes(models.Model):
+    id = models.AutoField(db_column='ID', primary_key=True)  # Field name made lowercase.
+    ean = models.CharField(db_column='EAN', max_length=30, blank=True, null=True)  # Field name made lowercase.
+    imagen = models.CharField(db_column='IMAGEN', max_length=500, blank=True, null=True)  # Field name made lowercase.
+    
+    class Meta:       
+        db_table = 'MYSQL_IMAGENES'
 
 
 

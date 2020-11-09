@@ -6,12 +6,14 @@ import wget
 import os
 from django.http import HttpResponse,FileResponse
 from django.conf import settings
-import os
+import os,os.path
 import zipfile
 from .limpiar import Limpiar
 from datetime import datetime
 from ..helpers.TxtControlador import Txt
-
+from ..models import MysqlImagenes
+from ..helpers.claves import  Claves
+from ..helpers.CloudImage import  CloudImage
 class Descarga_imagenes():
     
 
@@ -38,22 +40,30 @@ class Descarga_imagenes():
             pass
         pass
            
-    def descargar(self,imagenes_descarga,token,posicion):           
+    def descargar(self,imagenes_descarga,token,posicion,largo,ancho):          
         inicio= datetime.now() 
-        import pdb;pdb.set_trace()           
+        
         dire=settings.MEDIA_ROOT+"/Imagenes_descarga"        
         if os.path.isdir(dire+'/{}-{}'.format(token,posicion))== False:
             os.mkdir(dire+'/{}-{}'.format(token,posicion))
             pass        
-        dire=settings.MEDIA_ROOT+"/Imagenes_descarga/{}-{}".format(token,posicion)
+        dire=settings.MEDIA_ROOT+"/Imagenes_descarga/{}-{}".format(token,posicion)        
         archivo='Imagenes-{}-{}'.format(token,posicion)          
+        if os.path.isfile(dire+'\\{}-{}.zip'.format(archivo,posicion)):
+            zip_file = open(dire+'\\{}-{}.zip'.format(archivo,posicion), 'rb')         
+            return FileResponse(zip_file)
+            pass
         for dir in imagenes_descarga:            
             if ''!=dir:
-                self.Descargaindividual(dir[1],dir[0]+'-FRENTE',token,posicion) if dir[1] != None else ''
-                self.Descargaindividual(dir[2],dir[0]+'-ESPALDA',token,posicion) if dir[2] != None else ''
-                self.Descargaindividual(dir[3],dir[0]+'-DETALLE',token,posicion) if dir[3] != None else ''
-                self.Descargaindividual(dir[4],dir[0]+'-DETALLE2',token,posicion) if dir[4] != None else ''
-                self.Descargaindividual(dir[5],dir[0]+'-MODELO',token,posicion) if dir[5] != None else ''
+                consulta_temp=MysqlImagenes.objects.values('ean','imagen').filter(ean=dir[0])
+                count=0            
+                for img in consulta_temp:                 
+                    self.Descargaindividual(
+                        CloudImage.cloudimg_imagen('',img['imagen'],{"height":largo,"width":ancho},Claves.get_secret('CLOUDIMG_TOKEN'))
+                        ,str(img['ean'])+'-'+str(count)
+                        ,token
+                        ,posicion) if img['imagen'] != None else ''
+                    count=count+1              
             pass 
         Txt('prueba','Realiza la descarga de imagenes.', inicio,datetime.now())
         inicio= datetime.now()    
