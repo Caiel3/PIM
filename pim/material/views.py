@@ -1,3 +1,4 @@
+import pdb
 from django.shortcuts import render,redirect
 from .models import Materiales,Descarga,Catalogo_temp,MysqlColores,Marca,Genero,Grupo_Destino,Tipo_Prenda
 from django.http import HttpResponse,HttpResponseNotFound
@@ -84,7 +85,8 @@ def subida(request):
             'DEPARTAMENTO',
             'CARACTERISTICA',
             'TAGS',
-            'GRUPO_DESTINO'
+            'GRUPO_DESTINO',
+            'TIPO_MATERIAL'
             ]
  
         parametros=[]       
@@ -142,13 +144,15 @@ def subida(request):
                     "grupo_destinos":grupo_Destino,
                     "tipo_prendas":tipo_Prenda})
 
-        
+      
+      
         string_campos=converts_helper.convert_array_string(parametros,tipo,",") #nos permite traer un string de campos a partir de un arreglo
         if string_campos=='':
             string_campos='ean,imagen_grande'
             parametros=['EAN','IMAGEN_GRANDE']   
             pass
         else:
+            parametros=['EAN','IMAGEN_GRANDE']+parametros 
             string_campos='ean,imagen_grande,'+string_campos
         Txt('prueba','Valida informacion e inicializa campos.', inicio,datetime.now())    
         inicio= datetime.now() 
@@ -233,8 +237,7 @@ def subida(request):
             Claves.get_secret('CLOUDIMG_TOKEN'))      
         hash_archivo = str(uuid.uuid1())
         Txt('prueba','Resizen cloud img', inicio,datetime.now())
-        inicio= datetime.now() 
-        import pdb;pdb.set_trace()
+        inicio= datetime.now()         
         rango=list(range(0,ceil(len(informacion)/100)))
         csv_hilo=threading.Thread(name="hilo_csv",target= Descarga_pim_doc,args=(hash_archivo,informacion,string_campos))
         csv_hilo.start()
@@ -246,6 +249,7 @@ def subida(request):
         csv_hilo.join()
         Txt('prueba','Queda listo el csv', inicio,datetime.now())
         Txt('prueba','FIN', datetime.now(),datetime.now())
+       
         return render(
             request,
             'visualizacion.html',
@@ -322,8 +326,7 @@ def Catalogoh(request):
         archivo = [line for line in reader]                
         #insertamos temporamente datos en una tabla para despues traerlos ordenados de una manera mas cesilla
         carga_temp=[line for line in archivo]    
-        Catalogo_temp.objects.all().delete()          
-        import pdb; pdb.set_trace()
+        Catalogo_temp.objects.all().delete()
         for dato in carga_temp:        
             Catalogo_temp.objects.create(
                 material=dato['Material'],
@@ -472,7 +475,7 @@ def consultasql(sql):
             pass
         return mat
     except Exception as e:        
-        messages.error(request,'Ocurrio un error, por favor contacte con el administrador y brinde este mensaje: {}.'.format(e))       
+       return 'Ocurrio un error, por favor contacte con el administrador y brinde este mensaje: {}.'.format(e)   
         
         
     

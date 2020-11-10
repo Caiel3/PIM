@@ -33,6 +33,7 @@ class Materiales(models.Model):
     fecha_actualizacion = models.DateTimeField(db_column='FECHA_ACTUALIZACION', blank=True, null=True) 
     fecha_actualizacion = models.DateTimeField(db_column='FECHA_ACTUALIZACION', blank=True, null=True)  
     composicion_es = models.TextField(db_column='COMPOSICION_ES', blank=True, null=True)   
+    tipo_material = models.TextField(db_column='TIPO_MATERIAL', blank=True, null=True)
 
     def __str__(self):
         return "Material: {}, Descripcion: {}, Ean: {}".format(self.material,self.descripcion_material,self.ean)

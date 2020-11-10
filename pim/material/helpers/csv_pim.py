@@ -18,7 +18,7 @@ class csv_pim:
       self.headers=headers
     
 
-    def Guardar(self):
+    def Guardar(self):        
         inicio=datetime.now()             
         ruta=settings.MEDIA_ROOT+'/Csv_descarga/documento-{}.csv'.format(self.hash)        
         with open(ruta,'a', encoding='UTF-8') as f:

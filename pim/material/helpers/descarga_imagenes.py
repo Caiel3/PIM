@@ -31,7 +31,7 @@ class Descarga_imagenes():
         nombre_local_imagen = nombre+".jpg" # El nombre con el que queremos guardarla
         try:                                
             myfile = requests.get(url)
-            download_folder = settings.MEDIA_ROOT+"/Imagenes_descarga/{}-{}/".format(token,posicion)
+            download_folder = settings.MEDIA_ROOT+"\Imagenes_descarga\{}-{}\\".format(token,posicion)
             filename=download_folder+nombre+'.jpg'  
             os.makedirs(download_folder, exist_ok=True)
             open(filename, 'wb').write(myfile.content) 
@@ -43,11 +43,11 @@ class Descarga_imagenes():
     def descargar(self,imagenes_descarga,token,posicion,largo,ancho):          
         inicio= datetime.now() 
         
-        dire=settings.MEDIA_ROOT+"/Imagenes_descarga"        
-        if os.path.isdir(dire+'/{}-{}'.format(token,posicion))== False:
-            os.mkdir(dire+'/{}-{}'.format(token,posicion))
+        dire=settings.MEDIA_ROOT+"\Imagenes_descarga"        
+        if os.path.isdir(dire+'\{}-{}'.format(token,posicion))== False:
+            os.mkdir(dire+'\{}-{}'.format(token,posicion))
             pass        
-        dire=settings.MEDIA_ROOT+"/Imagenes_descarga/{}-{}".format(token,posicion)        
+        dire=settings.MEDIA_ROOT+"\Imagenes_descarga\{}-{}".format(token,posicion)        
         archivo='Imagenes-{}-{}'.format(token,posicion)          
         if os.path.isfile(dire+'\\{}-{}.zip'.format(archivo,posicion)):
             zip_file = open(dire+'\\{}-{}.zip'.format(archivo,posicion), 'rb')         
@@ -72,7 +72,7 @@ class Descarga_imagenes():
             for file in files:
                 if file.endswith('.jpg'):
                     fantasy_zip.write(os.path.join(folder, file), os.path.relpath(os.path.join(folder,file), dire+file), compress_type = zipfile.ZIP_DEFLATED) 
-                    os.remove(folder+'/'+file)                     
+                    os.remove(folder+'\\'+file)                     
         
         fantasy_zip.close()
         zip_file = open(dire+'\\{}-{}.zip'.format(archivo,posicion), 'rb') 

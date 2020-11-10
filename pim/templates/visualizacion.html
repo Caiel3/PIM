@@ -1,10 +1,11 @@
 {% extends "layout.html" %}
 {% load static %}
 {% block body %}
-
+<hr class="mt-5">
 <div class="container col-md-12">
-    <div class="text-center">
-        <table id="tabla" class="table table-striped table-bordered mt-5">
+    <div class="text-center mt-5">
+   
+        <table id="MyTable" class="table table-striped table-bordered ">
             <thead>
                 <tr>
                     {% for fila in headers %}
@@ -12,7 +13,7 @@
                     {% endfor %}
                 </tr>
             </thead>
-
+            
             <tbody>
                 {% for row in lista %}
                 <tr>
@@ -29,5 +30,4 @@
         </table>
     </div>
 </div>
-
 {% endblock %}

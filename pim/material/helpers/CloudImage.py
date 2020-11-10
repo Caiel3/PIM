@@ -25,8 +25,7 @@ class CloudImage():
 
 
     def convertir_matriz(self,matriz,posicion,ancho,largo,token):         
-        aux=matriz        
-        import pdb;pdb.set_trace()      
+        aux=matriz                
         auxreturn=[]
         con_filas=0              
         try:

@@ -6,17 +6,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">    
-    <link rel="stylesheet" href='{% static "/css/cliente.css" %}'>
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>     
+    <link rel="stylesheet" type="text/css" href='{% static "/DataTables/css/jquery.dataTables.min.css" %}'/> 
+    <link rel="stylesheet" href='{% static "/css/cliente.css" %}'>    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">  
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <title>Eli</title>
 </head>
 
 <body>
-
     <nav id="header" class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">        
         <div class="container-fluid">
             <a class="navbar-brand" href="/">
@@ -35,8 +33,8 @@
                     <li class="nav-item active">
                         <form action="/Descarga_img/" method="POST">{% csrf_token%}
                             <div class="input-group">
-                                <select class="custom-select" name="rango" id="rango" required="true">
-                                    <option selected>Seleccione...</option>
+                                <select class="custom-select" name="rango" id="rango" required>
+                                    <option value = "" selected>Seleccione...</option>
                                     {% for valor in rangos  %}
                                         <option value="{{valor}}">{{valor|rango:0}} a {{valor|rango:1}}</option>  
                                     {% endfor %}                              
@@ -69,14 +67,17 @@
     </footer>
     <script>
         $(document).ready(function() {
-            $('#tabla').DataTable();
-        } );
+    $('#MyTable').dataTable( {
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
+        }
+    } );
+} );
     </script>
+    <br><script src = '{% static "/DataTables/js/jquery.dataTables.min.js" %}' defer ></script>
     <script src='{% static "/js/cliente.js" %}' ></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> 
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+  
 </body>
 </html>
