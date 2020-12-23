@@ -114,6 +114,12 @@
                         </div>
                         <br>
                         <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" name="COMPOSICION_ES" value="COMPOSICION_ES"
+                                {% if 'COMPOSICION_ES' in consulta %}checked{% endif %}>
+                            <label class="form-check-label" for="inlineCheckbox2">Composicion</label>
+                        </div>
+                        <br>
+                        <div class="form-check form-check-inline">
                             <input class="form-check-input" type="checkbox" name="DEPARTAMENTO" value="DEPARTAMENTO"
                                 {% if 'DEPARTAMENTO' in consulta %}checked{% endif %}>
                             <label class="form-check-label" for="inlineCheckbox2">Departamento</label>
@@ -124,12 +130,6 @@
                                 value="DESCRIPCION_LARGA" {% if 'DESCRIPCION_LARGA' in consulta %}checked{% endif %}>
                             <label class="form-check-label" for="inlineCheckbox2">Descripción
                                 larga</label>
-                        </div>
-                        <br>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" name="MATERIAL" value="MATERIAL"
-                                {% if 'MATERIAL' in consulta %}checked{% endif %}>
-                            <label class="form-check-label" for="inlineCheckbox1">Material</label>
                         </div>
                         <br>
                         <div class="form-check form-check-inline">
@@ -159,37 +159,18 @@
                                 {% if 'GRUPO_DESTINO' in consulta %}checked{% endif %}>
                             <label class="form-check-label" for="inlineCheckbox2">Grupo
                                 destino</label>
-                        </div>  
-                        <br>                        
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" name="TIPO_MATERIAL" value="TIPO_MATERIAL"
-                                {% if 'TIPO_MATERIAL' in consulta %}checked{% endif %}>
-                            <label class="form-check-label" for="inlineCheckbox2">Tipo material</label>
-                        </div>
+                        </div>                         
                         <br>                        
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="checkbox" name="MARCA" value="MARCA"
                                 {% if 'MARCA' in consulta %}checked{% endif %}>
                             <label class="form-check-label" for="inlineCheckbox2">Marca</label>
                         </div>
-                        <br>
+                         <br>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" name="DESCRIPCION_TALLA"
-                                value="DESCRIPCION_TALLA" {% if 'DESCRIPCION_TALLA' in consulta %}checked{% endif %}>
-                            <label class="form-check-label" for="inlineCheckbox2">Talla</label>
-                        </div>
-                        <br>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" name="TAGS" value="TAGS"
-                                {% if 'TAGS' in consulta %}checked{% endif %}>
-                            <label class="form-check-label" for="inlineCheckbox2">Tags</label>
-                        </div>
-                        <br>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" name="TIPO_PRENDA" value="TIPO_PRENDA"
-                                {% if 'TIPO_PRENDA' in consulta %}checked{% endif %}>
-                            <label class="form-check-label" for="inlineCheckbox2">Tipo
-                                prenda</label>
+                            <input class="form-check-input" type="checkbox" name="MATERIAL" value="MATERIAL"
+                                {% if 'MATERIAL' in consulta %}checked{% endif %}>
+                            <label class="form-check-label" for="inlineCheckbox1">Material</label>
                         </div>
                         <br>
                         <div class="form-check form-check-inline">
@@ -197,12 +178,34 @@
                                 {% if 'SUBGRUPO' in consulta %}checked{% endif %}>
                             <label class="form-check-label" for="inlineCheckbox2">Subgrupo</label>
                         </div>
+                         <br>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" name="TAGS" value="TAGS"
+                                {% if 'TAGS' in consulta %}checked{% endif %}>
+                            <label class="form-check-label" for="inlineCheckbox2">Tags</label>
+                        </div>
                         <br>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" name="SUBGRUPO" value="COMPOSICION_ES"
-                                {% if 'COMPOSICION_ES' in consulta %}checked{% endif %}>
-                            <label class="form-check-label" for="inlineCheckbox2">Composicion</label>
+                            <input class="form-check-input" type="checkbox" name="DESCRIPCION_TALLA"
+                                value="DESCRIPCION_TALLA" {% if 'DESCRIPCION_TALLA' in consulta %}checked{% endif %}>
+                            <label class="form-check-label" for="inlineCheckbox2">Talla</label>
                         </div>
+                         <br>                        
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" name="TIPO_MATERIAL" value="TIPO_MATERIAL"
+                                {% if 'TIPO_MATERIAL' in consulta %}checked{% endif %}>
+                            <label class="form-check-label" for="inlineCheckbox2">Tipo material</label>
+                        </div>
+                       
+                        <br>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" name="TIPO_PRENDA" value="TIPO_PRENDA"
+                                {% if 'TIPO_PRENDA' in consulta %}checked{% endif %}>
+                            <label class="form-check-label" for="inlineCheckbox2">Tipo
+                                prenda</label>
+                        </div>
+                        
+                        
                         <hr />
                         <input type="submit" class="btn btn-primary" value="Continuar">
                 </div>

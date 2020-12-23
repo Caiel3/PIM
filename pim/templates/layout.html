@@ -5,17 +5,33 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>     
-    <link rel="stylesheet" type="text/css" href='{% static "/DataTables/css/jquery.dataTables.min.css" %}'/> 
-    <link rel="stylesheet" href='{% static "/css/cliente.css" %}'>    
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Google Tag Manager -->
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-K5H5JJ4');</script>
+    <!-- End Google Tag Manager -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href='{% static "/DataTables/css/jquery.dataTables.min.css" %}' />
+    <link rel="stylesheet" href='{% static "/css/cliente.css" %}'>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <title>Eli</title>
 </head>
 
 <body>
-    <nav id="header" class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">        
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K5H5JJ4" height="0" width="0" style="display:none;visibility:hidden">
+        </iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <nav id="header" class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="/">
                 Repositorio central de imagenes
@@ -26,58 +42,57 @@
                     <li class="nav-item active">
                         <form action="/Descarga_doc/" method="POST">{% csrf_token%}
                             <input class="btn btn-outline-light mr-sm-2" value="Descargar doc" type="submit">
-                            <input type="hidden" value="{{token}}" name="token" >
+                            <input type="hidden" value="{{token}}" name="token">
                         </form>
-                        
-                    </li>                   
+
+                    </li>
                     <li class="nav-item active">
                         <form action="/Descarga_img/" method="POST">{% csrf_token%}
                             <div class="input-group">
                                 <select class="custom-select" name="rango" id="rango" required>
-                                    <option value = "" selected>Seleccione...</option>
+                                    <option value="" selected>Seleccione...</option>
                                     {% for valor in rangos  %}
-                                        <option value="{{valor}}">{{valor|rango:0}} a {{valor|rango:1}}</option>  
-                                    {% endfor %}                              
+                                    <option value="{{valor}}">{{valor|rango:0}} a {{valor|rango:1}}</option>
+                                    {% endfor %}
                                 </select>
-                                  <div class="input-group-append">
+                                <div class="input-group-append">
                                     <input class="btn btn-outline-light mr-sm-2" value="Descargar img" type="submit">
-                                  </div>                            
-                            </div>                           
-                            <input type="hidden" value="{{token}}" name="token" >
-                            <input type="hidden" value="{{tamano.0}},{{tamano.1}}" name="tamano" >
-                        </form>                        
-                    </li>                 
-                  
-                       {% endif %} 
+                                </div>
+                            </div>
+                            <input type="hidden" value="{{token}}" name="token">
+                            <input type="hidden" value="{{tamano.0}},{{tamano.1}}" name="tamano">
+                        </form>
+                    </li>
+
+                    {% endif %}
                     <li>{{message.tags}}</li>
-                                  
+
                 </ul>
-            </div> 
+            </div>
         </div>
     </nav>
     {% block body %}
 
     {% endblock %}
-
-      
-     <footer>
+    <footer>
         <div class="card-footer text-muted">Crystal:
             <a href="http://www.crystal.com.co" target="_blank"> Crystal.com.co</a>
         </div>
     </footer>
     <script>
-        $(document).ready(function() {
-    $('#MyTable').dataTable( {
-        "language": {
-            "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
-        }
-    } );
-} );
+        $(document).ready(function () {
+            $('#MyTable').dataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
+                }
+            });
+        });
     </script>
-    <br><script src = '{% static "/DataTables/js/jquery.dataTables.min.js" %}' defer ></script>
-    <script src='{% static "/js/cliente.js" %}' ></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> 
+    <br>
+    <script src='{% static "/DataTables/js/jquery.dataTables.min.js" %}' defer></script>
+    <script src='{% static "/js/cliente.js" %}'></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-  
 </body>
+
 </html>

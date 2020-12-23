@@ -86,7 +86,8 @@ def subida(request):
             'CARACTERISTICA',
             'TAGS',
             'GRUPO_DESTINO',
-            'TIPO_MATERIAL'
+            'TIPO_MATERIAL',
+            'COMPOSICION_ES'
             ]
  
         parametros=[]       
