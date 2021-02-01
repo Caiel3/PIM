@@ -20,13 +20,14 @@ class csv_pim:
 
     def Guardar(self):        
         inicio=datetime.now()             
-        ruta=settings.MEDIA_ROOT+'/Csv_descarga/documento-{}.csv'.format(self.hash)        
+        ruta=settings.MEDIA_ROOT+'/Csv_descarga/documento-{}.csv'.format(self.hash)
+       
         with open(ruta,'a', encoding='UTF-8') as f:
-            f.write(self.headers.replace(',',';')+'\n')
-            for item in self.matriz:                
+            f.write(self.headers.replace(',',';')+ '\n')
+            for item in self.matriz:
                 string_campos=Converts.convert_array_string(self,item,'',';',True)
-                f.write(string_campos+'\n')
-             
+                f.write(string_campos + '\n')
+                # import pdb; pdb.set_trace()  
         f.close()
         Txt('prueba','Crea el csv.', inicio,datetime.now())
         

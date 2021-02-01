@@ -51,6 +51,7 @@ def index(request):
     genero=Genero.objects.all()
     grupo_Destino=Grupo_Destino.objects.all()
     tipo_Prenda=Tipo_Prenda.objects.all()
+
    
     return render(
         request,
@@ -87,7 +88,9 @@ def subida(request):
             'TAGS',
             'GRUPO_DESTINO',
             'TIPO_MATERIAL',
-            'COMPOSICION_ES'
+            'COMPOSICION_ES',
+            'ORIGEN',
+            'URL_IMAGEN'
             ]
  
         parametros=[]       
@@ -95,13 +98,14 @@ def subida(request):
         #Capturamos la informacion del formulario          
         tipo = request.POST["tipo"]
         ancho = request.POST["ancho"]
-        largo = request.POST["largo"]   
+        largo = request.POST["largo"] 
+        ean_consulta = request.POST["Ean_Consul"]  
         for item in consulta:
             if item.upper() in request.POST :
                 aux=request.POST[item]
                 parametros.append(aux)                            
             pass
-
+            
         if len(request.FILES)!=0 and tipo =='':
             messages.error(request,'Por favor seleccione el medio de consulta.')
             return render(
@@ -118,6 +122,23 @@ def subida(request):
                 "tipo_prendas":tipo_Prenda
                })
         
+        if len(request.FILES)!=0 or tipo !='':
+                if request.POST['Ean_Consul']!= '':
+                    messages.error(request,'Por favor verifique si como desea hacer la consulta.')
+                    return render(
+                            request,
+                            'index.html',
+                            {'ancho':ancho,
+                            'largo':largo,
+                            'tipo':tipo,
+                            'consulta':parametros,
+                            'mostrar':'no',
+                            'marcas':marcas,                      
+                            "generos":genero,
+                            "grupo_destinos":grupo_Destino,
+                            "tipo_prendas":tipo_Prenda
+                            })
+
         
         if len(request.FILES)==0:
             count=0
@@ -129,9 +150,29 @@ def subida(request):
                 count=count+1
             if (request.POST['DWTipo_prenda']!=''):
                 count=count+1
+            if(request.POST['Ean_Consul']!=''):
+                count=count+1
+            
+            if request.POST['DWMarca']!= '' or request.POST['DWGenero']!='' or request.POST['DWGrupo_destino']!='' or request.POST['DWTipo_prenda']!='' :
+                if request.POST['Ean_Consul']!= '':
+                    messages.error(request,'Por favor verifique si como desea hacer la consulta.')
+                    return render(
+                        request,
+                        'index.html',
+                        {'ancho':ancho,
+                        'largo':largo,
+                        'tipo':tipo,
+                        'consulta':parametros,
+                        'mostrar':'no',
+                        'marcas':marcas,                      
+                        "generos":genero,
+                        "grupo_destinos":grupo_Destino,
+                        "tipo_prendas":tipo_Prenda
+                        })
+
 
             if count==0:            
-                messages.error(request,'Por favor seleccione un medio de consulta, sea subir el archivo  o seleccionar en las listas deplegables.')
+                messages.error(request,'Por favor seleccione un medio de consulta, sea subir el archivo, ingresar los eans  o seleccionar en las listas deplegables.')
                 return render(
                     request,
                     'index.html',
@@ -145,6 +186,7 @@ def subida(request):
                     "grupo_destinos":grupo_Destino,
                     "tipo_prendas":tipo_Prenda})
 
+           
       
       
         string_campos=converts_helper.convert_array_string(parametros,tipo,",") #nos permite traer un string de campos a partir de un arreglo
@@ -157,7 +199,7 @@ def subida(request):
             string_campos='ean,imagen_grande,'+string_campos
         Txt('prueba','Valida informacion e inicializa campos.', inicio,datetime.now())    
         inicio= datetime.now() 
-        if len(request.FILES)!=0:   # si carga un archivo entra aqui         
+        if len(request.FILES)!=0 and request.POST["Ean_Consul"]== '' :   # si carga un archivo entra aqui         
             mi_archivo=request.FILES["archivo"]            
             try:
                 file = mi_archivo.read().decode('utf-8-sig')
@@ -220,9 +262,19 @@ def subida(request):
                     consulta='select distinct {} from material_materiales where ean in ({});'.format(string_campos,string_filtro,) 
 
             matconsulta=consultasql(consulta)  
+        elif request.POST['Ean_Consul']!= "":
+            array_filt=converts_helper.convert_string_array(ean_consulta)
+            string_filtro_ean=converts_helper.convert_array_str(array_filt,',',False)
+            consulta='select distinct {} from material_materiales where ean in ({});'.format(string_campos,string_filtro_ean) 
+            matconsulta=consultasql(consulta)
+            # import pdb; pdb.set_trace()
+
         else:
             consulta='select distinct {} from material_materiales where {};'.format(string_campos,Consulta_Where(request.POST['DWMarca'],request.POST['DWGenero'],request.POST['DWGrupo_destino'],request.POST['DWTipo_prenda']))
-            matconsulta=consultasql(consulta)   
+            matconsulta=consultasql(consulta)    
+
+
+ 
 
                 
         Txt('prueba','Realiza la consulta en la base de datos', inicio,datetime.now())
@@ -263,7 +315,7 @@ def subida(request):
             })    
         pass
     except Exception as e:
-        messages.error(request,'ocurrio un error por favor concate con el administrador y proporcine este error: {}'.format(e))
+        messages.error(request,'ocurrio un error por favor contacte con el administrador y proporcine este error: {}'.format(e))
         return render(
             request,
             'index.html',
@@ -325,7 +377,7 @@ def Catalogoh(request):
         files = mi_archivo.read().decode('utf-8-sig')   
         reader = csv.DictReader(io.StringIO(files),fieldnames=None,delimiter=';')
         archivo = [line for line in reader]                
-        #insertamos temporamente datos en una tabla para despues traerlos ordenados de una manera mas cesilla
+        #insertamos temporamente datos en una tabla para despues traerlos ordenados de una manera mas sencilla
         carga_temp=[line for line in archivo]    
         Catalogo_temp.objects.all().delete()
         for dato in carga_temp:        
@@ -386,9 +438,9 @@ def Catalogoh(request):
         elif "PRIMARY" in str(e):
             messages.error(request,'Hay un material duplicado, recuerde que deben ser únicos.')
         elif "utf-8" in str(e):
-            messages.error(request,'El archivo de be de ser un csv utf-8.')
+            messages.error(request,'El archivo debe de ser un csv utf-8.')
         else:
-            messages.error(request,'Ocurrio un error inesperado, por favor contacte con el adminitrador y proporcione este error; {}'.format(e))         
+            messages.error(request,'Ocurrio un error inesperado, por favor contacte con el administrador y proporcione este error; {}'.format(e))         
             
         return render(request,'index.html',{'mostrar':'no'})  
    

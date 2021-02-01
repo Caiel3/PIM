@@ -44,7 +44,7 @@ class Converts():
                     pass
                 pass
         pass
-        
+        print(stringaux)
         return  stringaux
         pass
     
@@ -63,5 +63,48 @@ class Converts():
         else:
             return (cantidad_prendas/4)*1511.5
             pass
+
+    def convert_string_array(self,tipo):
+        lista = []
+        arreglo = tipo.splitlines()
+
+        for nodo in arreglo:
+            if nodo !='' and nodo.isdigit()== True:
+                lista.append(nodo)
+        print(lista)
+        # import pdb; pdb.set_trace()
+        return lista
+        pass
+
+    def convert_array_str(self,array1dimension,delimitador, noesdiccionario=True):
+        stringaux=''
+        count=1      
+        
+        for valor in array1dimension:
+            if valor==None:
+                valor=''
+                pass
+            if noesdiccionario:
+                if count == len(array1dimension):
+                    stringaux=stringaux+valor
+                    
+                    pass
+                else:
+                    stringaux=stringaux+valor+delimitador
+                    count=count+1
+            else:
+                if count == len(array1dimension):
+                    stringaux=stringaux+valor
+                    
+                    pass
+                else:
+                    stringaux=stringaux+valor+delimitador
+                    count=count+1
+                    pass
+                pass
+        pass
+        # import pdb; pdb.set_trace()
+        return  stringaux
+        pass
 
     
