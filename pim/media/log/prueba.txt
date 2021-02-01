@@ -1377,4 +1377,13 @@ inicio 10/11/2020 18:34.25: INICIO Fin: 10/11/2020 18:34.25
  inicio 01/02/2021 11:09.11: Valida informacion e inicializa campos. Fin: 01/02/2021 11:09.11 
  inicio 01/02/2021 11:09.11: Se lee el archivo de consulta Fin: 01/02/2021 11:09.11 
  inicio 01/02/2021 11:15.30: INICIO Fin: 01/02/2021 11:15.30 
+ inicio 01/02/2021 15:11.03: INICIO Fin: 01/02/2021 15:11.03 
+ inicio 01/02/2021 15:11.03: Valida informacion e inicializa campos. Fin: 01/02/2021 15:11.03 
+ inicio 01/02/2021 15:11.03: Realiza la consulta en la base de datos Fin: 01/02/2021 15:11.05 
+ inicio 01/02/2021 15:11.05: Resizen cloud img Fin: 01/02/2021 15:11.05 
+ inicio 01/02/2021 15:11.05: Convierte haciendo uso de cloud img. Fin: 01/02/2021 15:11.05 
+ inicio 01/02/2021 15:11.05: Prepara el archivo csv(hilo) Fin: 01/02/2021 15:11.05 
+ inicio 01/02/2021 15:11.05: Crea el csv. Fin: 01/02/2021 15:11.05 
+ inicio 01/02/2021 15:11.05: Queda listo el csv Fin: 01/02/2021 15:11.05 
+ inicio 01/02/2021 15:11.05: FIN Fin: 01/02/2021 15:11.05 
  

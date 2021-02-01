@@ -83,15 +83,22 @@
                         <div class="form-row">
                             <div class="form-group col-md">
                             <label for="Ean_Con">Ean Consulta</label>
-                            <textarea class="form-control" id="Ean_Consul" name="Ean_Consul" rows="3" placeholder="Ingresa los ean que desea consultar." ></textarea>
+                            <textarea class="form-control" id="Ean_Consul" name="Ean_Consul" rows="3" placeholder="Ingresa los ean que desea consultar." type="text" ></textarea>
                             </div>
                         </div>
 
                         <div class="form-row">
                             <div class="form-group col-md">
-                                <input type="reset" class="btn btn-primary" value="Limpiar campos" id="Limpiar">
+                                <input type="button" class="btn btn-primary" value="Limpiar campos" id="Limpiar">
                             </div>       
                         </div>
+                        <script>
+                            $(document).ready(function() {
+                                $('#Limpiar').click(function() {
+                                    $('#Ean_Consul').val('');
+                                });
+                            });
+                        </script>
 
                         <hr>
 
