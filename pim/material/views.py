@@ -124,7 +124,7 @@ def subida(request):
         
         if len(request.FILES)!=0 or tipo !='':
                 if request.POST['Ean_Consul']!= '':
-                    messages.error(request,'Por favor verifique si como desea hacer la consulta.')
+                    messages.error(request,'Por favor verifique como desea hacer la consulta si por ean o por archivo.')
                     return render(
                             request,
                             'index.html',
@@ -155,7 +155,7 @@ def subida(request):
             
             if request.POST['DWMarca']!= '' or request.POST['DWGenero']!='' or request.POST['DWGrupo_destino']!='' or request.POST['DWTipo_prenda']!='' :
                 if request.POST['Ean_Consul']!= '':
-                    messages.error(request,'Por favor verifique si como desea hacer la consulta.')
+                    messages.error(request,'Por favor verifique como desea hacer la consulta si por ean o selección.')
                     return render(
                         request,
                         'index.html',

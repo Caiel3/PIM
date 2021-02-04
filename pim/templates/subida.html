@@ -32,95 +32,192 @@
                            
                         </div>
                         <hr>
-                        
-
+                        {% comment %} Radio Button {% endcomment %}
                         <div class="row">
-                            <br>
                             <div class="col-md-6">
-                                <label for="Consulta">Marca</label>
-                                <select name="DWMarca" class="form-control" id="Consulta" >
-                                    <option value="">Seleccione...</option>
-                                    {% for marca in marcas %}
-                                    <option value="{{marca.marca}}">{{marca.marca}}</option>
-                                    {% endfor %}
-                                </select>
+                                <label >Seleccione un medio de consulta:</label>
                             </div>
-                            <div class="col-md-6">
-                                <label for="Consulta">Generos</label>
-                                <select name="DWGenero" class="form-control" id="Consulta" >
-                                    <option value="">Seleccione...</option>
-                                    {% for genero in generos %}
-                                    <option value="{{genero.Genero}}">
-                                        {{genero.Genero}}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <br>
-                            <div class="col-md-6">
-                                <label for="Consulta">Grupo destino</label>
-                                <select name="DWGrupo_destino" class="form-control" id="Consulta">
-                                    <option value="">Seleccione...</option>
-                                    {% for grupo_destino in grupo_destinos %}
-                                    <option value="{{grupo_destino.Grupo_Destino}}">{{grupo_destino.Grupo_Destino}}
-                                    </option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="Consulta">Tipo prenda</label>
-                                <select name="DWTipo_prenda" class="form-control" id="Consulta">
-                                    <option value="">Seleccione...</option>
-                                    {% for Tipo_prenda in tipo_prendas %}
-                                    <option value="{{Tipo_prenda.Tipo_Prenda}}">
-                                        {{Tipo_prenda.Tipo_Prenda}}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="form-row">
-                            <div class="form-group col-md">
-                            <label for="Ean_Con">Ean Consulta</label>
-                            <textarea class="form-control" id="Ean_Consul" name="Ean_Consul" rows="3" placeholder="Ingresa los ean que desea consultar." type="text" ></textarea>
-                            </div>
-                        </div>
+                            <div class="col-md-9">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="metodo1" value="option1">
+                                    <label class="form-check-label" for="inlineRadio1"> Consulta por selección </label>
+                                </div>
 
-                        <div class="form-row">
-                            <div class="form-group col-md">
-                                <input type="button" class="btn btn-primary" value="Limpiar campos" id="Limpiar">
-                            </div>       
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="metodo2" value="option2">
+                                    <label class="form-check-label" for="inlineRadio2"> Consulta por Ean </label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="metodo3" value="option3">
+                                    <label class="form-check-label" for="inlineRadio3">Consulta por archivo</label>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="col-md-9">
+                                <input type="button" class="btn btn-primary" value="Nueva consulta" id="Nueva_Consulta">
+                            </div> 
+                            <script>
+                                $(document).ready(function() {
+                                    $('#Nueva_Consulta').click(function() {
+                                        $('input[type="radio"]').prop('checked', false);
+                                        $('#Consulta').val('');
+                                        $('#Consulta1').val('');
+                                        $('#Consulta2').val('');
+                                        $('#Consulta3').val('');
+                                        $('#Ean_Consul').val('');
+                                        $('#archivo').val('');
+                                        $('#Consulta4').val('');
+                                        $("#medio_consulta_1").hide();
+                                        $("#medio_consulta_2").hide();
+                                        $("#medio_consulta_3").hide();
+
+
+                                    });
+                                });
+                            </script>
+
                         </div>
                         <script>
                             $(document).ready(function() {
-                                $('#Limpiar').click(function() {
-                                    $('#Ean_Consul').val('');
+                                $("input[type=radio]").click(function(event){
+                                    var valor = $(event.target).val();
+                                    if(valor =="option1"){
+                                        $("#medio_consulta_1").show();
+                                        $("#medio_consulta_2").hide();
+                                        $("#medio_consulta_3").hide();
+                                    } else if (valor == "option2") {
+                                        $("#medio_consulta_2").show();
+                                        $("#medio_consulta_1").hide();
+                                        $("#medio_consulta_3").hide();
+                                    } else { 
+                                        $("#medio_consulta_3").show();
+                                        $("#medio_consulta_2").hide();
+                                        $("#medio_consulta_1").hide();
+                                    }
                                 });
                             });
                         </script>
 
-                        <hr>
-
-                        <div class="form-row">
-                            <div class="form-group col-md">
-                                <label for="Consulta">Medio de Consulta</label>
-                                <select name="tipo" class="form-control" id="Consulta">
-                                    <option value="">Seleccione...</option>
-                                    <option value="EAN" {% if 'EAN' in tipo %}selected="selected" {% endif %}>EAN </option>
-                                    <option value="MATERIAL" {% if 'MATERIAL' in tipo %}selected="selected" {% endif %}>MATERIAL
-                                    </option>
-                                </select>
+                        {% comment %} Radio Button{% endcomment %}
+                        <div id="medio_consulta_1" style="display:none">
+                            <div class="row">
+                                <br>
+                                <div class="col-md-6">
+                                    <label for="Consulta">Marca</label>
+                                    <select name="DWMarca" class="form-control" id="Consulta" >
+                                        <option value="">Seleccione...</option>
+                                        {% for marca in marcas %}
+                                        <option value="{{marca.marca}}">{{marca.marca}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="Consulta">Generos</label>
+                                    <select name="DWGenero" class="form-control" id="Consulta1" >
+                                        <option value="">Seleccione...</option>
+                                        {% for genero in generos %}
+                                        <option value="{{genero.Genero}}">
+                                            {{genero.Genero}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
                             </div>
+                            <div class="row">
+                                <br>
+                                <div class="col-md-6">
+                                    <label for="Consulta">Grupo destino</label>
+                                    <select name="DWGrupo_destino" class="form-control" id="Consulta2">
+                                        <option value="">Seleccione...</option>
+                                        {% for grupo_destino in grupo_destinos %}
+                                        <option value="{{grupo_destino.Grupo_Destino}}">{{grupo_destino.Grupo_Destino}}
+                                        </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="Consulta">Tipo prenda</label>
+                                    <select name="DWTipo_prenda" class="form-control" id="Consulta3">
+                                        <option value="">Seleccione...</option>
+                                        {% for Tipo_prenda in tipo_prendas %}
+                                        <option value="{{Tipo_prenda.Tipo_Prenda}}">
+                                            {{Tipo_prenda.Tipo_Prenda}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="form-row">
+                                <div class="form-group col-md">
+                                    <input type="button" class="btn btn-primary" value="Limpiar campos" id="Limpiar1">
+                                </div>       
+                            </div>
+                            <script>
+                                $(document).ready(function() {
+                                    $('#Limpiar1').click(function() {
+                                        $('#Consulta').val('');
+                                        $('#Consulta1').val('');
+                                        $('#Consulta2').val('');
+                                        $('#Consulta3').val('');
+                                    });
+                                });
+                            </script>
+                        </div>
+                        <hr>
+                        <div id="medio_consulta_2" style="display:none">
+                            <div class="form-row">
+                                <div class="form-group col-md">
+                                <label for="Ean_Con">Ean Consulta</label>
+                                <textarea class="form-control" id="Ean_Consul" name="Ean_Consul" rows="3" placeholder="Ingresa los ean que desea consultar."  ></textarea>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md">
+                                    <input type="button" class="btn btn-primary" value="Limpiar campo" id="Limpiar">
+                                </div>       
+                            </div>
+                            <script>
+                                $(document).ready(function() {
+                                    $('#Limpiar').click(function() {
+                                        $('#Ean_Consul').val('');
+                                    });
+                                });
+                            </script>
                         </div>
                         <hr>
 
-
-                        <div class="form-row col-md-10">
-                            <div class="form-group col-md">
-                                <label for="archivo">Cargar Archivo</label>
-                                <input type="file" name="archivo" class="form-control-file" id="archivo">
+                        <div id="medio_consulta_3" style="display:none">
+                            <div class="form-row">
+                                <div class="form-group col-md">
+                                    <label for="Consulta">Medio de Consulta</label>
+                                    <select name="tipo" class="form-control" id="Consulta4">
+                                        <option value="">Seleccione...</option>
+                                        <option value="EAN" {% if 'EAN' in tipo %}selected="selected" {% endif %}>EAN </option>
+                                        <option value="MATERIAL" {% if 'MATERIAL' in tipo %}selected="selected" {% endif %}>MATERIAL
+                                        </option>
+                                    </select>
+                                </div>
                             </div>
+                            <hr>
+                            <div class="form-row col-md-10">
+                                <div class="form-group col-md">
+                                    <label for="archivo">Cargar Archivo</label>
+                                    <input type="file" name="archivo" class="form-control-file" id="archivo">
+                                </div>
+                            </div>
+                            <hr>
+                                <div class="form-row">
+                                <div class="form-group col-md">
+                                    <input type="button" class="btn btn-primary" value="Limpiar campos" id="Limpiar3">
+                                </div>       
+                            </div>
+                            <script>
+                                $(document).ready(function() {
+                                    $('#Limpiar3').click(function() {
+                                        $('#archivo').val('');
+                                        $('#Consulta4').val('');
+                                    });
+                                });
+                            </script>
                         </div>
 
                         <div class="form-check form-check-inline">
@@ -201,12 +298,12 @@
                             <label class="form-check-label" for="inlineCheckbox2">Subgrupo</label>
                         </div>
                          <br>
-                        <div class="form-check form-check-inline">
+                        {% comment %} <div class="form-check form-check-inline">
                             <input class="form-check-input" type="checkbox" name="ORIGEN" value="ORIGEN"
                                 {% if 'ORIGEN' in consulta %}checked{% endif %}>
                             <label class="form-check-label" for="inlineCheckbox2">Origen de la url</label>
                         </div>
-                         <br>
+                         <br> {% endcomment %}
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="checkbox" name="TAGS" value="TAGS"
                                 {% if 'TAGS' in consulta %}checked{% endif %}>
