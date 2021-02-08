@@ -316,7 +316,10 @@ def subida(request):
             })    
         pass
     except Exception as e:
-        messages.error(request,'ocurrio un error por favor contacte con el administrador y proporcine este error: {}'.format(e))
+        if 'NoneType' in str(e):
+            messages.error(request,f'Por favor valide que el encabezado sea {tipo}')
+        else: 
+            messages.error(request,'ocurrio un error por favor contacte con el administrador y proporcine este error: {}'.format(e))
         return render(
             request,
             'index.html',
@@ -496,14 +499,11 @@ def Consulta_marca_catalogo(marca,hash_uuid):
 
 
 
-def Validacion(lista,tipo):
-    import pdb; pdb.set_trace()
+def Validacion(lista,tipo):   
     try:        
         if lista:
             if len(lista[0].keys())>1:
-                return('Recuerde que solo puede ingresar una lista de eans o materiales, la que tiene actualmente tiene mas de 1 columna')
-            elif ('EAN' not in  lista[0].keys() or 'MATERIAL' not in lista[0].keys()):
-                return(f'El header del archivo no es {tipo}')
+                return('Recuerde que solo puede ingresar una lista de eans o materiales, la que tiene actualmente tiene mas de 1 columna')            
             else:
                 keys=[]
                 for li in lista[0]:

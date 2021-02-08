@@ -2129,4 +2129,58 @@ inicio 10/11/2020 18:34.25: INICIO Fin: 10/11/2020 18:34.25
  inicio 07/02/2021 22:43.30: INICIO Fin: 07/02/2021 22:43.30 
  inicio 07/02/2021 22:43.30: Valida informacion e inicializa campos. Fin: 07/02/2021 22:43.30 
  inicio 07/02/2021 22:43.30: Se lee el archivo de consulta Fin: 07/02/2021 22:43.30 
+ inicio 07/02/2021 22:44.32: INICIO Fin: 07/02/2021 22:44.32 
+ inicio 07/02/2021 22:44.32: Valida informacion e inicializa campos. Fin: 07/02/2021 22:44.32 
+ inicio 07/02/2021 22:44.32: Se lee el archivo de consulta Fin: 07/02/2021 22:44.32 
+ inicio 07/02/2021 22:44.45: INICIO Fin: 07/02/2021 22:44.45 
+ inicio 07/02/2021 22:44.45: Valida informacion e inicializa campos. Fin: 07/02/2021 22:44.45 
+ inicio 07/02/2021 22:44.45: Se lee el archivo de consulta Fin: 07/02/2021 22:44.45 
+ inicio 07/02/2021 22:45.15: INICIO Fin: 07/02/2021 22:45.15 
+ inicio 07/02/2021 22:45.15: Valida informacion e inicializa campos. Fin: 07/02/2021 22:45.15 
+ inicio 07/02/2021 22:45.15: Se lee el archivo de consulta Fin: 07/02/2021 22:45.15 
+ inicio 07/02/2021 22:45.41: INICIO Fin: 07/02/2021 22:45.41 
+ inicio 07/02/2021 22:45.41: Valida informacion e inicializa campos. Fin: 07/02/2021 22:45.41 
+ inicio 07/02/2021 22:45.41: Se lee el archivo de consulta Fin: 07/02/2021 22:45.41 
+ inicio 07/02/2021 22:55.44: INICIO Fin: 07/02/2021 22:55.44 
+ inicio 07/02/2021 22:55.44: Valida informacion e inicializa campos. Fin: 07/02/2021 22:55.44 
+ inicio 07/02/2021 22:55.44: Se lee el archivo de consulta Fin: 07/02/2021 22:55.44 
+ inicio 07/02/2021 22:55.44: Valida la estructura del archivo Fin: 07/02/2021 22:55.49 
+ inicio 07/02/2021 22:55.49: Prepara los campos por el que se hace la consulta Fin: 07/02/2021 22:55.49 
+ inicio 07/02/2021 22:55.49: Valida las estruturas de consulta y lee el archivo que se carga. Fin: 07/02/2021 22:55.49 
+ inicio 07/02/2021 22:55.49: Realiza la consulta en la base de datos Fin: 07/02/2021 22:55.51 
+ inicio 07/02/2021 22:55.51: Resizen cloud img Fin: 07/02/2021 22:55.51 
+ inicio 07/02/2021 22:55.51: Convierte haciendo uso de cloud img. Fin: 07/02/2021 22:55.51 
+ inicio 07/02/2021 22:55.51: Prepara el archivo csv(hilo) Fin: 07/02/2021 22:55.51 
+ inicio 07/02/2021 22:55.51: Crea el csv. Fin: 07/02/2021 22:55.51 
+ inicio 07/02/2021 22:55.51: Queda listo el csv Fin: 07/02/2021 22:55.51 
+ inicio 07/02/2021 22:55.51: FIN Fin: 07/02/2021 22:55.51 
+ inicio 07/02/2021 22:56.06: INICIO Fin: 07/02/2021 22:56.06 
+ inicio 07/02/2021 22:56.06: Valida informacion e inicializa campos. Fin: 07/02/2021 22:56.06 
+ inicio 07/02/2021 22:56.06: Se lee el archivo de consulta Fin: 07/02/2021 22:56.06 
+ inicio 07/02/2021 22:56.06: Valida la estructura del archivo Fin: 07/02/2021 22:56.16 
+ inicio 07/02/2021 22:56.34: INICIO Fin: 07/02/2021 22:56.34 
+ inicio 07/02/2021 22:56.34: Valida informacion e inicializa campos. Fin: 07/02/2021 22:56.34 
+ inicio 07/02/2021 22:56.34: Se lee el archivo de consulta Fin: 07/02/2021 22:56.34 
+ inicio 07/02/2021 22:56.34: Valida la estructura del archivo Fin: 07/02/2021 22:56.47 
+ inicio 07/02/2021 22:58.10: INICIO Fin: 07/02/2021 22:58.10 
+ inicio 07/02/2021 22:58.10: Valida informacion e inicializa campos. Fin: 07/02/2021 22:58.10 
+ inicio 07/02/2021 22:58.10: Se lee el archivo de consulta Fin: 07/02/2021 22:58.10 
+ inicio 07/02/2021 22:58.10: Valida la estructura del archivo Fin: 07/02/2021 22:58.16 
+ inicio 07/02/2021 22:59.06: INICIO Fin: 07/02/2021 22:59.06 
+ inicio 07/02/2021 22:59.06: Valida informacion e inicializa campos. Fin: 07/02/2021 22:59.06 
+ inicio 07/02/2021 22:59.06: Se lee el archivo de consulta Fin: 07/02/2021 22:59.06 
+ inicio 07/02/2021 22:59.06: Valida la estructura del archivo Fin: 07/02/2021 22:59.06 
+ inicio 07/02/2021 22:59.24: INICIO Fin: 07/02/2021 22:59.24 
+ inicio 07/02/2021 22:59.24: Valida informacion e inicializa campos. Fin: 07/02/2021 22:59.24 
+ inicio 07/02/2021 22:59.24: Se lee el archivo de consulta Fin: 07/02/2021 22:59.24 
+ inicio 07/02/2021 22:59.24: Valida la estructura del archivo Fin: 07/02/2021 22:59.24 
+ inicio 07/02/2021 22:59.24: Prepara los campos por el que se hace la consulta Fin: 07/02/2021 22:59.24 
+ inicio 07/02/2021 22:59.24: Valida las estruturas de consulta y lee el archivo que se carga. Fin: 07/02/2021 22:59.24 
+ inicio 07/02/2021 22:59.24: Realiza la consulta en la base de datos Fin: 07/02/2021 22:59.25 
+ inicio 07/02/2021 22:59.25: Resizen cloud img Fin: 07/02/2021 22:59.25 
+ inicio 07/02/2021 22:59.25: Convierte haciendo uso de cloud img. Fin: 07/02/2021 22:59.25 
+ inicio 07/02/2021 22:59.25: Prepara el archivo csv(hilo) Fin: 07/02/2021 22:59.25 
+ inicio 07/02/2021 22:59.25: Crea el csv. Fin: 07/02/2021 22:59.25 
+ inicio 07/02/2021 22:59.25: Queda listo el csv Fin: 07/02/2021 22:59.25 
+ inicio 07/02/2021 22:59.25: FIN Fin: 07/02/2021 22:59.25 
  
