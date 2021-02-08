@@ -39,16 +39,16 @@
                             </div>
                             <div class="col-md-9">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="metodo1" value="option1">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="metodo1" required value="option1">
                                     <label class="form-check-label" for="inlineRadio1"> Consulta por selección </label>
                                 </div>
 
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="metodo2" value="option2">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="metodo2" required value="option2">
                                     <label class="form-check-label" for="inlineRadio2"> Consulta por Ean </label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="metodo3" value="option3">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="metodo3" required value="option3">
                                     <label class="form-check-label" for="inlineRadio3">Consulta por archivo</label>
                                 </div>
                             </div>
@@ -76,8 +76,6 @@
                                         $("#medio_consulta_1").hide();
                                         $("#medio_consulta_2").hide();
                                         $("#medio_consulta_3").hide();
-
-
                                     });
                                 });
                             </script>
@@ -105,7 +103,9 @@
                         </script>
 
                         {% comment %} Radio Button{% endcomment %}
+                        
                         <div id="medio_consulta_1" style="display:none">
+                        <hr>
                             <div class="row">
                                 <br>
                                 <div class="col-md-6">
@@ -206,8 +206,9 @@
                                     });
                                 });
                             </script>
+                            <hr>
                         </div>
-                        <hr>
+                        
 
                         <div id="medio_consulta_3" style="display:none">
                             <div class="form-row">
@@ -248,6 +249,7 @@
                                     });
                                 });
                             </script>
+                            <hr>
                         </div>
 
                         <div class="form-check form-check-inline">
@@ -400,11 +402,25 @@
 
 </div>
 {% if messages %}
-<ul class="messages alert alert-danger">
     {% for message in messages %}
-    <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
-        {% endfor %}
-</ul>
+        <div class="message alert alert-danger">
+            {{ message }}
+            <a href="#" class="del-msg  alert-danger">&times;</a>
+        </div>
+    {% endfor %}
 {% endif %}
 
 </div>
+<script>
+    $(document).ready(function() {
+        // messages timeout for 10 sec 
+        setTimeout(function() {
+            $('.message').fadeOut('slow');
+        }, 10000); // <-- time in milliseconds, 1000 =  1 sec
+
+        // delete message
+        $('.del-msg').live('click',function(){
+            $('.del-msg').parent().attr('style', 'display:none;');
+        })
+    });
+</script>
