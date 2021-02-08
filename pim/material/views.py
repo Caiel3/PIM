@@ -103,7 +103,8 @@ def subida(request):
                 aux=request.POST[item]
                 parametros.append(aux)                            
             pass
-            
+        
+        
         if len(request.FILES)!=0 and tipo =='':
             messages.error(request,'Por favor seleccione el medio de consulta.')
             return render(
@@ -201,8 +202,10 @@ def subida(request):
             mi_archivo=request.FILES["archivo"]            
             try:
                 file = mi_archivo.read().decode('utf-8-sig')
-                reader = csv.DictReader(io.StringIO(file))    
+                file = file.upper()
+                reader = csv.DictReader(io.StringIO(file))                  
                 archivo = [line for line in reader]    
+               
             except Exception as e:
                 messages.error(request,"Por favor valide bien la estructura del archivo, si el error persiste contacte con el administrador. y disponga este error:{}".format(e))
                 return render(
@@ -493,11 +496,14 @@ def Consulta_marca_catalogo(marca,hash_uuid):
 
 
 
-def Validacion(lista,tipo):        
+def Validacion(lista,tipo):
+    import pdb; pdb.set_trace()
     try:        
         if lista:
             if len(lista[0].keys())>1:
                 return('Recuerde que solo puede ingresar una lista de eans o materiales, la que tiene actualmente tiene mas de 1 columna')
+            elif ('EAN' not in  lista[0].keys() or 'MATERIAL' not in lista[0].keys()):
+                return(f'El header del archivo no es {tipo}')
             else:
                 keys=[]
                 for li in lista[0]:
@@ -514,8 +520,11 @@ def Validacion(lista,tipo):
             return('El documento esta vacio por favor valide')
         pass
     except Exception as e:
+        
         if 'TemporaryUploadedFile' in str(e):
             return 'Se cargo un archivo no valido'
+        elif 'NoneType' in str(e):
+            return 'Por favor valide que el archivo diga EAN o MATERIAL, no esta permitido  {}'.format(lista[0].keys())
         else:
             return 'Ocurrio un error por favor valide el archivo que se subio, si el error persiste contacte con el administrador y dispoga este error: {}'.format(e)
 

@@ -2050,4 +2050,83 @@ inicio 10/11/2020 18:34.25: INICIO Fin: 10/11/2020 18:34.25
  inicio 07/02/2021 19:34.02: Crea el csv. Fin: 07/02/2021 19:34.02 
  inicio 07/02/2021 19:34.02: Queda listo el csv Fin: 07/02/2021 19:34.02 
  inicio 07/02/2021 19:34.02: FIN Fin: 07/02/2021 19:34.02 
+ inicio 07/02/2021 22:08.03: INICIO Fin: 07/02/2021 22:08.03 
+ inicio 07/02/2021 22:08.03: Valida informacion e inicializa campos. Fin: 07/02/2021 22:08.03 
+ inicio 07/02/2021 22:08.03: Realiza la consulta en la base de datos Fin: 07/02/2021 22:08.03 
+ inicio 07/02/2021 22:08.03: Resizen cloud img Fin: 07/02/2021 22:08.03 
+ inicio 07/02/2021 22:08.03: Convierte haciendo uso de cloud img. Fin: 07/02/2021 22:08.03 
+ inicio 07/02/2021 22:08.03: Prepara el archivo csv(hilo) Fin: 07/02/2021 22:08.03 
+ inicio 07/02/2021 22:08.03: Crea el csv. Fin: 07/02/2021 22:08.03 
+ inicio 07/02/2021 22:08.03: Queda listo el csv Fin: 07/02/2021 22:08.03 
+ inicio 07/02/2021 22:08.03: FIN Fin: 07/02/2021 22:08.03 
+ inicio 07/02/2021 22:08.40: INICIO Fin: 07/02/2021 22:08.40 
+ inicio 07/02/2021 22:12.01: INICIO Fin: 07/02/2021 22:12.01 
+ inicio 07/02/2021 22:12.01: Valida informacion e inicializa campos. Fin: 07/02/2021 22:12.01 
+ inicio 07/02/2021 22:12.48: INICIO Fin: 07/02/2021 22:12.48 
+ inicio 07/02/2021 22:12.48: Valida informacion e inicializa campos. Fin: 07/02/2021 22:12.48 
+ inicio 07/02/2021 22:16.09: INICIO Fin: 07/02/2021 22:16.09 
+ inicio 07/02/2021 22:16.09: Valida informacion e inicializa campos. Fin: 07/02/2021 22:16.09 
+ inicio 07/02/2021 22:16.58: INICIO Fin: 07/02/2021 22:16.58 
+ inicio 07/02/2021 22:16.58: Valida informacion e inicializa campos. Fin: 07/02/2021 22:16.58 
+ inicio 07/02/2021 22:18.15: INICIO Fin: 07/02/2021 22:18.15 
+ inicio 07/02/2021 22:18.15: Valida informacion e inicializa campos. Fin: 07/02/2021 22:18.15 
+ inicio 07/02/2021 22:19.22: INICIO Fin: 07/02/2021 22:19.22 
+ inicio 07/02/2021 22:19.22: Valida informacion e inicializa campos. Fin: 07/02/2021 22:19.22 
+ inicio 07/02/2021 22:21.51: INICIO Fin: 07/02/2021 22:21.51 
+ inicio 07/02/2021 22:21.51: Valida informacion e inicializa campos. Fin: 07/02/2021 22:21.51 
+ inicio 07/02/2021 22:22.34: INICIO Fin: 07/02/2021 22:22.34 
+ inicio 07/02/2021 22:22.34: Valida informacion e inicializa campos. Fin: 07/02/2021 22:22.34 
+ inicio 07/02/2021 22:22.34: Se lee el archivo de consulta Fin: 07/02/2021 22:22.34 
+ inicio 07/02/2021 22:22.34: Valida la estructura del archivo Fin: 07/02/2021 22:22.34 
+ inicio 07/02/2021 22:22.34: Prepara los campos por el que se hace la consulta Fin: 07/02/2021 22:22.34 
+ inicio 07/02/2021 22:22.34: Valida las estruturas de consulta y lee el archivo que se carga. Fin: 07/02/2021 22:22.34 
+ inicio 07/02/2021 22:22.34: Realiza la consulta en la base de datos Fin: 07/02/2021 22:22.36 
+ inicio 07/02/2021 22:22.36: Resizen cloud img Fin: 07/02/2021 22:22.36 
+ inicio 07/02/2021 22:22.36: Convierte haciendo uso de cloud img. Fin: 07/02/2021 22:22.36 
+ inicio 07/02/2021 22:22.36: Prepara el archivo csv(hilo) Fin: 07/02/2021 22:22.36 
+ inicio 07/02/2021 22:22.36: Crea el csv. Fin: 07/02/2021 22:22.36 
+ inicio 07/02/2021 22:22.36: Queda listo el csv Fin: 07/02/2021 22:22.36 
+ inicio 07/02/2021 22:22.36: FIN Fin: 07/02/2021 22:22.36 
+ inicio 07/02/2021 22:22.54: INICIO Fin: 07/02/2021 22:22.54 
+ inicio 07/02/2021 22:22.54: Valida informacion e inicializa campos. Fin: 07/02/2021 22:22.54 
+ inicio 07/02/2021 22:22.54: Se lee el archivo de consulta Fin: 07/02/2021 22:22.54 
+ inicio 07/02/2021 22:22.54: Valida la estructura del archivo Fin: 07/02/2021 22:22.54 
+ inicio 07/02/2021 22:26.54: INICIO Fin: 07/02/2021 22:26.54 
+ inicio 07/02/2021 22:26.54: Valida informacion e inicializa campos. Fin: 07/02/2021 22:26.54 
+ inicio 07/02/2021 22:26.54: Se lee el archivo de consulta Fin: 07/02/2021 22:26.54 
+ inicio 07/02/2021 22:29.42: INICIO Fin: 07/02/2021 22:29.42 
+ inicio 07/02/2021 22:29.42: Valida informacion e inicializa campos. Fin: 07/02/2021 22:29.42 
+ inicio 07/02/2021 22:29.42: Se lee el archivo de consulta Fin: 07/02/2021 22:29.42 
+ inicio 07/02/2021 22:29.42: Valida la estructura del archivo Fin: 07/02/2021 22:29.50 
+ inicio 07/02/2021 22:30.15: INICIO Fin: 07/02/2021 22:30.15 
+ inicio 07/02/2021 22:30.15: Valida informacion e inicializa campos. Fin: 07/02/2021 22:30.15 
+ inicio 07/02/2021 22:30.15: Se lee el archivo de consulta Fin: 07/02/2021 22:30.15 
+ inicio 07/02/2021 22:30.15: Valida la estructura del archivo Fin: 07/02/2021 22:30.19 
+ inicio 07/02/2021 22:30.47: INICIO Fin: 07/02/2021 22:30.47 
+ inicio 07/02/2021 22:30.47: Valida informacion e inicializa campos. Fin: 07/02/2021 22:30.47 
+ inicio 07/02/2021 22:30.47: Se lee el archivo de consulta Fin: 07/02/2021 22:30.47 
+ inicio 07/02/2021 22:30.47: Valida la estructura del archivo Fin: 07/02/2021 22:30.47 
+ inicio 07/02/2021 22:31.09: INICIO Fin: 07/02/2021 22:31.09 
+ inicio 07/02/2021 22:31.09: Valida informacion e inicializa campos. Fin: 07/02/2021 22:31.09 
+ inicio 07/02/2021 22:31.09: Se lee el archivo de consulta Fin: 07/02/2021 22:31.09 
+ inicio 07/02/2021 22:31.09: Valida la estructura del archivo Fin: 07/02/2021 22:31.09 
+ inicio 07/02/2021 22:32.31: INICIO Fin: 07/02/2021 22:32.31 
+ inicio 07/02/2021 22:32.31: Valida informacion e inicializa campos. Fin: 07/02/2021 22:32.59 
+ inicio 07/02/2021 22:33.01: Se lee el archivo de consulta Fin: 07/02/2021 22:33.15 
+ inicio 07/02/2021 22:33.17: Valida la estructura del archivo Fin: 07/02/2021 22:33.21 
+ inicio 07/02/2021 22:34.26: INICIO Fin: 07/02/2021 22:34.26 
+ inicio 07/02/2021 22:34.26: Valida informacion e inicializa campos. Fin: 07/02/2021 22:34.26 
+ inicio 07/02/2021 22:34.26: Se lee el archivo de consulta Fin: 07/02/2021 22:34.26 
+ inicio 07/02/2021 22:37.40: INICIO Fin: 07/02/2021 22:37.40 
+ inicio 07/02/2021 22:37.40: Valida informacion e inicializa campos. Fin: 07/02/2021 22:37.40 
+ inicio 07/02/2021 22:37.40: Se lee el archivo de consulta Fin: 07/02/2021 22:37.40 
+ inicio 07/02/2021 22:39.27: INICIO Fin: 07/02/2021 22:39.27 
+ inicio 07/02/2021 22:39.27: Valida informacion e inicializa campos. Fin: 07/02/2021 22:39.27 
+ inicio 07/02/2021 22:39.27: Se lee el archivo de consulta Fin: 07/02/2021 22:39.27 
+ inicio 07/02/2021 22:41.41: INICIO Fin: 07/02/2021 22:41.41 
+ inicio 07/02/2021 22:41.41: Valida informacion e inicializa campos. Fin: 07/02/2021 22:41.41 
+ inicio 07/02/2021 22:41.41: Se lee el archivo de consulta Fin: 07/02/2021 22:41.41 
+ inicio 07/02/2021 22:43.30: INICIO Fin: 07/02/2021 22:43.30 
+ inicio 07/02/2021 22:43.30: Valida informacion e inicializa campos. Fin: 07/02/2021 22:43.30 
+ inicio 07/02/2021 22:43.30: Se lee el archivo de consulta Fin: 07/02/2021 22:43.30 
  
