@@ -388,7 +388,7 @@ def Catalogoh(request):
                 pais=dato['Orden'],
                 hash_uuid=id
                 )
-        import pdb; pdb.set_trace()
+        
         header_consulta_material=[]
         for valor in archivo:
             header_consulta_material.append(valor['Material'])
