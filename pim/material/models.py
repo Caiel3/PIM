@@ -46,12 +46,16 @@ class Descarga(models.Model):
     imagen_grande = models.TextField(db_column='IMAGEN_GRANDE', blank=True, null=True)  
    
 class Catalogo_temp(models.Model):   
-    material = models.CharField(db_column='MATERIAL', blank=True, max_length=30, primary_key=True)  
+    autoincrementable = models.AutoField(db_column='autoincrementable',default=None,primary_key=True)
+    material = models.CharField(db_column='MATERIAL', blank=True, max_length=30)  
     unidad_empaque = models.TextField(db_column='UNIDAD_EMPAQUE', blank=True, null=True)
     precio = models.TextField(db_column='PRECIO', blank=True, null=True)
     moneda = models.TextField(db_column='MONEDA', blank=True, null=True)
     pais = models.TextField(db_column='PAIS', blank=True, null=True)
     coleccion=models.TextField(db_column='COLECCION', blank=True, null=True)
+    hash_uuid=models.TextField(db_column='HASH_UUID', blank=True, null=True)
+    class Meta:
+        unique_together = (("material","hash_uuid"),)
 
 
 class MysqlColores(models.Model):

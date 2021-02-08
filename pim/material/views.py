@@ -43,9 +43,7 @@ cloud=CloudImage()
 class MaterialViewSet(viewsets.ModelViewSet):
     serializer_class=MaterialSerializar
     queryset = Materiales.objects.raw('select * from material_materiales limit 10')
-
-def index(request):  
-    Catalogo_temp.objects.all().delete()
+def index(request):     
     Limpiar.limpiar_media_imagenes()
     marcas=Marca.objects.all()        
     genero=Genero.objects.all()
@@ -373,13 +371,13 @@ def Consulta_Where(marca,genero,grupo_destino,tipo_prenda):
 
 def Catalogoh(request):
     try: 
+        id = str(uuid.uuid1())
         mi_archivo=request.FILES["archivo"]     
         files = mi_archivo.read().decode('utf-8-sig')   
         reader = csv.DictReader(io.StringIO(files),fieldnames=None,delimiter=';')
         archivo = [line for line in reader]                
         #insertamos temporamente datos en una tabla para despues traerlos ordenados de una manera mas sencilla
-        carga_temp=[line for line in archivo]    
-        Catalogo_temp.objects.all().delete()
+        carga_temp=[line for line in archivo]            
         for dato in carga_temp:        
             Catalogo_temp.objects.create(
                 material=dato['Material'],
@@ -387,24 +385,26 @@ def Catalogoh(request):
                 coleccion=dato['Colección'],
                 precio=dato['Precio'],
                 moneda='',
-                pais=dato['Orden'])
-        
+                pais=dato['Orden'],
+                hash_uuid=id
+                )
+        import pdb; pdb.set_trace()
         header_consulta_material=[]
         for valor in archivo:
             header_consulta_material.append(valor['Material'])
             pass               
 
         """ 26 px de diferencia en la tercera marca """
-        datosGEF=Consulta_marca_catalogo('GEF')
-        datosBF=Consulta_marca_catalogo('BABY FRESH')
-        datosPB=Consulta_marca_catalogo('PUNTO BLANCO')
+        datosGEF=Consulta_marca_catalogo('GEF',id)
+        datosBF=Consulta_marca_catalogo('BABY FRESH',id)
+        datosPB=Consulta_marca_catalogo('PUNTO BLANCO',id)
         
-        can_marca=np.asarray(consultasql("SELECT COUNT(MARCA) AS CANTIDAD,MARCA FROM RAM.CATALOGO GROUP BY MARCA order by MARCA"))
+        can_marca=np.asarray(consultasql("SELECT COUNT(MARCA) AS CANTIDAD,MARCA FROM RAM.CATALOGO WHERE HASH_UUID='{}'  GROUP BY MARCA order by MARCA".format(id)))
         con=0
         bfh=0# hojas Baby fresh
         pbh=0#hojas Punto blanco
         gefh=0#hojas gef
-        cantidad_marcas=consultasql("SELECT COUNT(*) FROM ( SELECT COUNT(MARCA) AS CANTIDAD,MARCA FROM RAM.CATALOGO GROUP BY MARCA order by MARCA) CAM")
+        cantidad_marcas=consultasql("SELECT COUNT(*) FROM ( SELECT COUNT(MARCA) AS CANTIDAD,MARCA FROM RAM.CATALOGO WHERE HASH_UUID='{}' GROUP BY MARCA order by MARCA) CAM".format(id))
         can=[li for li in cantidad_marcas]
         
         for marca in can_marca:             
@@ -419,7 +419,7 @@ def Catalogoh(request):
                     gefh=gefh-26
                 
                 pass                  
-                
+        Catalogo_temp.objects.filter(hash_uuid=id).delete()
         return render(
             request,'catalogo.html',
             {'datosGEF' : datosGEF,
@@ -472,8 +472,8 @@ def Descarga_img(request):
     temp=descarga.descargar(lista,token,request.POST["rango"],largo,ancho) 
     return temp
         
-def Consulta_marca_catalogo(marca):        
-    consulta=("SELECT * FROM CATALOGO WHERE MARCA='{}' ORDER BY MARCA,cast(PAIS as unsigned)").format(marca)
+def Consulta_marca_catalogo(marca,hash_uuid):        
+    consulta=("SELECT * FROM CATALOGO WHERE MARCA='{}' AND HASH_UUID ='{}' ORDER BY MARCA,cast(PAIS as unsigned)").format(marca,hash_uuid)
     datos=consultasql(consulta)
     consulta_temp=[]
     
