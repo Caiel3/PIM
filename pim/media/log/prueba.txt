@@ -2183,4 +2183,13 @@ inicio 10/11/2020 18:34.25: INICIO Fin: 10/11/2020 18:34.25
  inicio 07/02/2021 22:59.25: Crea el csv. Fin: 07/02/2021 22:59.25 
  inicio 07/02/2021 22:59.25: Queda listo el csv Fin: 07/02/2021 22:59.25 
  inicio 07/02/2021 22:59.25: FIN Fin: 07/02/2021 22:59.25 
+ inicio 09/02/2021 17:05.13: INICIO Fin: 09/02/2021 17:05.13 
+ inicio 09/02/2021 17:05.13: Valida informacion e inicializa campos. Fin: 09/02/2021 17:05.13 
+ inicio 09/02/2021 17:05.13: Realiza la consulta en la base de datos Fin: 09/02/2021 17:05.16 
+ inicio 09/02/2021 17:05.16: Resizen cloud img Fin: 09/02/2021 17:05.18 
+ inicio 09/02/2021 17:05.18: Convierte haciendo uso de cloud img. Fin: 09/02/2021 17:05.18 
+ inicio 09/02/2021 17:05.18: Prepara el archivo csv(hilo) Fin: 09/02/2021 17:05.18 
+ inicio 09/02/2021 17:05.18: Crea el csv. Fin: 09/02/2021 17:05.18 
+ inicio 09/02/2021 17:05.18: Queda listo el csv Fin: 09/02/2021 17:05.18 
+ inicio 09/02/2021 17:05.18: FIN Fin: 09/02/2021 17:05.18 
  

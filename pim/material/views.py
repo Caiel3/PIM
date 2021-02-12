@@ -486,8 +486,10 @@ def Consulta_marca_catalogo(marca,hash_uuid):
     for dato in datos:
         temp=list(dato)        
         colores=MysqlColores.objects.filter(material=dato[1]).values('icono_color')
-        if colores:
+        codigo=MysqlColores.objects.filter(material=dato[1]).values('codigo_color')
+        if colores and codigo:
             temp[11]=[a for a in colores]
+            temp[13]=[b for b in codigo]
         consulta_temp.append(temp)        
     datos=consulta_temp
     datos=cloud.convertir_matriz(

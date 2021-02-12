@@ -44,7 +44,6 @@ class Converts():
                     pass
                 pass
         pass
-        # print(stringaux)
         return  stringaux
         pass
     
@@ -71,8 +70,6 @@ class Converts():
         for nodo in arreglo:
             if nodo !='' and nodo.isdigit()== True:
                 lista.append(nodo)
-        # print(lista)
-        # import pdb; pdb.set_trace()
         return lista
         pass
 
@@ -103,7 +100,6 @@ class Converts():
                     pass
                 pass
         pass
-        # import pdb; pdb.set_trace()
         return  stringaux
         pass
 

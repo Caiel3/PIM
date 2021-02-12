@@ -53,7 +53,7 @@ class Catalogo_temp(models.Model):
     moneda = models.TextField(db_column='MONEDA', blank=True, null=True)
     pais = models.TextField(db_column='PAIS', blank=True, null=True)
     coleccion=models.TextField(db_column='COLECCION', blank=True, null=True)
-    hash_uuid=models.TextField(db_column='HASH_UUID', blank=True, null=True)
+    hash_uuid=models.CharField(db_column='HASH_UUID', blank=True, null=True, max_length=100)
     class Meta:
         unique_together = (("material","hash_uuid"),)
 
@@ -63,6 +63,7 @@ class MysqlColores(models.Model):
     material = models.CharField(db_column='MATERIAL', max_length=30, blank=True, null=True)  # Field name made lowercase.
     descripcion_color = models.CharField(db_column='DESCRIPCION_COLOR', max_length=50, blank=True, null=True)  # Field name made lowercase.
     icono_color = models.CharField(db_column='ICONO_COLOR', max_length=500, blank=True, null=True)  # Field name made lowercase.
+    codigo_color = models.TextField(db_column='CODIGO_COLOR', blank=True, null=True) # Field name made lowercase.
 
     class Meta:       
         db_table = 'MYSQL_COLORES'

@@ -73,12 +73,26 @@
                                     <hr>
                                     <h5>Unidad de empaque: {{ val.5 }} </h5>
                                     <hr>
-                                    <h5 style="height:40px">Color:
-                                        {% for imagen in val.11  %}
-                                            {% if 'http' in imagen.icono_color %}
-                                                <img style="border-radius:50%; width:20px; height:20px;" src={{ imagen.icono_color }}>
-                                            {% endif %}
-                                        {% endfor %}
+                                    <h5 style="height:40px">
+                                        <table>
+                                            <tr>
+                                            <th style="height:20px; font-weight:normal">Color:</th>
+                                            {% for imagen in val.11  %}
+                                                {% comment %} {% for codigo in val.13 %} {% endcomment %}
+                                                    {% if 'http' in imagen.icono_color %}
+                                                        <td align="center" >
+                                                            <img style="border-radius:50%; width:32px; height:32px;" src={{ imagen.icono_color }}>
+                                                        </td>
+                                                    {%endif%}
+                                            {% endfor %}
+                                            </tr>
+                                            <tr>
+                                                <th></th>
+                                                {% for codigo in val.13 %}
+                                                    <td style="height:10px; font-size:60%;" align="center"> {{  codigo.codigo_color  }} </td> 
+                                                {% endfor %}
+                                            </tr>
+                                        </table>
                                     </h5>
                                     <hr>
                                     <h5 style="height:40px">Tallas: {{ val.9 }}</h5>
@@ -126,12 +140,25 @@
                             <hr>
                             <h5>Unidad de empaque: {{ val.5 }} </h5>
                             <hr>
-                            <h5 style="height:40px">Color:
-                                {% for imagen in val.11  %}
-                                    {% if 'http' in imagen.icono_color %}
-                                        <img style="border-radius:50%; width:20px; height:20px;" src={{ imagen.icono_color }}>
-                                    {% endif %}
-                                {% endfor %}
+                            <h5 style="height:40px">
+                                <table>
+                                    <tr>
+                                        <th style="height:20px; font-weight:normal">Color:</th>
+                                        {% for imagen in val.11  %}
+                                            {% if 'http' in imagen.icono_color %}
+                                                <td align="center" >
+                                                    <img style="border-radius:50%; width:32px; height:32px;" src={{ imagen.icono_color }}>
+                                                </td>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </tr>
+                                    <tr>
+                                        <th></th>
+                                        {% for codigo in val.13 %}
+                                            <td style="height:10px; font-size:60%;" align="center"> {{  codigo.codigo_color  }} </td> 
+                                        {% endfor %}
+                                    </tr>
+                                </table>
                             </h5>
                             <hr>
                             <h5 style="height:40px">Tallas: {{ val.9 }}</h5>
@@ -177,12 +204,25 @@
                             <hr>
                             <h5>Unidad de empaque: {{ val.5 }} </h5>
                             <hr>
-                            <h5 style="height:40px">Color:
-                                {% for imagen in val.11  %}
-                                    {% if 'http' in imagen.icono_color %}
-                                        <img style="border-radius:50%; width:20px; height:20px;" src={{ imagen.icono_color }}>
-                                    {% endif %}
-                                {% endfor %}
+                            <h5 style="height:40px">
+                                <table>
+                                    <tr>
+                                    <th style="height:20px; font-weight:normal">Color:</th>
+                                    {% for imagen in val.11 %}
+                                        {% if 'http' in imagen.icono_color %}
+                                            <td align="center" >
+                                                <img style="border-radius:50%; width:32px; height:32px;" src={{ imagen.icono_color }}>
+                                            </td>
+                                        {% endif %}
+                                    {% endfor %}
+                                    </tr>
+                                    <tr>
+                                        <th></th>
+                                        {% for codigo in val.13 %}
+                                            <td style="height:10px; font-size:60%;" align="center"> {{  codigo.codigo_color  }} </td> 
+                                        {% endfor %}
+                                    </tr>
+                                </table>
                             </h5>
                             <hr>
                             <h5 style="height:40px">Tallas: {{ val.9 }}</h5>
