@@ -400,7 +400,7 @@ def Catalogoh(request):
             header_consulta_material.append(valor['Material'])
             pass               
 
-        """ 26 px de diferencia en la tercera marca """
+        """ 10 px de diferencia en la tercera marca """
         datosGEF=Consulta_marca_catalogo('GEF',id)
         datosBF=Consulta_marca_catalogo('BABY FRESH',id)
         datosPB=Consulta_marca_catalogo('PUNTO BLANCO',id)
@@ -422,7 +422,7 @@ def Catalogoh(request):
             else:                
                 gefh=(converts_helper.numero_paginas_marca(int(marca[0])))            
                 if can[0][0]==3:
-                    gefh=gefh-26
+                    gefh=gefh-10
                 
                 pass                  
         Catalogo_temp.objects.filter(hash_uuid=id).delete()
