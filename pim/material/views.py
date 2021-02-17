@@ -384,6 +384,7 @@ def Catalogoh(request):
         archivo = [line for line in reader]                
         #insertamos temporamente datos en una tabla para despues traerlos ordenados de una manera mas sencilla
         carga_temp=[line for line in archivo]            
+        
         for dato in carga_temp:        
             Catalogo_temp.objects.create(
                 material=dato['Material'],
@@ -445,6 +446,8 @@ def Catalogoh(request):
             messages.error(request,'Hay un material duplicado, recuerde que deben ser únicos.')
         elif "utf-8" in str(e):
             messages.error(request,'El archivo debe de ser un csv utf-8.')
+        elif("Duplicate entry" in  str(e)):
+            messages.error(request,'Recuerde que debe de conservar la estructura del archivo plano y este debe de estar separado por ;') 
         else:
             messages.error(request,'Ocurrio un error inesperado, por favor contacte con el administrador y proporcione este error; {}'.format(e))         
             

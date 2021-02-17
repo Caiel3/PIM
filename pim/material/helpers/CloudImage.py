@@ -52,7 +52,7 @@ class CloudImage():
                         lista[posicion]=val
                         con_filas=con_filas+1    
                         auxreturn.append(lista) 
-                        print(lista)
+                       
                         pass                                            
                 pass
             pass           
