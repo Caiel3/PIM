@@ -72,6 +72,23 @@
                     </li>
 
                     {% endif %}
+
+                    {% if '/carga/'  == request.path and 'si'  in mostrar %}
+                    <li class="nav-item active">
+                            <input class="btn btn-outline-light mr-sm-2" type="button" onclick="history.back(-1)" name="Regresar" value="Regresar"
+                            id="Regresar">
+                            {% comment %} <input type="hidden" value="Regresar" name="Regresar"> {% endcomment %}
+                    </li>
+                    
+                    <li class="nav-item active">
+                        <form action="/Descarga_doc/" method="POST">{% csrf_token%}
+                            <input class="btn btn-outline-light mr-sm-2" value="Descargar doc" type="submit">
+                            <input type="hidden" value="{{token}}" name="token">
+                        </form>
+
+                    </li>
+                    {% endif %}
+
                     <li>{{message.tags}}</li>
 
                 </ul>

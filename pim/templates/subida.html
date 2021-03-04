@@ -2,6 +2,7 @@
     <div class="tab">
         <button class="tablinks" onclick="openEvent(event, 'pago')">PIM</button>
         <button class="tablinks" onclick="openEvent(event, 'envio')">PDF</button>
+        <button class="tablinks" onclick="openEvent(event, 'planeacion')">PLANEACIÓN</button>
     </div>
     
 
@@ -93,7 +94,7 @@
                                         $("#medio_consulta_2").show();
                                         $("#medio_consulta_1").hide();
                                         $("#medio_consulta_3").hide();
-                                    } else { 
+                                    } else if (valor == "option3") { 
                                         $("#medio_consulta_3").show();
                                         $("#medio_consulta_2").hide();
                                         $("#medio_consulta_1").hide();
@@ -400,6 +401,244 @@
         </div>
     </div>
 
+</div>
+<div id="planeacion" class="tabcontent" >
+    <div class="container pt-4">
+            <div class="row">
+                <div class="col-md-10 offset-1 align-items-center">
+                    <form action="/carga/" method="POST" enctype="multipart/form-data"
+                        class="p-3 border bg-transparent rounded-lg">{% csrf_token%}
+                        <hr>
+                        {% comment %} Radio Button {% endcomment %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label >Seleccione un medio de consulta:</label>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="metodo4" required value="option4">
+                                    <label class="form-check-label" for="inlineRadio1"> Consulta por selección </label>
+                                </div>
+
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="metodo5" required value="option5">
+                                    <label class="form-check-label" for="inlineRadio2"> Consulta por Ean </label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="metodo6" required value="option6">
+                                    <label class="form-check-label" for="inlineRadio3">Consulta por archivo</label>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="col-md-9">
+                                <button type="button" class="btn btn-outline-primary" value="Nuevo medio consulta" id="Nueva_Con">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-repeat" viewBox="0 0 16 16">
+                                        <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/>
+                                        <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/>
+                                    </svg>
+                                    Nuevo medio consulta
+                                </button>
+                            </div> 
+                            <script>
+                                $(document).ready(function() {
+                                    $('#Nueva_Con').click(function() {
+                                        $('input[id="metodo4"]').prop('checked', false);
+                                        $('input[id="metodo5"]').prop('checked', false);
+                                        $('input[id="metodo6"]').prop('checked', false);
+                                        $('#Consulta10').val('');
+                                        $('#Consulta5').val('');
+                                        $('#Consulta6').val('');
+                                        $('#Consulta7').val('');
+                                        $('#Ean_Consulta').val('');
+                                        $('#archivo_con').val('');
+                                        $('#Consulta8').val('');
+                                        $("#medio_consulta_4").hide();
+                                        $("#medio_consulta_5").hide();
+                                        $("#medio_consulta_6").hide();
+                                    });
+                                });
+                            </script>
+
+                        </div>
+                        <script>
+                            $(document).ready(function() {
+                                $("input[type=radio]").click(function(event){
+                                    var valor = $(event.target).val();
+                                    if(valor =="option4"){
+                                        $("#medio_consulta_4").show();
+                                        $("#medio_consulta_5").hide();
+                                        $("#medio_consulta_6").hide();
+                                    } else if (valor == "option5") {
+                                        $("#medio_consulta_5").show();
+                                        $("#medio_consulta_4").hide();
+                                        $("#medio_consulta_6").hide();
+                                    } else if (valor == "option6") { 
+                                        $("#medio_consulta_6").show();
+                                        $("#medio_consulta_5").hide();
+                                        $("#medio_consulta_4").hide();
+                                    }
+                                });
+                            });
+                        </script>
+
+                        {% comment %} Radio Button{% endcomment %}
+                        
+                        <div id="medio_consulta_4" style="display:none">
+                        <hr>
+                            <div class="row">
+                                <br>
+                                <div class="col-md-6">
+                                    <label for="Consulta">Marca</label>
+                                    <select name="DWMarca" class="form-control" id="Consulta10" >
+                                        <option value="">Seleccione...</option>
+                                        {% for marca in marcas %}
+                                        <option value="{{marca.marca}}">{{marca.marca}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="Consulta">Generos</label>
+                                    <select name="DWGenero" class="form-control" id="Consulta5" >
+                                        <option value="">Seleccione...</option>
+                                        {% for genero in generos %}
+                                        <option value="{{genero.Genero}}">
+                                            {{genero.Genero}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <br>
+                                <div class="col-md-6">
+                                    <label for="Consulta">Grupo destino</label>
+                                    <select name="DWGrupo_destino" class="form-control" id="Consulta6">
+                                        <option value="">Seleccione...</option>
+                                        {% for grupo_destino in grupo_destinos %}
+                                        <option value="{{grupo_destino.Grupo_Destino}}">{{grupo_destino.Grupo_Destino}}
+                                        </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="Consulta">Tipo prenda</label>
+                                    <select name="DWTipo_prenda" class="form-control" id="Consulta7">
+                                        <option value="">Seleccione...</option>
+                                        {% for Tipo_prenda in tipo_prendas %}
+                                        <option value="{{Tipo_prenda.Tipo_Prenda}}">
+                                            {{Tipo_prenda.Tipo_Prenda}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="form-row">
+                                <div class="form-group col-md">
+                                    <button type="button" class="btn btn-outline-primary" value="Limpiar campos" id="Limpiar4">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                            <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                        </svg>
+                                        Limpiar campos
+                                    </button>
+                                </div>       
+                            </div>
+                            <script>
+                                $(document).ready(function() {
+                                    $('#Limpiar4').click(function() {
+                                        $('#Consulta4').val('');
+                                        $('#Consulta5').val('');
+                                        $('#Consulta6').val('');
+                                        $('#Consulta7').val('');
+                                    });
+                                });
+                            </script>
+                        </div>
+                        <hr>
+                        <div id="medio_consulta_5" style="display:none">
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <label for="Ean_Con">Ean Consulta</label>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                
+                                    <textarea class="form-control" id="Ean_Consulta" name="Ean_Consulta" rows="3" placeholder="Ingresa los ean que desea consultar."  ></textarea>
+                                </div>
+                                {% comment %} </div>
+                                <div class="form-row"> {% endcomment %}
+                                <div class="form-row">
+                                <br>
+                                <br>
+                                    <button type="button" class="btn btn-outline-primary " value="Limpiar campo" id="Limpiar5">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                            <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                        </svg>
+                                    </button>
+                                </div>       
+                            </div>
+                            <script>
+                                $(document).ready(function() {
+                                    $('#Limpiar5').click(function() {
+                                        $('#Ean_Consulta').val('');
+                                    });
+                                });
+                            </script>
+                            <hr>
+                        </div>
+                        
+
+                        <div id="medio_consulta_6" style="display:none">
+                            <div class="form-row">
+                                <div class="form-group col-md">
+                                    <label for="Consulta">Medio de Consulta</label>
+                                    <select name="tipo" class="form-control" id="Consulta8">
+                                        <option value="">Seleccione...</option>
+                                        <option value="EAN" {% if 'EAN' in tipo %}selected="selected" {% endif %}>EAN </option>
+                                        <option value="MATERIAL" {% if 'MATERIAL' in tipo %}selected="selected" {% endif %}>MATERIAL
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="form-row col-md-10">
+                                <div class="form-group col-md">
+                                    <label for="archivo">Cargar Archivo</label>
+                                    <input type="file" name="archivo" class="form-control-file" id="archivo_Con">
+                                </div>
+                            </div>
+                            <br>
+                                <div class="form-row">
+                                <div class="form-group col-md">
+                                    <button type="button" class="btn btn-outline-primary" value="Limpiar campos" id="Limpiar6">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                            <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                        </svg>
+                                        Limpiar campos
+                                    </button>
+                                </div>       
+                            </div>
+                            <script>
+                                $(document).ready(function() {
+                                    $('#Limpiar6').click(function() {
+                                        $('#archivo_con').val('');
+                                        $('#Consulta8').val('');
+                                    });
+                                });
+                            </script>
+                            <hr>
+                        </div>
+                        <br>
+                        <br>
+                        </hr>
+                        <input type="submit" class="btn btn-primary" value="Continuar">
+                </div>
+            </div>
+            </form>
+
+        </div>
 </div>
 {% if messages %}
     {% for message in messages %}

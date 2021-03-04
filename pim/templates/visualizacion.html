@@ -19,7 +19,7 @@
                 {% for row in lista %}
                 <tr>
                     {% for val in row %}
-                    {% if forloop.counter == 2  %}
+                    {% if forloop.counter == 2 and 'https' in val %}
                     <td><img src={% if '[None]' not in val %}{{val}}{% endif %} width="100" height="100"></td>
                     {% else %}
                     <td>{{val}}</td>

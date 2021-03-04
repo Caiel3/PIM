@@ -332,6 +332,234 @@ def subida(request):
             "generos":genero,
             "grupo_destinos":grupo_Destino,
             "tipo_prendas":tipo_Prenda})
+
+def carga(request):
+    try:        
+        inicio= datetime.now()  
+        marcas=Marca.objects.all()        
+        genero=Genero.objects.all()
+        grupo_Destino=Grupo_Destino.objects.all()
+        tipo_Prenda=Tipo_Prenda.objects.all()
+        Txt('prueba','INICIO', datetime.now(),datetime.now())
+        inicio= datetime.now()   
+        consulta=[
+            'MATERIAL',
+            'EAN',
+            'URL_IMAGEN'
+            ]
+ 
+        parametros=[]       
+
+        #Capturamos la informacion del formulario          
+        tipo = request.POST["tipo"]
+        ean_consulta = request.POST["Ean_Consulta"]  
+
+        
+        
+        if len(request.FILES)!=0 and tipo =='':
+            messages.error(request,'Por favor seleccione el medio de consulta.')
+            return render(
+                request,
+                'index.html',
+                {'tipo':tipo,
+                'consulta':parametros,
+                'mostrar':'no',
+                'marcas':marcas,                      
+                "generos":genero,
+                "grupo_destinos":grupo_Destino,
+                "tipo_prendas":tipo_Prenda
+               })
+        
+        if len(request.FILES)!=0 or tipo !='':
+                if request.POST['Ean_Consul']!= '':
+                    messages.error(request,'Por favor verifique como desea hacer la consulta si por ean o por archivo.')
+                    return render(
+                            request,
+                            'index.html',
+                            {'tipo':tipo,
+                            'consulta':parametros,
+                            'mostrar':'no',
+                            'marcas':marcas,                      
+                            "generos":genero,
+                            "grupo_destinos":grupo_Destino,
+                            "tipo_prendas":tipo_Prenda
+                            })
+
+        
+        if len(request.FILES)==0:
+            count=0
+            if (request.POST['DWMarca']!=''):
+                count=count+1
+            if (request.POST['DWGenero']!=''):
+                count=count+1
+            if (request.POST['DWGrupo_destino']!=''):
+                count=count+1
+            if (request.POST['DWTipo_prenda']!=''):
+                count=count+1
+            if(request.POST['Ean_Consulta']!=''):
+                count=count+1
+            
+            if request.POST['DWMarca']!= '' or request.POST['DWGenero']!='' or request.POST['DWGrupo_destino']!='' or request.POST['DWTipo_prenda']!='' :
+                if request.POST['Ean_Consulta']!= '':
+                    messages.error(request,'Por favor verifique como desea hacer la consulta si por ean o selección.')
+                    return render(
+                        request,
+                        'index.html',
+                        {'tipo':tipo,
+                        'consulta':parametros,
+                        'mostrar':'no',
+                        'marcas':marcas,                      
+                        "generos":genero,
+                        "grupo_destinos":grupo_Destino,
+                        "tipo_prendas":tipo_Prenda
+                        })
+
+
+            if count==0:            
+                messages.error(request,'Por favor seleccione un medio de consulta, sea subir el archivo, ingresar los eans  o seleccionar en las listas deplegables.')
+                return render(
+                    request,
+                    'index.html',
+                    {'tipo':tipo,
+                    'consulta':parametros,
+                    'mostrar':'no',
+                    'marcas':marcas,                      
+                    "generos":genero,
+                    "grupo_destinos":grupo_Destino,
+                    "tipo_prendas":tipo_Prenda})
+
+           
+      
+      
+        string_campos=converts_helper.convert_array_string(parametros,tipo,",") #nos permite traer un string de campos a partir de un arreglo
+        if string_campos=='':
+            string_campos='material,ean,url_imagen'
+            parametros=['MATERIAL','EAN','URL_IMAGEN']   
+            pass
+        else:
+            parametros=['MATERIAL','EAN','URL_IMAGEN']+parametros 
+            string_campos='material,ean,url_imagen,'+string_campos
+        Txt('prueba','Valida informacion e inicializa campos.', inicio,datetime.now())    
+        inicio= datetime.now() 
+        if len(request.FILES)!=0 and request.POST["Ean_Consulta"]== '' :   # si carga un archivo entra aqui         
+            mi_archivo=request.FILES["archivo_Con"]            
+            try:
+                file = mi_archivo.read().decode('utf-8-sig')
+                file = file.upper()
+                reader = csv.DictReader(io.StringIO(file))                  
+                archivo = [line for line in reader]    
+               
+            except Exception as e:
+                messages.error(request,"Por favor valide bien la estructura del archivo, si el error persiste contacte con el administrador. y disponga este error:{}".format(e))
+                return render(
+                request,
+                'index.html',
+                {'tipo':tipo,
+                'consulta':parametros,
+                'mostrar':'no',
+                'marcas':marcas,                      
+                "generos":genero,
+                "grupo_destinos":grupo_Destino,
+                "tipo_prendas":tipo_Prenda})
+            Txt('prueba','Se lee el archivo de consulta', inicio,datetime.now())
+            inicio= datetime.now()  
+            
+            vali=Validacion(archivo,tipo)
+            if vali:
+                messages.error(request,vali)       
+                return render(
+                request,
+                'index.html',
+                {'tipo':tipo,
+                'consulta':parametros,
+                'mostrar':'no',
+                'marcas':marcas,                      
+                "generos":genero,
+                "grupo_destinos":grupo_Destino,
+                "tipo_prendas":tipo_Prenda
+               })   
+            Txt('prueba','Valida la estructura del archivo', inicio,datetime.now())
+            inicio= datetime.now()        
+            #Relizamos la consulta nativa en la base de datos      
+           
+            string_filtro=converts_helper.convert_array_string(archivo,tipo,',',False)
+          
+            Txt('prueba','Prepara los campos por el que se hace la consulta', inicio,datetime.now())
+            inicio= datetime.now() 
+            Txt('prueba','Valida las estruturas de consulta y lee el archivo que se carga.', inicio,datetime.now())    
+            inicio= datetime.now()    
+            #controlo por donde hace la consulta si por ean o material   
+            if tipo =="MATERIAL":
+                if Consulta_Where_Cantidad(request.POST['DWMarca'],request.POST['DWGenero'],request.POST['DWGrupo_destino'],request.POST['DWTipo_prenda'])!=0:
+                    consulta='select distinct {} from material_materiales where material in ({}) and {};'.format(string_campos,string_filtro,Consulta_Where(request.POST['DWMarca'],request.POST['DWGenero'],request.POST['DWGrupo_destino'],request.POST['DWTipo_prenda']))        
+                else:
+                    consulta='select distinct {} from material_materiales where material in ({});'.format(string_campos,string_filtro) 
+                                    
+            else:
+                if Consulta_Where_Cantidad(request.POST['DWMarca'],request.POST['DWGenero'],request.POST['DWGrupo_destino'],request.POST['DWTipo_prenda'])!=0:
+                    consulta='select distinct {} from material_materiales where ean in ({}) and {}; '.format(string_campos,string_filtro,Consulta_Where(request.POST['DWMarca'],request.POST['DWGenero'],request.POST['DWGrupo_destino'],request.POST['DWTipo_prenda']))                     
+                else:
+                    consulta='select distinct {} from material_materiales where ean in ({});'.format(string_campos,string_filtro,) 
+
+            matconsulta=consultasql(consulta)  
+        elif request.POST['Ean_Consulta']!= "":
+            array_filt=converts_helper.convert_string_array(ean_consulta)
+            string_filtro_ean=converts_helper.convert_array_str(array_filt,',',False)
+            consulta='select distinct {} from material_materiales where ean in ({});'.format(string_campos,string_filtro_ean) 
+            matconsulta=consultasql(consulta)
+            # import pdb; pdb.set_trace()
+
+        else:
+            consulta='select distinct {} from material_materiales where {};'.format(string_campos,Consulta_Where(request.POST['DWMarca'],request.POST['DWGenero'],request.POST['DWGrupo_destino'],request.POST['DWTipo_prenda']))
+            matconsulta=consultasql(consulta)    
+
+
+ 
+
+                
+        Txt('prueba','Realiza la consulta en la base de datos', inicio,datetime.now())
+        inicio= datetime.now()        
+                      
+        hash_archivo = str(uuid.uuid1())
+        Txt('prueba','Resizen cloud img', inicio,datetime.now())
+        inicio= datetime.now()         
+        csv_hilo=threading.Thread(name="hilo_csv",target= Descarga_pim_doc,args=(hash_archivo,matconsulta,string_campos,1))
+        csv_hilo.start()
+    
+        Txt('prueba','Convierte haciendo uso de cloud img.', inicio,datetime.now())    
+        inicio= datetime.now() 
+        Txt('prueba','Prepara el archivo csv(hilo)', inicio,datetime.now())   
+        inicio= datetime.now() 
+        csv_hilo.join()
+        Txt('prueba','Queda listo el csv', inicio,datetime.now())
+        Txt('prueba','FIN', datetime.now(),datetime.now())
+        parametros=['MATERIAL','EAN','URL FRONT'] 
+        return render(
+            request,
+            'visualizacion.html',
+            {"headers":parametros,
+            "lista":matconsulta,
+            "mostrar":'si',
+            "token":hash_archivo
+            })    
+        pass
+    except Exception as e:
+        if 'NoneType' in str(e):
+            messages.error(request,f'Por favor valide que el encabezado sea {tipo}')
+        else: 
+            messages.error(request,'ocurrio un error por favor contacte con el administrador y proporcine este error: {}'.format(e))
+        return render(
+            request,
+            'index.html',
+            {'tipo':tipo,
+            'consulta':parametros,
+            'mostrar':'no',
+            'marcas':marcas,                      
+            "generos":genero,
+            "grupo_destinos":grupo_Destino,
+            "tipo_prendas":tipo_Prenda})
+
+
       
 def Consulta_Where_Cantidad(marca,genero,grupo_destino,tipo_prenda):
         count=0
@@ -456,12 +684,10 @@ def Catalogoh(request):
 def handler404_page(request):
     return render(request, '404.html', status=404)
     
-def Descarga_pim_doc(token,mat,headers):    
-    response=csv_pim(token,mat,headers)
+def Descarga_pim_doc(token,mat,headers,planeacion=0):    
+    response=csv_pim(token,mat,headers,planeacion)
     response.Guardar()
-
     
-
 def Descarga_doc(request):    
        
     token = request.POST["token"]

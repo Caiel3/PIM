@@ -12,10 +12,11 @@ class csv_pim:
         return 
 
 
-    def __init__(self, hash, matriz,headers):
+    def __init__(self, hash, matriz,headers,planeacion):
       self.hash = hash
       self.matriz = matriz
       self.headers=headers
+      self.planeacion=planeacion
     
 
     def Guardar(self):        
@@ -23,10 +24,14 @@ class csv_pim:
         ruta=settings.MEDIA_ROOT+'/Csv_descarga/documento-{}.csv'.format(self.hash)
        
         with open(ruta,'a', encoding='UTF-8') as f:
-            f.write(self.headers.replace(',',';')+ '\n')
+            if self.planeacion == 1:
+                f.write(self.headers.replace(',',';').replace('url_imagen','url front')+ '\n')
+            else:
+                f.write(self.headers.replace(',',';') + '\n')
             for item in self.matriz:
                 string_campos=Converts.convert_array_string(self,item,'',';',True)
-                f.write(string_campos + '\n')
+                if string_campos:
+                    f.write(string_campos + '\n')
                 # import pdb; pdb.set_trace()  
         f.close()
         Txt('prueba','Crea el csv.', inicio,datetime.now())
