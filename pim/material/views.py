@@ -647,7 +647,8 @@ def Catalogoh(request):
                 bfh=(converts_helper.numero_paginas_marca(int(marca[0])))                
                 pass
             elif marca[1]=='PUNTO BLANCO':
-                pbh=(converts_helper.numero_paginas_marca(int(marca[0])))                
+                pbh=(converts_helper.numero_paginas_marca(int(marca[0])))
+                              
             else:                
                 gefh=(converts_helper.numero_paginas_marca(int(marca[0])))            
                 if can[0][0]==3:
