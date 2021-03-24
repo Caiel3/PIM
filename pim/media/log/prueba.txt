@@ -274,4 +274,34 @@ inicio 17/02/2021 16:01.33: INICIO Fin: 17/02/2021 16:01.33
  inicio 04/03/2021 15:36.28: Crea el csv. Fin: 04/03/2021 15:36.28 
  inicio 04/03/2021 15:36.28: Queda listo el csv Fin: 04/03/2021 15:36.28 
  inicio 04/03/2021 15:36.28: FIN Fin: 04/03/2021 15:36.28 
+ inicio 17/03/2021 10:53.04: INICIO Fin: 17/03/2021 10:53.04 
+ inicio 17/03/2021 10:53.04: Valida informacion e inicializa campos. Fin: 17/03/2021 10:53.04 
+ inicio 17/03/2021 10:53.04: Realiza la consulta en la base de datos Fin: 17/03/2021 10:53.14 
+ inicio 17/03/2021 10:53.14: Resizen cloud img Fin: 17/03/2021 10:58.35 
+ inicio 17/03/2021 10:58.35: Convierte haciendo uso de cloud img. Fin: 17/03/2021 10:58.35 
+ inicio 17/03/2021 10:58.35: Prepara el archivo csv(hilo) Fin: 17/03/2021 10:58.35 
+ inicio 17/03/2021 10:58.35: Crea el csv. Fin: 17/03/2021 10:58.35 
+ inicio 17/03/2021 10:58.35: Queda listo el csv Fin: 17/03/2021 10:58.35 
+ inicio 17/03/2021 10:58.35: FIN Fin: 17/03/2021 10:58.35 
+ inicio 17/03/2021 11:51.39: INICIO Fin: 17/03/2021 11:51.39 
+ inicio 17/03/2021 11:51.39: Valida informacion e inicializa campos. Fin: 17/03/2021 11:51.39 
+ inicio 17/03/2021 11:51.39: Realiza la consulta en la base de datos Fin: 17/03/2021 11:51.42 
+ inicio 17/03/2021 11:53.05: INICIO Fin: 17/03/2021 11:53.05 
+ inicio 17/03/2021 11:53.05: Valida informacion e inicializa campos. Fin: 17/03/2021 11:53.05 
+ inicio 17/03/2021 11:53.05: Realiza la consulta en la base de datos Fin: 17/03/2021 11:53.08 
+ inicio 17/03/2021 11:53.08: Resizen cloud img Fin: 17/03/2021 11:53.08 
+ inicio 17/03/2021 11:53.08: Convierte haciendo uso de cloud img. Fin: 17/03/2021 11:53.08 
+ inicio 17/03/2021 11:53.08: Prepara el archivo csv(hilo) Fin: 17/03/2021 11:53.08 
+ inicio 17/03/2021 11:53.08: Crea el csv. Fin: 17/03/2021 11:53.08 
+ inicio 17/03/2021 11:53.08: Queda listo el csv Fin: 17/03/2021 11:53.08 
+ inicio 17/03/2021 11:53.08: FIN Fin: 17/03/2021 11:53.08 
+ inicio 17/03/2021 12:00.15: INICIO Fin: 17/03/2021 12:00.15 
+ inicio 17/03/2021 12:00.15: Valida informacion e inicializa campos. Fin: 17/03/2021 12:00.15 
+ inicio 17/03/2021 12:00.15: Realiza la consulta en la base de datos Fin: 17/03/2021 12:00.16 
+ inicio 17/03/2021 12:00.16: Resizen cloud img Fin: 17/03/2021 12:00.16 
+ inicio 17/03/2021 12:00.16: Convierte haciendo uso de cloud img. Fin: 17/03/2021 12:00.16 
+ inicio 17/03/2021 12:00.16: Prepara el archivo csv(hilo) Fin: 17/03/2021 12:00.16 
+ inicio 17/03/2021 12:00.16: Crea el csv. Fin: 17/03/2021 12:00.16 
+ inicio 17/03/2021 12:00.16: Queda listo el csv Fin: 17/03/2021 12:00.16 
+ inicio 17/03/2021 12:00.16: FIN Fin: 17/03/2021 12:00.16 
  

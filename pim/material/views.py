@@ -36,6 +36,7 @@ import threading
 import pandas as pd
 from concurrent.futures import ThreadPoolExecutor
 from math import  ceil
+import xlrd
 
 converts_helper=Converts()
 cloud=CloudImage()
@@ -282,13 +283,14 @@ def subida(request):
         inicio= datetime.now()        
             
         #converitmos todo haciendo uso de cloud img  
-        
+        tipo_consulta='documento'
         informacion=cloud.convertir_matriz(
             matconsulta,
             1,
             ancho,
             largo,
-            Claves.get_secret('CLOUDIMG_TOKEN'))      
+            Claves.get_secret('CLOUDIMG_TOKEN'),
+            tipo_consulta)      
         hash_archivo = str(uuid.uuid1())
         Txt('prueba','Resizen cloud img', inicio,datetime.now())
         inicio= datetime.now()         
@@ -648,13 +650,14 @@ def Catalogoh(request):
                 pass
             elif marca[1]=='PUNTO BLANCO':
                 pbh=(converts_helper.numero_paginas_marca(int(marca[0])))
-                              
+
             else:                
                 gefh=(converts_helper.numero_paginas_marca(int(marca[0])))            
                 if can[0][0]==3:
                     gefh=gefh-10
                 
-                pass                  
+                pass
+                              
         Catalogo_temp.objects.filter(hash_uuid=id).delete()
         return render(
             request,'catalogo.html',
@@ -681,7 +684,30 @@ def Catalogoh(request):
             messages.error(request,'Ocurrio un error inesperado, por favor contacte con el administrador y proporcione este error; {}'.format(e))         
             
         return render(request,'index.html',{'mostrar':'no'})  
-   
+def Catalogog(request):
+    try:
+        id = str(uuid.uuid1())
+        # mi_archivo=request.FILES["archivo"]
+        # open_file=xlrd.open_workbook(mi_archivo)
+        mi_archivo=request.FILES["archivo_excel"] 
+        open_files=pd.ExcelFile(mi_archivo)
+        titulos = open_files.sheet_names
+        lista_titulos = [line for line in titulos]
+    except Exception as e:
+        if type(e) is KeyError:
+            messages.error(request,'Recuerde que debe de conservar la estructura del archivo plano y este debe de estar separado por ;, error cerca a {}.'.format(e))   
+        elif "PRIMARY" in str(e):
+            messages.error(request,'Hay un material duplicado, recuerde que deben ser únicos.')
+        elif "utf-8" in str(e):
+            messages.error(request,'El archivo debe de ser un csv utf-8.')
+        elif("Duplicate entry" in  str(e)):
+            messages.error(request,'Recuerde que debe de conservar la estructura del archivo plano y este debe de estar separado por ;') 
+        else:
+            messages.error(request,'Ocurrio un error inesperado, por favor contacte con el administrador y proporcione este error; {}'.format(e))         
+            
+        return render(request,'index.html',{'mostrar':'no'})  
+
+
 def handler404_page(request):
     return render(request, '404.html', status=404)
     
@@ -722,11 +748,13 @@ def Consulta_marca_catalogo(marca,hash_uuid):
             temp[13]=[b for b in codigo]
         consulta_temp.append(temp)        
     datos=consulta_temp
+    tipo_consul='catalogo'
     datos=cloud.convertir_matriz(
         datos,8,
             248,
             326,
-            'aatdtkgdoo')
+            'aatdtkgdoo',
+            tipo_consul)
     return datos
 
 

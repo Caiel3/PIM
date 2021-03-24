@@ -1,5 +1,6 @@
 import json
 import numpy as np
+import requests
 
      
    
@@ -14,17 +15,42 @@ class CloudImage():
     def __unicode__(self):
         return 
 
-    def cloudimg_imagen(self,url,parametros,toquen):
-        parametros_url=''             
-        for param in parametros:
-            parametros_url=str(parametros_url)+"&"+str(param)+'='+str(parametros.get(param))
-            pass
-                  
-        return "https://{}.cloudimg.io/v7/{}?sharp=1{}".format(toquen,url,parametros_url)
+    def cloudimg_imagen(self,url,parametros,toquen,tipo_cont):
+        parametros_url=''
+        # cont = 1
+        if tipo_cont == 'catalogo':         
+            for param in parametros:
+                parametros_url=str(parametros_url)+"&"+str(param)+'='+str(parametros.get(param))
+                pass
+            url_img=requests.get("https://{}.cloudimg.io/v7/{}?{}&v1&func=fit".format(toquen,url,parametros_url)).ok
+            if url_img == False:
+                return "https://{}.cloudimg.io/v7/{}?{}&func=cover&v4".format(toquen,url,parametros_url)
+            #     return "https://{}.cloudimg.io/v7/{}?sharp=1{}&v1".format(toquen,url,parametros_url)
+            else:
+                url_img_2 = requests.get("https://{}.cloudimg.io/v7/{}?{}&v1&fun=fit".format(toquen,url,parametros_url)).ok
+                if url_img_2 == False:
+                    return "https://{}.cloudimg.io/v7/{}?{}&v3&func=fit".format(toquen,url,parametros_url)
+                else:
+                    return "https://{}.cloudimg.io/v7/{}?{}&v1&func=fit".format(toquen,url,parametros_url)
+            # for cont in range(1, 5):
+            #     url_img=requests.get("https://{}.cloudimg.io/v7/{}?sharp=1{}&v{}".format(toquen,url,parametros_url,cont)).ok
+
+            #     if url_img == True:
+            #         url_imga="https://{}.cloudimg.io/v7/{}?sharp=1{}&v{}".format(toquen,url,parametros_url,cont)
+            #         return url_imga
+            #     else:
+            #         return "https://{}.cloudimg.io/v7/{}?sharp=1{}&v4".format(toquen,url,parametros_url)
+                    
+            # return "https://{}.cloudimg.io/v7/{}?sharp=1{}&v6".format(toquen,url,parametros_url)
+        else:
+            parametros_url=''
+            for param in parametros:
+                parametros_url=str(parametros_url)+"&"+str(param)+'='+str(parametros.get(param))
+                pass
+            return "https://{}.cloudimg.io/v7/{}?sharp=1{}".format(toquen,url,parametros_url)
 
 
-
-    def convertir_matriz(self,matriz,posicion,ancho,largo,token):         
+    def convertir_matriz(self,matriz,posicion,ancho,largo,token,tipo):         
         aux=matriz                
         auxreturn=[]
         con_filas=0              
@@ -47,7 +73,7 @@ class CloudImage():
                         auxreturn.append(lista)     
                         pass
                     else:
-                        val=self.cloudimg_imagen(fila[posicion],{"height":largo,"width":ancho},token) if fila[posicion] != None else ''
+                        val=self.cloudimg_imagen(fila[posicion],{"height":largo,"width":ancho},token,tipo) if fila[posicion] != None else ''
                         lista=list(fila)                    
                         lista[posicion]=val
                         con_filas=con_filas+1    

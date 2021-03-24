@@ -3,6 +3,7 @@
         <button class="tablinks" onclick="openEvent(event, 'pago')">PIM</button>
         <button class="tablinks" onclick="openEvent(event, 'envio')">PDF</button>
         <button class="tablinks" onclick="openEvent(event, 'planeacion')">PLANEACIÓN</button>
+        {% comment %} <button class="tablinks" onclick="openEvent(event, 'despacho')">DESARROLLO</button> {% endcomment %}
     </div>
     
 
@@ -639,6 +640,49 @@
             </form>
 
         </div>
+</div>
+<div id="despacho" class="tabcontent">
+    <div class="container pt-4">
+        <div class="row">
+            <div class="col-md-10 offset-1 align-items-center">
+
+                <form action="/catalogog/" method="POST" enctype="multipart/form-data"
+                    class="p-3 border bg-transparent rounded-lg"> {%csrf_token %}
+
+                    <div class="form-row">
+                        <div class="form-group col-md">
+                            <label for="archivo">Cargar Archivo</label>
+                            <input type="file" name="archivo_excel" class="form-control-file" id="archivo_excel" required>
+                        </div>
+                    </div>
+
+                    <script>
+                        $(document).ready(function() {
+                            $('#archivo_excel').click(function() {
+                                $('#medio_consulta_8').show();
+                                });
+                        });
+                    </script>
+
+                    <div id="medio_consulta_8" style="display:none">
+                        <div class="col-md-6">
+                                        <label for="Consulta_titulo">Seleccione la hoja</label>
+                                        <select name="DWTitulo" class="form-control" id="titulo">
+                                            <option value="">Seleccione...</option>
+                                            {% for titulo in lista_titulos %}
+                                            <option value="{{titulo}}">
+                                                {{titulo}}</option>
+                                            {% endfor %}
+                                        </select>
+                        </div>
+                    </div>
+                    <input type="submit" class="btn btn-primary" value="Continuar">
+
+                </form>
+            </div>
+        </div>
+    </div>
+
 </div>
 {% if messages %}
     {% for message in messages %}
