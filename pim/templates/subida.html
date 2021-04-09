@@ -386,16 +386,55 @@
         <div class="row">
             <div class="col-md-10 offset-1 align-items-center">
 
-                <form action="/catalogoh/" method="POST" enctype="multipart/form-data"
+                <form action="/catalogog/" method="POST" enctype="multipart/form-data"
                     class="p-3 border bg-transparent rounded-lg"> {%csrf_token %}
-
-                    <div class="form-row">
-                        <div class="form-group col-md">
-                            <label for="archivo">Cargar Archivo</label>
-                            <input type="file" name="archivo" class="form-control-file" id="archivo" required>
+                    <div class="col-md-6">
+                        <div class="form-row">
+                            <div class="form-group col-md">
+                                <label for="archivo">Cargar Archivo</label>
+                                <input type="file" name="archivo_excel" class="form-control-file" id="archivo_excel" required>
+                            </div>
                         </div>
                     </div>
-                    <input type="submit" class="btn btn-primary" value="Continuar">
+
+                    <script>
+                        $(document).ready(function() {
+                            $('#archivo_excel').click(function() {
+                                $('#medio_consulta_8').show();
+                                });
+                        });
+                    </script>
+
+                    <div id="medio_consulta_8" style="display:none">
+                        <div class="col-md-6">
+                            <label for="largo">Nombre de la Hoja</label>
+                                <input type="text" class="form-control" id="nombre_hoja" name="nombre_hoja"
+                                    aria-describedby="Nombre_Hoja" required value={{nombre_hoja}}>
+                                <small id="emailHelp" class="form-text text-muted">Ingresa
+                                    el nombre de la hoja que quieres consultar.
+                                </small>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="col-md-6">
+                        <input type="submit" class="btn btn-primary" value="Continuar">
+                        <button type="button" class="btn btn-outline-primary" value="Limpiar campos" id="Limpiar7">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                            </svg>
+                            Limpiar campos
+                        </button>
+                    </div>
+                    <script>
+                        $(document).ready(function() {
+                            $('#Limpiar7').click(function() {
+                                $('#nombre_hoja').val('');
+                                $('#archivo_excel').val('');
+                                $('#medio_consulta_8').hide();
+                                });
+                            });
+                    </script>
 
                 </form>
             </div>
@@ -641,18 +680,19 @@
 
         </div>
 </div>
-<div id="despacho" class="tabcontent">
+{% comment %} <div id="despacho" class="tabcontent">
     <div class="container pt-4">
         <div class="row">
             <div class="col-md-10 offset-1 align-items-center">
 
                 <form action="/catalogog/" method="POST" enctype="multipart/form-data"
                     class="p-3 border bg-transparent rounded-lg"> {%csrf_token %}
-
-                    <div class="form-row">
-                        <div class="form-group col-md">
-                            <label for="archivo">Cargar Archivo</label>
-                            <input type="file" name="archivo_excel" class="form-control-file" id="archivo_excel" required>
+                    <div class="col-md-6">
+                        <div class="form-row">
+                            <div class="form-group col-md">
+                                <label for="archivo">Cargar Archivo</label>
+                                <input type="file" name="archivo_excel" class="form-control-file" id="archivo_excel" required>
+                            </div>
                         </div>
                     </div>
 
@@ -666,24 +706,40 @@
 
                     <div id="medio_consulta_8" style="display:none">
                         <div class="col-md-6">
-                                        <label for="Consulta_titulo">Seleccione la hoja</label>
-                                        <select name="DWTitulo" class="form-control" id="titulo">
-                                            <option value="">Seleccione...</option>
-                                            {% for titulo in lista_titulos %}
-                                            <option value="{{titulo}}">
-                                                {{titulo}}</option>
-                                            {% endfor %}
-                                        </select>
+                            <label for="largo">Nombre de la Hoja</label>
+                                <input type="text" class="form-control" id="nombre_hoja" name="nombre_hoja"
+                                    aria-describedby="Nombre_Hoja" required value={{nombre_hoja}}>
+                                <small id="emailHelp" class="form-text text-muted">Ingresa
+                                    el nombre de la hoja que quieres consultar.
+                                </small>
                         </div>
                     </div>
-                    <input type="submit" class="btn btn-primary" value="Continuar">
+                    <br>
+                    <div class="col-md-6">
+                        <input type="submit" class="btn btn-primary" value="Continuar">
+                        <button type="button" class="btn btn-outline-primary" value="Limpiar campos" id="Limpiar7">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                            </svg>
+                            Limpiar campos
+                        </button>
+                    </div>
+                    <script>
+                        $(document).ready(function() {
+                            $('#Limpiar7').click(function() {
+                                $('#nombre_hoja').val('');
+                                $('#archivo_excel').val('');
+                                });
+                            });
+                    </script>
 
                 </form>
             </div>
         </div>
     </div>
 
-</div>
+</div> {% endcomment %}
 {% if messages %}
     {% for message in messages %}
         <div class="message alert alert-danger">

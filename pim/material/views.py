@@ -37,6 +37,11 @@ import pandas as pd
 from concurrent.futures import ThreadPoolExecutor
 from math import  ceil
 import xlrd
+import openpyxl
+from os import path
+from os import remove
+from django.core.files import File
+
 
 converts_helper=Converts()
 cloud=CloudImage()
@@ -683,25 +688,115 @@ def Catalogoh(request):
         else:
             messages.error(request,'Ocurrio un error inesperado, por favor contacte con el administrador y proporcione este error; {}'.format(e))         
             
-        return render(request,'index.html',{'mostrar':'no'})  
+        return render(request,'index.html',{'mostrar':'no'})
+
 def Catalogog(request):
+
     try:
-        id = str(uuid.uuid1())
-        # mi_archivo=request.FILES["archivo"]
-        # open_file=xlrd.open_workbook(mi_archivo)
-        mi_archivo=request.FILES["archivo_excel"] 
-        open_files=pd.ExcelFile(mi_archivo)
-        titulos = open_files.sheet_names
-        lista_titulos = [line for line in titulos]
+        if request.method == "POST":
+            mi_archivo = request.FILES["archivo_excel"]
+            # import pdb;pdb.set_trace()
+            if mi_archivo.name.endswith('xlsx'):
+                id = str(uuid.uuid1())
+                ruta = settings.MEDIA_ROOT + '/Upload/' + mi_archivo.name
+                with open (ruta,'wb+') as destination: 
+                        for chunk in mi_archivo.chunks():
+                            destination.write(chunk)
+                os.rename(settings.MEDIA_ROOT + '/Upload/' + mi_archivo.name, settings.MEDIA_ROOT + '/Upload/' + "{}.xlsx".format(id)) 
+                open_files=pd.ExcelFile(settings.MEDIA_ROOT + '/Upload/' + '{}.xlsx'.format(id))
+                titulo_files = request.POST["nombre_hoja"]
+                titulo = titulo_files.upper()
+                titulos = open_files.sheet_names
+                lista_titulos = [line for line in titulos]
+                # print(lista_titulos)
+                if titulo in lista_titulos:
+                    df = pd.read_excel(open_files,sheet_name = titulo)
+                    df_1= df[['Material','Unidad de empaque', 'Colección','Precio','Moneda','Orden']]
+                    df_2 = df_1.dropna(subset=["Material"])
+                    df_2 = df_2.astype({"Material": int, "Unidad de empaque": int,"Precio":int,"Orden": int})
+                    # print(df_2)
+                    temp = [ row for index, row in df_2.iterrows()]
+                    archivo_temp = [line for line in  temp]
+                    #insertamos temporalmente datos en una tabla para despues traerlos ordenados de una manera mas sencilla
+                    carga_temp=[line for line in archivo_temp] 
+                    
+                
+                    for dato in carga_temp:        
+                        Catalogo_temp.objects.create(
+                            material=dato['Material'],
+                            unidad_empaque=dato['Unidad de empaque'],
+                            coleccion=dato['Colección'],
+                            precio=dato['Precio'],
+                            moneda='',
+                            pais=dato['Orden'],
+                            hash_uuid=id
+                            )
+                    # moneda_temp = dato['Moneda']
+                    header_consulta_material=[]
+                    for valor in temp:
+                        header_consulta_material.append(valor['Material'])
+                        pass               
+
+                    """ 10 px de diferencia en la tercera marca """
+                    datosGEF=Consulta_marca_catalogo('GEF',id)
+                    datosBF=Consulta_marca_catalogo('BABY FRESH',id)
+                    datosPB=Consulta_marca_catalogo('PUNTO BLANCO',id)
+                    
+                    can_marca=np.asarray(consultasql("SELECT COUNT(MARCA) AS CANTIDAD,MARCA FROM RAM.CATALOGO WHERE HASH_UUID='{}'  GROUP BY MARCA order by MARCA".format(id)))
+                    con=0
+                    bfh=0# hojas Baby fresh
+                    pbh=0#hojas Punto blanco
+                    gefh=0#hojas gef
+                    cantidad_marcas=consultasql("SELECT COUNT(*) FROM ( SELECT COUNT(MARCA) AS CANTIDAD,MARCA FROM RAM.CATALOGO WHERE HASH_UUID='{}' GROUP BY MARCA order by MARCA) CAM".format(id))
+                    can=[li for li in cantidad_marcas]
+                    
+                    for marca in can_marca:             
+                        if marca[1]=='BABY FRESH':
+                            bfh=(converts_helper.numero_paginas_marca(int(marca[0])))                
+                            pass
+                        elif marca[1]=='PUNTO BLANCO':
+                            pbh=(converts_helper.numero_paginas_marca(int(marca[0])))
+
+                        else:                
+                            gefh=(converts_helper.numero_paginas_marca(int(marca[0])))            
+                            if can[0][0]==3:
+                                gefh=gefh-10
+                            
+                            pass
+
+                    Catalogo_temp.objects.filter(hash_uuid=id).delete()
+                    if path.exists(settings.MEDIA_ROOT + '/Upload/' + '{}.xlsx'.format(id)):
+                        open_files.close()
+                        remove(settings.MEDIA_ROOT + '/Upload/' + '{}.xlsx'.format(id))
+                    else:
+                        pass  
+                    return render(
+                        request,'catalogo.html',
+                        {'datosGEF' : datosGEF,
+                        'datosPB' : datosPB,
+                        'datosBF' : datosBF,
+                        'Cgef':'height:{}px;'.format(gefh),
+                        'CPb':'height:{}px;'.format(pbh),
+                        'Cbf':'height:{}px;'.format(bfh),
+                        'moneda':dato['Moneda'],
+                        'logo_gef':Claves.get_secret('LOGO_GEF'),
+                        'logo_pb':Claves.get_secret('LOGO_PB'),
+                        'logo_bf':Claves.get_secret('LOGO_BF')})    
+                pass
+            messages.error(request,'Recuerde que el archivo debe ser un excel(.xlsx).')
+            return render(request,'index.html',{'mostrar':'no'}) 
+        messages.error(request,'Ocurrio un error inesperado, por favor contacte con el administrador y proporcione este error:Es un metodo diferente a post')
+        return render(request,'index.html',{'mostrar':'no'}) 
+
     except Exception as e:
         if type(e) is KeyError:
-            messages.error(request,'Recuerde que debe de conservar la estructura del archivo plano y este debe de estar separado por ;, error cerca a {}.'.format(e))   
-        elif "PRIMARY" in str(e):
-            messages.error(request,'Hay un material duplicado, recuerde que deben ser únicos.')
-        elif "utf-8" in str(e):
-            messages.error(request,'El archivo debe de ser un csv utf-8.')
+            messages.error(request,'Recuerde que debe de conservar la estructura del archivo, error cerca a {}.'.format(e))   
+        # elif type(e) is ValueError:
+        #     messages.error(request,'Recuerde que la estructura del archivo debe ser xlsx.')
+        elif "carga_temp" in str(e):
+            messages.error(request,'El Nombre de la hoja que desean ingresar no se encuentra en el archivo, por favor valide!!.')
         elif("Duplicate entry" in  str(e)):
-            messages.error(request,'Recuerde que debe de conservar la estructura del archivo plano y este debe de estar separado por ;') 
+            messages.error(request,'Recuerde que debe de conservar la estructura del archivo  y no debe contener duplicados ') 
         else:
             messages.error(request,'Ocurrio un error inesperado, por favor contacte con el administrador y proporcione este error; {}'.format(e))         
             
