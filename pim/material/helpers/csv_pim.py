@@ -4,6 +4,9 @@ import numpy as np
 from ..helpers.converts import  Converts
 from datetime import datetime
 from ..helpers.TxtControlador import Txt
+from django.contrib.auth.decorators import login_required
+
+
 class csv_pim:
     def __str__(self):
         return 
@@ -22,7 +25,7 @@ class csv_pim:
     def Guardar(self):        
         inicio=datetime.now()             
         ruta=settings.MEDIA_ROOT+'/Csv_descarga/documento-{}.csv'.format(self.hash)
-       
+        # import pdb; pdb.set_trace()
         with open(ruta,'a', encoding='UTF-8') as f:
             if self.planeacion == 1:
                 f.write(self.headers.replace(',',';').replace('url_imagen','url front')+ '\n')

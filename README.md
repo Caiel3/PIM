@@ -59,3 +59,5 @@ DATABASES = {
 Debug--
 import pdb; pdb.set_trace()
 
+Celery_______
+celery -A pim  worker -l info

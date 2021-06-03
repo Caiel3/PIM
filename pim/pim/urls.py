@@ -15,18 +15,24 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from material.views import index,subida,Descarga_doc,Catalogoh,handler404_page,reportenuevo,Descarga_img,carga,Catalogog
+from material.views import subida,Descarga_doc,Descarga_img,carga,Catalogog,homeview,loginview,user_logout
 from rest_framework.routers import DefaultRouter
 from django.conf.urls import handler404
+from rest_framework_simplejwt import views as jwt_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',index,name='index'),
+    path('',homeview.home,name='index'),
+    path('api/token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
+    # path('api/token/cargamaterial/', materialeslist.as_view(), name='carga_material'),
+    path('home/',loginview.login,name='home'),
+    path('logout/',user_logout,name='logout'),
     path('subida/',subida,name='subida'),
     path('carga/',carga,name='carga'),
     path('Descarga_doc/',Descarga_doc,name='Descarga_doc'), 
     path('catalogog/',Catalogog,name='catalogog'),    
-    path('reportenuevo/',reportenuevo,name='reportenuevo'),
+    # path('reportenuevo/',reportenuevo,name='reportenuevo'),
     path('Descarga_img/',Descarga_img,name='Descarga_img'),      
 
 ]

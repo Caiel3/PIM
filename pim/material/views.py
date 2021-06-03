@@ -40,8 +40,17 @@ import xlrd
 import openpyxl
 from os import path
 from os import remove
+from django.contrib.auth import get_user_model,authenticate,login,logout
 from django.core.files import File
-
+from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated,AllowAny
+from rest_framework.decorators import permission_classes
+from rest_framework_simplejwt.tokens import AccessToken,RefreshToken
+from rest_framework_simplejwt import authentication
+from django.contrib.auth.decorators import login_required
+from .decorators import unauthenticated_user,allowed_users
+from rest_framework import generics
+from material.task import descarga_asin
 
 converts_helper=Converts()
 cloud=CloudImage()
@@ -49,22 +58,23 @@ cloud=CloudImage()
 class MaterialViewSet(viewsets.ModelViewSet):
     serializer_class=MaterialSerializar
     queryset = Materiales.objects.raw('select * from material_materiales limit 10')
-def index(request):     
-    Limpiar.limpiar_media_imagenes()
-    marcas=Marca.objects.all()        
-    genero=Genero.objects.all()
-    grupo_Destino=Grupo_Destino.objects.all()
-    tipo_Prenda=Tipo_Prenda.objects.all()
+# def index(request):     
+#     Limpiar.limpiar_media_imagenes()
+#     marcas=Marca.objects.all()        
+#     genero=Genero.objects.all()
+#     grupo_Destino=Grupo_Destino.objects.all()
+#     tipo_Prenda=Tipo_Prenda.objects.all()
 
    
-    return render(
-        request,
-        'index.html',
-            {'marcas':marcas,                      
-            "generos":genero,
-            "grupo_destinos":grupo_Destino,
-            "tipo_prendas":tipo_Prenda})
+#     return render(
+#         request,
+#         'index.html',
+#             {'marcas':marcas,                      
+#             "generos":genero,
+#             "grupo_destinos":grupo_Destino,
+#             "tipo_prendas":tipo_Prenda})
 
+@login_required(login_url='/')
 def subida(request):
     try:        
         inicio= datetime.now()  
@@ -300,6 +310,7 @@ def subida(request):
         Txt('prueba','Resizen cloud img', inicio,datetime.now())
         inicio= datetime.now()         
         rango=list(range(0,ceil(len(informacion)/100)))
+        # import pdb; pdb.set_trace()
         csv_hilo=threading.Thread(name="hilo_csv",target= Descarga_pim_doc,args=(hash_archivo,informacion,string_campos))
         csv_hilo.start()
     
@@ -340,6 +351,7 @@ def subida(request):
             "grupo_destinos":grupo_Destino,
             "tipo_prendas":tipo_Prenda})
 
+@login_required(login_url='/')
 def carga(request):
     try:        
         inicio= datetime.now()  
@@ -690,6 +702,7 @@ def Catalogoh(request):
             
         return render(request,'index.html',{'mostrar':'no'})
 
+@login_required(login_url='/')
 def Catalogog(request):
 
     try:
@@ -800,34 +813,87 @@ def Catalogog(request):
         else:
             messages.error(request,'Ocurrio un error inesperado, por favor contacte con el administrador y proporcione este error; {}'.format(e))         
             
-        return render(request,'index.html',{'mostrar':'no'})  
+        return render(request,'index.html',{'mostrar':'no'}) 
+
+class materialeslist(APIView):
+    permission_classes = [IsAuthenticated]
+    def cargamaterial(request):
+        parametros_temp=[
+            'MATERIAL',
+            'DESCRIPCION_MATERIAL',
+            'DESCRIPCION_MATERIAL_ENRIQUECIDO',
+            'DESCRIPCION_LARGA',
+            'EAN',
+            'DESCRIPCION_TALLA',
+            'DESCRIPCION_COLOR',
+            'IMAGEN_GRANDE',
+            'TIPO_PRENDA',
+            'SUBGRUPO',
+            'GENERO',
+            'MARCA',
+            'DEPARTAMENTO',
+            'CARACTERISTICA',
+            'TAGS',
+            'GRUPO_DESTINO',
+            'TIPO_MATERIAL',
+            'COMPOSICION_ES'
+        ]
+        parametros = []
+        # ancho = request.POST["ancho"]
+        # largo = request.POST["largo"]
+        for item in parametros_temp:
+            aux=request.POST[item.upper()]
+            parametros.append(aux)
+        query_set='select distinct {} from material_materiales where EAN = 7701479759040 ;'.format(parametros)
+        matconsulta=consultasql(query_set)
+
+        print(matconsulta)  
 
 
 def handler404_page(request):
     return render(request, '404.html', status=404)
-    
-def Descarga_pim_doc(token,mat,headers,planeacion=0):    
+
+
+# @login_required(login_url='/')    
+def Descarga_pim_doc(token,mat,headers,planeacion=0):
+        
     response=csv_pim(token,mat,headers,planeacion)
     response.Guardar()
-    
+
+# @login_required(login_url='/')    
 def Descarga_doc(request):    
        
     token = request.POST["token"]
-    archivo_csv=open(settings.MEDIA_ROOT+"/Csv_descarga/documento-{}.csv".format(token),'rb')
+    # response=csv_pim(token,mat,headers)
+    archivo_csv = open(settings.MEDIA_ROOT + "/Csv_descarga/documento-{}.csv".format(token),'rb')
     return FileResponse(archivo_csv)
 
-def Descarga_img(request):    
+# @login_required(login_url='/')
+def Descarga_img(request): 
+    
     token = request.POST["token"]
-    tamanio = [t for t in request.POST["tamano"]] 
-    descarga=Descarga_imagenes()
+    # tamanio = [t for t in request.POST["tamano"]] 
+    # descarga=Descarga_imagenes()
     pru=pd.read_csv(settings.MEDIA_ROOT+"/Csv_descarga/documento-{}.csv".format(token),sep='\n',delimiter=';')
         
     necesario=pru[["ean", "imagen_grande"]]
-    necesario=necesario[int(request.POST["rango"])*100:(int(request.POST["rango"])+1)*100]
+    # necesario=necesario[int(request.POST["rango"])*100:(int(request.POST["rango"])+1)*100]
     lista=necesario.values.tolist()
-    largo,ancho=request.POST["tamano"].split(',')      
-    temp=descarga.descargar(lista,token,request.POST["rango"],largo,ancho) 
-    return temp
+    largo,ancho=request.POST["tamano"].split(',')   
+    carga = descarga_asin.delay(lista,token,largo,ancho)
+    mensaje = "Su petición a sido procesada."
+    print(mensaje)
+    Limpiar.limpiar_media_imagenes()
+    marcas=Marca.objects.all()        
+    genero=Genero.objects.all()
+    grupo_Destino=Grupo_Destino.objects.all()
+    tipo_Prenda=Tipo_Prenda.objects.all()
+    return render(request,
+            'index.html',
+            {'marcas':marcas,                      
+            "generos":genero,
+            "grupo_destinos":grupo_Destino,
+            "tipo_prendas":tipo_Prenda}) 
         
 def Consulta_marca_catalogo(marca,hash_uuid):        
     consulta=("SELECT * FROM CATALOGO WHERE MARCA='{}' AND HASH_UUID ='{}' ORDER BY MARCA,cast(PAIS as unsigned)").format(marca,hash_uuid)
@@ -892,10 +958,66 @@ def consultasql(sql):
             pass
         return mat
     except Exception as e:        
-       return 'Ocurrio un error, por favor contacte con el administrador y brinde este mensaje: {}.'.format(e)   
-        
-        
-    
+       return 'Ocurrio un error, por favor contacte con el administrador y brinde este mensaje: {}.'.format(e)
+
+class homeview(APIView):
+    def home(request):
+                return render(
+                request,
+                'login.html')
+
+@login_required(login_url='/ ')
+class loginview(APIView):
+    # @unauthenticated_user
+    def login(request):
+        # import pdb; pdb.set_trace()
+        username_temp = request.POST.get('username')
+        password = request.POST.get('password')
+        if username_temp is None or password is None:
+            messages.error(request,'No tiene acceso, por favor iniciar sesión.')
+            return render(request,'login.html') 
+        else:
+            import requests as reqts
+            User = get_user_model()
+            usuario = User.objects.filter(username = username_temp).first()
+            if usuario is None :
+                messages.error(request,'El usuario que ingreso no esta registrado.')
+                return render(request,'login.html')   
+            elif not usuario.check_password(password):
+                messages.error(request,'Ingreso una contraseña incorrecta.')
+                return render(request,'login.html')   
+            else:
+                url = "http://127.0.0.1:8000/api/token/"
+                body = {
+                    "username":username_temp,
+                    "password":password
+                }
+                req = reqts.post(url,data=body)
+                if req.ok:
+                    # import pdb; pdb.set_trace()
+                    # print(req.text)
+                    Limpiar.limpiar_media_imagenes()
+                    marcas=Marca.objects.all()        
+                    genero=Genero.objects.all()
+                    grupo_Destino=Grupo_Destino.objects.all()
+                    tipo_Prenda=Tipo_Prenda.objects.all()
+                    login (request, usuario)
+                    return render(request,
+                            'index.html',
+                            {'marcas':marcas,                      
+                            "generos":genero,
+                            "grupo_destinos":grupo_Destino,
+                            "tipo_prendas":tipo_Prenda,
+                            "username":username_temp})      
+
+
+def user_logout(request):
+    if request.user.is_authenticated:
+        logout(request)
+        return redirect('/')
+ 
+
+
 
 def reportenuevo(request):
     

@@ -23,7 +23,7 @@ class Descarga_imagenes():
     def __unicode__(self):
         return 
 
-    def Descargaindividual(self,link,nombre,token,posicion):  
+    def Descargaindividual(self,link,nombre,token):  
         
         nombre=str(nombre)
         url = link # El link de la imagen
@@ -31,7 +31,7 @@ class Descarga_imagenes():
         nombre_local_imagen = nombre+".jpg" # El nombre con el que queremos guardarla
         try:                                
             myfile = requests.get(url)
-            download_folder = settings.MEDIA_ROOT+"\Imagenes_descarga\{}-{}\\".format(token,posicion)
+            download_folder = settings.MEDIA_ROOT+"\Imagenes_descarga\{}\\".format(token)
             filename=download_folder+nombre+'.jpg'  
             os.makedirs(download_folder, exist_ok=True)
             open(filename, 'wb').write(myfile.content) 
@@ -40,18 +40,18 @@ class Descarga_imagenes():
             pass
         pass
            
-    def descargar(self,imagenes_descarga,token,posicion,largo,ancho):          
+    def descargar(self,imagenes_descarga,token,largo,ancho):          
         inicio= datetime.now() 
         
         dire=settings.MEDIA_ROOT+"\Imagenes_descarga"        
-        if os.path.isdir(dire+'\{}-{}'.format(token,posicion))== False:
-            os.mkdir(dire+'\{}-{}'.format(token,posicion))
+        if os.path.isdir(dire+'\{}'.format(token))== False:
+            os.mkdir(dire+'\{}'.format(token))
             pass        
-        dire=settings.MEDIA_ROOT+"\Imagenes_descarga\{}-{}".format(token,posicion)        
-        archivo='Imagenes-{}-{}'.format(token,posicion)          
-        if os.path.isfile(dire+'\\{}-{}.zip'.format(archivo,posicion)):
-            zip_file = open(dire+'\\{}-{}.zip'.format(archivo,posicion), 'rb')         
-            return FileResponse(zip_file)
+        dire=settings.MEDIA_ROOT+"\Imagenes_descarga\{}".format(token)        
+        archivo='Imagenes-{}'.format(token)          
+        if os.path.isfile(dire+'\\{}.zip'.format(archivo)):
+            zip_file = open(dire+'\\{}.zip'.format(archivo), 'rb')         
+            # return FileResponse(zip_file)
             pass
         for dir in imagenes_descarga:            
             if ''!=dir:
@@ -59,15 +59,14 @@ class Descarga_imagenes():
                 count=0            
                 for img in consulta_temp:                 
                     self.Descargaindividual(
-                        CloudImage.cloudimg_imagen('',img['imagen'],{"height":largo,"width":ancho},Claves.get_secret('CLOUDIMG_TOKEN'))
+                        CloudImage.cloudimg_imagen('',img['imagen'],{"height":largo,"width":ancho},Claves.get_secret('CLOUDIMG_TOKEN'),'descarga')
                         ,str(img['ean'])+'-'+str(count)
-                        ,token
-                        ,posicion) if img['imagen'] != None else ''
+                        ,token) if img['imagen'] != None else ''
                     count=count+1              
             pass 
         Txt('prueba','Realiza la descarga de imagenes.', inicio,datetime.now())
         inicio= datetime.now()    
-        fantasy_zip = zipfile.ZipFile(dire+'\\{}-{}.zip'.format(archivo,posicion), 'w')
+        fantasy_zip = zipfile.ZipFile(dire+'\\{}.zip'.format(archivo), 'w')
         for folder, subfolders, files in os.walk(dire):        
             for file in files:
                 if file.endswith('.jpg'):
@@ -75,9 +74,9 @@ class Descarga_imagenes():
                     os.remove(folder+'\\'+file)                     
         
         fantasy_zip.close()
-        zip_file = open(dire+'\\{}-{}.zip'.format(archivo,posicion), 'rb') 
+        zip_file = open(dire+'\\{}.zip'.format(archivo), 'rb') 
         Txt('prueba','Crea el zip para descargar.', inicio,datetime.now())           
-        return FileResponse(zip_file)
+        # return FileResponse(zip_file)
                
 
 

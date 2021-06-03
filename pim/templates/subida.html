@@ -1,10 +1,19 @@
 <div class="container-fluid mt-5">
     <div class="tab">
-        <button class="tablinks" onclick="openEvent(event, 'pago')">PIM</button>
-        <button class="tablinks" onclick="openEvent(event, 'envio')">PDF</button>
-        <button class="tablinks" onclick="openEvent(event, 'planeacion')">PLANEACIÓN</button>
-        {% comment %} <button class="tablinks" onclick="openEvent(event, 'despacho')">DESARROLLO</button> {% endcomment %}
+        {% for group in user.groups.all %} 
+            {% if group.name == 'Administradores' or group.name == 'Franquicias' %}
+                <button class="tablinks" onclick="openEvent(event, 'pago')">PIM</button>
+            {% endif %}
+            {% if group.name == 'Administradores'  or group.name == 'Catalogo' %}
+            <button class="tablinks" onclick="openEvent(event, 'envio')">PDF</button>
+            {% endif %}
+            {% if group.name == 'Administradores'  or group.name == 'Planeación' %}
+            <button class="tablinks" onclick="openEvent(event, 'planeacion')">PLANEACIÓN</button>
+            {% endif %}
+            {% comment %} <button class="tablinks" onclick="openEvent(event, 'despacho')">DESARROLLO</button> {% endcomment %}
+        {% endfor %}
     </div>
+
     
 
     <div id="pago" class="tabcontent">

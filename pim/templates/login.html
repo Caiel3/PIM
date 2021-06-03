@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+                body {
+                font-family: "Lato", sans-serif;
+            }
+
+
+
+            .main-head{
+                height: 150px;
+                background: #FFF;
+            
+            }
+
+            .sidenav {
+                height: 100%;
+                background-color: #1815E1;
+                overflow-x: hidden;
+                padding-top: 20px;
+            }
+
+
+            .main {
+                padding: 0px 10px;
+            }
+
+            @media screen and (max-height: 450px) {
+                .sidenav {padding-top: 15px;}
+            }
+
+            @media screen and (max-width: 450px) {
+                .login-form{
+                    margin-top: 10%;
+                }
+
+                .register-form{
+                    margin-top: 10%;
+                }
+            }
+
+            @media screen and (min-width: 768px){
+                .main{
+                    margin-left: 40%; 
+                }
+
+                .sidenav{
+                    width: 40%;
+                    position: fixed;
+                    z-index: 1;
+                    top: 0;
+                    left: 0;
+                }
+
+                .login-form{
+                    margin-top: 80%;
+                }
+
+                .register-form{
+                    margin-top: 20%;
+                }
+            }
+
+
+            .login-main-text{
+                margin-top: 20%;
+                padding: 60px;
+                color: #fff;
+            }
+
+            .login-main-text h2{
+                font-weight: 300;
+            }
+
+            .btn-black{
+                background-color: #1815E1 !important;
+                color: #fff;
+            }
+        </style>
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+
+    </head>
+    <div class="sidenav">
+         <div class="login-main-text">
+            <h2>PIM<br> Login Page</h2>
+            <p>Bienvenido al repositorio central de imagenes</p>
+         </div>
+      </div>
+      <div class="main">
+        <div class="col-md-6 col-sm-12">
+            <div class="login-form">
+               <form method="POST" action="/home/">
+                  <div class="form-group">
+                    <label>Usuario</label>
+                    <div class="d-flex justify-content-center form_container">
+                            {%csrf_token%}
+						    <div class="input-group mb-3">
+							    <div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-user"></i></span>
+							</div>
+                            <input type="text" name="username" placeholder="Ingrese su usuario" class="form-control" required >
+						</div>
+                  </div>
+                  <div class="form-group">
+                    <label>Contraseña</label>
+                    <div class="input-group mb-2">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-key"></i></span>
+							</div>
+							<input type="password" name="password" placeholder="Ingrese su contraseña" class="form-control" required >
+						</div>
+                    </div>
+                  <button type="submit" class="btn btn-black">Iniciar Sesión</button>
+                  <br>
+                  <br>
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="message alert alert-danger">
+                                {{ message }}
+                                <a href="#" class="del-msg  alert-danger">&times;</a>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
+                    <script>
+                        $(document).ready(function() {
+                            // messages timeout for 10 sec 
+                            setTimeout(function() {
+                                $('.message').fadeOut('slow');
+                            }, 10000); // <-- time in milliseconds, 1000 =  1 sec
+
+                            // delete message
+                            $('.del-msg').live('click',function(){
+                                $('.del-msg').parent().attr('style', 'display:none;');
+                            })
+                        });
+                    </script>
+               </form>
+            </div>
+        </div>
+    </div>
+</html>
