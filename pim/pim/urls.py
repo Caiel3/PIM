@@ -25,7 +25,6 @@ urlpatterns = [
     path('subida/',subida,name='subida'),
     path('carga/',carga,name='carga'),
     path('Descarga_doc/',Descarga_doc,name='Descarga_doc'), 
-    # path('catalogoh/',Catalogoh,name='catalogoh'),
     path('catalogog/',Catalogog,name='catalogog'),    
     path('reportenuevo/',reportenuevo,name='reportenuevo'),
     path('Descarga_img/',Descarga_img,name='Descarga_img'),      
