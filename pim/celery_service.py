@@ -59,6 +59,7 @@ class CeleryService(win32serviceutil.ServiceFramework):
             os.chdir(INSTDIR) # so that proj worker can be found
             logging.info('cwd: ' + os.getcwd())
             self.ReportServiceStatus(win32service.SERVICE_RUNNING)
+<<<<<<< HEAD
             command = '"{celery_path}" -A {proj_dir} worker -f "{log_path}" -l info '.format(
 =======
             command = '"{celery_path}" -A {proj_dir} worker -f "{log_path}" -l info -P eventlet'.format(
