@@ -21,11 +21,7 @@ INSTDIR = Path(__file__).parent
 # The path of python Scripts
 # Usually it is in path_to/venv/Scripts.
 # If it is already in system PATH, then it can be set as ''
-<<<<<<< HEAD
 PYTHONSCRIPTPATH = INSTDIR / 'D:/Users/Administrador/AppData/Local/Programs/Python/Python38/Scripts'
-=======
-PYTHONSCRIPTPATH = INSTDIR / 'D:/Users/Administrador/AppData/Local/Programs/Python/Python38-32/Scripts'
->>>>>>> 3cba3160d8a459b29f0a369ebdb7fdf52a395380
 # The directory name of django project
 # Note: it is the directory at the same level of manage.py
 # not the parent directory
@@ -59,11 +55,7 @@ class CeleryService(win32serviceutil.ServiceFramework):
             os.chdir(INSTDIR) # so that proj worker can be found
             logging.info('cwd: ' + os.getcwd())
             self.ReportServiceStatus(win32service.SERVICE_RUNNING)
-<<<<<<< HEAD
             command = '"{celery_path}" -A {proj_dir} worker -f "{log_path}" -l info '.format(
-=======
-            command = '"{celery_path}" -A {proj_dir} worker -f "{log_path}" -l info -P eventlet'.format(
->>>>>>> 3cba3160d8a459b29f0a369ebdb7fdf52a395380
                 celery_path=PYTHONSCRIPTPATH / 'celery.exe',
                 proj_dir=PROJECTDIR,
                 log_path=INSTDIR / 'celery.log')
