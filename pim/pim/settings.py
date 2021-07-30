@@ -54,7 +54,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'material',
-    'django_celery_results',
+    'django_celery_results'
     
 ]
 
@@ -66,6 +66,7 @@ CELERY_BROKER_URL = 'amqp://{}:{}@localhost//'.format(get_secret('CELERY_USER'),
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
+# CELERY_TASK_ALWAYS_EAGER = True
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -148,7 +149,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es-ES'
 
 TIME_ZONE = 'UTC'
 
@@ -175,6 +176,27 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     )
 }
+# SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+# URL DE LA PORTAL
+URL_PORTAL = get_secret('URL_PIM_PORTAL')
+
+# Configuracion del Correo.
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'pruebaspim2021@gmail.com'
+EMAIL_HOST_PASSWORD = 'Barcelona2020*'
+# DEFAULT_FROM_EMAIL="pruebaspim2021@gmail.com"
+
+# EMAIL_HOST="relay.crystal.com.co"
+# EMAIL_USE_TLS=False
+# EMAIL_USE_SSL=False
+# EMAIL_PORT=25
+# DEFAULT_FROM_EMAIL="mvillama@crystal.com.co"
+# EMAIL_HOST_USER="mvillama@crystal.com.co"
+# EMAIL_HOST_PASSWORD=""
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),

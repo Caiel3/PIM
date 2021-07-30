@@ -15,7 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from material.views import subida,Descarga_doc,Descarga_img,carga,Catalogog,homeview,loginview,user_logout
+# import sys
+# sys.path.append("..")
+from material.views import subida,Descarga_doc,Descarga_img,carga,Catalogog,homeview,loginview,user_logout,Consultar_Estado_Tarea,Descargar_Documento_Peticion,Descargar_Imagenes_Peticion,Borrar_Peticion
 from rest_framework.routers import DefaultRouter
 from django.conf.urls import handler404
 from rest_framework_simplejwt import views as jwt_views
@@ -25,14 +27,16 @@ urlpatterns = [
     path('',homeview.home,name='index'),
     path('api/token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
-    # path('api/token/cargamaterial/', materialeslist.as_view(), name='carga_material'),
+    path('Descargar_Documento/<str:id>', Descargar_Documento_Peticion, name='Descargar_Documento'),
+    path('Descargar_Imagenes/<str:id>', Descargar_Imagenes_Peticion, name='Descargar_Imagenes'),
+    path('Borrar_Petición/<str:id>', Borrar_Peticion, name='Borrar_Peticion'),
     path('home/',loginview.login,name='home'),
     path('logout/',user_logout,name='logout'),
     path('subida/',subida,name='subida'),
     path('carga/',carga,name='carga'),
     path('Descarga_doc/',Descarga_doc,name='Descarga_doc'), 
     path('catalogog/',Catalogog,name='catalogog'),    
-    # path('reportenuevo/',reportenuevo,name='reportenuevo'),
+    path('portal/',Consultar_Estado_Tarea,name='portal'),
     path('Descarga_img/',Descarga_img,name='Descarga_img'),      
 
 ]

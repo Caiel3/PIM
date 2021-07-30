@@ -33,76 +33,90 @@
     <!-- End Google Tag Manager (noscript) -->
     <nav id="header" class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" >
+            <a class="navbar-brand" href="/home/">
                 Repositorio central de imagenes
             </a>
             <li class="nav-item active">
-                <a class="navbar-brand">
+                <a class="navbar-brand" align="center">
                     Bienvenido {{request.user}}
-                </a>
-                <a href="{% url 'logout' %}">
-                <button type="button" class="btn btn-outline-primary" value="cerrar_sesion" id="cerrar_sesion">
-                    
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z"/>
-                        <path fill-rule="evenodd" d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
-                    </svg>
-                    Cerrar Sesión
-                    
-                </button>
+                    {% comment %} <input type="hidden" value="{{request.user}}" name="user_logueado"> {% endcomment %}
                 </a>
             </li>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ml-auto">
-                    {% if '/subida/'  == request.path and 'si'  in mostrar %}
-                    <li class="nav-item active">
-                            <input class="btn btn-outline-light mr-sm-2" type="button" onclick="history.back(-1)" name="Regresar" value="Regresar"
-                            id="Regresar">
-                            {% comment %} <input type="hidden" value="Regresar" name="Regresar"> {% endcomment %}
-                    </li>
-                    
-                    <li class="nav-item active">
-                        <form action="/Descarga_doc/" method="POST">{% csrf_token%}
-                            <input class="btn btn-outline-light mr-sm-2" value="Descargar doc" type="submit">
-                            <input type="hidden" value="{{token}}" name="token">
-                        </form>
+            <div class="collapse navbar-collapse  " id="navbarSupportedContent">
+                <ul class=" navbar-nav ml-auto">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-outline-primary " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Menú de opciones
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-justify" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M2 12.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
+                            </svg>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
+                            {% if '/subida/'  == request.path and 'si'  in mostrar %}
+                                <li class="nav-item active">
+                                    <form action="/Descarga_img/" method="POST">{% csrf_token%}
+                                        <div class="input-group">
+                                            <div class="input-group-append">
+                                                <input class="dropdown-item" value="Descargar img" type="submit">
+                                            </div>
+                                        </div>
+                                        <input type="hidden" value="{{token}}" name="token">
+                                        <input type="hidden" value="{{tamano.0}},{{tamano.1}}" name="tamano">
+                                    </form>
+                                </li>
+                                <li class="nav-item active">
+                                    <form action="/Descarga_doc/" method="POST">{% csrf_token%}
+                                        <input class="dropdown-item" value="Descargar doc" type="submit">
+                                        <input type="hidden" value="{{token}}" name="token">
+                                    </form>
+                                </li>
+                                <li class="nav-item active">
+                                    <input class="dropdown-item" type="button" onclick="history.back(-1)" name="Regresar" value="Regresar"
+                                    id="Regresar">
+                                </li>
+                            {% endif %}
+                            {% if '/carga/'  == request.path and 'si'  in mostrar %}
+                                <li class="nav-item active">
+                                        <input class="btn btn-outline-light mr-sm-2" type="button" onclick="history.back(-1)" name="Regresar" value="Regresar"
+                                        id="Regresar">
+                                        {% comment %} <input type="hidden" value="Regresar" name="Regresar"> {% endcomment %}
+                                </li>
+                                
+                                <li class="nav-item active">
+                                    <form action="/Descarga_doc/" method="POST">{% csrf_token%}
+                                        <input class="btn btn-outline-light mr-sm-2" value="Descargar doc" type="submit">
+                                        <input type="hidden" value="{{token}}" name="token">
 
-                    </li>
-                    <li class="nav-item active">
-                        <form action="/Descarga_img/" method="POST">{% csrf_token%}
-                            <div class="input-group">
-                                {% comment %} <select class="custom-select" name="rango" id="rango" required>
-                                    <option value="" selected>Seleccione...</option>
-                                    {% for valor in rangos  %}
-                                    <option value="{{valor}}">{{valor|rango:0}} a {{valor|rango:1}}</option>
-                                    {% endfor %}
-                                </select> {% endcomment %}
-                                <div class="input-group-append">
-                                    <input class="btn btn-outline-light mr-sm-2" value="Descargar img" type="submit">
-                                </div>
-                            </div>
-                            <input type="hidden" value="{{token}}" name="token">
-                            <input type="hidden" value="{{tamano.0}},{{tamano.1}}" name="tamano">
-                        </form>
-                    </li>
+                                    </form>
 
-                    {% endif %}
+                                </li>
+                            {% endif %}
+                                <div class="dropdown-divider"></div>
+                                <a href="{% url 'portal' %}" class="dropdown-item" value="Portal" id="Portal">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-journal-bookmark" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M6 8V1h1v6.117L8.743 6.07a.5.5 0 0 1 .514 0L11 7.117V1h1v7a.5.5 0 0 1-.757.429L9 7.083 6.757 8.43A.5.5 0 0 1 6 8z"/>
+                                        <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"/>
+                                        <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"/>
+                                    </svg>
+                                    Portal
+                                </a>
+                                <a href="{% url 'home' %}" type="button" class="dropdown-item" value="cerrar_sesion" id="cerrar_sesion">                                  
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M2 13.5V7h1v6.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V7h1v6.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5zm11-11V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
+                                        <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
+                                    </svg>
+                                    Página de Inicio
+                                </a> 
+                                <a href="{% url 'logout' %}" type="button" class="dropdown-item" value="cerrar_sesion" id="cerrar_sesion">                                  
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z"/>
+                                        <path fill-rule="evenodd" d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+                                    </svg>
+                                    Cerrar Sesión
+                                </a>                                
+                        </div>
+                    </div>                    
 
-                    {% if '/carga/'  == request.path and 'si'  in mostrar %}
-                    <li class="nav-item active">
-                            <input class="btn btn-outline-light mr-sm-2" type="button" onclick="history.back(-1)" name="Regresar" value="Regresar"
-                            id="Regresar">
-                            {% comment %} <input type="hidden" value="Regresar" name="Regresar"> {% endcomment %}
-                    </li>
-                    
-                    <li class="nav-item active">
-                        <form action="/Descarga_doc/" method="POST">{% csrf_token%}
-                            <input class="btn btn-outline-light mr-sm-2" value="Descargar doc" type="submit">
-                            <input type="hidden" value="{{token}}" name="token">
-                        </form>
-
-                    </li>
-                    {% endif %}
 
                     <li>{{message.tags}}</li>
 

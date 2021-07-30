@@ -1,0 +1,1065 @@
+[2021-07-28 12:32:05,102: INFO/MainProcess] Connected to amqp://administrador:**@127.0.0.1:5672//
+[2021-07-28 12:32:05,302: INFO/MainProcess] mingle: searching for neighbors
+[2021-07-28 12:32:06,432: INFO/SpawnPoolWorker-2] child process 16696 calling self.run()
+[2021-07-28 12:32:06,469: INFO/SpawnPoolWorker-1] child process 18636 calling self.run()
+[2021-07-28 12:32:06,480: INFO/MainProcess] mingle: all alone
+[2021-07-28 12:32:06,510: WARNING/MainProcess] d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\celery\fixups\django.py:203: UserWarning: Using settings.DEBUG leads to a memory
+            leak, never use this setting in production environments!
+  warnings.warn('''Using settings.DEBUG leads to a memory
+
+[2021-07-28 12:32:06,511: INFO/SpawnPoolWorker-4] child process 9072 calling self.run()
+[2021-07-28 12:32:06,514: INFO/MainProcess] celery@P1MDESAB0GB9XK ready.
+[2021-07-28 12:32:06,527: INFO/SpawnPoolWorker-3] child process 8616 calling self.run()
+[2021-07-28 12:34:02,911: INFO/MainProcess] Received task: material.task.descarga_asin[9abc9a8e-9aa2-47d7-b19b-843a6b8cccc8]  
+[2021-07-28 12:34:04,216: WARNING/SpawnPoolWorker-4] d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\fields\__init__.py:1367: RuntimeWarning: DateTimeField MysqlRegistro_Peticiones.fecha_inicio received a naive datetime (2021-07-28 12:34:04.214553) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+
+[2021-07-28 12:34:28,183: INFO/MainProcess] Received task: material.task.descarga_asin[c670babb-dea6-4b26-8d5f-e79bb3e81b30]  
+[2021-07-28 12:34:29,480: WARNING/SpawnPoolWorker-2] d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\fields\__init__.py:1367: RuntimeWarning: DateTimeField MysqlRegistro_Peticiones.fecha_inicio received a naive datetime (2021-07-28 12:34:29.477541) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+
+[2021-07-28 12:35:07,057: WARNING/SpawnPoolWorker-4] d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\fields\__init__.py:1367: RuntimeWarning: DateTimeField MysqlRegistro_Peticiones.fecha_terminado received a naive datetime (2021-07-28 12:35:07.057736) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+
+[2021-07-28 12:35:12,553: INFO/SpawnPoolWorker-4] Task material.task.descarga_asin[9abc9a8e-9aa2-47d7-b19b-843a6b8cccc8] succeeded in 69.625s: None
+[2021-07-28 12:35:36,043: WARNING/SpawnPoolWorker-2] d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\fields\__init__.py:1367: RuntimeWarning: DateTimeField MysqlRegistro_Peticiones.fecha_terminado received a naive datetime (2021-07-28 12:35:36.042166) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+
+[2021-07-28 12:35:39,457: INFO/SpawnPoolWorker-2] Task material.task.descarga_asin[c670babb-dea6-4b26-8d5f-e79bb3e81b30] succeeded in 71.26600000000326s: None
+[2021-07-28 12:43:05,446: INFO/MainProcess] Received task: material.task.descarga_asin[3378d3f8-cdc0-40f8-96d5-026cb522ff27]  
+[2021-07-28 12:43:06,465: WARNING/SpawnPoolWorker-1] d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\fields\__init__.py:1367: RuntimeWarning: DateTimeField MysqlRegistro_Peticiones.fecha_inicio received a naive datetime (2021-07-28 12:43:06.461423) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+
+[2021-07-28 12:43:31,306: INFO/MainProcess] Received task: material.task.descarga_asin[db72d78e-c700-4b58-9afa-20e04d17b59f]  
+[2021-07-28 12:43:32,288: WARNING/SpawnPoolWorker-3] d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\fields\__init__.py:1367: RuntimeWarning: DateTimeField MysqlRegistro_Peticiones.fecha_inicio received a naive datetime (2021-07-28 12:43:32.285108) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+
+[2021-07-28 12:45:05,602: WARNING/SpawnPoolWorker-1] d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\fields\__init__.py:1367: RuntimeWarning: DateTimeField MysqlRegistro_Peticiones.fecha_terminado received a naive datetime (2021-07-28 12:45:05.602181) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+
+[2021-07-28 12:45:09,720: INFO/SpawnPoolWorker-1] Task material.task.descarga_asin[3378d3f8-cdc0-40f8-96d5-026cb522ff27] succeeded in 124.26500000001397s: None
+[2021-07-28 12:45:32,722: WARNING/SpawnPoolWorker-3] d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\fields\__init__.py:1367: RuntimeWarning: DateTimeField MysqlRegistro_Peticiones.fecha_terminado received a naive datetime (2021-07-28 12:45:32.722727) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+
+[2021-07-28 12:45:35,666: INFO/SpawnPoolWorker-3] Task material.task.descarga_asin[db72d78e-c700-4b58-9afa-20e04d17b59f] succeeded in 124.34400000004098s: None
+[2021-07-28 14:48:10,767: INFO/MainProcess] Received task: material.task.descarga_asin[6f2d8ac2-4f92-44ae-a902-eed8b134c0d0]  
+[2021-07-28 14:48:11,139: WARNING/SpawnPoolWorker-4] d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\celery\app\trace.py:615: RuntimeWarning: Exception raised outside body: InterfaceError(0, ''):
+Traceback (most recent call last):
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\connections.py", line 756, in _write_bytes
+    self._sock.sendall(data)
+ConnectionResetError: [WinError 10054] Se ha forzado la interrupción de una conexión existente por el host remoto
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+    return self.cursor.execute(query, args)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\cursors.py", line 148, in execute
+    result = self._query(query)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\cursors.py", line 310, in _query
+    conn.query(q)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\connections.py", line 547, in query
+    self._execute_command(COMMAND.COM_QUERY, sql)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\connections.py", line 814, in _execute_command
+    self._write_bytes(packet)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\connections.py", line 759, in _write_bytes
+    raise err.OperationalError(
+pymysql.err.OperationalError: (2006, "MySQL server has gone away (ConnectionResetError(10054, 'Se ha forzado la interrupción de una conexión existente por el host remoto', None, 10054, None))")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\celery\app\trace.py", line 405, in trace_task
+    R = retval = fun(*args, **kwargs)
+  File "D:\PIM\PIM\pim\material\task.py", line 17, in descarga_asin
+    query = MysqlRegistro_Peticiones.objects.get(pk=token)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\query.py", line 425, in get
+    num = len(clone)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\query.py", line 269, in __len__
+    self._fetch_all()
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\query.py", line 1308, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\query.py", line 53, in __iter__
+    results = compiler.execute_sql(chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\sql\compiler.py", line 1156, in execute_sql
+    cursor.execute(sql, params)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\utils.py", line 98, in execute
+    return super().execute(sql, params)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\utils.py", line 66, in execute
+    return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\utils.py", line 75, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\utils.py", line 90, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+    return self.cursor.execute(query, args)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\cursors.py", line 148, in execute
+    result = self._query(query)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\cursors.py", line 310, in _query
+    conn.query(q)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\connections.py", line 547, in query
+    self._execute_command(COMMAND.COM_QUERY, sql)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\connections.py", line 814, in _execute_command
+    self._write_bytes(packet)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\connections.py", line 759, in _write_bytes
+    raise err.OperationalError(
+django.db.utils.OperationalError: (2006, "MySQL server has gone away (ConnectionResetError(10054, 'Se ha forzado la interrupción de una conexión existente por el host remoto', None, 10054, None))")
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+    return self.cursor.execute(query, args)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\cursors.py", line 148, in execute
+    result = self._query(query)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\cursors.py", line 310, in _query
+    conn.query(q)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\connections.py", line 547, in query
+    self._execute_command(COMMAND.COM_QUERY, sql)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\connections.py", line 793, in _execute_command
+    raise err.InterfaceError(0, "")
+pymysql.err.InterfaceError: (0, '')
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\celery\app\trace.py", line 422, in trace_task
+    I, R, state, retval = on_error(task_request, exc, uuid)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\celery\app\trace.py", line 358, in on_error
+    R = I.handle_error_state(
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\celery\app\trace.py", line 165, in handle_error_state
+    return {
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\celery\app\trace.py", line 212, in handle_failure
+    task.backend.mark_as_failure(
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\celery\backends\base.py", line 164, in mark_as_failure
+    self.store_result(task_id, exc, state,
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\celery\backends\base.py", line 434, in store_result
+    self._store_result(task_id, result, state, traceback,
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django_celery_results\backends\database.py", line 61, in _store_result
+    self.TaskModel._default_manager.store_result(
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django_celery_results\managers.py", line 47, in _inner
+    return fun(*args, **kwargs)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django_celery_results\managers.py", line 132, in store_result
+    obj, created = self.using(using).get_or_create(task_id=task_id,
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\query.py", line 573, in get_or_create
+    return self.get(**kwargs), False
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\query.py", line 425, in get
+    num = len(clone)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\query.py", line 269, in __len__
+    self._fetch_all()
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\query.py", line 1308, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\query.py", line 53, in __iter__
+    results = compiler.execute_sql(chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\sql\compiler.py", line 1156, in execute_sql
+    cursor.execute(sql, params)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\utils.py", line 98, in execute
+    return super().execute(sql, params)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\utils.py", line 66, in execute
+    return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\utils.py", line 75, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\utils.py", line 90, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+    return self.cursor.execute(query, args)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\cursors.py", line 148, in execute
+    result = self._query(query)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\cursors.py", line 310, in _query
+    conn.query(q)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\connections.py", line 547, in query
+    self._execute_command(COMMAND.COM_QUERY, sql)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\connections.py", line 793, in _execute_command
+    raise err.InterfaceError(0, "")
+django.db.utils.InterfaceError: (0, '')
+
+  warn(RuntimeWarning(
+
+[2021-07-28 14:48:11,153: WARNING/SpawnPoolWorker-4] d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\celery\app\trace.py:615: RuntimeWarning: Exception raised outside body: InterfaceError(0, ''):
+Traceback (most recent call last):
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\connections.py", line 756, in _write_bytes
+    self._sock.sendall(data)
+ConnectionResetError: [WinError 10054] Se ha forzado la interrupción de una conexión existente por el host remoto
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+    return self.cursor.execute(query, args)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\cursors.py", line 148, in execute
+    result = self._query(query)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\cursors.py", line 310, in _query
+    conn.query(q)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\connections.py", line 547, in query
+    self._execute_command(COMMAND.COM_QUERY, sql)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\connections.py", line 814, in _execute_command
+    self._write_bytes(packet)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\connections.py", line 759, in _write_bytes
+    raise err.OperationalError(
+pymysql.err.OperationalError: (2006, "MySQL server has gone away (ConnectionResetError(10054, 'Se ha forzado la interrupción de una conexión existente por el host remoto', None, 10054, None))")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\celery\app\trace.py", line 405, in trace_task
+    R = retval = fun(*args, **kwargs)
+  File "D:\PIM\PIM\pim\material\task.py", line 17, in descarga_asin
+    query = MysqlRegistro_Peticiones.objects.get(pk=token)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\query.py", line 425, in get
+    num = len(clone)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\query.py", line 269, in __len__
+    self._fetch_all()
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\query.py", line 1308, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\query.py", line 53, in __iter__
+    results = compiler.execute_sql(chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\sql\compiler.py", line 1156, in execute_sql
+    cursor.execute(sql, params)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\utils.py", line 98, in execute
+    return super().execute(sql, params)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\utils.py", line 66, in execute
+    return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\utils.py", line 75, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\utils.py", line 90, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+    return self.cursor.execute(query, args)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\cursors.py", line 148, in execute
+    result = self._query(query)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\cursors.py", line 310, in _query
+    conn.query(q)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\connections.py", line 547, in query
+    self._execute_command(COMMAND.COM_QUERY, sql)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\connections.py", line 814, in _execute_command
+    self._write_bytes(packet)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\connections.py", line 759, in _write_bytes
+    raise err.OperationalError(
+django.db.utils.OperationalError: (2006, "MySQL server has gone away (ConnectionResetError(10054, 'Se ha forzado la interrupción de una conexión existente por el host remoto', None, 10054, None))")
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+    return self.cursor.execute(query, args)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\cursors.py", line 148, in execute
+    result = self._query(query)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\cursors.py", line 310, in _query
+    conn.query(q)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\connections.py", line 547, in query
+    self._execute_command(COMMAND.COM_QUERY, sql)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\connections.py", line 793, in _execute_command
+    raise err.InterfaceError(0, "")
+pymysql.err.InterfaceError: (0, '')
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\celery\app\trace.py", line 422, in trace_task
+    I, R, state, retval = on_error(task_request, exc, uuid)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\celery\app\trace.py", line 358, in on_error
+    R = I.handle_error_state(
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\celery\app\trace.py", line 165, in handle_error_state
+    return {
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\celery\app\trace.py", line 212, in handle_failure
+    task.backend.mark_as_failure(
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\celery\backends\base.py", line 164, in mark_as_failure
+    self.store_result(task_id, exc, state,
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\celery\backends\base.py", line 434, in store_result
+    self._store_result(task_id, result, state, traceback,
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django_celery_results\backends\database.py", line 61, in _store_result
+    self.TaskModel._default_manager.store_result(
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django_celery_results\managers.py", line 47, in _inner
+    return fun(*args, **kwargs)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django_celery_results\managers.py", line 132, in store_result
+    obj, created = self.using(using).get_or_create(task_id=task_id,
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\query.py", line 573, in get_or_create
+    return self.get(**kwargs), False
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\query.py", line 425, in get
+    num = len(clone)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\query.py", line 269, in __len__
+    self._fetch_all()
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\query.py", line 1308, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\query.py", line 53, in __iter__
+    results = compiler.execute_sql(chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\sql\compiler.py", line 1156, in execute_sql
+    cursor.execute(sql, params)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\utils.py", line 98, in execute
+    return super().execute(sql, params)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\utils.py", line 66, in execute
+    return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\utils.py", line 75, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\utils.py", line 90, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+    return self.cursor.execute(query, args)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\cursors.py", line 148, in execute
+    result = self._query(query)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\cursors.py", line 310, in _query
+    conn.query(q)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\connections.py", line 547, in query
+    self._execute_command(COMMAND.COM_QUERY, sql)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\connections.py", line 793, in _execute_command
+    raise err.InterfaceError(0, "")
+django.db.utils.InterfaceError: (0, '')
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+    return self.cursor.execute(query, args)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\cursors.py", line 148, in execute
+    result = self._query(query)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\cursors.py", line 310, in _query
+    conn.query(q)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\connections.py", line 547, in query
+    self._execute_command(COMMAND.COM_QUERY, sql)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\connections.py", line 793, in _execute_command
+    raise err.InterfaceError(0, "")
+pymysql.err.InterfaceError: (0, '')
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\celery\app\trace.py", line 536, in trace_task
+    return task.__trace__(uuid, args, kwargs, request)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\celery\app\trace.py", line 524, in trace_task
+    I, _, _, _ = on_error(task_request, exc, uuid)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\celery\app\trace.py", line 358, in on_error
+    R = I.handle_error_state(
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\celery\app\trace.py", line 165, in handle_error_state
+    return {
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\celery\app\trace.py", line 212, in handle_failure
+    task.backend.mark_as_failure(
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\celery\backends\base.py", line 164, in mark_as_failure
+    self.store_result(task_id, exc, state,
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\celery\backends\base.py", line 434, in store_result
+    self._store_result(task_id, result, state, traceback,
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django_celery_results\backends\database.py", line 61, in _store_result
+    self.TaskModel._default_manager.store_result(
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django_celery_results\managers.py", line 47, in _inner
+    return fun(*args, **kwargs)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django_celery_results\managers.py", line 132, in store_result
+    obj, created = self.using(using).get_or_create(task_id=task_id,
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\query.py", line 573, in get_or_create
+    return self.get(**kwargs), False
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\query.py", line 425, in get
+    num = len(clone)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\query.py", line 269, in __len__
+    self._fetch_all()
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\query.py", line 1308, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\query.py", line 53, in __iter__
+    results = compiler.execute_sql(chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\sql\compiler.py", line 1156, in execute_sql
+    cursor.execute(sql, params)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\utils.py", line 98, in execute
+    return super().execute(sql, params)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\utils.py", line 66, in execute
+    return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\utils.py", line 75, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\utils.py", line 90, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+    return self.cursor.execute(query, args)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\cursors.py", line 148, in execute
+    result = self._query(query)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\cursors.py", line 310, in _query
+    conn.query(q)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\connections.py", line 547, in query
+    self._execute_command(COMMAND.COM_QUERY, sql)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\connections.py", line 793, in _execute_command
+    raise err.InterfaceError(0, "")
+django.db.utils.InterfaceError: (0, '')
+
+  warn(RuntimeWarning(
+
+[2021-07-28 14:49:17,812: INFO/MainProcess] Connected to amqp://administrador:**@127.0.0.1:5672//
+[2021-07-28 14:49:17,832: INFO/MainProcess] mingle: searching for neighbors
+[2021-07-28 14:49:18,746: INFO/SpawnPoolWorker-1] child process 17056 calling self.run()
+[2021-07-28 14:49:18,754: INFO/SpawnPoolWorker-3] child process 17548 calling self.run()
+[2021-07-28 14:49:18,808: INFO/SpawnPoolWorker-2] child process 5492 calling self.run()
+[2021-07-28 14:49:18,808: INFO/SpawnPoolWorker-4] child process 11872 calling self.run()
+[2021-07-28 14:49:18,986: INFO/MainProcess] mingle: all alone
+[2021-07-28 14:49:19,076: WARNING/MainProcess] d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\celery\fixups\django.py:203: UserWarning: Using settings.DEBUG leads to a memory
+            leak, never use this setting in production environments!
+  warnings.warn('''Using settings.DEBUG leads to a memory
+
+[2021-07-28 14:49:19,076: INFO/MainProcess] celery@P1MDESAB0GB9XK ready.
+[2021-07-28 14:50:02,883: INFO/MainProcess] Received task: material.task.descarga_asin[61e754a6-3c7b-41cc-833f-4527f18825e7]  
+[2021-07-28 14:50:03,878: WARNING/SpawnPoolWorker-3] d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\fields\__init__.py:1367: RuntimeWarning: DateTimeField MysqlRegistro_Peticiones.fecha_inicio received a naive datetime (2021-07-28 14:50:03.876709) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+
+[2021-07-28 14:50:09,000: WARNING/SpawnPoolWorker-3] d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\fields\__init__.py:1367: RuntimeWarning: DateTimeField MysqlRegistro_Peticiones.fecha_terminado received a naive datetime (2021-07-28 14:50:08.999300) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+
+[2021-07-28 14:50:12,968: INFO/SpawnPoolWorker-3] Task material.task.descarga_asin[61e754a6-3c7b-41cc-833f-4527f18825e7] succeeded in 10.09399999998277s: None
+[2021-07-28 15:18:24,920: INFO/MainProcess] Connected to amqp://administrador:**@127.0.0.1:5672//
+[2021-07-28 15:18:24,942: INFO/MainProcess] mingle: searching for neighbors
+[2021-07-28 15:18:25,833: INFO/SpawnPoolWorker-3] child process 12904 calling self.run()
+[2021-07-28 15:18:25,836: INFO/SpawnPoolWorker-4] child process 6336 calling self.run()
+
+[2021-07-28 15:18:25,836: INFO/SpawnPoolWorker-1] child process 9560 calling self.run()
+[2021-07-28 15:18:26,069: INFO/MainProcess] mingle: all alone
+[2021-07-28 15:18:26,105: WARNING/MainProcess] d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\celery\fixups\django.py:203: UserWarning: Using settings.DEBUG leads to a memory
+            leak, never use this setting in production environments!
+  warnings.warn('''Using settings.DEBUG leads to a memory
+
+[2021-07-28 15:18:26,106: INFO/MainProcess] celery@P1MDESAB0GB9XK ready.
+[2021-07-28 15:22:07,841: INFO/MainProcess] Received task: material.task.descarga_asin[85b1245c-ad7b-4d05-87a7-4c65e7c7c115]  
+[2021-07-28 15:22:09,418: WARNING/SpawnPoolWorker-4] d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\fields\__init__.py:1367: RuntimeWarning: DateTimeField MysqlRegistro_Peticiones.fecha_inicio received a naive datetime (2021-07-28 15:22:09.417265) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+
+[2021-07-28 15:22:11,919: WARNING/SpawnPoolWorker-4] d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\fields\__init__.py:1367: RuntimeWarning: DateTimeField MysqlRegistro_Peticiones.fecha_terminado received a naive datetime (2021-07-28 15:22:11.918628) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+
+[2021-07-28 15:22:16,063: INFO/SpawnPoolWorker-4] Task material.task.descarga_asin[85b1245c-ad7b-4d05-87a7-4c65e7c7c115] succeeded in 8.21799999999348s: None
+[2021-07-28 15:36:08,638: INFO/MainProcess] Received task: material.task.descarga_asin[fb89baa4-5cb0-4a9e-a661-25f6d1ec02a4]  
+[2021-07-28 15:36:09,699: WARNING/SpawnPoolWorker-3] d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\fields\__init__.py:1367: RuntimeWarning: DateTimeField MysqlRegistro_Peticiones.fecha_inicio received a naive datetime (2021-07-28 15:36:09.698359) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+
+[2021-07-28 15:36:12,233: WARNING/SpawnPoolWorker-3] d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\fields\__init__.py:1367: RuntimeWarning: DateTimeField MysqlRegistro_Peticiones.fecha_terminado received a naive datetime (2021-07-28 15:36:12.232238) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+
+[2021-07-28 15:36:16,138: INFO/SpawnPoolWorker-3] Task material.task.descarga_asin[fb89baa4-5cb0-4a9e-a661-25f6d1ec02a4] succeeded in 7.5s: None
+[2021-07-28 15:41:01,965: INFO/MainProcess] Received task: material.task.descarga_asin[52efa1a6-ece4-48d5-82d5-e6ff1c181e5d]  
+[2021-07-28 15:41:03,773: WARNING/SpawnPoolWorker-2] d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\fields\__init__.py:1367: RuntimeWarning: DateTimeField MysqlRegistro_Peticiones.fecha_inicio received a naive datetime (2021-07-28 15:41:03.773960) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+
+[2021-07-28 15:41:07,426: WARNING/SpawnPoolWorker-2] d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\fields\__init__.py:1367: RuntimeWarning: DateTimeField MysqlRegistro_Peticiones.fecha_terminado received a naive datetime (2021-07-28 15:41:07.425349) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+
+[2021-07-28 15:41:10,722: INFO/SpawnPoolWorker-2] Task material.task.descarga_asin[52efa1a6-ece4-48d5-82d5-e6ff1c181e5d] succeeded in 8.71899999998277s: None
+[2021-07-28 15:42:52,947: INFO/MainProcess] Received task: material.task.descarga_asin[adce3bb9-a7f0-4fd3-9f0e-12e04c9ab133]  
+[2021-07-28 15:42:54,250: WARNING/SpawnPoolWorker-1] d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\fields\__init__.py:1367: RuntimeWarning: DateTimeField MysqlRegistro_Peticiones.fecha_inicio received a naive datetime (2021-07-28 15:42:54.247073) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+
+[2021-07-28 15:42:57,415: WARNING/SpawnPoolWorker-1] d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\fields\__init__.py:1367: RuntimeWarning: DateTimeField MysqlRegistro_Peticiones.fecha_terminado received a naive datetime (2021-07-28 15:42:57.414456) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+
+[2021-07-28 15:43:02,302: INFO/SpawnPoolWorker-1] Task material.task.descarga_asin[adce3bb9-a7f0-4fd3-9f0e-12e04c9ab133] succeeded in 9.34399999998277s: None
+[2021-07-28 16:56:05,456: INFO/MainProcess] Received task: material.task.descarga_asin[9ef29562-b7e3-4f46-ba40-ae446d247ae2]  
+[2021-07-28 16:56:05,870: WARNING/SpawnPoolWorker-4] d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\fields\__init__.py:1367: RuntimeWarning: DateTimeField MysqlRegistro_Peticiones.fecha_inicio received a naive datetime (2021-07-28 16:56:05.844013) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+
+[2021-07-28 16:56:09,835: WARNING/SpawnPoolWorker-4] d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\fields\__init__.py:1367: RuntimeWarning: DateTimeField MysqlRegistro_Peticiones.fecha_terminado received a naive datetime (2021-07-28 16:56:09.834437) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+
+[2021-07-28 16:56:15,016: INFO/SpawnPoolWorker-4] Task material.task.descarga_asin[9ef29562-b7e3-4f46-ba40-ae446d247ae2] succeeded in 9.328000000037719s: None
+[2021-07-28 17:01:37,072: INFO/MainProcess] Received task: material.task.descarga_asin[fdfd349e-bf79-4f34-bb3e-c8b233e901ff]  
+[2021-07-28 17:01:37,442: WARNING/SpawnPoolWorker-3] d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\fields\__init__.py:1367: RuntimeWarning: DateTimeField MysqlRegistro_Peticiones.fecha_inicio received a naive datetime (2021-07-28 17:01:37.434721) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+
+[2021-07-28 17:01:40,421: WARNING/SpawnPoolWorker-3] d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\fields\__init__.py:1367: RuntimeWarning: DateTimeField MysqlRegistro_Peticiones.fecha_terminado received a naive datetime (2021-07-28 17:01:40.421724) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+
+[2021-07-28 17:01:44,471: INFO/SpawnPoolWorker-3] Task material.task.descarga_asin[fdfd349e-bf79-4f34-bb3e-c8b233e901ff] succeeded in 7.2189999999827705s: None
+[2021-07-28 17:03:34,471: INFO/MainProcess] Received task: material.task.descarga_asin[26951968-ab83-4da6-8ed5-e5d45f4e61f1]  
+[2021-07-28 17:03:34,760: WARNING/SpawnPoolWorker-2] d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\fields\__init__.py:1367: RuntimeWarning: DateTimeField MysqlRegistro_Peticiones.fecha_inicio received a naive datetime (2021-07-28 17:03:34.746306) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+
+[2021-07-28 17:03:37,306: WARNING/SpawnPoolWorker-2] d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\fields\__init__.py:1367: RuntimeWarning: DateTimeField MysqlRegistro_Peticiones.fecha_terminado received a naive datetime (2021-07-28 17:03:37.306883) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+
+[2021-07-28 17:03:40,097: INFO/SpawnPoolWorker-2] Task material.task.descarga_asin[26951968-ab83-4da6-8ed5-e5d45f4e61f1] succeeded in 5.5s: None
+[2021-07-28 18:55:48,369: INFO/MainProcess] Received task: material.task.descarga_asin[65458e41-3ed2-42cb-af28-4600dd1f4029]  
+[2021-07-28 18:55:52,366: WARNING/SpawnPoolWorker-1] d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\celery\app\trace.py:615: RuntimeWarning: Exception raised outside body: InterfaceError(0, ''):
+Traceback (most recent call last):
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\connections.py", line 756, in _write_bytes
+    self._sock.sendall(data)
+ConnectionResetError: [WinError 10054] Se ha forzado la interrupción de una conexión existente por el host remoto
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+    return self.cursor.execute(query, args)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\cursors.py", line 148, in execute
+    result = self._query(query)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\cursors.py", line 310, in _query
+    conn.query(q)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\connections.py", line 547, in query
+    self._execute_command(COMMAND.COM_QUERY, sql)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\connections.py", line 814, in _execute_command
+    self._write_bytes(packet)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\connections.py", line 759, in _write_bytes
+    raise err.OperationalError(
+pymysql.err.OperationalError: (2006, "MySQL server has gone away (ConnectionResetError(10054, 'Se ha forzado la interrupción de una conexión existente por el host remoto', None, 10054, None))")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\celery\app\trace.py", line 405, in trace_task
+    R = retval = fun(*args, **kwargs)
+  File "D:\PIM\PIM\pim\material\task.py", line 17, in descarga_asin
+    query = MysqlRegistro_Peticiones.objects.get(pk=token)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\query.py", line 425, in get
+    num = len(clone)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\query.py", line 269, in __len__
+    self._fetch_all()
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\query.py", line 1308, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\query.py", line 53, in __iter__
+    results = compiler.execute_sql(chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\sql\compiler.py", line 1156, in execute_sql
+    cursor.execute(sql, params)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\utils.py", line 98, in execute
+    return super().execute(sql, params)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\utils.py", line 66, in execute
+    return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\utils.py", line 75, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\utils.py", line 90, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+    return self.cursor.execute(query, args)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\cursors.py", line 148, in execute
+    result = self._query(query)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\cursors.py", line 310, in _query
+    conn.query(q)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\connections.py", line 547, in query
+    self._execute_command(COMMAND.COM_QUERY, sql)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\connections.py", line 814, in _execute_command
+    self._write_bytes(packet)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\connections.py", line 759, in _write_bytes
+    raise err.OperationalError(
+django.db.utils.OperationalError: (2006, "MySQL server has gone away (ConnectionResetError(10054, 'Se ha forzado la interrupción de una conexión existente por el host remoto', None, 10054, None))")
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+    return self.cursor.execute(query, args)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\cursors.py", line 148, in execute
+    result = self._query(query)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\cursors.py", line 310, in _query
+    conn.query(q)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\connections.py", line 547, in query
+    self._execute_command(COMMAND.COM_QUERY, sql)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\connections.py", line 793, in _execute_command
+    raise err.InterfaceError(0, "")
+pymysql.err.InterfaceError: (0, '')
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\celery\app\trace.py", line 422, in trace_task
+    I, R, state, retval = on_error(task_request, exc, uuid)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\celery\app\trace.py", line 358, in on_error
+    R = I.handle_error_state(
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\celery\app\trace.py", line 165, in handle_error_state
+    return {
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\celery\app\trace.py", line 212, in handle_failure
+    task.backend.mark_as_failure(
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\celery\backends\base.py", line 164, in mark_as_failure
+    self.store_result(task_id, exc, state,
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\celery\backends\base.py", line 434, in store_result
+    self._store_result(task_id, result, state, traceback,
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django_celery_results\backends\database.py", line 61, in _store_result
+    self.TaskModel._default_manager.store_result(
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django_celery_results\managers.py", line 47, in _inner
+    return fun(*args, **kwargs)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django_celery_results\managers.py", line 132, in store_result
+    obj, created = self.using(using).get_or_create(task_id=task_id,
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\query.py", line 573, in get_or_create
+    return self.get(**kwargs), False
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\query.py", line 425, in get
+    num = len(clone)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\query.py", line 269, in __len__
+    self._fetch_all()
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\query.py", line 1308, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\query.py", line 53, in __iter__
+    results = compiler.execute_sql(chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\sql\compiler.py", line 1156, in execute_sql
+    cursor.execute(sql, params)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\utils.py", line 98, in execute
+    return super().execute(sql, params)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\utils.py", line 66, in execute
+    return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\utils.py", line 75, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\utils.py", line 90, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+    return self.cursor.execute(query, args)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\cursors.py", line 148, in execute
+    result = self._query(query)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\cursors.py", line 310, in _query
+    conn.query(q)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\connections.py", line 547, in query
+    self._execute_command(COMMAND.COM_QUERY, sql)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\connections.py", line 793, in _execute_command
+    raise err.InterfaceError(0, "")
+django.db.utils.InterfaceError: (0, '')
+
+  warn(RuntimeWarning(
+
+[2021-07-28 18:55:52,510: WARNING/SpawnPoolWorker-1] d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\celery\app\trace.py:615: RuntimeWarning: Exception raised outside body: InterfaceError(0, ''):
+Traceback (most recent call last):
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\connections.py", line 756, in _write_bytes
+    self._sock.sendall(data)
+ConnectionResetError: [WinError 10054] Se ha forzado la interrupción de una conexión existente por el host remoto
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+    return self.cursor.execute(query, args)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\cursors.py", line 148, in execute
+    result = self._query(query)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\cursors.py", line 310, in _query
+    conn.query(q)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\connections.py", line 547, in query
+    self._execute_command(COMMAND.COM_QUERY, sql)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\connections.py", line 814, in _execute_command
+    self._write_bytes(packet)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\connections.py", line 759, in _write_bytes
+    raise err.OperationalError(
+pymysql.err.OperationalError: (2006, "MySQL server has gone away (ConnectionResetError(10054, 'Se ha forzado la interrupción de una conexión existente por el host remoto', None, 10054, None))")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\celery\app\trace.py", line 405, in trace_task
+    R = retval = fun(*args, **kwargs)
+  File "D:\PIM\PIM\pim\material\task.py", line 17, in descarga_asin
+    query = MysqlRegistro_Peticiones.objects.get(pk=token)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\query.py", line 425, in get
+    num = len(clone)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\query.py", line 269, in __len__
+    self._fetch_all()
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\query.py", line 1308, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\query.py", line 53, in __iter__
+    results = compiler.execute_sql(chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\sql\compiler.py", line 1156, in execute_sql
+    cursor.execute(sql, params)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\utils.py", line 98, in execute
+    return super().execute(sql, params)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\utils.py", line 66, in execute
+    return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\utils.py", line 75, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\utils.py", line 90, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+    return self.cursor.execute(query, args)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\cursors.py", line 148, in execute
+    result = self._query(query)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\cursors.py", line 310, in _query
+    conn.query(q)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\connections.py", line 547, in query
+    self._execute_command(COMMAND.COM_QUERY, sql)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\connections.py", line 814, in _execute_command
+    self._write_bytes(packet)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\connections.py", line 759, in _write_bytes
+    raise err.OperationalError(
+django.db.utils.OperationalError: (2006, "MySQL server has gone away (ConnectionResetError(10054, 'Se ha forzado la interrupción de una conexión existente por el host remoto', None, 10054, None))")
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+    return self.cursor.execute(query, args)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\cursors.py", line 148, in execute
+    result = self._query(query)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\cursors.py", line 310, in _query
+    conn.query(q)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\connections.py", line 547, in query
+    self._execute_command(COMMAND.COM_QUERY, sql)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\connections.py", line 793, in _execute_command
+    raise err.InterfaceError(0, "")
+pymysql.err.InterfaceError: (0, '')
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\celery\app\trace.py", line 422, in trace_task
+    I, R, state, retval = on_error(task_request, exc, uuid)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\celery\app\trace.py", line 358, in on_error
+    R = I.handle_error_state(
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\celery\app\trace.py", line 165, in handle_error_state
+    return {
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\celery\app\trace.py", line 212, in handle_failure
+    task.backend.mark_as_failure(
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\celery\backends\base.py", line 164, in mark_as_failure
+    self.store_result(task_id, exc, state,
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\celery\backends\base.py", line 434, in store_result
+    self._store_result(task_id, result, state, traceback,
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django_celery_results\backends\database.py", line 61, in _store_result
+    self.TaskModel._default_manager.store_result(
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django_celery_results\managers.py", line 47, in _inner
+    return fun(*args, **kwargs)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django_celery_results\managers.py", line 132, in store_result
+    obj, created = self.using(using).get_or_create(task_id=task_id,
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\query.py", line 573, in get_or_create
+    return self.get(**kwargs), False
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\query.py", line 425, in get
+    num = len(clone)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\query.py", line 269, in __len__
+    self._fetch_all()
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\query.py", line 1308, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\query.py", line 53, in __iter__
+    results = compiler.execute_sql(chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\sql\compiler.py", line 1156, in execute_sql
+    cursor.execute(sql, params)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\utils.py", line 98, in execute
+    return super().execute(sql, params)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\utils.py", line 66, in execute
+    return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\utils.py", line 75, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\utils.py", line 90, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+    return self.cursor.execute(query, args)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\cursors.py", line 148, in execute
+    result = self._query(query)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\cursors.py", line 310, in _query
+    conn.query(q)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\connections.py", line 547, in query
+    self._execute_command(COMMAND.COM_QUERY, sql)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\connections.py", line 793, in _execute_command
+    raise err.InterfaceError(0, "")
+django.db.utils.InterfaceError: (0, '')
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+    return self.cursor.execute(query, args)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\cursors.py", line 148, in execute
+    result = self._query(query)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\cursors.py", line 310, in _query
+    conn.query(q)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\connections.py", line 547, in query
+    self._execute_command(COMMAND.COM_QUERY, sql)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\connections.py", line 793, in _execute_command
+    raise err.InterfaceError(0, "")
+pymysql.err.InterfaceError: (0, '')
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\celery\app\trace.py", line 536, in trace_task
+    return task.__trace__(uuid, args, kwargs, request)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\celery\app\trace.py", line 524, in trace_task
+    I, _, _, _ = on_error(task_request, exc, uuid)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\celery\app\trace.py", line 358, in on_error
+    R = I.handle_error_state(
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\celery\app\trace.py", line 165, in handle_error_state
+    return {
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\celery\app\trace.py", line 212, in handle_failure
+    task.backend.mark_as_failure(
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\celery\backends\base.py", line 164, in mark_as_failure
+    self.store_result(task_id, exc, state,
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\celery\backends\base.py", line 434, in store_result
+    self._store_result(task_id, result, state, traceback,
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django_celery_results\backends\database.py", line 61, in _store_result
+    self.TaskModel._default_manager.store_result(
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django_celery_results\managers.py", line 47, in _inner
+    return fun(*args, **kwargs)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django_celery_results\managers.py", line 132, in store_result
+    obj, created = self.using(using).get_or_create(task_id=task_id,
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\query.py", line 573, in get_or_create
+    return self.get(**kwargs), False
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\query.py", line 425, in get
+    num = len(clone)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\query.py", line 269, in __len__
+    self._fetch_all()
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\query.py", line 1308, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\query.py", line 53, in __iter__
+    results = compiler.execute_sql(chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\sql\compiler.py", line 1156, in execute_sql
+    cursor.execute(sql, params)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\utils.py", line 98, in execute
+    return super().execute(sql, params)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\utils.py", line 66, in execute
+    return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\utils.py", line 75, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\utils.py", line 90, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+    return self.cursor.execute(query, args)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\cursors.py", line 148, in execute
+    result = self._query(query)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\cursors.py", line 310, in _query
+    conn.query(q)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\connections.py", line 547, in query
+    self._execute_command(COMMAND.COM_QUERY, sql)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\pymysql\connections.py", line 793, in _execute_command
+    raise err.InterfaceError(0, "")
+django.db.utils.InterfaceError: (0, '')
+
+  warn(RuntimeWarning(
+
+[2021-07-28 18:56:44,128: INFO/MainProcess] Connected to amqp://administrador:**@127.0.0.1:5672//
+[2021-07-28 18:56:44,273: INFO/MainProcess] mingle: searching for neighbors
+[2021-07-28 18:56:45,425: INFO/SpawnPoolWorker-2] child process 6924 calling self.run()
+[2021-07-28 18:56:45,434: INFO/SpawnPoolWorker-3] child process 16288 calling self.run()
+[2021-07-28 18:56:45,457: INFO/MainProcess] mingle: all alone
+[2021-07-28 18:56:45,466: INFO/SpawnPoolWorker-1] child process 13104 calling self.run()
+[2021-07-28 18:56:45,497: WARNING/MainProcess] d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\celery\fixups\django.py:203: UserWarning: Using settings.DEBUG leads to a memory
+            leak, never use this setting in production environments!
+  warnings.warn('''Using settings.DEBUG leads to a memory
+
+[2021-07-28 18:56:45,497: INFO/MainProcess] celery@P1MDESAB0GB9XK ready.
+[2021-07-28 18:56:45,551: INFO/SpawnPoolWorker-4] child process 3540 calling self.run()
+[2021-07-28 18:57:31,585: INFO/MainProcess] Received task: material.task.descarga_asin[915a5cd9-538d-4d67-8196-5ae4d2712efe]  
+[2021-07-28 18:57:32,759: WARNING/SpawnPoolWorker-2] d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\fields\__init__.py:1367: RuntimeWarning: DateTimeField MysqlRegistro_Peticiones.fecha_inicio received a naive datetime (2021-07-28 18:57:32.756332) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+
+[2021-07-28 18:57:40,140: WARNING/SpawnPoolWorker-2] d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\fields\__init__.py:1367: RuntimeWarning: DateTimeField MysqlRegistro_Peticiones.fecha_terminado received a naive datetime (2021-07-28 18:57:40.139214) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+
+[2021-07-28 18:57:41,038: ERROR/SpawnPoolWorker-2] Task material.task.descarga_asin[915a5cd9-538d-4d67-8196-5ae4d2712efe] raised unexpected: TemplateSyntaxError("'url' takes at least one argument, a URL pattern name.")
+Traceback (most recent call last):
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\celery\app\trace.py", line 405, in trace_task
+    R = retval = fun(*args, **kwargs)
+  File "D:\PIM\PIM\pim\material\task.py", line 22, in descarga_asin
+    temp = descarga_img.descargar(lista_temp,token,largo,ancho)
+  File "D:\PIM\PIM\pim\material\helpers\descarga_imagenes.py", line 94, in descargar
+    mensajeCorreo= render_to_string(
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\template\backends\django.py", line 34, in get_template
+    return Template(self.engine.get_template(template_name), self)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\template\engine.py", line 143, in get_template
+    template, origin = self.find_template(template_name)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\template\engine.py", line 125, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\template\loaders\base.py", line 29, in get_template
+    return Template(
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\template\base.py", line 155, in __init__
+    self.nodelist = self.compile_nodelist()
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\template\base.py", line 193, in compile_nodelist
+    return parser.parse()
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\template\base.py", line 478, in parse
+    raise self.error(token, e)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\template\base.py", line 476, in parse
+    compiled_result = compile_func(self, token)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\template\defaulttags.py", line 1371, in url
+    raise TemplateSyntaxError("'%s' takes at least one argument, a URL pattern name." % bits[0])
+django.template.exceptions.TemplateSyntaxError: 'url' takes at least one argument, a URL pattern name.
+[2021-07-28 19:18:06,367: INFO/MainProcess] Connected to amqp://administrador:**@127.0.0.1:5672//
+[2021-07-28 19:18:06,473: INFO/MainProcess] mingle: searching for neighbors
+[2021-07-28 19:18:07,586: INFO/MainProcess] mingle: all alone
+[2021-07-28 19:18:07,673: WARNING/MainProcess] d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\celery\fixups\django.py:203: UserWarning: Using settings.DEBUG leads to a memory
+            leak, never use this setting in production environments!
+  warnings.warn('''Using settings.DEBUG leads to a memory
+
+[2021-07-28 19:18:07,673: INFO/MainProcess] celery@P1MDESAB0GB9XK ready.
+[2021-07-28 19:18:07,808: INFO/SpawnPoolWorker-1] child process 4368 calling self.run()
+[2021-07-28 19:18:07,816: INFO/SpawnPoolWorker-4] child process 11568 calling self.run()
+[2021-07-28 19:18:07,836: INFO/SpawnPoolWorker-3] child process 15560 calling self.run()
+[2021-07-28 19:18:07,882: INFO/SpawnPoolWorker-2] child process 11288 calling self.run()
+[2021-07-28 19:18:55,147: INFO/MainProcess] Received task: material.task.descarga_asin[bf6a9bab-4c9a-43a5-9d47-1e44cab0eeba]  
+[2021-07-28 19:18:57,284: WARNING/SpawnPoolWorker-2] d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\fields\__init__.py:1367: RuntimeWarning: DateTimeField MysqlRegistro_Peticiones.fecha_inicio received a naive datetime (2021-07-28 19:18:57.283854) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+
+[2021-07-28 19:19:02,522: WARNING/SpawnPoolWorker-2] d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\fields\__init__.py:1367: RuntimeWarning: DateTimeField MysqlRegistro_Peticiones.fecha_terminado received a naive datetime (2021-07-28 19:19:02.521494) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+
+[2021-07-28 19:19:04,427: ERROR/SpawnPoolWorker-2] Task material.task.descarga_asin[bf6a9bab-4c9a-43a5-9d47-1e44cab0eeba] raised unexpected: TemplateSyntaxError("Invalid block tag on line 18: 'url_for(request.endpoint)'. Did you forget to register or load this tag?")
+Traceback (most recent call last):
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\template\base.py", line 470, in parse
+    compile_func = self.tags[command]
+KeyError: 'url_for(request.endpoint)'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\celery\app\trace.py", line 405, in trace_task
+    R = retval = fun(*args, **kwargs)
+  File "D:\PIM\PIM\pim\material\task.py", line 22, in descarga_asin
+    temp = descarga_img.descargar(lista_temp,token,largo,ancho)
+  File "D:\PIM\PIM\pim\material\helpers\descarga_imagenes.py", line 94, in descargar
+    mensajeCorreo= render_to_string(
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\template\backends\django.py", line 34, in get_template
+    return Template(self.engine.get_template(template_name), self)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\template\engine.py", line 143, in get_template
+    template, origin = self.find_template(template_name)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\template\engine.py", line 125, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\template\loaders\base.py", line 29, in get_template
+    return Template(
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\template\base.py", line 155, in __init__
+    self.nodelist = self.compile_nodelist()
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\template\base.py", line 193, in compile_nodelist
+    return parser.parse()
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\template\base.py", line 472, in parse
+    self.invalid_block_tag(token, command, parse_until)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\template\base.py", line 531, in invalid_block_tag
+    raise self.error(
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 18: 'url_for(request.endpoint)'. Did you forget to register or load this tag?
+[2021-07-28 19:21:46,608: INFO/MainProcess] Received task: material.task.descarga_asin[2bf2835f-a239-47f5-8700-1e1fcdafd07f]  
+[2021-07-28 19:21:47,670: WARNING/SpawnPoolWorker-4] d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\fields\__init__.py:1367: RuntimeWarning: DateTimeField MysqlRegistro_Peticiones.fecha_inicio received a naive datetime (2021-07-28 19:21:47.666479) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+
+[2021-07-28 19:21:51,418: WARNING/SpawnPoolWorker-4] d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\fields\__init__.py:1367: RuntimeWarning: DateTimeField MysqlRegistro_Peticiones.fecha_terminado received a naive datetime (2021-07-28 19:21:51.417824) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+
+[2021-07-28 19:21:52,582: ERROR/SpawnPoolWorker-4] Task material.task.descarga_asin[2bf2835f-a239-47f5-8700-1e1fcdafd07f] raised unexpected: TemplateSyntaxError("Could not parse the remainder: '(request.endpoint)' from 'url_for(request.endpoint)'")
+Traceback (most recent call last):
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\celery\app\trace.py", line 405, in trace_task
+    R = retval = fun(*args, **kwargs)
+  File "D:\PIM\PIM\pim\material\task.py", line 22, in descarga_asin
+    temp = descarga_img.descargar(lista_temp,token,largo,ancho)
+  File "D:\PIM\PIM\pim\material\helpers\descarga_imagenes.py", line 94, in descargar
+    mensajeCorreo= render_to_string(
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\template\backends\django.py", line 34, in get_template
+    return Template(self.engine.get_template(template_name), self)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\template\engine.py", line 143, in get_template
+    template, origin = self.find_template(template_name)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\template\engine.py", line 125, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\template\loaders\base.py", line 29, in get_template
+    return Template(
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\template\base.py", line 155, in __init__
+    self.nodelist = self.compile_nodelist()
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\template\base.py", line 193, in compile_nodelist
+    return parser.parse()
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\template\base.py", line 449, in parse
+    raise self.error(token, e)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\template\base.py", line 447, in parse
+    filter_expression = self.compile_filter(token.contents)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\template\base.py", line 563, in compile_filter
+    return FilterExpression(token, self)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\template\base.py", line 662, in __init__
+    raise TemplateSyntaxError("Could not parse the remainder: '%s' "
+django.template.exceptions.TemplateSyntaxError: Could not parse the remainder: '(request.endpoint)' from 'url_for(request.endpoint)'
+[2021-07-28 19:36:02,895: INFO/MainProcess] Connected to amqp://administrador:**@127.0.0.1:5672//
+[2021-07-28 19:36:02,923: INFO/MainProcess] mingle: searching for neighbors
+[2021-07-28 19:36:04,008: INFO/MainProcess] mingle: all alone
+[2021-07-28 19:36:04,108: WARNING/MainProcess] d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\celery\fixups\django.py:203: UserWarning: Using settings.DEBUG leads to a memory
+            leak, never use this setting in production environments!
+  warnings.warn('''Using settings.DEBUG leads to a memory
+
+[2021-07-28 19:36:04,109: INFO/MainProcess] celery@P1MDESAB0GB9XK ready.
+[2021-07-28 19:36:04,414: INFO/SpawnPoolWorker-2] child process 5468 calling self.run()
+[2021-07-28 19:36:04,540: INFO/SpawnPoolWorker-1] child process 6760 calling self.run()
+[2021-07-28 19:36:04,680: INFO/SpawnPoolWorker-4] child process 1408 calling self.run()
+[2021-07-28 19:36:04,926: INFO/SpawnPoolWorker-3] child process 15472 calling self.run()
+[2021-07-28 19:37:04,862: INFO/MainProcess] Received task: material.task.descarga_asin[2f3b0492-755f-4bfd-80aa-29eba4da6e3a]  
+[2021-07-28 19:37:06,228: WARNING/SpawnPoolWorker-2] d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\fields\__init__.py:1367: RuntimeWarning: DateTimeField MysqlRegistro_Peticiones.fecha_inicio received a naive datetime (2021-07-28 19:37:06.223790) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+
+[2021-07-28 19:37:09,509: WARNING/SpawnPoolWorker-2] d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\fields\__init__.py:1367: RuntimeWarning: DateTimeField MysqlRegistro_Peticiones.fecha_terminado received a naive datetime (2021-07-28 19:37:09.508819) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+
+[2021-07-28 19:37:10,759: ERROR/SpawnPoolWorker-2] Task material.task.descarga_asin[2f3b0492-755f-4bfd-80aa-29eba4da6e3a] raised unexpected: ImproperlyConfigured('You\'re using the Django "sites framework" without having set the SITE_ID setting. Create a site in your database and set the SITE_ID setting or pass a request to Site.objects.get_current() to fix this error.')
+Traceback (most recent call last):
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\celery\app\trace.py", line 405, in trace_task
+    R = retval = fun(*args, **kwargs)
+  File "D:\PIM\PIM\pim\material\task.py", line 22, in descarga_asin
+    temp = descarga_img.descargar(lista_temp,token,largo,ancho)
+  File "D:\PIM\PIM\pim\material\helpers\descarga_imagenes.py", line 91, in descargar
+    dominio = Site.objects.get_current()
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\contrib\sites\models.py", line 62, in get_current
+    raise ImproperlyConfigured(
+django.core.exceptions.ImproperlyConfigured: You're using the Django "sites framework" without having set the SITE_ID setting. Create a site in your database and set the SITE_ID setting or pass a request to Site.objects.get_current() to fix this error.
+[2021-07-29 08:20:44,891: INFO/MainProcess] Connected to amqp://administrador:**@127.0.0.1:5672//
+[2021-07-29 08:20:44,930: INFO/MainProcess] mingle: searching for neighbors
+[2021-07-29 08:20:45,929: INFO/SpawnPoolWorker-4] child process 13204 calling self.run()
+[2021-07-29 08:20:45,948: INFO/SpawnPoolWorker-3] child process 7772 calling self.run()
+[2021-07-29 08:20:45,950: INFO/SpawnPoolWorker-1] child process 17396 calling self.run()
+[2021-07-29 08:20:45,957: INFO/SpawnPoolWorker-2] child process 9528 calling self.run()
+[2021-07-29 08:20:46,404: INFO/MainProcess] mingle: all alone
+[2021-07-29 08:20:46,566: WARNING/MainProcess] d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\celery\fixups\django.py:203: UserWarning: Using settings.DEBUG leads to a memory
+            leak, never use this setting in production environments!
+  warnings.warn('''Using settings.DEBUG leads to a memory
+
+[2021-07-29 08:20:46,567: INFO/MainProcess] celery@P1MDESAB0GB9XK ready.
+[2021-07-29 08:24:51,740: INFO/MainProcess] Received task: material.task.descarga_asin[36820555-6663-4a79-8e47-4f338f7ec240]  
+[2021-07-29 08:24:52,960: WARNING/SpawnPoolWorker-4] d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\fields\__init__.py:1367: RuntimeWarning: DateTimeField MysqlRegistro_Peticiones.fecha_inicio received a naive datetime (2021-07-29 08:24:52.960691) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+
+[2021-07-29 08:24:56,033: WARNING/SpawnPoolWorker-4] d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\django\db\models\fields\__init__.py:1367: RuntimeWarning: DateTimeField MysqlRegistro_Peticiones.fecha_terminado received a naive datetime (2021-07-29 08:24:56.033322) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+
+[2021-07-29 08:24:59,471: INFO/SpawnPoolWorker-4] Task material.task.descarga_asin[36820555-6663-4a79-8e47-4f338f7ec240] succeeded in 7.7189999999827705s: None

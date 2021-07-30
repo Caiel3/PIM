@@ -1,6 +1,8 @@
+from decimal import Context
 import pdb
+from django.db.models.expressions import OrderBy
 from django.shortcuts import render,redirect
-from .models import Materiales,Descarga,Catalogo_temp,MysqlColores,Marca,Genero,Grupo_Destino,Tipo_Prenda
+from .models import Materiales,Descarga,Catalogo_temp,MysqlColores,Marca,Genero,Grupo_Destino,Tipo_Prenda,MysqlRegistro_Peticiones
 from django.http import HttpResponse,HttpResponseNotFound
 from .helpers.CloudImage import CloudImage
 from .helpers.converts import Converts
@@ -40,92 +42,179 @@ import xlrd
 import openpyxl
 from os import path
 from os import remove
-from django.contrib.auth import get_user_model,authenticate,login,logout
+from django.contrib.auth import get_user_model,authenticate,login as dj_login,logout
 from django.core.files import File
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated,AllowAny
 from rest_framework.decorators import permission_classes
+from rest_framework.decorators import api_view
 from rest_framework_simplejwt.tokens import AccessToken,RefreshToken
 from rest_framework_simplejwt import authentication
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required,permission_required
 from .decorators import unauthenticated_user,allowed_users
 from rest_framework import generics
-from material.task import descarga_asin
+from .task import descarga_asin
+# from django.core.context_processors import csrf
+from django.template import RequestContext, context
+from django.template.context_processors import csrf
+from django.views.decorators.csrf import csrf_protect
+# from django.shortcuts import render_to_response
+from django.views.decorators.csrf import requires_csrf_token
+from datetime import date
+# from django.contrib.sites.models import Site
 
 converts_helper=Converts()
 cloud=CloudImage()
-
-class MaterialViewSet(viewsets.ModelViewSet):
-    serializer_class=MaterialSerializar
-    queryset = Materiales.objects.raw('select * from material_materiales limit 10')
+@login_required(login_url='/')
+@csrf_protect
+class loginview(APIView):
+    # @unauthenticated_user
+    def login(request):
+        # import pdb; pdb.set_trace()
+        if request.user.is_authenticated:
+            # Limpiar.limpiar_media_imagenes()
+            marcas=Marca.objects.all()        
+            genero=Genero.objects.all()
+            grupo_Destino=Grupo_Destino.objects.all()
+            tipo_Prenda=Tipo_Prenda.objects.all()
+            return render(request,
+            'index.html', 
+            {'marcas':marcas,                      
+            "generos":genero,
+            "grupo_destinos":grupo_Destino,
+            "tipo_prendas":tipo_Prenda,
+            "username":request.user}) 
+        else:
+            username_temp = request.POST.get('username')
+            password = request.POST.get('password')
+            if username_temp is None or password is None:
+                messages.error(request,'No tiene acceso, por favor iniciar sesión.')
+                return render(request,'login.html') 
+            else:
+                User = get_user_model()
+                usuario = User.objects.filter(username = username_temp).first()
+                if usuario is None :
+                    messages.error(request,'El usuario que ingreso no esta registrado.')
+                    return render(request,'login.html')   
+                elif not usuario.check_password(password):
+                    messages.error(request,'Ingreso una contraseña incorrecta.')
+                    return render(request,'login.html')   
+                else:
+                    # Limpiar.limpiar_media_imagenes()
+                    marcas=Marca.objects.all()        
+                    genero=Genero.objects.all()
+                    grupo_Destino=Grupo_Destino.objects.all()
+                    tipo_Prenda=Tipo_Prenda.objects.all()
+                    dj_login (request, usuario)
+                    return render(request,
+                            'index.html', 
+                            {'marcas':marcas,                      
+                            "generos":genero,
+                            "grupo_destinos":grupo_Destino,
+                            "tipo_prendas":tipo_Prenda,
+                            "username":username_temp}) 
 
 @login_required(login_url='/')
 def subida(request):
-    try:        
-        inicio= datetime.now()  
-        marcas=Marca.objects.all()        
-        genero=Genero.objects.all()
-        grupo_Destino=Grupo_Destino.objects.all()
-        tipo_Prenda=Tipo_Prenda.objects.all()
-        Txt('prueba','INICIO', datetime.now(),datetime.now())
-        inicio= datetime.now()   
-        consulta=[
-            'MATERIAL',
-            'DESCRIPCION_MATERIAL',
-            'DESCRIPCION_MATERIAL_ENRIQUECIDO',
-            'DESCRIPCION_LARGA',
-            'EAN',
-            'DESCRIPCION_TALLA',
-            'DESCRIPCION_COLOR',
-            'IMAGEN_GRANDE',
-            'TIPO_PRENDA',
-            'SUBGRUPO',
-            'GENERO',
-            'MARCA',
-            'DEPARTAMENTO',
-            'CARACTERISTICA',
-            'TAGS',
-            'GRUPO_DESTINO',
-            'TIPO_MATERIAL',
-            'COMPOSICION_ES',
-            'ORIGEN',
-            'URL_IMAGEN'
-            ]
- 
-        parametros=[]       
+    try:
+        if request.user.is_authenticated:        
+            inicio= datetime.now()  
+            marcas=Marca.objects.all()        
+            genero=Genero.objects.all()
+            grupo_Destino=Grupo_Destino.objects.all()
+            tipo_Prenda=Tipo_Prenda.objects.all()
+            Txt('prueba','INICIO', datetime.now(),datetime.now())
+            inicio= datetime.now()   
+            consulta=[
+                'MATERIAL',
+                'DESCRIPCION_MATERIAL',
+                'DESCRIPCION_MATERIAL_ENRIQUECIDO',
+                'DESCRIPCION_LARGA',
+                'EAN',
+                'DESCRIPCION_TALLA',
+                'DESCRIPCION_COLOR',
+                'IMAGEN_GRANDE',
+                'TIPO_PRENDA',
+                'SUBGRUPO',
+                'GENERO',
+                'MARCA',
+                'DEPARTAMENTO',
+                'CARACTERISTICA',
+                'TAGS',
+                'GRUPO_DESTINO',
+                'TIPO_MATERIAL',
+                'COMPOSICION_ES',
+                'ORIGEN',
+                'URL_IMAGEN',
+                'INSTRUCCIONES_LAVADO',
+                'CODIGO_COLOR'
+                ]
+    
+            parametros=[]       
 
-        #Capturamos la informacion del formulario          
-        tipo = request.POST["tipo"]
-        ancho = request.POST["ancho"]
-        largo = request.POST["largo"] 
-        ean_consulta = request.POST["Ean_Consul"]  
-        for item in consulta:
-            if item.upper() in request.POST :
-                aux=request.POST[item]
-                parametros.append(aux)                            
-            pass
-        
-        
-        if len(request.FILES)!=0 and tipo =='':
-            messages.error(request,'Por favor seleccione el medio de consulta.')
-            return render(
-                request,
-                'index.html',
-                {'ancho':ancho,
-                'largo':largo,
-                'tipo':tipo,
-                'consulta':parametros,
-                'mostrar':'no',
-                'marcas':marcas,                      
-                "generos":genero,
-                "grupo_destinos":grupo_Destino,
-                "tipo_prendas":tipo_Prenda
-               })
-        
-        if len(request.FILES)!=0 or tipo !='':
-                if request.POST['Ean_Consul']!= '':
-                    messages.error(request,'Por favor verifique como desea hacer la consulta si por ean o por archivo.')
-                    return render(
+            #Capturamos la informacion del formulario          
+            tipo = request.POST["tipo"]
+            ancho = request.POST["ancho"]
+            largo = request.POST["largo"] 
+            ean_consulta = request.POST["Ean_Consul"]  
+            for item in consulta:
+                if item.upper() in request.POST :
+                    aux=request.POST[item]
+                    parametros.append(aux)                            
+                pass
+            
+            
+            if len(request.FILES)!=0 and tipo =='':
+                messages.error(request,'Por favor seleccione el medio de consulta.')
+                return render(
+                    request,
+                    'index.html',
+                    {'ancho':ancho,
+                    'largo':largo,
+                    'tipo':tipo,
+                    'consulta':parametros,
+                    'mostrar':'no',
+                    'marcas':marcas,                      
+                    "generos":genero,
+                    "grupo_destinos":grupo_Destino,
+                    "tipo_prendas":tipo_Prenda
+                })
+            
+            if len(request.FILES)!=0 or tipo !='':
+                    if request.POST['Ean_Consul']!= '':
+                        messages.error(request,'Por favor verifique como desea hacer la consulta si por ean o por archivo.')
+                        return render(
+                                request,
+                                'index.html',
+                                {'ancho':ancho,
+                                'largo':largo,
+                                'tipo':tipo,
+                                'consulta':parametros,
+                                'mostrar':'no',
+                                'marcas':marcas,                      
+                                "generos":genero,
+                                "grupo_destinos":grupo_Destino,
+                                "tipo_prendas":tipo_Prenda
+                                })
+
+            
+            if len(request.FILES)==0:
+                count=0
+                if (request.POST['DWMarca']!=''):
+                    count=count+1
+                if (request.POST['DWGenero']!=''):
+                    count=count+1
+                if (request.POST['DWGrupo_destino']!=''):
+                    count=count+1
+                if (request.POST['DWTipo_prenda']!=''):
+                    count=count+1
+                if(request.POST['Ean_Consul']!=''):
+                    count=count+1
+                
+                if request.POST['DWMarca']!= '' or request.POST['DWGenero']!='' or request.POST['DWGrupo_destino']!='' or request.POST['DWTipo_prenda']!='' :
+                    if request.POST['Ean_Consul']!= '':
+                        messages.error(request,'Por favor verifique como desea hacer la consulta si por ean o selección.')
+                        return render(
                             request,
                             'index.html',
                             {'ancho':ancho,
@@ -139,23 +228,9 @@ def subida(request):
                             "tipo_prendas":tipo_Prenda
                             })
 
-        
-        if len(request.FILES)==0:
-            count=0
-            if (request.POST['DWMarca']!=''):
-                count=count+1
-            if (request.POST['DWGenero']!=''):
-                count=count+1
-            if (request.POST['DWGrupo_destino']!=''):
-                count=count+1
-            if (request.POST['DWTipo_prenda']!=''):
-                count=count+1
-            if(request.POST['Ean_Consul']!=''):
-                count=count+1
-            
-            if request.POST['DWMarca']!= '' or request.POST['DWGenero']!='' or request.POST['DWGrupo_destino']!='' or request.POST['DWTipo_prenda']!='' :
-                if request.POST['Ean_Consul']!= '':
-                    messages.error(request,'Por favor verifique como desea hacer la consulta si por ean o selección.')
+
+                if count==0:            
+                    messages.error(request,'Por favor seleccione un medio de consulta, sea subir el archivo, ingresar los eans  o seleccionar en las listas deplegables.')
                     return render(
                         request,
                         'index.html',
@@ -167,13 +242,32 @@ def subida(request):
                         'marcas':marcas,                      
                         "generos":genero,
                         "grupo_destinos":grupo_Destino,
-                        "tipo_prendas":tipo_Prenda
-                        })
+                        "tipo_prendas":tipo_Prenda})
 
-
-            if count==0:            
-                messages.error(request,'Por favor seleccione un medio de consulta, sea subir el archivo, ingresar los eans  o seleccionar en las listas deplegables.')
-                return render(
+            
+        
+        
+            string_campos=converts_helper.convert_array_string(parametros,tipo,",") #nos permite traer un string de campos a partir de un arreglo
+            if string_campos=='':
+                string_campos='ean,imagen_grande'
+                parametros=['EAN','IMAGEN_GRANDE']   
+                pass
+            else:
+                parametros=['EAN','IMAGEN_GRANDE']+parametros 
+                string_campos='ean,imagen_grande,'+string_campos
+            Txt('prueba','Valida informacion e inicializa campos.', inicio,datetime.now())    
+            inicio= datetime.now() 
+            if len(request.FILES)!=0 and request.POST["Ean_Consul"]== '' :   # si carga un archivo entra aqui         
+                mi_archivo=request.FILES["archivo"]            
+                try:
+                    file = mi_archivo.read().decode('utf-8-sig')
+                    file = file.upper()
+                    reader = csv.DictReader(io.StringIO(file))                  
+                    archivo = [line for line in reader]    
+                
+                except Exception as e:
+                    messages.error(request,"Por favor valide bien la estructura del archivo, si el error persiste contacte con el administrador. y disponga este error:{}".format(e))
+                    return render(
                     request,
                     'index.html',
                     {'ancho':ancho,
@@ -185,139 +279,103 @@ def subida(request):
                     "generos":genero,
                     "grupo_destinos":grupo_Destino,
                     "tipo_prendas":tipo_Prenda})
-
-           
-      
-      
-        string_campos=converts_helper.convert_array_string(parametros,tipo,",") #nos permite traer un string de campos a partir de un arreglo
-        if string_campos=='':
-            string_campos='ean,imagen_grande'
-            parametros=['EAN','IMAGEN_GRANDE']   
-            pass
-        else:
-            parametros=['EAN','IMAGEN_GRANDE']+parametros 
-            string_campos='ean,imagen_grande,'+string_campos
-        Txt('prueba','Valida informacion e inicializa campos.', inicio,datetime.now())    
-        inicio= datetime.now() 
-        if len(request.FILES)!=0 and request.POST["Ean_Consul"]== '' :   # si carga un archivo entra aqui         
-            mi_archivo=request.FILES["archivo"]            
-            try:
-                file = mi_archivo.read().decode('utf-8-sig')
-                file = file.upper()
-                reader = csv.DictReader(io.StringIO(file))                  
-                archivo = [line for line in reader]    
-               
-            except Exception as e:
-                messages.error(request,"Por favor valide bien la estructura del archivo, si el error persiste contacte con el administrador. y disponga este error:{}".format(e))
-                return render(
-                request,
-                'index.html',
-                {'ancho':ancho,
-                'largo':largo,
-                'tipo':tipo,
-                'consulta':parametros,
-                'mostrar':'no',
-                'marcas':marcas,                      
-                "generos":genero,
-                "grupo_destinos":grupo_Destino,
-                "tipo_prendas":tipo_Prenda})
-            Txt('prueba','Se lee el archivo de consulta', inicio,datetime.now())
-            inicio= datetime.now()  
-            
-            vali=Validacion(archivo,tipo)
-            if vali:
-                messages.error(request,vali)       
-                return render(
-                request,
-                'index.html',
-                {'ancho':ancho,
-                'largo':largo,
-                'tipo':tipo,
-                'consulta':parametros,
-                'mostrar':'no',
-                'marcas':marcas,                      
-                "generos":genero,
-                "grupo_destinos":grupo_Destino,
-                "tipo_prendas":tipo_Prenda
-               })   
-            Txt('prueba','Valida la estructura del archivo', inicio,datetime.now())
-            inicio= datetime.now()        
-            #Relizamos la consulta nativa en la base de datos      
-           
-            string_filtro=converts_helper.convert_array_string(archivo,tipo,',',False)
-          
-            Txt('prueba','Prepara los campos por el que se hace la consulta', inicio,datetime.now())
-            inicio= datetime.now() 
-            Txt('prueba','Valida las estruturas de consulta y lee el archivo que se carga.', inicio,datetime.now())    
-            inicio= datetime.now()    
-            #controlo por donde hace la consulta si por ean o material   
-            if tipo =="MATERIAL":
-                if Consulta_Where_Cantidad(request.POST['DWMarca'],request.POST['DWGenero'],request.POST['DWGrupo_destino'],request.POST['DWTipo_prenda'])!=0:
-                    consulta='select distinct {} from material_materiales where material in ({}) and {};'.format(string_campos,string_filtro,Consulta_Where(request.POST['DWMarca'],request.POST['DWGenero'],request.POST['DWGrupo_destino'],request.POST['DWTipo_prenda']))        
-                else:
-                    consulta='select distinct {} from material_materiales where material in ({});'.format(string_campos,string_filtro) 
-                                    
-            else:
-                if Consulta_Where_Cantidad(request.POST['DWMarca'],request.POST['DWGenero'],request.POST['DWGrupo_destino'],request.POST['DWTipo_prenda'])!=0:
-                    consulta='select distinct {} from material_materiales where ean in ({}) and {}; '.format(string_campos,string_filtro,Consulta_Where(request.POST['DWMarca'],request.POST['DWGenero'],request.POST['DWGrupo_destino'],request.POST['DWTipo_prenda']))                     
-                else:
-                    consulta='select distinct {} from material_materiales where ean in ({});'.format(string_campos,string_filtro,) 
-
-            matconsulta=consultasql(consulta)  
-        elif request.POST['Ean_Consul']!= "":
-            array_filt=converts_helper.convert_string_array(ean_consulta)
-            string_filtro_ean=converts_helper.convert_array_str(array_filt,',',False)
-            consulta='select distinct {} from material_materiales where ean in ({});'.format(string_campos,string_filtro_ean) 
-            matconsulta=consultasql(consulta)
-            # import pdb; pdb.set_trace()
-
-        else:
-            consulta='select distinct {} from material_materiales where {};'.format(string_campos,Consulta_Where(request.POST['DWMarca'],request.POST['DWGenero'],request.POST['DWGrupo_destino'],request.POST['DWTipo_prenda']))
-            matconsulta=consultasql(consulta)    
-
-
- 
-
+                Txt('prueba','Se lee el archivo de consulta', inicio,datetime.now())
+                inicio= datetime.now()  
                 
-        Txt('prueba','Realiza la consulta en la base de datos', inicio,datetime.now())
-        inicio= datetime.now()        
+                vali=Validacion(archivo,tipo)
+                if vali:
+                    messages.error(request,vali)       
+                    return render(
+                    request,
+                    'index.html',
+                    {'ancho':ancho,
+                    'largo':largo,
+                    'tipo':tipo,
+                    'consulta':parametros,
+                    'mostrar':'no',
+                    'marcas':marcas,                      
+                    "generos":genero,
+                    "grupo_destinos":grupo_Destino,
+                    "tipo_prendas":tipo_Prenda
+                })   
+                Txt('prueba','Valida la estructura del archivo', inicio,datetime.now())
+                inicio= datetime.now()        
+                #Relizamos la consulta nativa en la base de datos      
             
-        #converitmos todo haciendo uso de cloud img  
-        tipo_consulta='documento'
-        informacion=cloud.convertir_matriz(
-            matconsulta,
-            1,
-            ancho,
-            largo,
-            Claves.get_secret('CLOUDIMG_TOKEN'),
-            tipo_consulta)      
-        hash_archivo = str(uuid.uuid1())
-        Txt('prueba','Resizen cloud img', inicio,datetime.now())
-        inicio= datetime.now()         
-        rango=list(range(0,ceil(len(informacion)/100)))
-        # import pdb; pdb.set_trace()
-        csv_hilo=threading.Thread(name="hilo_csv",target= Descarga_pim_doc,args=(hash_archivo,informacion,string_campos))
-        csv_hilo.start()
+                string_filtro=converts_helper.convert_array_string(archivo,tipo,',',False)
+            
+                Txt('prueba','Prepara los campos por el que se hace la consulta', inicio,datetime.now())
+                inicio= datetime.now() 
+                Txt('prueba','Valida las estruturas de consulta y lee el archivo que se carga.', inicio,datetime.now())    
+                inicio= datetime.now()    
+                #controlo por donde hace la consulta si por ean o material   
+                if tipo =="MATERIAL":
+                    if Consulta_Where_Cantidad(request.POST['DWMarca'],request.POST['DWGenero'],request.POST['DWGrupo_destino'],request.POST['DWTipo_prenda'])!=0:
+                        consulta='select distinct {} from material_materiales where material in ({}) and {};'.format(string_campos,string_filtro,Consulta_Where(request.POST['DWMarca'],request.POST['DWGenero'],request.POST['DWGrupo_destino'],request.POST['DWTipo_prenda']))        
+                    else:
+                        consulta='select distinct {} from material_materiales where material in ({});'.format(string_campos,string_filtro) 
+                                        
+                else:
+                    if Consulta_Where_Cantidad(request.POST['DWMarca'],request.POST['DWGenero'],request.POST['DWGrupo_destino'],request.POST['DWTipo_prenda'])!=0:
+                        consulta='select distinct {} from material_materiales where ean in ({}) and {}; '.format(string_campos,string_filtro,Consulta_Where(request.POST['DWMarca'],request.POST['DWGenero'],request.POST['DWGrupo_destino'],request.POST['DWTipo_prenda']))                     
+                    else:
+                        consulta='select distinct {} from material_materiales where ean in ({});'.format(string_campos,string_filtro,) 
+
+                matconsulta=consultasql(consulta)  
+            elif request.POST['Ean_Consul']!= "":
+                array_filt=converts_helper.convert_string_array(ean_consulta)
+                string_filtro_ean=converts_helper.convert_array_str(array_filt,',',False)
+                consulta='select distinct {} from material_materiales where ean in ({});'.format(string_campos,string_filtro_ean) 
+                matconsulta=consultasql(consulta)
+                # import pdb; pdb.set_trace()
+
+            else:
+                consulta='select distinct {} from material_materiales where {};'.format(string_campos,Consulta_Where(request.POST['DWMarca'],request.POST['DWGenero'],request.POST['DWGrupo_destino'],request.POST['DWTipo_prenda']))
+                matconsulta=consultasql(consulta)    
+
+
     
-        Txt('prueba','Convierte haciendo uso de cloud img.', inicio,datetime.now())    
-        inicio= datetime.now() 
-        Txt('prueba','Prepara el archivo csv(hilo)', inicio,datetime.now())   
-        inicio= datetime.now() 
-        csv_hilo.join()
-        Txt('prueba','Queda listo el csv', inicio,datetime.now())
-        Txt('prueba','FIN', datetime.now(),datetime.now())
-       
-        return render(
-            request,
-            'visualizacion.html',
-            {"headers":parametros,
-            "lista":informacion,
-            "mostrar":'si',
-            "token":hash_archivo,
-            "rangos":rango,
-            "tamano":[largo,ancho]
-            })    
-        pass
+
+                    
+            Txt('prueba','Realiza la consulta en la base de datos', inicio,datetime.now())
+            inicio= datetime.now()        
+                
+            #converitmos todo haciendo uso de cloud img  
+            tipo_consulta='documento'
+            informacion=cloud.convertir_matriz(
+                matconsulta,
+                1,
+                ancho,
+                largo,
+                Claves.get_secret('CLOUDIMG_TOKEN'),
+                tipo_consulta)      
+            hash_archivo = str(uuid.uuid1())
+            Txt('prueba','Resizen cloud img', inicio,datetime.now())
+            inicio= datetime.now()         
+            rango=list(range(0,ceil(len(informacion)/100)))
+            # import pdb; pdb.set_trace()
+            csv_hilo=threading.Thread(name="hilo_csv",target= Descarga_pim_doc,args=(hash_archivo,informacion,string_campos))
+            csv_hilo.start()
+        
+            Txt('prueba','Convierte haciendo uso de cloud img.', inicio,datetime.now())    
+            inicio= datetime.now() 
+            Txt('prueba','Prepara el archivo csv(hilo)', inicio,datetime.now())   
+            inicio= datetime.now() 
+            csv_hilo.join()
+            Txt('prueba','Queda listo el csv', inicio,datetime.now())
+            Txt('prueba','FIN', datetime.now(),datetime.now())
+        
+            return render(
+                request,
+                'visualizacion.html',
+                {"headers":parametros,
+                "lista":informacion,
+                "mostrar":'si',
+                "token":hash_archivo,
+                "rangos":rango,
+                "tamano":[largo,ancho]
+                })    
+            pass
     except Exception as e:
         if 'NoneType' in str(e):
             messages.error(request,f'Por favor valide que el encabezado sea {tipo}')
@@ -338,46 +396,76 @@ def subida(request):
 
 @login_required(login_url='/')
 def carga(request):
-    try:        
-        inicio= datetime.now()  
-        marcas=Marca.objects.all()        
-        genero=Genero.objects.all()
-        grupo_Destino=Grupo_Destino.objects.all()
-        tipo_Prenda=Tipo_Prenda.objects.all()
-        Txt('prueba','INICIO', datetime.now(),datetime.now())
-        inicio= datetime.now()   
-        consulta=[
-            'MATERIAL',
-            'EAN',
-            'URL_IMAGEN'
-            ]
- 
-        parametros=[]       
+    try:
+        if request.user.is_authenticated:     
+            inicio= datetime.now()  
+            marcas=Marca.objects.all()        
+            genero=Genero.objects.all()
+            grupo_Destino=Grupo_Destino.objects.all()
+            tipo_Prenda=Tipo_Prenda.objects.all()
+            Txt('prueba','INICIO', datetime.now(),datetime.now())
+            inicio= datetime.now()   
+            consulta=[
+                'MATERIAL',
+                'EAN',
+                'URL_IMAGEN'
+                ]
+    
+            parametros=[]       
 
-        #Capturamos la informacion del formulario          
-        tipo = request.POST["tipo"]
-        ean_consulta = request.POST["Ean_Consulta"]  
+            #Capturamos la informacion del formulario          
+            tipo = request.POST["tipo"]
+            ean_consulta = request.POST["Ean_Consulta"]  
 
-        
-        
-        if len(request.FILES)!=0 and tipo =='':
-            messages.error(request,'Por favor seleccione el medio de consulta.')
-            return render(
-                request,
-                'index.html',
-                {'tipo':tipo,
-                'consulta':parametros,
-                'mostrar':'no',
-                'marcas':marcas,                      
-                "generos":genero,
-                "grupo_destinos":grupo_Destino,
-                "tipo_prendas":tipo_Prenda
-               })
-        
-        if len(request.FILES)!=0 or tipo !='':
-                if request.POST['Ean_Consul']!= '':
-                    messages.error(request,'Por favor verifique como desea hacer la consulta si por ean o por archivo.')
-                    return render(
+            
+            
+            if len(request.FILES)!=0 and tipo =='':
+                messages.error(request,'Por favor seleccione el medio de consulta.')
+                return render(
+                    request,
+                    'index.html',
+                    {'tipo':tipo,
+                    'consulta':parametros,
+                    'mostrar':'no',
+                    'marcas':marcas,                      
+                    "generos":genero,
+                    "grupo_destinos":grupo_Destino,
+                    "tipo_prendas":tipo_Prenda
+                })
+            
+            if len(request.FILES)!=0 or tipo !='':
+                    if request.POST['Ean_Consul']!= '':
+                        messages.error(request,'Por favor verifique como desea hacer la consulta si por ean o por archivo.')
+                        return render(
+                                request,
+                                'index.html',
+                                {'tipo':tipo,
+                                'consulta':parametros,
+                                'mostrar':'no',
+                                'marcas':marcas,                      
+                                "generos":genero,
+                                "grupo_destinos":grupo_Destino,
+                                "tipo_prendas":tipo_Prenda
+                                })
+
+            
+            if len(request.FILES)==0:
+                count=0
+                if (request.POST['DWMarca']!=''):
+                    count=count+1
+                if (request.POST['DWGenero']!=''):
+                    count=count+1
+                if (request.POST['DWGrupo_destino']!=''):
+                    count=count+1
+                if (request.POST['DWTipo_prenda']!=''):
+                    count=count+1
+                if(request.POST['Ean_Consulta']!=''):
+                    count=count+1
+                
+                if request.POST['DWMarca']!= '' or request.POST['DWGenero']!='' or request.POST['DWGrupo_destino']!='' or request.POST['DWTipo_prenda']!='' :
+                    if request.POST['Ean_Consulta']!= '':
+                        messages.error(request,'Por favor verifique como desea hacer la consulta si por ean o selección.')
+                        return render(
                             request,
                             'index.html',
                             {'tipo':tipo,
@@ -389,23 +477,9 @@ def carga(request):
                             "tipo_prendas":tipo_Prenda
                             })
 
-        
-        if len(request.FILES)==0:
-            count=0
-            if (request.POST['DWMarca']!=''):
-                count=count+1
-            if (request.POST['DWGenero']!=''):
-                count=count+1
-            if (request.POST['DWGrupo_destino']!=''):
-                count=count+1
-            if (request.POST['DWTipo_prenda']!=''):
-                count=count+1
-            if(request.POST['Ean_Consulta']!=''):
-                count=count+1
-            
-            if request.POST['DWMarca']!= '' or request.POST['DWGenero']!='' or request.POST['DWGrupo_destino']!='' or request.POST['DWTipo_prenda']!='' :
-                if request.POST['Ean_Consulta']!= '':
-                    messages.error(request,'Por favor verifique como desea hacer la consulta si por ean o selección.')
+
+                if count==0:            
+                    messages.error(request,'Por favor seleccione un medio de consulta, sea subir el archivo, ingresar los eans  o seleccionar en las listas deplegables.')
                     return render(
                         request,
                         'index.html',
@@ -415,13 +489,32 @@ def carga(request):
                         'marcas':marcas,                      
                         "generos":genero,
                         "grupo_destinos":grupo_Destino,
-                        "tipo_prendas":tipo_Prenda
-                        })
+                        "tipo_prendas":tipo_Prenda})
 
-
-            if count==0:            
-                messages.error(request,'Por favor seleccione un medio de consulta, sea subir el archivo, ingresar los eans  o seleccionar en las listas deplegables.')
-                return render(
+            
+        
+        
+            string_campos=converts_helper.convert_array_string(parametros,tipo,",") #nos permite traer un string de campos a partir de un arreglo
+            if string_campos=='':
+                string_campos='material,ean,url_imagen'
+                parametros=['MATERIAL','EAN','URL_IMAGEN']   
+                pass
+            else:
+                parametros=['MATERIAL','EAN','URL_IMAGEN']+parametros 
+                string_campos='material,ean,url_imagen,'+string_campos
+            Txt('prueba','Valida informacion e inicializa campos.', inicio,datetime.now())    
+            inicio= datetime.now() 
+            if len(request.FILES)!=0 and request.POST["Ean_Consulta"]== '' :   # si carga un archivo entra aqui         
+                mi_archivo=request.FILES["archivo_Con"]            
+                try:
+                    file = mi_archivo.read().decode('utf-8-sig')
+                    file = file.upper()
+                    reader = csv.DictReader(io.StringIO(file))                  
+                    archivo = [line for line in reader]    
+                
+                except Exception as e:
+                    messages.error(request,"Por favor valide bien la estructura del archivo, si el error persiste contacte con el administrador. y disponga este error:{}".format(e))
+                    return render(
                     request,
                     'index.html',
                     {'tipo':tipo,
@@ -431,122 +524,88 @@ def carga(request):
                     "generos":genero,
                     "grupo_destinos":grupo_Destino,
                     "tipo_prendas":tipo_Prenda})
-
-           
-      
-      
-        string_campos=converts_helper.convert_array_string(parametros,tipo,",") #nos permite traer un string de campos a partir de un arreglo
-        if string_campos=='':
-            string_campos='material,ean,url_imagen'
-            parametros=['MATERIAL','EAN','URL_IMAGEN']   
-            pass
-        else:
-            parametros=['MATERIAL','EAN','URL_IMAGEN']+parametros 
-            string_campos='material,ean,url_imagen,'+string_campos
-        Txt('prueba','Valida informacion e inicializa campos.', inicio,datetime.now())    
-        inicio= datetime.now() 
-        if len(request.FILES)!=0 and request.POST["Ean_Consulta"]== '' :   # si carga un archivo entra aqui         
-            mi_archivo=request.FILES["archivo_Con"]            
-            try:
-                file = mi_archivo.read().decode('utf-8-sig')
-                file = file.upper()
-                reader = csv.DictReader(io.StringIO(file))                  
-                archivo = [line for line in reader]    
-               
-            except Exception as e:
-                messages.error(request,"Por favor valide bien la estructura del archivo, si el error persiste contacte con el administrador. y disponga este error:{}".format(e))
-                return render(
-                request,
-                'index.html',
-                {'tipo':tipo,
-                'consulta':parametros,
-                'mostrar':'no',
-                'marcas':marcas,                      
-                "generos":genero,
-                "grupo_destinos":grupo_Destino,
-                "tipo_prendas":tipo_Prenda})
-            Txt('prueba','Se lee el archivo de consulta', inicio,datetime.now())
-            inicio= datetime.now()  
-            
-            vali=Validacion(archivo,tipo)
-            if vali:
-                messages.error(request,vali)       
-                return render(
-                request,
-                'index.html',
-                {'tipo':tipo,
-                'consulta':parametros,
-                'mostrar':'no',
-                'marcas':marcas,                      
-                "generos":genero,
-                "grupo_destinos":grupo_Destino,
-                "tipo_prendas":tipo_Prenda
-               })   
-            Txt('prueba','Valida la estructura del archivo', inicio,datetime.now())
-            inicio= datetime.now()        
-            #Relizamos la consulta nativa en la base de datos      
-           
-            string_filtro=converts_helper.convert_array_string(archivo,tipo,',',False)
-          
-            Txt('prueba','Prepara los campos por el que se hace la consulta', inicio,datetime.now())
-            inicio= datetime.now() 
-            Txt('prueba','Valida las estruturas de consulta y lee el archivo que se carga.', inicio,datetime.now())    
-            inicio= datetime.now()    
-            #controlo por donde hace la consulta si por ean o material   
-            if tipo =="MATERIAL":
-                if Consulta_Where_Cantidad(request.POST['DWMarca'],request.POST['DWGenero'],request.POST['DWGrupo_destino'],request.POST['DWTipo_prenda'])!=0:
-                    consulta='select distinct {} from material_materiales where material in ({}) and {};'.format(string_campos,string_filtro,Consulta_Where(request.POST['DWMarca'],request.POST['DWGenero'],request.POST['DWGrupo_destino'],request.POST['DWTipo_prenda']))        
-                else:
-                    consulta='select distinct {} from material_materiales where material in ({});'.format(string_campos,string_filtro) 
-                                    
-            else:
-                if Consulta_Where_Cantidad(request.POST['DWMarca'],request.POST['DWGenero'],request.POST['DWGrupo_destino'],request.POST['DWTipo_prenda'])!=0:
-                    consulta='select distinct {} from material_materiales where ean in ({}) and {}; '.format(string_campos,string_filtro,Consulta_Where(request.POST['DWMarca'],request.POST['DWGenero'],request.POST['DWGrupo_destino'],request.POST['DWTipo_prenda']))                     
-                else:
-                    consulta='select distinct {} from material_materiales where ean in ({});'.format(string_campos,string_filtro,) 
-
-            matconsulta=consultasql(consulta)  
-        elif request.POST['Ean_Consulta']!= "":
-            array_filt=converts_helper.convert_string_array(ean_consulta)
-            string_filtro_ean=converts_helper.convert_array_str(array_filt,',',False)
-            consulta='select distinct {} from material_materiales where ean in ({});'.format(string_campos,string_filtro_ean) 
-            matconsulta=consultasql(consulta)
-            # import pdb; pdb.set_trace()
-
-        else:
-            consulta='select distinct {} from material_materiales where {};'.format(string_campos,Consulta_Where(request.POST['DWMarca'],request.POST['DWGenero'],request.POST['DWGrupo_destino'],request.POST['DWTipo_prenda']))
-            matconsulta=consultasql(consulta)    
-
-
- 
-
+                Txt('prueba','Se lee el archivo de consulta', inicio,datetime.now())
+                inicio= datetime.now()  
                 
-        Txt('prueba','Realiza la consulta en la base de datos', inicio,datetime.now())
-        inicio= datetime.now()        
-                      
-        hash_archivo = str(uuid.uuid1())
-        Txt('prueba','Resizen cloud img', inicio,datetime.now())
-        inicio= datetime.now()         
-        csv_hilo=threading.Thread(name="hilo_csv",target= Descarga_pim_doc,args=(hash_archivo,matconsulta,string_campos,1))
-        csv_hilo.start()
+                vali=Validacion(archivo,tipo)
+                if vali:
+                    messages.error(request,vali)       
+                    return render(
+                    request,
+                    'index.html',
+                    {'tipo':tipo,
+                    'consulta':parametros,
+                    'mostrar':'no',
+                    'marcas':marcas,                      
+                    "generos":genero,
+                    "grupo_destinos":grupo_Destino,
+                    "tipo_prendas":tipo_Prenda
+                })   
+                Txt('prueba','Valida la estructura del archivo', inicio,datetime.now())
+                inicio= datetime.now()        
+                #Relizamos la consulta nativa en la base de datos      
+            
+                string_filtro=converts_helper.convert_array_string(archivo,tipo,',',False)
+            
+                Txt('prueba','Prepara los campos por el que se hace la consulta', inicio,datetime.now())
+                inicio= datetime.now() 
+                Txt('prueba','Valida las estruturas de consulta y lee el archivo que se carga.', inicio,datetime.now())    
+                inicio= datetime.now()    
+                #controlo por donde hace la consulta si por ean o material   
+                if tipo =="MATERIAL":
+                    if Consulta_Where_Cantidad(request.POST['DWMarca'],request.POST['DWGenero'],request.POST['DWGrupo_destino'],request.POST['DWTipo_prenda'])!=0:
+                        consulta='select distinct {} from material_materiales where material in ({}) and {};'.format(string_campos,string_filtro,Consulta_Where(request.POST['DWMarca'],request.POST['DWGenero'],request.POST['DWGrupo_destino'],request.POST['DWTipo_prenda']))        
+                    else:
+                        consulta='select distinct {} from material_materiales where material in ({});'.format(string_campos,string_filtro) 
+                                        
+                else:
+                    if Consulta_Where_Cantidad(request.POST['DWMarca'],request.POST['DWGenero'],request.POST['DWGrupo_destino'],request.POST['DWTipo_prenda'])!=0:
+                        consulta='select distinct {} from material_materiales where ean in ({}) and {}; '.format(string_campos,string_filtro,Consulta_Where(request.POST['DWMarca'],request.POST['DWGenero'],request.POST['DWGrupo_destino'],request.POST['DWTipo_prenda']))                     
+                    else:
+                        consulta='select distinct {} from material_materiales where ean in ({});'.format(string_campos,string_filtro,) 
+
+                matconsulta=consultasql(consulta)  
+            elif request.POST['Ean_Consulta']!= "":
+                array_filt=converts_helper.convert_string_array(ean_consulta)
+                string_filtro_ean=converts_helper.convert_array_str(array_filt,',',False)
+                consulta='select distinct {} from material_materiales where ean in ({});'.format(string_campos,string_filtro_ean) 
+                matconsulta=consultasql(consulta)
+                # import pdb; pdb.set_trace()
+
+            else:
+                consulta='select distinct {} from material_materiales where {};'.format(string_campos,Consulta_Where(request.POST['DWMarca'],request.POST['DWGenero'],request.POST['DWGrupo_destino'],request.POST['DWTipo_prenda']))
+                matconsulta=consultasql(consulta)    
+
+
     
-        Txt('prueba','Convierte haciendo uso de cloud img.', inicio,datetime.now())    
-        inicio= datetime.now() 
-        Txt('prueba','Prepara el archivo csv(hilo)', inicio,datetime.now())   
-        inicio= datetime.now() 
-        csv_hilo.join()
-        Txt('prueba','Queda listo el csv', inicio,datetime.now())
-        Txt('prueba','FIN', datetime.now(),datetime.now())
-        parametros=['MATERIAL','EAN','URL FRONT'] 
-        return render(
-            request,
-            'visualizacion.html',
-            {"headers":parametros,
-            "lista":matconsulta,
-            "mostrar":'si',
-            "token":hash_archivo
-            })    
-        pass
+
+                    
+            Txt('prueba','Realiza la consulta en la base de datos', inicio,datetime.now())
+            inicio= datetime.now()        
+                        
+            hash_archivo = str(uuid.uuid1())
+            Txt('prueba','Resizen cloud img', inicio,datetime.now())
+            inicio= datetime.now()         
+            csv_hilo=threading.Thread(name="hilo_csv",target= Descarga_pim_doc,args=(hash_archivo,matconsulta,string_campos,1))
+            csv_hilo.start()
+        
+            Txt('prueba','Convierte haciendo uso de cloud img.', inicio,datetime.now())    
+            inicio= datetime.now() 
+            Txt('prueba','Prepara el archivo csv(hilo)', inicio,datetime.now())   
+            inicio= datetime.now() 
+            csv_hilo.join()
+            Txt('prueba','Queda listo el csv', inicio,datetime.now())
+            Txt('prueba','FIN', datetime.now(),datetime.now())
+            parametros=['MATERIAL','EAN','URL FRONT'] 
+            return render(
+                request,
+                'visualizacion.html',
+                {"headers":parametros,
+                "lista":matconsulta,
+                "mostrar":'si',
+                "token":hash_archivo
+                })    
+            pass
     except Exception as e:
         if 'NoneType' in str(e):
             messages.error(request,f'Por favor valide que el encabezado sea {tipo}')
@@ -608,71 +667,72 @@ def Consulta_Where(marca,genero,grupo_destino,tipo_prenda):
     
 
 def Catalogoh(request):
-    try: 
-        id = str(uuid.uuid1())
-        mi_archivo=request.FILES["archivo"]     
-        files = mi_archivo.read().decode('utf-8-sig')   
-        reader = csv.DictReader(io.StringIO(files),fieldnames=None,delimiter=';')
-        archivo = [line for line in reader]                
-        #insertamos temporamente datos en una tabla para despues traerlos ordenados de una manera mas sencilla
-        carga_temp=[line for line in archivo]            
-        
-        for dato in carga_temp:        
-            Catalogo_temp.objects.create(
-                material=dato['Material'],
-                unidad_empaque=dato['Unidad de empaque'],
-                coleccion=dato['Colección'],
-                precio=dato['Precio'],
-                moneda='',
-                pais=dato['Orden'],
-                hash_uuid=id
-                )
-        
-        header_consulta_material=[]
-        for valor in archivo:
-            header_consulta_material.append(valor['Material'])
-            pass               
+    try:
+        if request.user.is_authenticated:
+            id = str(uuid.uuid1())
+            mi_archivo=request.FILES["archivo"]     
+            files = mi_archivo.read().decode('utf-8-sig')   
+            reader = csv.DictReader(io.StringIO(files),fieldnames=None,delimiter=';')
+            archivo = [line for line in reader]                
+            #insertamos temporamente datos en una tabla para despues traerlos ordenados de una manera mas sencilla
+            carga_temp=[line for line in archivo]            
+            
+            for dato in carga_temp:        
+                Catalogo_temp.objects.create(
+                    material=dato['Material'],
+                    unidad_empaque=dato['Unidad de empaque'],
+                    coleccion=dato['Colección'],
+                    precio=dato['Precio'],
+                    moneda='',
+                    pais=dato['Orden'],
+                    hash_uuid=id
+                    )
+            
+            header_consulta_material=[]
+            for valor in archivo:
+                header_consulta_material.append(valor['Material'])
+                pass               
 
-        """ 10 px de diferencia en la tercera marca """
-        datosGEF=Consulta_marca_catalogo('GEF',id)
-        datosBF=Consulta_marca_catalogo('BABY FRESH',id)
-        datosPB=Consulta_marca_catalogo('PUNTO BLANCO',id)
-        
-        can_marca=np.asarray(consultasql("SELECT COUNT(MARCA) AS CANTIDAD,MARCA FROM RAM.CATALOGO WHERE HASH_UUID='{}'  GROUP BY MARCA order by MARCA".format(id)))
-        con=0
-        bfh=0# hojas Baby fresh
-        pbh=0#hojas Punto blanco
-        gefh=0#hojas gef
-        cantidad_marcas=consultasql("SELECT COUNT(*) FROM ( SELECT COUNT(MARCA) AS CANTIDAD,MARCA FROM RAM.CATALOGO WHERE HASH_UUID='{}' GROUP BY MARCA order by MARCA) CAM".format(id))
-        can=[li for li in cantidad_marcas]
-        
-        for marca in can_marca:             
-            if marca[1]=='BABY FRESH':
-                bfh=(converts_helper.numero_paginas_marca(int(marca[0])))                
-                pass
-            elif marca[1]=='PUNTO BLANCO':
-                pbh=(converts_helper.numero_paginas_marca(int(marca[0])))
+            """ 10 px de diferencia en la tercera marca """
+            datosGEF=Consulta_marca_catalogo('GEF',id)
+            datosBF=Consulta_marca_catalogo('BABY FRESH',id)
+            datosPB=Consulta_marca_catalogo('PUNTO BLANCO',id)
+            
+            can_marca=np.asarray(consultasql("SELECT COUNT(MARCA) AS CANTIDAD,MARCA FROM RAM.CATALOGO WHERE HASH_UUID='{}'  GROUP BY MARCA order by MARCA".format(id)))
+            con=0
+            bfh=0# hojas Baby fresh
+            pbh=0#hojas Punto blanco
+            gefh=0#hojas gef
+            cantidad_marcas=consultasql("SELECT COUNT(*) FROM ( SELECT COUNT(MARCA) AS CANTIDAD,MARCA FROM RAM.CATALOGO WHERE HASH_UUID='{}' GROUP BY MARCA order by MARCA) CAM".format(id))
+            can=[li for li in cantidad_marcas]
+            
+            for marca in can_marca:             
+                if marca[1]=='BABY FRESH':
+                    bfh=(converts_helper.numero_paginas_marca(int(marca[0])))                
+                    pass
+                elif marca[1]=='PUNTO BLANCO':
+                    pbh=(converts_helper.numero_paginas_marca(int(marca[0])))
 
-            else:                
-                gefh=(converts_helper.numero_paginas_marca(int(marca[0])))            
-                if can[0][0]==3:
-                    gefh=gefh-10
-                
-                pass
-                              
-        Catalogo_temp.objects.filter(hash_uuid=id).delete()
-        return render(
-            request,'catalogo.html',
-            {'datosGEF' : datosGEF,
-            'datosPB' : datosPB,
-            'datosBF' : datosBF,
-            'Cgef':'height:{}px;'.format(gefh),
-            'CPb':'height:{}px;'.format(pbh),
-            'Cbf':'height:{}px;'.format(bfh),
-            'moneda':dato['Moneda'],
-            'logo_gef':Claves.get_secret('LOGO_GEF'),
-            'logo_pb':Claves.get_secret('LOGO_PB'),
-            'logo_bf':Claves.get_secret('LOGO_BF')})
+                else:                
+                    gefh=(converts_helper.numero_paginas_marca(int(marca[0])))            
+                    if can[0][0]==3:
+                        gefh=gefh-10
+                    
+                    pass
+                                
+            Catalogo_temp.objects.filter(hash_uuid=id).delete()
+            return render(
+                request,'catalogo.html',
+                {'datosGEF' : datosGEF,
+                'datosPB' : datosPB,
+                'datosBF' : datosBF,
+                'Cgef':'height:{}px;'.format(gefh),
+                'CPb':'height:{}px;'.format(pbh),
+                'Cbf':'height:{}px;'.format(bfh),
+                'moneda':dato['Moneda'],
+                'logo_gef':Claves.get_secret('LOGO_GEF'),
+                'logo_pb':Claves.get_secret('LOGO_PB'),
+                'logo_bf':Claves.get_secret('LOGO_BF')})
     except Exception as e:            
         if type(e) is KeyError:
             messages.error(request,'Recuerde que debe de conservar la estructura del archivo plano y este debe de estar separado por ;, error cerca a {}.'.format(e))   
@@ -691,95 +751,96 @@ def Catalogoh(request):
 def Catalogog(request):
 
     try:
-        if request.method == "POST":
-            mi_archivo = request.FILES["archivo_excel"]
-            # import pdb;pdb.set_trace()
-            if mi_archivo.name.endswith('xlsx'):
-                id = str(uuid.uuid1())
-                ruta = settings.MEDIA_ROOT + '/Upload/' + mi_archivo.name
-                with open (ruta,'wb+') as destination: 
-                        for chunk in mi_archivo.chunks():
-                            destination.write(chunk)
-                os.rename(settings.MEDIA_ROOT + '/Upload/' + mi_archivo.name, settings.MEDIA_ROOT + '/Upload/' + "{}.xlsx".format(id)) 
-                open_files=pd.ExcelFile(settings.MEDIA_ROOT + '/Upload/' + '{}.xlsx'.format(id))
-                titulo_files = request.POST["nombre_hoja"]
-                titulo = titulo_files.upper()
-                titulos = open_files.sheet_names
-                lista_titulos = [line for line in titulos]
-                # print(lista_titulos)
-                if titulo in lista_titulos:
-                    df = pd.read_excel(open_files,sheet_name = titulo)
-                    df_1= df[['Material','Unidad de empaque', 'Colección','Precio','Moneda','Orden']]
-                    df_2 = df_1.dropna(subset=["Material"])
-                    df_2 = df_2.astype({"Material": int, "Unidad de empaque": int,"Precio":int,"Orden": int})
-                    # print(df_2)
-                    temp = [ row for index, row in df_2.iterrows()]
-                    archivo_temp = [line for line in  temp]
-                    #insertamos temporalmente datos en una tabla para despues traerlos ordenados de una manera mas sencilla
-                    carga_temp=[line for line in archivo_temp] 
+        if request.user.is_authenticated:
+            if request.method == "POST":
+                mi_archivo = request.FILES["archivo_excel"]
+                # import pdb;pdb.set_trace()
+                if mi_archivo.name.endswith('xlsx'):
+                    id = str(uuid.uuid1())
+                    ruta = settings.MEDIA_ROOT + '/Upload/' + mi_archivo.name
+                    with open (ruta,'wb+') as destination: 
+                            for chunk in mi_archivo.chunks():
+                                destination.write(chunk)
+                    os.rename(settings.MEDIA_ROOT + '/Upload/' + mi_archivo.name, settings.MEDIA_ROOT + '/Upload/' + "{}.xlsx".format(id)) 
+                    open_files=pd.ExcelFile(settings.MEDIA_ROOT + '/Upload/' + '{}.xlsx'.format(id))
+                    titulo_files = request.POST["nombre_hoja"]
+                    titulo = titulo_files.upper()
+                    titulos = open_files.sheet_names
+                    lista_titulos = [line for line in titulos]
+                    # print(lista_titulos)
+                    if titulo in lista_titulos:
+                        df = pd.read_excel(open_files,sheet_name = titulo)
+                        df_1= df[['Material','Unidad de empaque', 'Colección','Precio','Moneda','Orden']]
+                        df_2 = df_1.dropna(subset=["Material"])
+                        df_2 = df_2.astype({"Material": int, "Unidad de empaque": int,"Precio":int,"Orden": int})
+                        # print(df_2)
+                        temp = [ row for index, row in df_2.iterrows()]
+                        archivo_temp = [line for line in  temp]
+                        #insertamos temporalmente datos en una tabla para despues traerlos ordenados de una manera mas sencilla
+                        carga_temp=[line for line in archivo_temp]                         
                     
-                    for dato in carga_temp:        
-                        Catalogo_temp.objects.create(
-                            material=dato['Material'],
-                            unidad_empaque=dato['Unidad de empaque'],
-                            coleccion=dato['Colección'],
-                            precio=dato['Precio'],
-                            moneda='',
-                            pais=dato['Orden'],
-                            hash_uuid=id
-                            )
-                    # moneda_temp = dato['Moneda']
-                    header_consulta_material=[]
-                    for valor in temp:
-                        header_consulta_material.append(valor['Material'])
-                        pass               
+                        for dato in carga_temp:        
+                            Catalogo_temp.objects.create(
+                                material=dato['Material'],
+                                unidad_empaque=dato['Unidad de empaque'],
+                                coleccion=dato['Colección'],
+                                precio=dato['Precio'],
+                                moneda='',
+                                pais=dato['Orden'],
+                                hash_uuid=id
+                                )
+                        # moneda_temp = dato['Moneda']
+                        header_consulta_material=[]
+                        for valor in temp:
+                            header_consulta_material.append(valor['Material'])
+                            pass               
 
-                    """ 10 px de diferencia en la tercera marca """
-                    datosGEF=Consulta_marca_catalogo('GEF',id)
-                    datosBF=Consulta_marca_catalogo('BABY FRESH',id)
-                    datosPB=Consulta_marca_catalogo('PUNTO BLANCO',id)
-                    
-                    can_marca=np.asarray(consultasql("SELECT COUNT(MARCA) AS CANTIDAD,MARCA FROM RAM.CATALOGO WHERE HASH_UUID='{}'  GROUP BY MARCA order by MARCA".format(id)))
-                    con=0
-                    bfh=0# hojas Baby fresh
-                    pbh=0#hojas Punto blanco
-                    gefh=0#hojas gef
-                    cantidad_marcas=consultasql("SELECT COUNT(*) FROM ( SELECT COUNT(MARCA) AS CANTIDAD,MARCA FROM RAM.CATALOGO WHERE HASH_UUID='{}' GROUP BY MARCA order by MARCA) CAM".format(id))
-                    can=[li for li in cantidad_marcas]
-                    
-                    for marca in can_marca:             
-                        if marca[1]=='BABY FRESH':
-                            bfh=(converts_helper.numero_paginas_marca(int(marca[0])))                
-                            pass
-                        elif marca[1]=='PUNTO BLANCO':
-                            pbh=(converts_helper.numero_paginas_marca(int(marca[0])))
+                        """ 10 px de diferencia en la tercera marca """
+                        datosGEF=Consulta_marca_catalogo('GEF',id)
+                        datosBF=Consulta_marca_catalogo('BABY FRESH',id)
+                        datosPB=Consulta_marca_catalogo('PUNTO BLANCO',id)
+                        
+                        can_marca=np.asarray(consultasql("SELECT COUNT(MARCA) AS CANTIDAD,MARCA FROM RAM.CATALOGO WHERE HASH_UUID='{}'  GROUP BY MARCA order by MARCA".format(id)))
+                        con=0
+                        bfh=0# hojas Baby fresh
+                        pbh=0#hojas Punto blanco
+                        gefh=0#hojas gef
+                        cantidad_marcas=consultasql("SELECT COUNT(*) FROM ( SELECT COUNT(MARCA) AS CANTIDAD,MARCA FROM RAM.CATALOGO WHERE HASH_UUID='{}' GROUP BY MARCA order by MARCA) CAM".format(id))
+                        can=[li for li in cantidad_marcas]
+                        
+                        for marca in can_marca:             
+                            if marca[1]=='BABY FRESH':
+                                bfh=(converts_helper.numero_paginas_marca(int(marca[0])))                
+                                pass
+                            elif marca[1]=='PUNTO BLANCO':
+                                pbh=(converts_helper.numero_paginas_marca(int(marca[0])))
 
-                        else:                
-                            gefh=(converts_helper.numero_paginas_marca(int(marca[0])))            
-                            if can[0][0]==3:
-                                gefh=gefh-10
-                            
-                            pass
+                            else:                
+                                gefh=(converts_helper.numero_paginas_marca(int(marca[0])))            
+                                if can[0][0]==3:
+                                    gefh=gefh-10
+                                
+                                pass
 
-                    Catalogo_temp.objects.filter(hash_uuid=id).delete()
-                    if path.exists(settings.MEDIA_ROOT + '/Upload/' + '{}.xlsx'.format(id)):
-                        open_files.close()
-                        remove(settings.MEDIA_ROOT + '/Upload/' + '{}.xlsx'.format(id))
-                    else:
-                        pass  
-                    return render(
-                        request,'catalogo.html',
-                        {'datosGEF' : datosGEF,
-                        'datosPB' : datosPB,
-                        'datosBF' : datosBF,
-                        'Cgef':'height:{}px;'.format(gefh),
-                        'CPb':'height:{}px;'.format(pbh),
-                        'Cbf':'height:{}px;'.format(bfh),
-                        'moneda':dato['Moneda'],
-                        'logo_gef':Claves.get_secret('LOGO_GEF'),
-                        'logo_pb':Claves.get_secret('LOGO_PB'),
-                        'logo_bf':Claves.get_secret('LOGO_BF')})    
-                pass
+                        Catalogo_temp.objects.filter(hash_uuid=id).delete()
+                        if path.exists(settings.MEDIA_ROOT + '/Upload/' + '{}.xlsx'.format(id)):
+                            open_files.close()
+                            remove(settings.MEDIA_ROOT + '/Upload/' + '{}.xlsx'.format(id))
+                        else:
+                            pass  
+                        return render(
+                            request,'catalogo.html',
+                            {'datosGEF' : datosGEF,
+                            'datosPB' : datosPB,
+                            'datosBF' : datosBF,
+                            'Cgef':'height:{}px;'.format(gefh),
+                            'CPb':'height:{}px;'.format(pbh),
+                            'Cbf':'height:{}px;'.format(bfh),
+                            'moneda':dato['Moneda'],
+                            'logo_gef':Claves.get_secret('LOGO_GEF'),
+                            'logo_pb':Claves.get_secret('LOGO_PB'),
+                            'logo_bf':Claves.get_secret('LOGO_BF')})    
+                    pass
             messages.error(request,'Recuerde que el archivo debe ser un excel(.xlsx).')
             return render(request,'index.html',{'mostrar':'no'}) 
         messages.error(request,'Ocurrio un error inesperado, por favor contacte con el administrador y proporcione este error:Es un metodo diferente a post')
@@ -822,17 +883,24 @@ def Descarga_doc(request):
 def Descarga_img(request): 
     
     token = request.POST["token"]
+    
+    # print(request.user.id)
     # tamanio = [t for t in request.POST["tamano"]] 
     # descarga=Descarga_imagenes()
     pru=pd.read_csv(settings.MEDIA_ROOT+"/Csv_descarga/documento-{}.csv".format(token),sep='\n',delimiter=';')      
     necesario=pru[["ean", "imagen_grande"]]
     # necesario=necesario[int(request.POST["rango"])*100:(int(request.POST["rango"])+1)*100]
     lista=necesario.values.tolist()
-    largo,ancho=request.POST["tamano"].split(',')   
-    carga = descarga_asin.delay(lista,token,largo,ancho)
-    mensaje = "Su petición a sido procesada."
-    print(mensaje)
-    Limpiar.limpiar_media_imagenes()
+    largo,ancho=request.POST["tamano"].split(',')
+    # primer registro de la peticion
+    query = MysqlRegistro_Peticiones(id=token,fecha_peticion=datetime.now(),estado="Iniciado",usuario=request.user,estado_borrado = 0 )  
+    query.save() 
+    descarga_asin.delay(lista,token,largo,ancho)
+    msj = str(request.user) + " el proceso de descarga se ha iniciado, puede hacerle seguimiento en el siguiente enlace:" 
+    messages.success(request,msj,extra_tags="descarga")
+    # print(msj)
+    
+    # Limpiar.limpiar_media_imagenes()
     marcas=Marca.objects.all()        
     genero=Genero.objects.all()
     grupo_Destino=Grupo_Destino.objects.all()
@@ -909,39 +977,75 @@ def consultasql(sql):
     except Exception as e:        
        return 'Ocurrio un error, por favor contacte con el administrador y brinde este mensaje: {}.'.format(e)
 
+
 class homeview(APIView):
     def home(request):
                 return render(
                 request,
                 'login.html')
    
+@login_required(login_url='/')
+def Consultar_Estado_Tarea(request):
+    try:
+        # dominio = Site.objects.get_current().domain
+
+        if request.user.is_authenticated:
+
+            query = MysqlRegistro_Peticiones.objects.filter (usuario = request.user).order_by('-fecha_peticion').values()
+            # pdb.set_trace()
+            parametros = ['ID','INICIADO','TERMINADO','ESTADO','DESCARGAR IMAGENES','DESCARGAR DOCUMENTO','BORRAR PETICIÓN']   
+            return render(
+            request,
+            'portal.html',
+            {"titulos":parametros,
+            "informacion":query,
+            # "url":dominio
+            }) 
+        else:
+            messages.error(request,'No tiene acceso, por favor iniciar sesión.')
+            return render(request,'login.html')     
+    except Exception as e:        
+       return 'Ocurrio un error, por favor contacte con el administrador y brinde este mensaje: {}.'.format(e)
 
 
-def user_logout(request):
+def Descargar_Documento_Peticion(request,id):
     if request.user.is_authenticated:
-        logout(request)
-        return redirect('/')
- 
+        query = MysqlRegistro_Peticiones.objects.get(pk=id)
+        if query.estado_borrado == 0:
+            archivo_csv = open(settings.MEDIA_ROOT + "/Csv_descarga/documento-{}.csv".format(id),'rb')
+            return FileResponse(archivo_csv)
+    else:
+            messages.error(request,'No tiene acceso, por favor iniciar sesión.')
+            return render(request,'login.html')         
 
 
+def Descargar_Imagenes_Peticion(request,id):
+    if request.user.is_authenticated:
+        query = MysqlRegistro_Peticiones.objects.get(pk=id)
+        if query.estado_borrado == 0:
+            dire=settings.MEDIA_ROOT+"\Imagenes_descarga" 
+            if os.path.isfile(dire + f'\\{id}\\Imagenes-{id}.zip'):
+                zip_file = open(dire +f'\\{id}\\Imagenes-{id}.zip', 'rb')
+                return FileResponse(zip_file)
+    else:
+        messages.error(request,'No tiene acceso, por favor iniciar sesión.')
+        return render(request,'login.html') 
 
-    
-    footers=["https://www.puntoblanco.com.co/wcsstore/DefaultStorefrontAssetStore8/images/PBC/HOMEPAGE/2016/06_JUNIO/SEMANA_24/logo_PBC.jpg"
-            ,"https://www.gef.com.co/wcsstore/CrystalCo/images/GEF/CABECERA/logo_gef.png"
-            ,"https://tienda.babyfresh.com.co/wcsstore/DefaultStorefrontAssetStore8/images/BBF/LOGO/Logo-BF-tienda-virtuales-FEP-8.png"    ]
-    doc = canvas.Canvas("Hola Mundo.pdf")
-    doc.setPageSize((1190,1690))   
-    encabezado(doc,footers[0])
-    print(A4)
-    
 def Borrar_Peticion(request,id):
     if request.user.is_authenticated:
         query = MysqlRegistro_Peticiones.objects.get(pk=id)
         query.estado_borrado = 1
         query.save()
         return redirect('/portal')
+    else:
+        messages.error(request,'No tiene acceso, por favor iniciar sesión.')
+        return render(request,'login.html') 
         
 
+def user_logout(request):
+    if request.user.is_authenticated:
+        logout(request)
+        return redirect('/')
  
 
 

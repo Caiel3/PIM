@@ -2,6 +2,7 @@ import requests
 import csv
 from datetime import datetime
 import urllib.request as req
+from requests.api import request
 import wget
 import os
 from django.http import HttpResponse,FileResponse
@@ -11,9 +12,16 @@ import zipfile
 from .limpiar import Limpiar
 from datetime import datetime
 from ..helpers.TxtControlador import Txt
-from ..models import MysqlImagenes
+from ..models import MysqlImagenes,MysqlRegistro_Peticiones,User
 from ..helpers.claves import  Claves
 from ..helpers.CloudImage import  CloudImage
+from datetime import datetime
+from django.core.mail import EmailMessage
+from django.core.mail import send_mail
+from django.core.mail import get_connection
+from django.template.loader import render_to_string
+from django.shortcuts import render
+# from celery.contrib import rdb
 class Descarga_imagenes():
     
 
@@ -24,7 +32,7 @@ class Descarga_imagenes():
         return 
 
     def Descargaindividual(self,link,nombre,token):  
-        
+        # rdb.set_trace()
         nombre=str(nombre)
         url = link # El link de la imagen
         
@@ -40,9 +48,10 @@ class Descarga_imagenes():
             pass
         pass
            
-    def descargar(self,imagenes_descarga,token,largo,ancho):          
+    def descargar(self,imagenes_descarga,token,largo,ancho):    
+        # rdb.set_trace()      
         inicio= datetime.now() 
-        
+    
         dire=settings.MEDIA_ROOT+"\Imagenes_descarga"        
         if os.path.isdir(dire+'\{}'.format(token))== False:
             os.mkdir(dire+'\{}'.format(token))
@@ -50,7 +59,7 @@ class Descarga_imagenes():
         dire=settings.MEDIA_ROOT+"\Imagenes_descarga\{}".format(token)        
         archivo='Imagenes-{}'.format(token)          
         if os.path.isfile(dire+'\\{}.zip'.format(archivo)):
-            zip_file = open(dire+'\\{}.zip'.format(archivo), 'rb')         
+            zip_file = open(dire+'\\{}.zip'.format(archivo), 'rb')
             # return FileResponse(zip_file)
             pass
         for dir in imagenes_descarga:            
@@ -59,9 +68,9 @@ class Descarga_imagenes():
                 count=0            
                 for img in consulta_temp:                 
                     self.Descargaindividual(
-                        CloudImage.cloudimg_imagen('',img['imagen'],{"height":largo,"width":ancho},Claves.get_secret('CLOUDIMG_TOKEN'),'descarga')
-                        ,str(img['ean'])+'-'+str(count)
-                        ,token) if img['imagen'] != None else ''
+                        link= CloudImage.cloudimg_imagen('',img['imagen'],{"height":largo,"width":ancho},Claves.get_secret('CLOUDIMG_TOKEN'),'documento')
+                        ,nombre= str(img['ean'])+'-'+str(count)
+                        ,token= token) if img['imagen'] != None else ''
                     count=count+1              
             pass 
         Txt('prueba','Realiza la descarga de imagenes.', inicio,datetime.now())
@@ -73,7 +82,27 @@ class Descarga_imagenes():
                     fantasy_zip.write(os.path.join(folder, file), os.path.relpath(os.path.join(folder,file), dire+file), compress_type = zipfile.ZIP_DEFLATED) 
                     os.remove(folder+'\\'+file)                     
         fantasy_zip.close()
-        zip_file = open(dire+'\\{}.zip'.format(archivo), 'rb') 
+        query = MysqlRegistro_Peticiones.objects.get( pk=token)
+        query.fecha_terminado = datetime.now()
+        query.estado = 'Terminado'
+        query.save()
+        query_user= User.objects.get(username=query.usuario)
+        # query_2 = User.objects.get( pk=query.usuario)
+        # Envio de Correo 
+        asunto = "Notificación Petición Terminada"
+        mensajeCorreo= render_to_string(
+            'asunto.html',{
+                'fecha':query.fecha_peticion,
+                'url_portal':settings.URL_PORTAL
+            },
+        )
+        # asunto,cuerpo,quien lo envia, quien recibe 
+        msg = EmailMessage(asunto,mensajeCorreo,settings.EMAIL_HOST_USER,[query_user.email]) 
+        # send_mail(asunto,mensajeCorreo,settings.EMAIL_HOST_USER,['pruebaspim2021@gmail.com'],fail_silently=False)
+        msg.content_subtype="html"
+        msg.send()
+        # zip_file = open(dire+'\\{}.zip'.format(archivo), 'rb') 
+        #update termino
         Txt('prueba','Crea el zip para descargar.', inicio,datetime.now())           
         # return FileResponse(zip_file)
                

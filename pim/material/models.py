@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -37,6 +38,7 @@ class Materiales(models.Model):
     origen = models.TextField(db_column='ORIGEN', blank=True, null=True)
     url_catalogo = models.TextField(db_column='URL_CATALOGO', blank=True, null=True)
     url_imagen = models.TextField(db_column='URL_IMAGEN', blank=True, null=True)
+    instrucciones_lavado = models.TextField(db_column='INSTRUCCIONES_LAVADO', blank=True, null=True)
 
     def __str__(self):
         return "Material: {}, Descripcion: {}, Ean: {}".format(self.material,self.descripcion_material,self.ean)
@@ -136,5 +138,15 @@ class MysqlImagenes(models.Model):
     class Meta:       
         db_table = 'MYSQL_IMAGENES'
 
-
+class MysqlRegistro_Peticiones(models.Model):
+    id = models.CharField(db_column='ID', max_length=200, primary_key=True)
+    fecha_peticion = models.DateTimeField(db_column='FECHA_PETICION', blank=True, null=True) 
+    fecha_inicio = models.DateTimeField(db_column='FECHA_INICIO', blank=True, null=True)
+    fecha_terminado = models.DateTimeField(db_column='FECHA_TERMINADO', blank=True, null=True)
+    estado = models.CharField(db_column='ESTADO',max_length=20,blank=True, null=True) 
+    usuario = models.ForeignKey(User,on_delete=models.CASCADE,db_column='USUARIO')
+    estado_borrado = models.BooleanField(db_column='ESTADO_BORRADO',blank=True)
+    
+    class Meta:
+        db_table = 'MYSQL_REGISTRO_PETICION'
 
