@@ -58,21 +58,6 @@ cloud=CloudImage()
 class MaterialViewSet(viewsets.ModelViewSet):
     serializer_class=MaterialSerializar
     queryset = Materiales.objects.raw('select * from material_materiales limit 10')
-# def index(request):     
-#     Limpiar.limpiar_media_imagenes()
-#     marcas=Marca.objects.all()        
-#     genero=Genero.objects.all()
-#     grupo_Destino=Grupo_Destino.objects.all()
-#     tipo_Prenda=Tipo_Prenda.objects.all()
-
-   
-#     return render(
-#         request,
-#         'index.html',
-#             {'marcas':marcas,                      
-#             "generos":genero,
-#             "grupo_destinos":grupo_Destino,
-#             "tipo_prendas":tipo_Prenda})
 
 @login_required(login_url='/')
 def subida(request):
@@ -733,7 +718,6 @@ def Catalogog(request):
                     #insertamos temporalmente datos en una tabla para despues traerlos ordenados de una manera mas sencilla
                     carga_temp=[line for line in archivo_temp] 
                     
-                
                     for dato in carga_temp:        
                         Catalogo_temp.objects.create(
                             material=dato['Material'],
@@ -815,40 +799,6 @@ def Catalogog(request):
             
         return render(request,'index.html',{'mostrar':'no'}) 
 
-class materialeslist(APIView):
-    permission_classes = [IsAuthenticated]
-    def cargamaterial(request):
-        parametros_temp=[
-            'MATERIAL',
-            'DESCRIPCION_MATERIAL',
-            'DESCRIPCION_MATERIAL_ENRIQUECIDO',
-            'DESCRIPCION_LARGA',
-            'EAN',
-            'DESCRIPCION_TALLA',
-            'DESCRIPCION_COLOR',
-            'IMAGEN_GRANDE',
-            'TIPO_PRENDA',
-            'SUBGRUPO',
-            'GENERO',
-            'MARCA',
-            'DEPARTAMENTO',
-            'CARACTERISTICA',
-            'TAGS',
-            'GRUPO_DESTINO',
-            'TIPO_MATERIAL',
-            'COMPOSICION_ES'
-        ]
-        parametros = []
-        # ancho = request.POST["ancho"]
-        # largo = request.POST["largo"]
-        for item in parametros_temp:
-            aux=request.POST[item.upper()]
-            parametros.append(aux)
-        query_set='select distinct {} from material_materiales where EAN = 7701479759040 ;'.format(parametros)
-        matconsulta=consultasql(query_set)
-
-        print(matconsulta)  
-
 
 def handler404_page(request):
     return render(request, '404.html', status=404)
@@ -874,8 +824,7 @@ def Descarga_img(request):
     token = request.POST["token"]
     # tamanio = [t for t in request.POST["tamano"]] 
     # descarga=Descarga_imagenes()
-    pru=pd.read_csv(settings.MEDIA_ROOT+"/Csv_descarga/documento-{}.csv".format(token),sep='\n',delimiter=';')
-        
+    pru=pd.read_csv(settings.MEDIA_ROOT+"/Csv_descarga/documento-{}.csv".format(token),sep='\n',delimiter=';')      
     necesario=pru[["ean", "imagen_grande"]]
     # necesario=necesario[int(request.POST["rango"])*100:(int(request.POST["rango"])+1)*100]
     lista=necesario.values.tolist()
@@ -965,50 +914,7 @@ class homeview(APIView):
                 return render(
                 request,
                 'login.html')
-
-@login_required(login_url='/ ')
-class loginview(APIView):
-    # @unauthenticated_user
-    def login(request):
-        # import pdb; pdb.set_trace()
-        username_temp = request.POST.get('username')
-        password = request.POST.get('password')
-        if username_temp is None or password is None:
-            messages.error(request,'No tiene acceso, por favor iniciar sesión.')
-            return render(request,'login.html') 
-        else:
-            import requests as reqts
-            User = get_user_model()
-            usuario = User.objects.filter(username = username_temp).first()
-            if usuario is None :
-                messages.error(request,'El usuario que ingreso no esta registrado.')
-                return render(request,'login.html')   
-            elif not usuario.check_password(password):
-                messages.error(request,'Ingreso una contraseña incorrecta.')
-                return render(request,'login.html')   
-            else:
-                url = "http://127.0.0.1:8000/api/token/"
-                body = {
-                    "username":username_temp,
-                    "password":password
-                }
-                req = reqts.post(url,data=body)
-                if req.ok:
-                    # import pdb; pdb.set_trace()
-                    # print(req.text)
-                    Limpiar.limpiar_media_imagenes()
-                    marcas=Marca.objects.all()        
-                    genero=Genero.objects.all()
-                    grupo_Destino=Grupo_Destino.objects.all()
-                    tipo_Prenda=Tipo_Prenda.objects.all()
-                    login (request, usuario)
-                    return render(request,
-                            'index.html',
-                            {'marcas':marcas,                      
-                            "generos":genero,
-                            "grupo_destinos":grupo_Destino,
-                            "tipo_prendas":tipo_Prenda,
-                            "username":username_temp})      
+   
 
 
 def user_logout(request):
@@ -1019,7 +925,6 @@ def user_logout(request):
 
 
 
-def reportenuevo(request):
     
     footers=["https://www.puntoblanco.com.co/wcsstore/DefaultStorefrontAssetStore8/images/PBC/HOMEPAGE/2016/06_JUNIO/SEMANA_24/logo_PBC.jpg"
             ,"https://www.gef.com.co/wcsstore/CrystalCo/images/GEF/CABECERA/logo_gef.png"
@@ -1029,131 +934,14 @@ def reportenuevo(request):
     encabezado(doc,footers[0])
     print(A4)
     
-    """     p = ParagraphStyle('test')
-    p.textColor = 'black'
-    
-    p.borderWidth = 0.1
-    p.alignment = TA_CENTER
-    p.fontSize = 14
-    p2 = ParagraphStyle('test')
-    p2.textColor = 'black'
-    p2.borderColor = 'black'
-    p2.borderWidth = 0.1
-    p2.alignment = TA_CENTER
-    p2.fontSize = 18
+def Borrar_Peticion(request,id):
+    if request.user.is_authenticated:
+        query = MysqlRegistro_Peticiones.objects.get(pk=id)
+        query.estado_borrado = 1
+        query.save()
+        return redirect('/portal')
+        
+
+ 
 
 
-    doc.drawImage("https://aatdtkgdoo.cloudimg.io/v7/http://tienda.babyfresh.com.co/wcsstore/CrystalCo_CAT_AS//BBF/ES-CO/Imagenes/Unisex/Accesorios/Osito/566x715/Osito-Peluche-8217-Frente-Baby-Fresh.jpg?sharp=1&width=248&height=326",20,1299)
-
-    #Nombre
-    nom = Paragraph("Peluche Osito Habano Peluche Osito Habano", p)
-    nom.wrapOn(doc,248,0)
-    nom.drawOn(doc,20,1300)1300
-    doc.line(20,1296,248,1296)-4
-    #Categoria
-    cat = Paragraph("Categoria: {}".format('None'), p)
-    cat.wrapOn(doc,248,0)
-    cat.drawOn(doc,20,1280)-20
-    doc.line(20,1276,248,1276)-24
-    #Material
-    mat = Paragraph("Material: {}".format('602537'), p)
-    mat.wrapOn(doc,248,0)
-    mat.drawOn(doc,20,1263)-37
-    doc.line(20,1259,248,1259)-41
-    #Composición
-    mat = Paragraph("composicion: {}".format('100% POLIESTER'), p)
-    mat.wrapOn(doc,248,0)
-    mat.drawOn(doc,20,1218)-82
-    doc.line(20,1215,248,1215)-85
-    #Unidad de empaque
-    un = Paragraph("Unidad de empaque: {}".format('1'), p)
-    un.wrapOn(doc,248,0)
-    un.drawOn(doc,20,1201)-99
-    doc.line(20,1197,248,1197)-103
-    #Color
-    col = Paragraph("Colores: {}".format(''), p)
-    col.wrapOn(doc,248,0)
-    col.drawOn(doc,20,1169)-131
-    doc.line(20,1625,248,1665)-135
-    #Tallas
-    talla = Paragraph("Tallas: {}".format('UNICA'), p)
-    talla.wrapOn(doc,248,0)
-    talla.drawOn(doc,20,1138)-162
-    doc.line(20,1135,248,1135)-165
-    #Precio
-    pre = Paragraph("Precio: {}".format('$ 82.992'), p2)
-    pre.wrapOn(doc,248,0)
-    pre.drawOn(doc,20,1120)-180
-    """
-    item(20,248,0,1300,doc)
-    """ item(300,248,0,1300,doc)
-    item(20,248,0,400,doc)
-    item(300,248,0,400,doc) """
-#Guardamos el documento
-    doc.save()
-
-
-def encabezado(doc,marca):
-    doc.drawImage(marca,1,1630,240,60)
-    doc.line(2,1628,1188,1628)
-
-
-def item(x,y,ix,iy,doc):
-    doc.drawImage("https://aatdtkgdoo.cloudimg.io/v7/http://tienda.babyfresh.com.co/wcsstore/CrystalCo_CAT_AS//BBF/ES-CO/Imagenes/Unisex/Accesorios/Osito/566x715/Osito-Peluche-8217-Frente-Baby-Fresh.jpg?sharp=1&width=248&height=326",x,iy-1)
-    
-    p = ParagraphStyle('test')
-    p.textColor = 'black'
-    
-    p.borderWidth = 0.1
-    p.alignment = TA_CENTER
-    p.borderColor = 'black'
-    p.fontSize = 14
-    p2 = ParagraphStyle('test')
-    p2.textColor = 'black'
-    p2.borderColor = 'black'
-    p2.borderWidth = 0.1
-    p2.alignment = TA_CENTER
-    p2.fontSize = 18
-
-
-    doc.drawImage("https://aatdtkgdoo.cloudimg.io/v7/http://tienda.babyfresh.com.co/wcsstore/CrystalCo_CAT_AS//BBF/ES-CO/Imagenes/Unisex/Accesorios/Osito/566x715/Osito-Peluche-8217-Frente-Baby-Fresh.jpg?sharp=1&width=248&height=326",20,1299)
-
-    #Nombre
-    nom = Paragraph("Peluche Osito Habano Peluche Osito Habano", p)
-    nom.wrapOn(doc,y,0)
-    nom.drawOn(doc,x,iy)
-    doc.line(x,iy-4,y,iy-4)
-    #Categoria
-    cat = Paragraph("Categoria: {}".format('None'), p)
-    cat.wrapOn(doc,y,0)
-    cat.drawOn(doc,x,iy-20)
-    doc.line(x,iy-24,y,iy-24)
-    #Material
-    mat = Paragraph("Material: {}".format('602537'), p)
-    mat.wrapOn(doc,y,0)
-    mat.drawOn(doc,x,iy-37)
-    doc.line(x,iy-41,y,iy-41)
-    #Composición
-    mat = Paragraph("Composicion: {}".format('100% POLIESTER'), p)
-    mat.wrapOn(doc,y,0)
-    mat.drawOn(doc,x,iy-82)
-    doc.line(x,iy-85,y,iy-85)
-    #Unidad de empaque
-    un = Paragraph("Unidad de empaque: {}".format('1'), p)
-    un.wrapOn(doc,y,0)
-    un.drawOn(doc,x,iy-99)
-    doc.line(x,iy-103,y,iy-103)
-    #Color
-    col = Paragraph("Colores: {}".format(''), p)
-    col.wrapOn(doc,y,0)
-    col.drawOn(doc,x,iy-131)
-    doc.line(x,iy-135,y,iy-135)
-    #Tallas
-    talla = Paragraph("Tallas: {}".format('UNICA'), p)
-    talla.wrapOn(doc,y,0)
-    talla.drawOn(doc,x,iy-162)
-    doc.line(x,iy-165,y,iy-165)
-    #Precio
-    pre = Paragraph("Precio: {}".format('$ 82.992'), p2)
-    pre.wrapOn(doc,y,0)
-    pre.drawOn(doc,x,iy-180)

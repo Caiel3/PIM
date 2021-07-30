@@ -72,7 +72,6 @@ class Descarga_imagenes():
                 if file.endswith('.jpg'):
                     fantasy_zip.write(os.path.join(folder, file), os.path.relpath(os.path.join(folder,file), dire+file), compress_type = zipfile.ZIP_DEFLATED) 
                     os.remove(folder+'\\'+file)                     
-        
         fantasy_zip.close()
         zip_file = open(dire+'\\{}.zip'.format(archivo), 'rb') 
         Txt('prueba','Crea el zip para descargar.', inicio,datetime.now())           
