@@ -21,6 +21,7 @@ INSTDIR = Path(__file__).parent
 # The path of python Scripts
 # Usually it is in path_to/venv/Scripts.
 # If it is already in system PATH, then it can be set as ''
+<<<<<<< HEAD
 PYTHONSCRIPTPATH = INSTDIR / 'D:/Users/Administrador/AppData/Local/Programs/Python/Python38/Scripts'
 =======
 PYTHONSCRIPTPATH = INSTDIR / 'D:/Users/Administrador/AppData/Local/Programs/Python/Python38-32/Scripts'
