@@ -264,7 +264,7 @@
                         </div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="checkbox" value="Seleccionar" name="Seleccionar" onclick="marcar(this)">
-                            <label class="form-check-label" for="inlineCheckbox2">Seleccionar Todo</label>
+                            <label class="form-check-label" for="inlineCheckbox2"><b>Seleccionar Todo</b></label>
                         </div>
                         <script>
                             function marcar(source) 
@@ -340,17 +340,17 @@
                         </div>
                         <br>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" name="INSTRUCCIONES_LAVADO" value="INSTRUCCIONES_LAVADO"
-                                {% if 'INSTRUCCIONES_LAVADO' in consulta %}checked{% endif %}>
-                            <label class="form-check-label" for="inlineCheckbox2">Instrucciones de lavado</label>
-                        </div>
-                        <br>
-                        <div class="form-check form-check-inline">
                             <input class="form-check-input" type="checkbox" name="GRUPO_DESTINO" value="GRUPO_DESTINO"
                                 {% if 'GRUPO_DESTINO' in consulta %}checked{% endif %}>
                             <label class="form-check-label" for="inlineCheckbox2">Grupo
                                 destino</label>
                         </div>                         
+                        <br>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" name="INSTRUCCIONES_LAVADO" value="INSTRUCCIONES_LAVADO"
+                                {% if 'INSTRUCCIONES_LAVADO' in consulta %}checked{% endif %}>
+                            <label class="form-check-label" for="inlineCheckbox2">Instrucciones de lavado</label>
+                        </div>
                         <br>                        
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="checkbox" name="MARCA" value="MARCA"

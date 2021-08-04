@@ -1063,3 +1063,26 @@ django.core.exceptions.ImproperlyConfigured: You're using the Django "sites fram
   warnings.warn("DateTimeField %s received a naive datetime (%s)"
 
 [2021-07-29 08:24:59,471: INFO/SpawnPoolWorker-4] Task material.task.descarga_asin[36820555-6663-4a79-8e47-4f338f7ec240] succeeded in 7.7189999999827705s: None
+[2021-08-02 19:39:54,979: WARNING/MainProcess] consumer: Connection to broker lost. Trying to re-establish the connection...
+Traceback (most recent call last):
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\celery\worker\consumer\consumer.py", line 311, in start
+    blueprint.start(self)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\celery\bootsteps.py", line 116, in start
+    step.start(parent)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\celery\worker\consumer\consumer.py", line 592, in start
+    c.loop(*c.loop_args())
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\celery\worker\loops.py", line 111, in synloop
+    connection.drain_events(timeout=2.0)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\kombu\connection.py", line 318, in drain_events
+    return self.transport.drain_events(self.connection, **kwargs)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\kombu\transport\pyamqp.py", line 101, in drain_events
+    return connection.drain_events(**kwargs)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\amqp\connection.py", line 523, in drain_events
+    while not self.blocking_read(timeout):
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\amqp\connection.py", line 528, in blocking_read
+    frame = self.transport.read_frame()
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\amqp\transport.py", line 299, in read_frame
+    frame_header = read(7, True)
+  File "d:\users\administrador\appdata\local\programs\python\python38\lib\site-packages\amqp\transport.py", line 628, in _read
+    s = recv(n - len(rbuf))
+ConnectionResetError: [WinError 10054] Se ha forzado la interrupción de una conexión existente por el host remoto
