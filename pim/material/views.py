@@ -980,9 +980,23 @@ def consultasql(sql):
 
 class homeview(APIView):
     def home(request):
-                return render(
-                request,
-                'login.html')
+        if request.user.is_authenticated:
+            # Limpiar.limpiar_media_imagenes()
+            marcas=Marca.objects.all()        
+            genero=Genero.objects.all()
+            grupo_Destino=Grupo_Destino.objects.all()
+            tipo_Prenda=Tipo_Prenda.objects.all()
+            return render(request,
+            'index.html', 
+            {'marcas':marcas,                      
+            "generos":genero,
+            "grupo_destinos":grupo_Destino,
+            "tipo_prendas":tipo_Prenda,
+            "username":request.user})
+        else:         
+            return render(
+            request,
+            'login.html')
    
 @login_required(login_url='/')
 def Consultar_Estado_Tarea(request):

@@ -3078,4 +3078,76 @@
  inicio 29/07/2021 08:24.45: FIN Fin: 29/07/2021 08:24.45 
  inicio 29/07/2021 08:24.53: Realiza la descarga de imagenes. Fin: 29/07/2021 08:24.55 
  inicio 29/07/2021 08:24.55: Crea el zip para descargar. Fin: 29/07/2021 08:24.58 
+ inicio 06/08/2021 10:07.34: INICIO Fin: 06/08/2021 10:07.34 
+ inicio 06/08/2021 10:07.34: Valida informacion e inicializa campos. Fin: 06/08/2021 10:07.34 
+ inicio 06/08/2021 10:07.34: Realiza la consulta en la base de datos Fin: 06/08/2021 10:07.35 
+ inicio 06/08/2021 10:07.35: Resizen cloud img Fin: 06/08/2021 10:07.35 
+ inicio 06/08/2021 10:07.35: Convierte haciendo uso de cloud img. Fin: 06/08/2021 10:07.35 
+ inicio 06/08/2021 10:07.35: Prepara el archivo csv(hilo) Fin: 06/08/2021 10:07.35 
+ inicio 06/08/2021 10:07.35: Crea el csv. Fin: 06/08/2021 10:07.35 
+ inicio 06/08/2021 10:07.35: Queda listo el csv Fin: 06/08/2021 10:07.35 
+ inicio 06/08/2021 10:07.35: FIN Fin: 06/08/2021 10:07.35 
+ inicio 06/08/2021 10:17.53: INICIO Fin: 06/08/2021 10:17.53 
+ inicio 06/08/2021 10:17.53: Valida informacion e inicializa campos. Fin: 06/08/2021 10:17.53 
+ inicio 06/08/2021 10:17.53: Realiza la consulta en la base de datos Fin: 06/08/2021 10:17.54 
+ inicio 06/08/2021 10:17.54: Resizen cloud img Fin: 06/08/2021 10:17.54 
+ inicio 06/08/2021 10:17.54: Convierte haciendo uso de cloud img. Fin: 06/08/2021 10:17.54 
+ inicio 06/08/2021 10:17.54: Prepara el archivo csv(hilo) Fin: 06/08/2021 10:17.54 
+ inicio 06/08/2021 10:17.54: Crea el csv. Fin: 06/08/2021 10:17.54 
+ inicio 06/08/2021 10:17.54: Queda listo el csv Fin: 06/08/2021 10:17.54 
+ inicio 06/08/2021 10:17.54: FIN Fin: 06/08/2021 10:17.54 
+ inicio 06/08/2021 10:18.45: INICIO Fin: 06/08/2021 10:18.45 
+ inicio 06/08/2021 10:18.45: Valida informacion e inicializa campos. Fin: 06/08/2021 10:18.45 
+ inicio 06/08/2021 10:18.45: Realiza la consulta en la base de datos Fin: 06/08/2021 10:18.45 
+ inicio 06/08/2021 10:18.45: Resizen cloud img Fin: 06/08/2021 10:18.45 
+ inicio 06/08/2021 10:18.45: Convierte haciendo uso de cloud img. Fin: 06/08/2021 10:18.45 
+ inicio 06/08/2021 10:18.45: Prepara el archivo csv(hilo) Fin: 06/08/2021 10:18.45 
+ inicio 06/08/2021 10:18.45: Crea el csv. Fin: 06/08/2021 10:18.45 
+ inicio 06/08/2021 10:18.45: Queda listo el csv Fin: 06/08/2021 10:18.45 
+ inicio 06/08/2021 10:18.45: FIN Fin: 06/08/2021 10:18.45 
+ inicio 06/08/2021 10:19.44: INICIO Fin: 06/08/2021 10:19.44 
+ inicio 06/08/2021 10:19.44: Valida informacion e inicializa campos. Fin: 06/08/2021 10:19.44 
+ inicio 06/08/2021 10:19.44: Realiza la consulta en la base de datos Fin: 06/08/2021 10:19.45 
+ inicio 06/08/2021 10:19.45: Resizen cloud img Fin: 06/08/2021 10:19.45 
+ inicio 06/08/2021 10:19.45: Convierte haciendo uso de cloud img. Fin: 06/08/2021 10:19.45 
+ inicio 06/08/2021 10:19.45: Prepara el archivo csv(hilo) Fin: 06/08/2021 10:19.45 
+ inicio 06/08/2021 10:19.45: Crea el csv. Fin: 06/08/2021 10:19.45 
+ inicio 06/08/2021 10:19.45: Queda listo el csv Fin: 06/08/2021 10:19.45 
+ inicio 06/08/2021 10:19.45: FIN Fin: 06/08/2021 10:19.45 
+ inicio 06/08/2021 10:23.32: INICIO Fin: 06/08/2021 10:23.32 
+ inicio 06/08/2021 10:23.32: Valida informacion e inicializa campos. Fin: 06/08/2021 10:23.32 
+ inicio 06/08/2021 10:23.32: Realiza la consulta en la base de datos Fin: 06/08/2021 10:23.33 
+ inicio 06/08/2021 10:23.33: Resizen cloud img Fin: 06/08/2021 10:23.33 
+ inicio 06/08/2021 10:23.33: Convierte haciendo uso de cloud img. Fin: 06/08/2021 10:23.33 
+ inicio 06/08/2021 10:23.33: Prepara el archivo csv(hilo) Fin: 06/08/2021 10:23.33 
+ inicio 06/08/2021 10:23.33: Crea el csv. Fin: 06/08/2021 10:23.33 
+ inicio 06/08/2021 10:23.33: Queda listo el csv Fin: 06/08/2021 10:23.33 
+ inicio 06/08/2021 10:23.33: FIN Fin: 06/08/2021 10:23.33 
+ inicio 06/08/2021 10:25.41: INICIO Fin: 06/08/2021 10:25.41 
+ inicio 06/08/2021 10:25.41: Valida informacion e inicializa campos. Fin: 06/08/2021 10:25.41 
+ inicio 06/08/2021 10:25.41: Realiza la consulta en la base de datos Fin: 06/08/2021 10:25.42 
+ inicio 06/08/2021 10:25.42: Resizen cloud img Fin: 06/08/2021 10:25.42 
+ inicio 06/08/2021 10:25.42: Convierte haciendo uso de cloud img. Fin: 06/08/2021 10:25.42 
+ inicio 06/08/2021 10:25.42: Prepara el archivo csv(hilo) Fin: 06/08/2021 10:25.42 
+ inicio 06/08/2021 10:25.42: Crea el csv. Fin: 06/08/2021 10:25.42 
+ inicio 06/08/2021 10:25.42: Queda listo el csv Fin: 06/08/2021 10:25.42 
+ inicio 06/08/2021 10:25.42: FIN Fin: 06/08/2021 10:25.42 
+ inicio 06/08/2021 10:30.22: INICIO Fin: 06/08/2021 10:30.22 
+ inicio 06/08/2021 10:30.22: Valida informacion e inicializa campos. Fin: 06/08/2021 10:30.22 
+ inicio 06/08/2021 10:30.22: Realiza la consulta en la base de datos Fin: 06/08/2021 10:30.22 
+ inicio 06/08/2021 10:30.22: Resizen cloud img Fin: 06/08/2021 10:30.22 
+ inicio 06/08/2021 10:30.22: Convierte haciendo uso de cloud img. Fin: 06/08/2021 10:30.22 
+ inicio 06/08/2021 10:30.22: Prepara el archivo csv(hilo) Fin: 06/08/2021 10:30.22 
+ inicio 06/08/2021 10:30.22: Crea el csv. Fin: 06/08/2021 10:30.22 
+ inicio 06/08/2021 10:30.22: Queda listo el csv Fin: 06/08/2021 10:30.22 
+ inicio 06/08/2021 10:30.22: FIN Fin: 06/08/2021 10:30.22 
+ inicio 06/08/2021 10:32.39: INICIO Fin: 06/08/2021 10:32.39 
+ inicio 06/08/2021 10:32.39: Valida informacion e inicializa campos. Fin: 06/08/2021 10:32.39 
+ inicio 06/08/2021 10:32.39: Realiza la consulta en la base de datos Fin: 06/08/2021 10:32.39 
+ inicio 06/08/2021 10:32.39: Resizen cloud img Fin: 06/08/2021 10:32.39 
+ inicio 06/08/2021 10:32.39: Convierte haciendo uso de cloud img. Fin: 06/08/2021 10:32.39 
+ inicio 06/08/2021 10:32.39: Prepara el archivo csv(hilo) Fin: 06/08/2021 10:32.39 
+ inicio 06/08/2021 10:32.39: Crea el csv. Fin: 06/08/2021 10:32.39 
+ inicio 06/08/2021 10:32.39: Queda listo el csv Fin: 06/08/2021 10:32.39 
+ inicio 06/08/2021 10:32.39: FIN Fin: 06/08/2021 10:32.39 
  
