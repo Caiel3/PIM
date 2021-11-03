@@ -23,8 +23,11 @@ class csv_pim:
     
 
     def Guardar(self):        
-        inicio=datetime.now()             
-        ruta=settings.MEDIA_ROOT+'/Csv_descarga/documento-{}.csv'.format(self.hash)
+        inicio=datetime.now()
+        if self.planeacion == 3:
+           ruta=settings.MEDIA_ROOT+'/Csv_descarga/EansNoEncontrados-{}.csv'.format(self.hash)
+        else:              
+            ruta=settings.MEDIA_ROOT+'/Csv_descarga/documento-{}.csv'.format(self.hash)
         # import pdb; pdb.set_trace()
         with open(ruta,'a', encoding='UTF-8') as f:
             if self.planeacion == 1:

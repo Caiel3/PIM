@@ -185,3 +185,79 @@
 [2021-07-29 08:20:10,423: INFO   ] cwd: D:\PIM\PIM\pim
 [2021-07-29 08:20:10,423: INFO   ] command: "D:\Users\Administrador\AppData\Local\Programs\Python\Python38\Scripts\celery.exe" -A pim worker -f "D:\PIM\PIM\pim\celery.log" -l info 
 [2021-07-29 08:20:10,431: INFO   ] pid: 6700
+[2021-08-10 12:55:49,949: INFO   ] user D:\Users\Administrador\AppData\Local\Programs\Python\Python38\Scripts
+[2021-08-10 12:56:24,343: INFO   ] user D:\Users\Administrador\AppData\Local\Programs\Python\Python38\Scripts
+[2021-08-10 13:03:09,542: INFO   ] Starting dmartine Celery_pim service ...
+[2021-08-10 13:03:09,542: INFO   ] cwd: D:\PIM\pim
+[2021-08-10 13:03:09,542: INFO   ] command: "D:\Users\Administrador\AppData\Local\Programs\Python\Python38\Scripts\celery.exe" -A pim worker -f "D:\PIM\pim\celery.log" -l info 
+[2021-08-10 13:03:09,576: INFO   ] user D:\Users\Administrador\AppData\Local\Programs\Python\Python38\Scripts
+[2021-08-10 13:05:03,319: INFO   ] Starting dmartine Celery_pim service ...
+[2021-08-10 13:05:03,319: INFO   ] cwd: D:\PIM\pim
+[2021-08-10 13:05:03,320: INFO   ] command: "D:\Users\Administrador\AppData\Local\Programs\Python\Python38\Scripts\celery.exe" -A pim worker -f "D:\PIM\pim\celery.log" -l info 
+[2021-08-10 13:05:03,425: INFO   ] user D:\Users\Administrador\AppData\Local\Programs\Python\Python38\Scripts
+[2021-08-10 13:09:24,755: INFO   ] Starting dmartine Celery_pim service ...
+[2021-08-10 13:09:24,757: INFO   ] cwd: D:\PIM\pim
+[2021-08-10 13:09:24,757: INFO   ] command: "D:\Users\Administrador\AppData\Local\Programs\Python\Python38\Scripts\celery.exe" -A pim worker -f "D:\PIM\pim\celery.log" -l info 
+[2021-08-10 13:09:24,837: INFO   ] user D:\Users\Administrador\AppData\Local\Programs\Python\Python38\Scripts
+[2021-08-10 13:09:58,219: INFO   ] user D:\Users\Administrador\AppData\Local\Programs\Python\Python38\Scripts
+[2021-08-10 13:10:44,420: INFO   ] user D:\Users\Administrador\AppData\Local\Programs\Python\Python38\Scripts
+[2021-08-10 13:10:54,666: INFO   ] Starting dmartine Celery_pim service ...
+[2021-08-10 13:10:54,667: INFO   ] cwd: D:\PIM\pim
+[2021-08-10 13:10:54,668: INFO   ] command: "D:\Users\Administrador\AppData\Local\Programs\Python\Python38\Scripts\celery.exe" -A pim worker -f "D:\PIM\pim\celery.log" -l info 
+[2021-08-10 13:10:54,699: INFO   ] user D:\Users\Administrador\AppData\Local\Programs\Python\Python38\Scripts
+[2021-08-10 13:15:00,462: INFO   ] user D:\Users\Administrador\AppData\Local\Programs\Python\Python38\Scripts
+[2021-08-10 13:15:09,277: INFO   ] user D:\Users\Administrador\AppData\Local\Programs\Python\Python38\Scripts
+[2021-08-10 13:15:14,754: INFO   ] Starting dmartine Celery_pim service ...
+[2021-08-10 13:15:14,755: INFO   ] cwd: D:\PIM\pim
+[2021-08-10 13:15:14,755: INFO   ] command: "D:\Users\Administrador\AppData\Local\Programs\Python\Python38\Scripts\celery.exe" -A pim worker -f "D:\PIM\pim\celery.log" -l info 
+[2021-08-10 13:15:14,805: INFO   ] user D:\Users\Administrador\AppData\Local\Programs\Python\Python38\Scripts
+[2021-08-10 14:15:55,352: INFO   ] Starting dmartine Celery_pim service ...
+[2021-08-10 14:15:55,353: INFO   ] cwd: D:\PIM\pim
+[2021-08-10 14:15:55,353: INFO   ] command: "D:\Users\Administrador\AppData\Local\Programs\Python\Python38\Scripts\celery.exe" -A pim worker -f "D:\PIM\pim\celery.log" -l info 
+[2021-08-10 14:15:55,411: INFO   ] user D:\Users\Administrador\AppData\Local\Programs\Python\Python38\Scripts
+[2021-08-11 12:31:22,203: INFO   ] user D:\Users\Administrador\AppData\Local\Programs\Python\Python38\Scripts
+[2021-08-11 12:31:34,525: INFO   ] user D:\Users\Administrador\AppData\Local\Programs\Python\Python38\Scripts
+[2021-08-11 12:31:41,126: INFO   ] Starting dmartine Celery_pim service ...
+[2021-08-11 12:31:41,126: INFO   ] cwd: D:\PIM\pim
+[2021-08-11 12:31:41,126: INFO   ] command: "D:\Users\Administrador\AppData\Local\Programs\Python\Python38\Scripts\celery.exe" -A pim worker -f "D:\PIM\pim\celery.log" -l info 
+[2021-08-11 12:31:41,141: INFO   ] user D:\Users\Administrador\AppData\Local\Programs\Python\Python38\Scripts
+[2021-08-12 12:20:57,338: INFO   ] user D:\Users\Administrador\AppData\Local\Programs\Python\Python38-32\Scripts
+[2021-08-12 12:21:01,774: INFO   ] user D:\Users\Administrador\AppData\Local\Programs\Python\Python38-32\Scripts
+[2021-08-12 12:21:07,438: INFO   ] Starting dmartine Celery_pim service ...
+[2021-08-12 12:21:07,438: INFO   ] cwd: D:\PIM\pim
+[2021-08-12 12:21:07,438: INFO   ] command: "D:\Users\Administrador\AppData\Local\Programs\Python\Python38-32\Scripts\celery.exe" -A pim worker -f "D:\PIM\pim\celery.log" -l info 
+[2021-08-12 12:21:07,562: INFO   ] pid: 19356
+[2021-08-12 12:22:20,347: INFO   ] Stopping Celery_pim service ...
+[2021-08-12 12:22:20,353: INFO   ] user D:\Users\Administrador\AppData\Local\Programs\Python\Python38-32\Scripts
+[2021-08-12 12:22:28,631: INFO   ] user D:\Users\Administrador\AppData\Local\Programs\Python\Python38-32\Scripts
+[2021-08-12 12:22:28,689: INFO   ] Starting dmartine Celery_pim service ...
+[2021-08-12 12:22:28,689: INFO   ] cwd: D:\PIM\pim
+[2021-08-12 12:22:28,689: INFO   ] command: "D:\Users\Administrador\AppData\Local\Programs\Python\Python38-32\Scripts\celery.exe" -A pim worker -f "D:\PIM\pim\celery.log" -l info 
+[2021-08-12 12:22:28,694: INFO   ] pid: 9448
+[2021-08-12 12:53:28,422: INFO   ] Stopping Celery_pim service ...
+[2021-08-12 12:53:28,598: INFO   ] user D:\Users\Administrador\AppData\Local\Programs\Python\Python38-32\Scripts
+[2021-08-12 12:53:32,536: INFO   ] user D:\Users\Administrador\AppData\Local\Programs\Python\Python38-32\Scripts
+[2021-08-12 12:53:36,349: INFO   ] user D:\Users\Administrador\AppData\Local\Programs\Python\Python38-32\Scripts
+[2021-08-12 12:53:40,424: INFO   ] user D:\Users\Administrador\AppData\Local\Programs\Python\Python38-32\Scripts
+[2021-08-12 12:53:40,474: INFO   ] Starting dmartine Celery_pim service ...
+[2021-08-12 12:53:40,474: INFO   ] cwd: D:\PIM\pim
+[2021-08-12 12:53:40,475: INFO   ] command: "D:\Users\Administrador\AppData\Local\Programs\Python\Python38-32\Scripts\celery.exe" -A pim worker -f "D:\PIM\pim\celery.log" -l info 
+[2021-08-12 12:53:40,480: INFO   ] pid: 23896
+[2021-08-12 14:03:39,037: INFO   ] Stopping Celery_pim service ...
+[2021-08-12 14:03:39,041: INFO   ] user D:\Users\Administrador\AppData\Local\Programs\Python\Python38-32\Scripts
+[2021-08-12 14:03:41,326: INFO   ] user D:\Users\Administrador\AppData\Local\Programs\Python\Python38-32\Scripts
+[2021-08-12 14:03:41,376: INFO   ] Starting dmartine Celery_pim service ...
+[2021-08-12 14:03:41,376: INFO   ] cwd: D:\PIM\pim
+[2021-08-12 14:03:41,376: INFO   ] command: "D:\Users\Administrador\AppData\Local\Programs\Python\Python38-32\Scripts\celery.exe" -A pim worker -f "D:\PIM\pim\celery.log" -l info 
+[2021-08-12 14:03:41,391: INFO   ] pid: 20104
+[2021-08-13 14:11:59,114: INFO   ] user D:\Users\Administrador\AppData\Local\Programs\Python\Python38-32\Scripts
+[2021-08-13 14:12:04,494: INFO   ] user D:\Users\Administrador\AppData\Local\Programs\Python\Python38-32\Scripts
+[2021-08-13 14:12:04,545: INFO   ] Starting dmartine Celery_pim service ...
+[2021-08-13 14:12:04,545: INFO   ] cwd: D:\PIM\pim
+[2021-08-13 14:12:04,545: INFO   ] command: "D:\Users\Administrador\AppData\Local\Programs\Python\Python38-32\Scripts\celery.exe" -A pim worker -f "D:\PIM\pim\celery.log" -l info 
+[2021-08-13 14:12:04,550: INFO   ] pid: 18204
+[2021-10-20 14:53:46,804: INFO   ] user D:\Users\Administrador\AppData\Local\Programs\Python\Python38-32\Scripts
+[2021-10-20 14:53:46,857: INFO   ] Starting dmartine Celery_pim service ...
+[2021-10-20 14:53:46,858: INFO   ] cwd: D:\PIM\pim
+[2021-10-20 14:53:46,858: INFO   ] command: "D:\Users\Administrador\AppData\Local\Programs\Python\Python38-32\Scripts\celery.exe" -A pim worker -f "D:\PIM\pim\celery.log" -l info 
+[2021-10-20 14:53:46,865: INFO   ] pid: 24272

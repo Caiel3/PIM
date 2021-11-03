@@ -21,7 +21,7 @@ INSTDIR = Path(__file__).parent
 # The path of python Scripts
 # Usually it is in path_to/venv/Scripts.
 # If it is already in system PATH, then it can be set as ''
-PYTHONSCRIPTPATH = INSTDIR / 'D:/Users/Administrador/AppData/Local/Programs/Python/Python38/Scripts'
+PYTHONSCRIPTPATH = INSTDIR / 'D:/Users/Administrador/AppData/Local/Programs/Python/Python38-32/Scripts'
 # The directory name of django project
 # Note: it is the directory at the same level of manage.py
 # not the parent directory
@@ -37,6 +37,9 @@ class CeleryService(win32serviceutil.ServiceFramework):
 
     _svc_name_ = "Celery_pim"
     _svc_display_name_ = "Pim celery service"
+    _svc_description_="Servicio utilizado para realizar la descarga asincrónica de la aplicación PIM"
+
+
 
     def __init__(self, args):
         win32serviceutil.ServiceFramework.__init__(self, args)

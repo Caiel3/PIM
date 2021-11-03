@@ -14,7 +14,6 @@
         {% endfor %}
     </div>
 
-    
 
     <div id="pago" class="tabcontent">
 
@@ -219,8 +218,6 @@
                             </script>
                             <hr>
                         </div>
-                        
-
                         <div id="medio_consulta_3" style="display:none">
                             <div class="form-row">
                                 <div class="form-group col-md">
@@ -262,6 +259,20 @@
                             </script>
                             <hr>
                         </div>
+                        <div>
+                            <div class="col-md-6">
+                                <label >Seleccione el nombre que desea descarga las imagenes:</label>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Nombre_Imagen" id="Nombre_Imagen" value="1" required>
+                                    <label class="form-check-label" for="inlineRadio1">EAN</label>
+                                  </div>
+                                  <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Nombre_Imagen" id="Nombre_Imagen" value="2" required>
+                                    <label class="form-check-label" for="inlineRadio2">Descripción</label>
+                                  </div>
+                            </div>
+                        </div>                        
+                        <hr>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="checkbox" value="Seleccionar" name="Seleccionar" onclick="marcar(this)">
                             <label class="form-check-label" for="inlineCheckbox2"><b>Seleccionar Todo</b></label>
@@ -560,15 +571,13 @@
                         </script>
 
                         {% comment %} Radio Button{% endcomment %}
-                        
                         <div id="medio_consulta_4" style="display:none">
                         <hr>
                             <div class="row">
                                 <br>
                                 <div class="col-md-6">
                                     <label for="Consulta">Marca</label>
-                                    <select name="DWMarca" class="form-control" id="Consulta10" >
-                                        <option value="">Seleccione...</option>
+                                    <select name="DWMarca" class="form-control" id="Consulta10" multiple = "multiple" >
                                         {% for marca in marcas %}
                                         <option value="{{marca.marca}}">{{marca.marca}}</option>
                                         {% endfor %}
@@ -576,15 +585,36 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label for="Consulta">Generos</label>
-                                    <select name="DWGenero" class="form-control" id="Consulta5" >
-                                        <option value="">Seleccione...</option>
+                                    <select name="DWGenero" class="form-control" id="Consulta5" multiple = "multiple" >
                                         {% for genero in generos %}
-                                        <option value="{{genero.Genero}}">
+                                        <option value="{{genero.Genero}}"> 
                                             {{genero.Genero}}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
                             </div>
+                            <script type="text/javascript">
+                                $("#Consulta5").select2({
+                                    // minimumInputLength: 2,
+                                    width: '100%',
+                                    multiple:true,
+                                    placeholder:"Seleccione..."
+                                });
+                                $('#Consulta5').on('select2:opening select2:closing', function( event ) {
+                                    var $searchfield = $(this).parent().find('.select2-search__field');
+                                    $searchfield.prop('disabled', true);
+                                });
+                                $('#Consulta10').on('select2:opening select2:closing', function( event ) {
+                                    var $searchfield = $(this).parent().find('.select2-search__field');
+                                    $searchfield.prop('disabled', true);
+                                });
+                                $("#Consulta10").select2({
+                                    // minimumInputLength: 2,
+                                    width: '100%',
+                                    multiple:true,
+                                    placeholder:"Seleccione..."
+                                });
+                            </script>       
                             <div class="row">
                                 <br>
                                 <div class="col-md-6">
@@ -742,7 +772,7 @@
         }, 10000); // <-- time in milliseconds, 1000 =  1 sec
 
         // delete message
-        $('.del-msg').live('click',function(){
+        $('.del-msg').on('click',function(){
             $('.del-msg').parent().attr('style', 'display:none;');
         })
     });

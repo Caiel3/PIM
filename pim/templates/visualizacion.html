@@ -3,6 +3,9 @@
 {% block body %}
 <title>Pim</title>
 <hr class="mt-5">
+{% if estado == 0 %}
+    <h6>Faltan por mostrar {{faltantes}} registros, los puedes descargar en el documento.</h6>
+{%endif%}
 <div class="container col-md-12">
     <div class="text-center mt-5">
    

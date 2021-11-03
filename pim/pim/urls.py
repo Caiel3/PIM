@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 # import sys
 # sys.path.append("..")
-from material.views import subida,Descarga_doc,Descarga_img,carga,Catalogog,homeview,loginview,user_logout,Consultar_Estado_Tarea,Descargar_Documento_Peticion,Descargar_Imagenes_Peticion,Borrar_Peticion
+from material.views import subida,Descarga_doc,Descarga_img,carga,Catalogog,homeview,loginview,user_logout,Consultar_Estado_Tarea,Descargar_Documento_Peticion,Descargar_Imagenes_Peticion,Borrar_Peticion,Descarga_doc_eanes_faltantes
 from rest_framework.routers import DefaultRouter
 from django.conf.urls import handler404
 from rest_framework_simplejwt import views as jwt_views
@@ -34,7 +34,8 @@ urlpatterns = [
     path('logout/',user_logout,name='logout'),
     path('subida/',subida,name='subida'),
     path('carga/',carga,name='carga'),
-    path('Descarga_doc/',Descarga_doc,name='Descarga_doc'), 
+    path('Descarga_doc/',Descarga_doc,name='Descarga_doc'),
+    path('Descarga_doc_eanes_faltantes/',Descarga_doc_eanes_faltantes,name='Descarga_doc_eanes_faltantes'),  
     path('catalogog/',Catalogog,name='catalogog'),    
     path('portal/',Consultar_Estado_Tarea,name='portal'),
     path('Descarga_img/',Descarga_img,name='Descarga_img'),      

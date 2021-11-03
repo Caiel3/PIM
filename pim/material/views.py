@@ -155,7 +155,8 @@ def subida(request):
             #Capturamos la informacion del formulario          
             tipo = request.POST["tipo"]
             ancho = request.POST["ancho"]
-            largo = request.POST["largo"] 
+            largo = request.POST["largo"]
+            nombre_imagen = request.POST["Nombre_Imagen"] 
             ean_consulta = request.POST["Ean_Consul"]  
             for item in consulta:
                 if item.upper() in request.POST :
@@ -321,13 +322,15 @@ def subida(request):
                     else:
                         consulta='select distinct {} from material_materiales where ean in ({});'.format(string_campos,string_filtro,) 
 
-                matconsulta=consultasql(consulta)  
+                matconsulta=consultasql(consulta)
+                eanes_faltantes = Buscar_Eanes_Faltantes(string_filtro,matconsulta,string_campos)
             elif request.POST['Ean_Consul']!= "":
                 array_filt=converts_helper.convert_string_array(ean_consulta)
                 string_filtro_ean=converts_helper.convert_array_str(array_filt,',',False)
                 consulta='select distinct {} from material_materiales where ean in ({});'.format(string_campos,string_filtro_ean) 
                 matconsulta=consultasql(consulta)
-                # import pdb; pdb.set_trace()
+                eanes_faltantes = Buscar_Eanes_Faltantes(array_filt,matconsulta,string_campos)
+                
 
             else:
                 consulta='select distinct {} from material_materiales where {};'.format(string_campos,Consulta_Where(request.POST['DWMarca'],request.POST['DWGenero'],request.POST['DWGrupo_destino'],request.POST['DWTipo_prenda']))
@@ -354,14 +357,22 @@ def subida(request):
             inicio= datetime.now()         
             rango=list(range(0,ceil(len(informacion)/100)))
             # import pdb; pdb.set_trace()
+            df = pd.DataFrame(eanes_faltantes,columns=['ean'])
+            df_list = df.to_numpy().tolist()
+            cantidad_datos = df.count()
+            cantidad_datos = int(cantidad_datos)
+            csv_hilo_ean = threading.Thread(name="hilo_csv",target= Descarga_Ean_Faltantes_doc,args=(hash_archivo,df_list,'ean'))
+            csv_hilo_ean.start()
             csv_hilo=threading.Thread(name="hilo_csv",target= Descarga_pim_doc,args=(hash_archivo,informacion,string_campos))
             csv_hilo.start()
         
             Txt('prueba','Convierte haciendo uso de cloud img.', inicio,datetime.now())    
             inicio= datetime.now() 
             Txt('prueba','Prepara el archivo csv(hilo)', inicio,datetime.now())   
-            inicio= datetime.now() 
+            inicio= datetime.now()
+            csv_hilo_ean.join() 
             csv_hilo.join()
+
             Txt('prueba','Queda listo el csv', inicio,datetime.now())
             Txt('prueba','FIN', datetime.now(),datetime.now())
         
@@ -373,6 +384,8 @@ def subida(request):
                 "mostrar":'si',
                 "token":hash_archivo,
                 "rangos":rango,
+                "nombre": nombre_imagen,
+                "cantidad": cantidad_datos,
                 "tamano":[largo,ancho]
                 })    
             pass
@@ -412,12 +425,13 @@ def carga(request):
                 ]
     
             parametros=[]       
-
-            #Capturamos la informacion del formulario          
+            #Capturamos la informacion del formulario       
             tipo = request.POST["tipo"]
             ean_consulta = request.POST["Ean_Consulta"]  
-
-            
+            tipo_genero = request.POST.getlist("DWGenero")
+            tipo_marca = request.POST.getlist("DWMarca")
+            marca_planeacion = converts_helper.convert_array_str_consulta(tipo_marca,',',False)
+            genero_planeacion = converts_helper.convert_array_str_consulta(tipo_genero,',',False)
             
             if len(request.FILES)!=0 and tipo =='':
                 messages.error(request,'Por favor seleccione el medio de consulta.')
@@ -451,9 +465,9 @@ def carga(request):
             
             if len(request.FILES)==0:
                 count=0
-                if (request.POST['DWMarca']!=''):
+                if (len(tipo_marca)!=0):
                     count=count+1
-                if (request.POST['DWGenero']!=''):
+                if (len(tipo_genero)!=0):
                     count=count+1
                 if (request.POST['DWGrupo_destino']!=''):
                     count=count+1
@@ -462,7 +476,7 @@ def carga(request):
                 if(request.POST['Ean_Consulta']!=''):
                     count=count+1
                 
-                if request.POST['DWMarca']!= '' or request.POST['DWGenero']!='' or request.POST['DWGrupo_destino']!='' or request.POST['DWTipo_prenda']!='' :
+                if len(tipo_marca)!=0 or len(tipo_genero)!=0 or request.POST['DWGrupo_destino']!='' or request.POST['DWTipo_prenda']!='' :
                     if request.POST['Ean_Consulta']!= '':
                         messages.error(request,'Por favor verifique como desea hacer la consulta si por ean o selección.')
                         return render(
@@ -573,7 +587,7 @@ def carga(request):
                 # import pdb; pdb.set_trace()
 
             else:
-                consulta='select distinct {} from material_materiales where {};'.format(string_campos,Consulta_Where(request.POST['DWMarca'],request.POST['DWGenero'],request.POST['DWGrupo_destino'],request.POST['DWTipo_prenda']))
+                consulta='select distinct {} from material_materiales where {};'.format(string_campos,Consulta_Where_Planeacion(marca_planeacion,genero_planeacion,request.POST['DWGrupo_destino'],request.POST['DWTipo_prenda']))
                 matconsulta=consultasql(consulta)    
 
 
@@ -596,14 +610,23 @@ def carga(request):
             csv_hilo.join()
             Txt('prueba','Queda listo el csv', inicio,datetime.now())
             Txt('prueba','FIN', datetime.now(),datetime.now())
-            parametros=['MATERIAL','EAN','URL FRONT'] 
+
+            parametros=['MATERIAL','EAN','URL FRONT']
+            matconsulta = pd.DataFrame(matconsulta)
+            matconsulta_reducida = matconsulta.head(100)
+            resultado = len(matconsulta) - len(matconsulta_reducida)
+            matconsulta = matconsulta_reducida.to_numpy().tolist()
+            estado_mensaje = 0
+
             return render(
                 request,
                 'visualizacion.html',
                 {"headers":parametros,
                 "lista":matconsulta,
                 "mostrar":'si',
-                "token":hash_archivo
+                "token":hash_archivo,
+                "estado": estado_mensaje,
+                "faltantes": int(resultado)
                 })    
             pass
     except Exception as e:
@@ -623,7 +646,17 @@ def carga(request):
             "tipo_prendas":tipo_Prenda})
 
 
-      
+def Buscar_Eanes_Faltantes(ean_iniciales, ean_encontrados,campos):
+    
+    df_ean_buscar = pd.DataFrame(ean_iniciales,columns=['ean'])
+    lista_campos = campos.split(",")
+    df_ean_encontrados = pd.DataFrame(ean_encontrados, columns = lista_campos)
+    df_ean_encontrados['eans2'] = df_ean_encontrados['ean']
+    eanes_faltantes = pd.merge(df_ean_buscar, df_ean_encontrados, on='ean', how='left')
+    eanes_faltantes = eanes_faltantes[eanes_faltantes.eans2.isnull()]
+    eanes_faltantes = eanes_faltantes['ean']
+    return eanes_faltantes
+
 def Consulta_Where_Cantidad(marca,genero,grupo_destino,tipo_prenda):
         count=0
         if (marca!=''):
@@ -665,87 +698,33 @@ def Consulta_Where(marca,genero,grupo_destino,tipo_prenda):
 
     return var_where
     
+def Consulta_Where_Planeacion(marca,genero,grupo_destino,tipo_prenda):
+    var_where=''
+    if marca!='':
+        var_where = "MARCA in ({})".format(marca)
+        pass
+    
+    if marca=='' and genero!='' :
+        var_where="GENERO in ({})".format(genero)
+        pass
+    elif genero!='' :
+        var_where=var_where+" AND GENERO in ({})".format(genero)
+        pass
 
-def Catalogoh(request):
-    try:
-        if request.user.is_authenticated:
-            id = str(uuid.uuid1())
-            mi_archivo=request.FILES["archivo"]     
-            files = mi_archivo.read().decode('utf-8-sig')   
-            reader = csv.DictReader(io.StringIO(files),fieldnames=None,delimiter=';')
-            archivo = [line for line in reader]                
-            #insertamos temporamente datos en una tabla para despues traerlos ordenados de una manera mas sencilla
-            carga_temp=[line for line in archivo]            
-            
-            for dato in carga_temp:        
-                Catalogo_temp.objects.create(
-                    material=dato['Material'],
-                    unidad_empaque=dato['Unidad de empaque'],
-                    coleccion=dato['Colección'],
-                    precio=dato['Precio'],
-                    moneda='',
-                    pais=dato['Orden'],
-                    hash_uuid=id
-                    )
-            
-            header_consulta_material=[]
-            for valor in archivo:
-                header_consulta_material.append(valor['Material'])
-                pass               
+    if  marca=='' and genero=='' and grupo_destino!='':
+        var_where="GRUPO_DESTINO='{}'".format(grupo_destino)
+        pass
+    elif grupo_destino!='':
+        var_where=var_where+"AND GRUPO_DESTINO='{}'".format(grupo_destino)
+    
+    if marca=='' and genero=='' and grupo_destino=='' and tipo_prenda!='':
+        var_where="TIPO_PRENDA='{}'".format(tipo_prenda)
+        pass
+    elif tipo_prenda !='':
+        var_where=var_where+"AND TIPO_PRENDA='{}'".format(tipo_prenda)
+        pass
 
-            """ 10 px de diferencia en la tercera marca """
-            datosGEF=Consulta_marca_catalogo('GEF',id)
-            datosBF=Consulta_marca_catalogo('BABY FRESH',id)
-            datosPB=Consulta_marca_catalogo('PUNTO BLANCO',id)
-            
-            can_marca=np.asarray(consultasql("SELECT COUNT(MARCA) AS CANTIDAD,MARCA FROM RAM.CATALOGO WHERE HASH_UUID='{}'  GROUP BY MARCA order by MARCA".format(id)))
-            con=0
-            bfh=0# hojas Baby fresh
-            pbh=0#hojas Punto blanco
-            gefh=0#hojas gef
-            cantidad_marcas=consultasql("SELECT COUNT(*) FROM ( SELECT COUNT(MARCA) AS CANTIDAD,MARCA FROM RAM.CATALOGO WHERE HASH_UUID='{}' GROUP BY MARCA order by MARCA) CAM".format(id))
-            can=[li for li in cantidad_marcas]
-            
-            for marca in can_marca:             
-                if marca[1]=='BABY FRESH':
-                    bfh=(converts_helper.numero_paginas_marca(int(marca[0])))                
-                    pass
-                elif marca[1]=='PUNTO BLANCO':
-                    pbh=(converts_helper.numero_paginas_marca(int(marca[0])))
-
-                else:                
-                    gefh=(converts_helper.numero_paginas_marca(int(marca[0])))            
-                    if can[0][0]==3:
-                        gefh=gefh-10
-                    
-                    pass
-                                
-            Catalogo_temp.objects.filter(hash_uuid=id).delete()
-            return render(
-                request,'catalogo.html',
-                {'datosGEF' : datosGEF,
-                'datosPB' : datosPB,
-                'datosBF' : datosBF,
-                'Cgef':'height:{}px;'.format(gefh),
-                'CPb':'height:{}px;'.format(pbh),
-                'Cbf':'height:{}px;'.format(bfh),
-                'moneda':dato['Moneda'],
-                'logo_gef':Claves.get_secret('LOGO_GEF'),
-                'logo_pb':Claves.get_secret('LOGO_PB'),
-                'logo_bf':Claves.get_secret('LOGO_BF')})
-    except Exception as e:            
-        if type(e) is KeyError:
-            messages.error(request,'Recuerde que debe de conservar la estructura del archivo plano y este debe de estar separado por ;, error cerca a {}.'.format(e))   
-        elif "PRIMARY" in str(e):
-            messages.error(request,'Hay un material duplicado, recuerde que deben ser únicos.')
-        elif "utf-8" in str(e):
-            messages.error(request,'El archivo debe de ser un csv utf-8.')
-        elif("Duplicate entry" in  str(e)):
-            messages.error(request,'Recuerde que debe de conservar la estructura del archivo plano y este debe de estar separado por ;') 
-        else:
-            messages.error(request,'Ocurrio un error inesperado, por favor contacte con el administrador y proporcione este error; {}'.format(e))         
-            
-        return render(request,'index.html',{'mostrar':'no'})
+    return var_where
 
 @login_required(login_url='/')
 def Catalogog(request):
@@ -754,7 +733,6 @@ def Catalogog(request):
         if request.user.is_authenticated:
             if request.method == "POST":
                 mi_archivo = request.FILES["archivo_excel"]
-                # import pdb;pdb.set_trace()
                 if mi_archivo.name.endswith('xlsx'):
                     id = str(uuid.uuid1())
                     ruta = settings.MEDIA_ROOT + '/Upload/' + mi_archivo.name
@@ -764,7 +742,7 @@ def Catalogog(request):
                     os.rename(settings.MEDIA_ROOT + '/Upload/' + mi_archivo.name, settings.MEDIA_ROOT + '/Upload/' + "{}.xlsx".format(id)) 
                     open_files=pd.ExcelFile(settings.MEDIA_ROOT + '/Upload/' + '{}.xlsx'.format(id))
                     titulo_files = request.POST["nombre_hoja"]
-                    titulo = titulo_files.upper()
+                    titulo = titulo_files
                     titulos = open_files.sheet_names
                     lista_titulos = [line for line in titulos]
                     # print(lista_titulos)
@@ -799,8 +777,7 @@ def Catalogog(request):
                         datosGEF=Consulta_marca_catalogo('GEF',id)
                         datosBF=Consulta_marca_catalogo('BABY FRESH',id)
                         datosPB=Consulta_marca_catalogo('PUNTO BLANCO',id)
-                        
-                        can_marca=np.asarray(consultasql("SELECT COUNT(MARCA) AS CANTIDAD,MARCA FROM RAM.CATALOGO WHERE HASH_UUID='{}'  GROUP BY MARCA order by MARCA".format(id)))
+                        can_marca=np.asarray(consultasql("SELECT COUNT(MARCA) AS CANTIDAD,MARCA FROM CATALOGO WHERE HASH_UUID='{}'  GROUP BY MARCA order by MARCA".format(id)))
                         con=0
                         bfh=0# hojas Baby fresh
                         pbh=0#hojas Punto blanco
@@ -839,8 +816,10 @@ def Catalogog(request):
                             'moneda':dato['Moneda'],
                             'logo_gef':Claves.get_secret('LOGO_GEF'),
                             'logo_pb':Claves.get_secret('LOGO_PB'),
-                            'logo_bf':Claves.get_secret('LOGO_BF')})    
-                    pass
+                            'logo_bf':Claves.get_secret('LOGO_BF')})
+                else:
+                    messages.error(request,'Ingreso el nombre Incorrectamente, por favor vuelva a intentar.')
+                    return render(request,'index.html',{'mostrar':'no'})         
             messages.error(request,'Recuerde que el archivo debe ser un excel(.xlsx).')
             return render(request,'index.html',{'mostrar':'no'}) 
         messages.error(request,'Ocurrio un error inesperado, por favor contacte con el administrador y proporcione este error:Es un metodo diferente a post')
@@ -871,7 +850,23 @@ def Descarga_pim_doc(token,mat,headers,planeacion=0):
     response=csv_pim(token,mat,headers,planeacion)
     response.Guardar()
 
-# @login_required(login_url='/')    
+def Descarga_Ean_Faltantes_doc(token,mat,headers,planeacion=3):
+    response=csv_pim(token,mat,headers,planeacion)
+    response.Guardar()
+
+def Descargar_Ean_Faltantes(request):
+    token = request.POST["token"]
+    archivo_csv = open()
+    return FileResponse(archivo_csv)
+
+
+def Descarga_doc_eanes_faltantes(request):    
+       
+    token = request.POST["token"]
+    # response=csv_pim(token,mat,headers)
+    archivo_csv = open(settings.MEDIA_ROOT + "/Csv_descarga/EansNoEncontrados-{}.csv".format(token),'rb')
+    return FileResponse(archivo_csv)
+
 def Descarga_doc(request):    
        
     token = request.POST["token"]
@@ -881,26 +876,20 @@ def Descarga_doc(request):
 
 # @login_required(login_url='/')
 def Descarga_img(request): 
-    
+    # import pdb; pdb.set_trace()
     token = request.POST["token"]
-    
-    # print(request.user.id)
-    # tamanio = [t for t in request.POST["tamano"]] 
-    # descarga=Descarga_imagenes()
+    nombre_img = request.POST["nombre"]
     pru=pd.read_csv(settings.MEDIA_ROOT+"/Csv_descarga/documento-{}.csv".format(token),sep='\n',delimiter=';')      
     necesario=pru[["ean", "imagen_grande"]]
-    # necesario=necesario[int(request.POST["rango"])*100:(int(request.POST["rango"])+1)*100]
     lista=necesario.values.tolist()
     largo,ancho=request.POST["tamano"].split(',')
     # primer registro de la peticion
     query = MysqlRegistro_Peticiones(id=token,fecha_peticion=datetime.now(),estado="Iniciado",usuario=request.user,estado_borrado = 0 )  
     query.save() 
-    descarga_asin.delay(lista,token,largo,ancho)
+    descarga_asin.delay(lista,token,largo,ancho,nombre_img)
     msj = str(request.user) + " el proceso de descarga se ha iniciado, puede hacerle seguimiento en el siguiente enlace:" 
     messages.success(request,msj,extra_tags="descarga")
-    # print(msj)
     
-    # Limpiar.limpiar_media_imagenes()
     marcas=Marca.objects.all()        
     genero=Genero.objects.all()
     grupo_Destino=Grupo_Destino.objects.all()
@@ -912,7 +901,7 @@ def Descarga_img(request):
             "grupo_destinos":grupo_Destino,
             "tipo_prendas":tipo_Prenda}) 
         
-def Consulta_marca_catalogo(marca,hash_uuid):        
+def Consulta_marca_catalogo(marca,hash_uuid):       
     consulta=("SELECT * FROM CATALOGO WHERE MARCA='{}' AND HASH_UUID ='{}' ORDER BY MARCA,cast(PAIS as unsigned)").format(marca,hash_uuid)
     datos=consultasql(consulta)
     consulta_temp=[]
@@ -931,7 +920,7 @@ def Consulta_marca_catalogo(marca,hash_uuid):
         datos,8,
             248,
             326,
-            'aatdtkgdoo',
+            'agnravsvaq',
             tipo_consul)
     return datos
 
@@ -977,7 +966,7 @@ def consultasql(sql):
     except Exception as e:        
        return 'Ocurrio un error, por favor contacte con el administrador y brinde este mensaje: {}.'.format(e)
 
-
+@csrf_protect
 class homeview(APIView):
     def home(request):
         if request.user.is_authenticated:

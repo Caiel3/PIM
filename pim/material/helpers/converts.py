@@ -103,4 +103,34 @@ class Converts():
         return  stringaux
         pass
 
+    def convert_array_str_consulta(self,array1dimension,delimitador, noesdiccionario=True):
+        stringaux=''
+        count=1      
+        
+        for valor in array1dimension:
+            if valor==None:
+                valor=''
+                pass
+            if noesdiccionario:
+                if count == len(array1dimension):
+                    stringaux= stringaux + "'"+ valor + "'"
+                    
+                    pass
+                else:
+                    stringaux=stringaux + "'"+ valor + "'" + delimitador
+                    count=count+1
+            else:
+                if count == len(array1dimension):
+                    stringaux= stringaux + "'"+ valor + "'"
+                    
+                    pass
+                else:
+                    stringaux= stringaux + "'"+ valor + "'" + delimitador
+                    count=count+1
+                    pass
+                pass
+        pass
+        return  stringaux
+        pass
+
     

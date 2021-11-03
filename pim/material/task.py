@@ -10,7 +10,7 @@ import os
 
 @app.task
 # @shared_task
-def descarga_asin(lista_temp,token,largo,ancho):
+def descarga_asin(lista_temp,token,largo,ancho,nombre_img):
     # print(str(lista_temp))
     # open("d:\\datos.txt", "w+")
     # update va ontener la fecha inicio
@@ -19,7 +19,7 @@ def descarga_asin(lista_temp,token,largo,ancho):
     query.save()
     # rdb.set_trace()
     descarga_img=Descarga_imagenes()
-    temp = descarga_img.descargar(lista_temp,token,largo,ancho)
+    temp = descarga_img.descargar(lista_temp,token,largo,ancho,nombre_img)
     # for x in temp:
     #     print('ImagenI')
     #     print(x)

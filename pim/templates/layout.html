@@ -21,6 +21,12 @@
     <link rel="stylesheet" href='{% static "/css/cliente.css" %}'>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css">
+    <!-- select2 -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+    
     <title>Eli</title>
 </head>
 
@@ -61,6 +67,7 @@
                                             </div>
                                         </div>
                                         <input type="hidden" value="{{token}}" name="token">
+                                        <input type= "hidden" value="{{nombre}}" name = "nombre">
                                         <input type="hidden" value="{{tamano.0}},{{tamano.1}}" name="tamano">
                                     </form>
                                 </li>
@@ -71,22 +78,28 @@
                                     </form>
                                 </li>
                                 <li class="nav-item active">
+                                    <form action="/Descarga_doc_eanes_faltantes/" method="POST">{% csrf_token%}
+                                            <input class="dropdown-item" value="Descargar eans no encontrados"  {% if 0 == cantidad %} disabled {% endif %}  type="submit">
+                                            <input type="hidden" value="{{token}}" name="token">
+
+                                    </form>
+                                </li>
+                                <li class="nav-item active">
                                     <input class="dropdown-item" type="button" onclick="history.back(-1)" name="Regresar" value="Regresar"
                                     id="Regresar">
                                 </li>
                             {% endif %}
                             {% if '/carga/'  == request.path and 'si'  in mostrar %}
                                 <li class="nav-item active">
-                                        <input class="btn btn-outline-light mr-sm-2" type="button" onclick="history.back(-1)" name="Regresar" value="Regresar"
+                                        <input class="dropdown-item" type="button" onclick="history.back(-1)" name="Regresar" value="Regresar"
                                         id="Regresar">
                                         {% comment %} <input type="hidden" value="Regresar" name="Regresar"> {% endcomment %}
                                 </li>
                                 
                                 <li class="nav-item active">
                                     <form action="/Descarga_doc/" method="POST">{% csrf_token%}
-                                        <input class="btn btn-outline-light mr-sm-2" value="Descargar doc" type="submit">
+                                        <input class="dropdown-item" value="Descargar doc" type="submit">
                                         <input type="hidden" value="{{token}}" name="token">
-
                                     </form>
 
                                 </li>
@@ -116,8 +129,6 @@
                                 </a>                                
                         </div>
                     </div>                    
-
-
                     <li>{{message.tags}}</li>
 
                 </ul>

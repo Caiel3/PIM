@@ -12,7 +12,7 @@ import zipfile
 from .limpiar import Limpiar
 from datetime import datetime
 from ..helpers.TxtControlador import Txt
-from ..models import MysqlImagenes,MysqlRegistro_Peticiones,User
+from ..models import MysqlImagenes,MysqlRegistro_Peticiones,User,MysqlMateriales,Materiales
 from ..helpers.claves import  Claves
 from ..helpers.CloudImage import  CloudImage
 from datetime import datetime
@@ -21,7 +21,7 @@ from django.core.mail import send_mail
 from django.core.mail import get_connection
 from django.template.loader import render_to_string
 from django.shortcuts import render
-# from celery.contrib import rdb
+from celery.contrib import rdb
 class Descarga_imagenes():
     
 
@@ -48,8 +48,8 @@ class Descarga_imagenes():
             pass
         pass
            
-    def descargar(self,imagenes_descarga,token,largo,ancho):    
-        # rdb.set_trace()      
+    def descargar(self,imagenes_descarga,token,largo,ancho,nombre_img):    
+        rdb.set_trace()      
         inicio= datetime.now() 
     
         dire=settings.MEDIA_ROOT+"\Imagenes_descarga"        
@@ -64,15 +64,26 @@ class Descarga_imagenes():
             pass
         for dir in imagenes_descarga:            
             if ''!=dir:
-                consulta_temp=MysqlImagenes.objects.values('ean','imagen').filter(ean=dir[0])
-                count=0            
-                for img in consulta_temp:                 
-                    self.Descargaindividual(
-                        link= CloudImage.cloudimg_imagen('',img['imagen'],{"height":largo,"width":ancho},Claves.get_secret('CLOUDIMG_TOKEN'),'documento')
-                        ,nombre= str(img['ean'])+'-'+str(count)
-                        ,token= token) if img['imagen'] != None else ''
-                    count=count+1              
-            pass 
+                if nombre_img == '2':
+                    consulta_material_temp = Materiales.objects.values('descripcion_material').filter(ean=dir[0])
+                    consulta_temp=MysqlImagenes.objects.values('ean','imagen').filter(ean=dir[0])
+                    count=1
+                    for inf in consulta_material_temp:            
+                        for img in consulta_temp:                 
+                            self.Descargaindividual(
+                                link= CloudImage.cloudimg_imagen('',img['imagen'],{"height":largo,"width":ancho},Claves.get_secret('CLOUDIMG_TOKEN'),'documento')
+                                ,nombre= str(inf['descripcion_material'])+'-'+str(count)
+                                ,token= token) if img['imagen'] != None else ''
+                            count=count+1
+                else:
+                    consulta_temp=MysqlImagenes.objects.values('ean','imagen').filter(ean=dir[0])
+                    count=1            
+                    for img in consulta_temp:                 
+                        self.Descargaindividual(
+                            link= CloudImage.cloudimg_imagen('',img['imagen'],{"height":largo,"width":ancho},Claves.get_secret('CLOUDIMG_TOKEN'),'documento')
+                            ,nombre= str(img['ean'])+'-'+str(count)
+                            ,token= token) if img['imagen'] != None else ''
+                        count=count+1              
         Txt('prueba','Realiza la descarga de imagenes.', inicio,datetime.now())
         inicio= datetime.now()    
         fantasy_zip = zipfile.ZipFile(dire+'\\{}.zip'.format(archivo), 'w')
@@ -87,7 +98,6 @@ class Descarga_imagenes():
         query.estado = 'Terminado'
         query.save()
         query_user= User.objects.get(username=query.usuario)
-        # query_2 = User.objects.get( pk=query.usuario)
         # Envio de Correo 
         asunto = "Notificación Petición Terminada"
         mensajeCorreo= render_to_string(
@@ -96,12 +106,11 @@ class Descarga_imagenes():
                 'url_portal':settings.URL_PORTAL
             },
         )
-        # asunto,cuerpo,quien lo envia, quien recibe 
+        # # asunto,cuerpo,quien lo envia, quien recibe 
         msg = EmailMessage(asunto,mensajeCorreo,settings.EMAIL_HOST_USER,[query_user.email]) 
-        # send_mail(asunto,mensajeCorreo,settings.EMAIL_HOST_USER,['pruebaspim2021@gmail.com'],fail_silently=False)
+        # # send_mail(asunto,mensajeCorreo,settings.EMAIL_HOST_USER,['pruebaspim2021@gmail.com'],fail_silently=False)
         msg.content_subtype="html"
         msg.send()
-        # zip_file = open(dire+'\\{}.zip'.format(archivo), 'rb') 
         #update termino
         Txt('prueba','Crea el zip para descargar.', inicio,datetime.now())           
         # return FileResponse(zip_file)
